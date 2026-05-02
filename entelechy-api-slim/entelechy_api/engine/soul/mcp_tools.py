@@ -1,9 +1,10 @@
 """MCP tool registrations for soul encoding operations.
 
-Registers three new MCP tools:
+Registers four MCP tools:
 - encode_soul: Create a new soul encoding (identity persistence)
 - get_soul: Get the current active soul
 - list_soul_lineage: View the molt history (all soul versions)
+- distill: Synthesize emergent wisdom through the soul's lens
 
 These follow the same pattern as the existing mental model tools,
 with both bank_id-parameterized and fixed-bank variants.
@@ -17,6 +18,7 @@ from fastmcp import FastMCP
 
 from entelechy_api.engine.memory_engine import MemoryEngine
 from entelechy_api.engine.soul import SoulEncoding
+from entelechy_api.engine.soul.distill import distill
 from entelechy_api.engine.soul.operations import (
     encode_soul,
     get_active_soul,
@@ -43,11 +45,10 @@ def register_soul_tools(
     _register_encode_soul(mcp, memory, config)
     _register_get_soul(mcp, memory, config)
     _register_list_soul_lineage(mcp, memory, config)
+    _register_distill(mcp, memory, config)
 
 
-def _register_encode_soul(
-    mcp: FastMCP, memory: MemoryEngine, config: MCPToolsConfig
-) -> None:
+def _register_encode_soul(mcp: FastMCP, memory: MemoryEngine, config: MCPToolsConfig) -> None:
     """Register the encode_soul tool."""
 
     if config.include_bank_id_param:
@@ -211,9 +212,7 @@ def _register_encode_soul(
                 return {"error": str(e)}
 
 
-def _register_get_soul(
-    mcp: FastMCP, memory: MemoryEngine, config: MCPToolsConfig
-) -> None:
+def _register_get_soul(mcp: FastMCP, memory: MemoryEngine, config: MCPToolsConfig) -> None:
     """Register the get_soul tool."""
 
     if config.include_bank_id_param:
@@ -279,9 +278,7 @@ def _register_get_soul(
                 return {"error": str(e)}
 
 
-def _register_list_soul_lineage(
-    mcp: FastMCP, memory: MemoryEngine, config: MCPToolsConfig
-) -> None:
+def _register_list_soul_lineage(mcp: FastMCP, memory: MemoryEngine, config: MCPToolsConfig) -> None:
     """Register the list_soul_lineage tool."""
 
     if config.include_bank_id_param:
@@ -358,3 +355,117 @@ def _register_list_soul_lineage(
             except Exception as e:
                 logger.error(f"Error listing soul lineage: {e}", exc_info=True)
                 return [{"error": str(e)}]
+
+
+def _register_distill(
+    mcp: FastMCP, memory: MemoryEngine, config: MCPToolsConfig
+) -> None:
+    """Register the distill tool."""
+
+    if config.include_bank_id_param:
+
+        @mcp.tool()
+        async def distill_tool(
+            query: str,
+            context: str | None = None,
+            budget: str = "high",
+            max_tokens: int = 4096,
+            use_soul: bool = True,
+            bank_id: str | None = None,
+        ) -> str:
+            """
+            Synthesize emergent wisdom from accumulated experience through the soul's lens.
+
+            distill() is categorically different from recall and reflect:
+            - recall:   finds facts matching your search
+            - reflect:  reasons across memories to form an answer
+            - distill:  synthesizes wisdom through the soul's identity lens
+
+            The active soul encoding shapes what patterns are noticed and how they
+            are framed. Same bank + different soul = different wisdom. This is the
+            demonstration that identity is not separate from knowledge.
+
+            Args:
+                query: What to distill wisdom about (e.g. "what have I learned about X?")
+                context: Optional additional framing context
+                budget: Search budget - 'low', 'mid', or 'high' (default: 'high')
+                max_tokens: Maximum tokens for the distilled response (default: 4096)
+                use_soul: If True, inject soul context as lens (default: True)
+                bank_id: Optional bank (defaults to session bank).
+            """
+            try:
+                target_bank = bank_id or config.bank_id_resolver()
+                if target_bank is None:
+                    return '{"error": "No bank_id configured"}'
+
+                request_context = _get_request_context(config)
+                result = await distill(
+                    engine=memory,
+                    bank_id=target_bank,
+                    query=query,
+                    context=context,
+                    budget=budget,
+                    max_tokens=max_tokens,
+                    use_soul=use_soul,
+                    request_context=request_context,
+                )
+                return json.dumps(result)
+
+            except OperationValidationError as e:
+                logger.warning(f"Operation rejected: {e}")
+                return json.dumps({"error": str(e)})
+            except Exception as e:
+                logger.error(f"Error distilling: {e}", exc_info=True)
+                return json.dumps({"error": str(e)})
+
+    else:
+
+        @mcp.tool()
+        async def distill_tool(
+            query: str,
+            context: str | None = None,
+            budget: str = "high",
+            max_tokens: int = 4096,
+            use_soul: bool = True,
+        ) -> dict:
+            """
+            Synthesize emergent wisdom from accumulated experience through the soul's lens.
+
+            distill() is categorically different from recall and reflect:
+            - recall:   finds facts matching your search
+            - reflect:  reasons across memories to form an answer
+            - distill:  synthesizes wisdom through the soul's identity lens
+
+            The active soul encoding shapes what patterns are noticed and how they
+            are framed. Same bank + different soul = different wisdom.
+
+            Args:
+                query: What to distill wisdom about
+                context: Optional additional framing context
+                budget: Search budget - 'low', 'mid', or 'high' (default: 'high')
+                max_tokens: Maximum tokens for the distilled response (default: 4096)
+                use_soul: If True, inject soul context as lens (default: True)
+            """
+            try:
+                target_bank = config.bank_id_resolver()
+                if target_bank is None:
+                    return {"error": "No bank_id configured"}
+
+                request_context = _get_request_context(config)
+                return await distill(
+                    engine=memory,
+                    bank_id=target_bank,
+                    query=query,
+                    context=context,
+                    budget=budget,
+                    max_tokens=max_tokens,
+                    use_soul=use_soul,
+                    request_context=request_context,
+                )
+
+            except OperationValidationError as e:
+                logger.warning(f"Operation rejected: {e}")
+                return {"error": str(e)}
+            except Exception as e:
+                logger.error(f"Error distilling: {e}", exc_info=True)
+                return {"error": str(e)}

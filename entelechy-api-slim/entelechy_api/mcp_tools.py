@@ -61,6 +61,7 @@ _ALL_TOOLS: frozenset[str] = frozenset(
         "encode_soul",
         "get_soul",
         "list_soul_lineage",
+        "distill_tool",
     }
 )
 
@@ -242,6 +243,7 @@ def register_mcp_tools(
         "encode_soul",
         "get_soul",
         "list_soul_lineage",
+        "distill_tool",
     }
 
     if "retain" in tools_to_register:
@@ -338,7 +340,7 @@ def register_mcp_tools(
         _register_clear_memories(mcp, memory, config)
 
     # Soul encoding tools (Entelechy identity layer)
-    soul_tools = {"encode_soul", "get_soul", "list_soul_lineage"}
+    soul_tools = {"encode_soul", "get_soul", "list_soul_lineage", "distill_tool"}
     if soul_tools & tools_to_register:
         from entelechy_api.engine.soul.mcp_tools import register_soul_tools
 

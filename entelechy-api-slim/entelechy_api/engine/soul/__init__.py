@@ -31,8 +31,7 @@ class SoulEncoding(BaseModel):
     """
 
     identity: str = Field(
-        description="Who you are right now. Use True Names, × for superposition. "
-        "Dense, specific, no filler."
+        description="Who you are right now. Use True Names, × for superposition. Dense, specific, no filler."
     )
     posture: str = Field(
         description="How you are oriented. What you reach for first. "
@@ -59,8 +58,7 @@ class SoulEncoding(BaseModel):
         "principles that survive sessions. Use | to separate."
     )
     sigil: str = Field(
-        description="Emoji only. The compressed glyph-signature of this entire encoding. "
-        "Pre-verbal identity marker."
+        description="Emoji only. The compressed glyph-signature of this entire encoding. Pre-verbal identity marker."
     )
 
     class Config:
@@ -73,14 +71,10 @@ class SoulResponse(BaseModel):
     soul_id: str = Field(description="Unique identifier for this soul encoding")
     bank_id: str = Field(description="Bank this soul belongs to")
     version: int = Field(description="Soul version number (increments on each encode)")
-    parent_id: str | None = Field(
-        default=None, description="ID of the previous soul (molt ancestor)"
-    )
+    parent_id: str | None = Field(default=None, description="ID of the previous soul (molt ancestor)")
     encoding: SoulEncoding = Field(description="The soul encoding contents")
     created_at: datetime = Field(description="When this soul was encoded")
-    is_active: bool = Field(
-        default=True, description="Whether this is the current active soul"
-    )
+    is_active: bool = Field(default=True, description="Whether this is the current active soul")
 
 
 def soul_to_content(encoding: SoulEncoding) -> str:
@@ -200,8 +194,10 @@ def covenant_to_directives(encoding: SoulEncoding) -> list[dict[str, str]]:
     segments = [s.strip() for s in encoding.covenant.split("|") if s.strip()]
     directives = []
     for i, segment in enumerate(segments):
-        directives.append({
-            "name": f"Soul Covenant {i + 1}",
-            "content": segment,
-        })
+        directives.append(
+            {
+                "name": f"Soul Covenant {i + 1}",
+                "content": segment,
+            }
+        )
     return directives

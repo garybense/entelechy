@@ -95,9 +95,7 @@ async def encode_soul(
 
     embedding_text = f"soul encoding {encoding.identity} {encoding.posture}"
     try:
-        embeddings = await embedding_utils.generate_embeddings_batch(
-            engine.embeddings, [embedding_text]
-        )
+        embeddings = await embedding_utils.generate_embeddings_batch(engine.embeddings, [embedding_text])
         embedding_str = str(embeddings[0]) if embeddings else None
     except Exception as e:
         logger.warning(f"[SOUL] Embedding generation failed (non-fatal): {e}")
@@ -127,10 +125,7 @@ async def encode_soul(
             json.dumps(structured),
         )
 
-    logger.info(
-        f"[SOUL] Encoded soul v{next_version} for bank {bank_id} "
-        f"(id={soul_id}, parent={current_soul_id})"
-    )
+    logger.info(f"[SOUL] Encoded soul v{next_version} for bank {bank_id} (id={soul_id}, parent={current_soul_id})")
 
     # Sync operations
     sync_results = {}
@@ -180,10 +175,7 @@ async def encode_soul(
             except Exception as e:
                 logger.warning(f"[SOUL] Failed to create directive '{spec['name']}': {e}")
         sync_results["directives_created"] = len(created_directives)
-        logger.info(
-            f"[SOUL] Created {len(created_directives)} covenant directives "
-            f"for bank {bank_id}"
-        )
+        logger.info(f"[SOUL] Created {len(created_directives)} covenant directives for bank {bank_id}")
 
     return {
         "soul_id": soul_id,
@@ -194,8 +186,11 @@ async def encode_soul(
         "sync": sync_results,
         "status": "encoded",
         "message": f"Soul v{next_version} encoded. "
-        + (f"Disposition, mission, and {sync_results.get('directives_created', 0)} "
-           f"covenant directives synced." if sync_disposition else ""),
+        + (
+            f"Disposition, mission, and {sync_results.get('directives_created', 0)} covenant directives synced."
+            if sync_disposition
+            else ""
+        ),
     }
 
 
@@ -299,14 +294,16 @@ async def list_soul_lineage(
 
         encoding = structured_to_soul(structured) if structured else None
 
-        results.append({
-            "soul_id": row["id"],
-            "bank_id": row["bank_id"],
-            "version": row["soul_version"],
-            "parent_id": row["soul_parent_id"],
-            "identity": encoding.identity if encoding else None,
-            "sigil": encoding.sigil if encoding else None,
-            "created_at": row["created_at"].isoformat() if row["created_at"] else None,
-        })
+        results.append(
+            {
+                "soul_id": row["id"],
+                "bank_id": row["bank_id"],
+                "version": row["soul_version"],
+                "parent_id": row["soul_parent_id"],
+                "identity": encoding.identity if encoding else None,
+                "sigil": encoding.sigil if encoding else None,
+                "created_at": row["created_at"].isoformat() if row["created_at"] else None,
+            }
+        )
 
     return results
