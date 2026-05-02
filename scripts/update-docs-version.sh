@@ -11,7 +11,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
-DOCS_DIR="$ROOT_DIR/hindsight-docs"
+DOCS_DIR="$ROOT_DIR/entelechy-docs"
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -128,5 +128,5 @@ print_info "Generating documentation skill for AI agents..."
 echo ""
 print_info "Next steps:"
 echo "  1. Review changes: git diff $DOCS_DIR"
-echo "  2. Test build: cd hindsight-docs && npm run build"
+echo "  2. Test build: cd entelechy-docs && npm run build"
 echo "  3. Changes will be committed automatically by release.sh"

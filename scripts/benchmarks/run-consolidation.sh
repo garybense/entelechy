@@ -17,12 +17,12 @@ fi
 NUM_MEMORIES="${NUM_MEMORIES:-100}"
 
 # Enable observations (required for consolidation)
-export HINDSIGHT_API_ENABLE_OBSERVATIONS=true
+export ENTELECHY_API_ENABLE_OBSERVATIONS=true
 
 echo "Running consolidation benchmark with configuration:"
 echo "  NUM_MEMORIES=$NUM_MEMORIES"
-echo "  HINDSIGHT_API_LLM_PROVIDER=${HINDSIGHT_API_LLM_PROVIDER:-not set}"
-echo "  HINDSIGHT_API_LLM_MODEL=${HINDSIGHT_API_LLM_MODEL:-not set}"
+echo "  ENTELECHY_API_LLM_PROVIDER=${ENTELECHY_API_LLM_PROVIDER:-not set}"
+echo "  ENTELECHY_API_LLM_MODEL=${ENTELECHY_API_LLM_MODEL:-not set}"
 echo ""
 
 # Run benchmark

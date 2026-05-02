@@ -65,7 +65,7 @@ fi
 print_info "Updating version in all components..."
 
 # Update Python packages (integrations are versioned independently via scripts/release-integration.sh)
-PYTHON_PACKAGES=("hindsight-api" "hindsight-api-slim" "hindsight-all-slim" "hindsight-dev" "hindsight-all" "hindsight-embed")
+PYTHON_PACKAGES=("entelechy-api" "entelechy-api-slim" "entelechy-all-slim" "entelechy-dev" "entelechy-all" "entelechy-embed")
 for package in "${PYTHON_PACKAGES[@]}"; do
     PYPROJECT_FILE="$package/pyproject.toml"
     if [ -f "$PYPROJECT_FILE" ]; then
@@ -79,9 +79,9 @@ done
 
 # Update __version__ in Python __init__.py files
 PYTHON_INIT_FILES=(
-    "hindsight-api-slim/hindsight_api/__init__.py"
-    "hindsight-embed/hindsight_embed/__init__.py"
-    "hindsight-clients/python/hindsight_client_api/__init__.py"
+    "entelechy-api-slim/entelechy_api/__init__.py"
+    "entelechy-embed/entelechy_embed/__init__.py"
+    "entelechy-clients/python/entelechy_client_api/__init__.py"
 )
 for init_file in "${PYTHON_INIT_FILES[@]}"; do
     if [ -f "$init_file" ]; then
@@ -94,7 +94,7 @@ for init_file in "${PYTHON_INIT_FILES[@]}"; do
 done
 
 # Update Rust CLI
-CARGO_FILE="hindsight-cli/Cargo.toml"
+CARGO_FILE="entelechy-cli/Cargo.toml"
 if [ -f "$CARGO_FILE" ]; then
     print_info "Updating $CARGO_FILE"
     sed -i.bak "s/^version = \".*\"/version = \"$VERSION\"/" "$CARGO_FILE"
@@ -104,7 +104,7 @@ else
 fi
 
 # Update Helm chart
-HELM_CHART_FILE="helm/hindsight/Chart.yaml"
+HELM_CHART_FILE="helm/entelechy/Chart.yaml"
 if [ -f "$HELM_CHART_FILE" ]; then
     print_info "Updating $HELM_CHART_FILE"
     sed -i.bak "s/^version: .*/version: $VERSION/" "$HELM_CHART_FILE"
@@ -115,7 +115,7 @@ else
 fi
 
 # Update Control Plane package.json
-CONTROL_PLANE_PKG="hindsight-control-plane/package.json"
+CONTROL_PLANE_PKG="entelechy-control-plane/package.json"
 if [ -f "$CONTROL_PLANE_PKG" ]; then
     print_info "Updating $CONTROL_PLANE_PKG"
     sed -i.bak "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" "$CONTROL_PLANE_PKG"
@@ -124,8 +124,8 @@ else
     print_warn "File $CONTROL_PLANE_PKG not found, skipping"
 fi
 
-# Update hindsight-all npm wrapper package.json
-ALL_NPM_PKG="hindsight-all-npm/package.json"
+# Update entelechy-all npm wrapper package.json
+ALL_NPM_PKG="entelechy-all-npm/package.json"
 if [ -f "$ALL_NPM_PKG" ]; then
     print_info "Updating $ALL_NPM_PKG"
     sed -i.bak "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" "$ALL_NPM_PKG"
@@ -135,7 +135,7 @@ else
 fi
 
 # Update Python API client
-PYTHON_CLIENT_PKG="hindsight-clients/python/pyproject.toml"
+PYTHON_CLIENT_PKG="entelechy-clients/python/pyproject.toml"
 if [ -f "$PYTHON_CLIENT_PKG" ]; then
     print_info "Updating $PYTHON_CLIENT_PKG"
     sed -i.bak "s/^version = \".*\"/version = \"$VERSION\"/" "$PYTHON_CLIENT_PKG"
@@ -145,7 +145,7 @@ else
 fi
 
 # Update TypeScript API client
-TYPESCRIPT_CLIENT_PKG="hindsight-clients/typescript/package.json"
+TYPESCRIPT_CLIENT_PKG="entelechy-clients/typescript/package.json"
 if [ -f "$TYPESCRIPT_CLIENT_PKG" ]; then
     print_info "Updating $TYPESCRIPT_CLIENT_PKG"
     sed -i.bak "s/\"version\": \".*\"/\"version\": \"$VERSION\"/" "$TYPESCRIPT_CLIENT_PKG"
@@ -196,12 +196,12 @@ COMMIT_MSG="Release v$VERSION
 
 - Update version to $VERSION in all components
 - Regenerate OpenAPI spec and client SDKs
-- Python packages: hindsight-api, hindsight-dev, hindsight-all, hindsight-embed
-- Python client: hindsight-clients/python
-- TypeScript client: hindsight-clients/typescript
-- hindsight-all npm wrapper: hindsight-all-npm
-- Rust CLI: hindsight-cli
-- Control Plane: hindsight-control-plane
+- Python packages: entelechy-api, entelechy-dev, entelechy-all, entelechy-embed
+- Python client: entelechy-clients/python
+- TypeScript client: entelechy-clients/typescript
+- entelechy-all npm wrapper: entelechy-all-npm
+- Rust CLI: entelechy-cli
+- Control Plane: entelechy-control-plane
 - Helm chart"
 
 # Add docs update note

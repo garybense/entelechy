@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "entelechy-all-slim"
+version = "0.5.6"
+description = "Entelechy: Agent Memory That Works Like Human Memory - Slim All-in-One Bundle"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "entelechy-api-slim>=0.4.17",
+    "entelechy-client>=0.0.7",
+    "entelechy-embed>=0.1.0",
+]
+
+[tool.uv.sources]
+entelechy-api-slim = { workspace = true }
+entelechy-client = { workspace = true }
+entelechy-embed = { workspace = true }
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+]
+
+[tool.setuptools]
+packages = []
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"

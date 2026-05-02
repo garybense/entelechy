@@ -1,15 +1,16 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "hindsight",
-  "description": "Official Hindsight integrations for Claude Code",
+  "name": "entelechy",
+  "description": "Official Entelechy integrations for Claude Code",
   "owner": {
     "name": "vectorize-io"
   },
   "plugins": [
     {
-      "name": "hindsight-memory",
-      "description": "Automatic long-term memory for Claude Code via Hindsight",
-      "source": "./hindsight-integrations/claude-code"
+      "name": "entelechy-memory",
+      "description": "Automatic long-term memory for Claude Code via Entelechy",
+      "source": "./entelechy-integrations/claude-code"
     }
   ]
 }
+

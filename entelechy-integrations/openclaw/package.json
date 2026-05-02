@@ -1,0 +1,67 @@
+{
+  "name": "@vectorize-io/entelechy-openclaw",
+  "version": "0.7.2",
+  "description": "Entelechy memory plugin for OpenClaw - biomimetic long-term memory with fact extraction",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "entelechy-openclaw-backfill": "dist/backfill.js",
+    "entelechy-openclaw-setup": "dist/setup.js"
+  },
+  "type": "module",
+  "openclaw": {
+    "extensions": [
+      "./dist/index.js"
+    ]
+  },
+  "keywords": [
+    "openclaw",
+    "memory",
+    "ai",
+    "agent",
+    "entelechy",
+    "long-term-memory"
+  ],
+  "author": "Vectorize <support@vectorize.io>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vectorize-io/entelechy.git",
+    "directory": "entelechy-integrations/openclaw"
+  },
+  "files": [
+    "dist",
+    "openclaw.plugin.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "backfill:help": "node dist/backfill.js --help",
+    "test": "vitest run src",
+    "test:watch": "vitest src",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.2.0",
+    "@vectorize-io/entelechy-agent-sdk": "^0.1.0",
+    "@vectorize-io/entelechy-all": "^0.1.0",
+    "@vectorize-io/entelechy-client": "^0.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@vitest/ui": "^4.1.2",
+    "typescript": "^5.3.0",
+    "vitest": "^4.1.2"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "overrides": {
+    "rollup": "^4.59.0",
+    "picomatch": ">=2.3.2 <3.0.0 || >=4.0.4",
+    "vite": ">=8.0.5"
+  }
+}

@@ -17,4 +17,4 @@ set -a
 source "$ENV_FILE"
 set +a
 
-uv run hindsight-worker "$@"
+uv run entelechy-worker "$@"

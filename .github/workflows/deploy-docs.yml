@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'hindsight-docs/**'
+      - 'entelechy-docs/**'
       - '.github/workflows/deploy-docs.yml'
   workflow_dispatch:
 
@@ -28,15 +28,15 @@ jobs:
           cache: npm
           cache-dependency-path: package-lock.json
       - uses: astral-sh/setup-uv@v7
-      - run: npm ci --workspace=hindsight-docs
+      - run: npm ci --workspace=entelechy-docs
       - run: uv run generate-llms-full
-      - run: npm run build --workspace=hindsight-docs
+      - run: npm run build --workspace=entelechy-docs
         env:
-          UMAMI_URL: https://analytics.hindsight.vectorize.io
+          UMAMI_URL: https://analytics.entelechy.vectorize.io
           UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: hindsight-docs/build
+          path: entelechy-docs/build
   deploy:
     environment:
       name: github-pages

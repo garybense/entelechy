@@ -28,5 +28,5 @@ if [ -z "$OPENAI_API_KEY" ]; then
   fi
 fi
 
-cd hindsight-dev
+cd entelechy-dev
 uv run generate-changelog "$@"

@@ -8,4 +8,4 @@ echo ""
 echo "Server will be available at: http://localhost:8001"
 echo ""
 
-uv run python hindsight-dev/benchmarks/visualizer/main.py
+uv run python entelechy-dev/benchmarks/visualizer/main.py

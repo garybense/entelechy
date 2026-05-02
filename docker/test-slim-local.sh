@@ -30,18 +30,18 @@ if [ -z "${COHERE_API_KEY:-}" ]; then
 fi
 
 # Configuration
-IMAGE="${1:-hindsight-slim:test}"
+IMAGE="${1:-entelechy-slim:test}"
 echo "Testing image: $IMAGE"
 echo ""
 
 # Set up LLM and external providers
-export HINDSIGHT_API_LLM_PROVIDER=openai
-export HINDSIGHT_API_LLM_API_KEY=$OPENAI_API_KEY
-export HINDSIGHT_API_LLM_MODEL=gpt-4o-mini
-export HINDSIGHT_API_EMBEDDINGS_PROVIDER=openai
-export HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY=$OPENAI_API_KEY
-export HINDSIGHT_API_RERANKER_PROVIDER=cohere
-export HINDSIGHT_API_COHERE_API_KEY=$COHERE_API_KEY
+export ENTELECHY_API_LLM_PROVIDER=openai
+export ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY
+export ENTELECHY_API_LLM_MODEL=gpt-4o-mini
+export ENTELECHY_API_EMBEDDINGS_PROVIDER=openai
+export ENTELECHY_API_EMBEDDINGS_OPENAI_API_KEY=$OPENAI_API_KEY
+export ENTELECHY_API_RERANKER_PROVIDER=cohere
+export ENTELECHY_API_COHERE_API_KEY=$COHERE_API_KEY
 
 # Run the test
 exec "$(dirname "$0")/test-image.sh" "$IMAGE" standalone

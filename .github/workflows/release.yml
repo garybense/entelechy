@@ -26,65 +26,65 @@ jobs:
         python-version-file: ".python-version"
 
     # Build all packages
-    - name: Build hindsight-client
-      working-directory: ./hindsight-clients/python
+    - name: Build entelechy-client
+      working-directory: ./entelechy-clients/python
       run: uv build --out-dir dist
 
-    - name: Build hindsight-api-slim
-      working-directory: ./hindsight-api-slim
+    - name: Build entelechy-api-slim
+      working-directory: ./entelechy-api-slim
       run: uv build --out-dir dist
 
-    - name: Build hindsight-api
-      working-directory: ./hindsight-api
+    - name: Build entelechy-api
+      working-directory: ./entelechy-api
       run: uv build --out-dir dist
 
-    - name: Build hindsight-all
-      working-directory: ./hindsight-all
+    - name: Build entelechy-all
+      working-directory: ./entelechy-all
       run: uv build --out-dir dist
 
-    - name: Build hindsight-all-slim
-      working-directory: ./hindsight-all-slim
+    - name: Build entelechy-all-slim
+      working-directory: ./entelechy-all-slim
       run: uv build --out-dir dist
 
-    - name: Build hindsight-embed
-      working-directory: ./hindsight-embed
+    - name: Build entelechy-embed
+      working-directory: ./entelechy-embed
       run: uv build --out-dir dist
 
     # Publish in order (client and api-slim first, then api/all wrappers which depend on them)
-    - name: Publish hindsight-client to PyPI
+    - name: Publish entelechy-client to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        packages-dir: ./hindsight-clients/python/dist
+        packages-dir: ./entelechy-clients/python/dist
         skip-existing: true
 
-    - name: Publish hindsight-api-slim to PyPI
+    - name: Publish entelechy-api-slim to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        packages-dir: ./hindsight-api-slim/dist
+        packages-dir: ./entelechy-api-slim/dist
         skip-existing: true
 
-    - name: Publish hindsight-api to PyPI
+    - name: Publish entelechy-api to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        packages-dir: ./hindsight-api/dist
+        packages-dir: ./entelechy-api/dist
         skip-existing: true
 
-    - name: Publish hindsight-all to PyPI
+    - name: Publish entelechy-all to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        packages-dir: ./hindsight-all/dist
+        packages-dir: ./entelechy-all/dist
         skip-existing: true
 
-    - name: Publish hindsight-all-slim to PyPI
+    - name: Publish entelechy-all-slim to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        packages-dir: ./hindsight-all-slim/dist
+        packages-dir: ./entelechy-all-slim/dist
         skip-existing: true
 
-    - name: Publish hindsight-embed to PyPI
+    - name: Publish entelechy-embed to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        packages-dir: ./hindsight-embed/dist
+        packages-dir: ./entelechy-embed/dist
         skip-existing: true
 
     # Upload artifacts for GitHub release
@@ -93,12 +93,12 @@ jobs:
       with:
         name: python-packages
         path: |
-          hindsight-clients/python/dist/*
-          hindsight-api-slim/dist/*
-          hindsight-api/dist/*
-          hindsight-all/dist/*
-          hindsight-all-slim/dist/*
-          hindsight-embed/dist/*
+          entelechy-clients/python/dist/*
+          entelechy-api-slim/dist/*
+          entelechy-api/dist/*
+          entelechy-all/dist/*
+          entelechy-all-slim/dist/*
+          entelechy-embed/dist/*
         retention-days: 1
 
   release-typescript-client:
@@ -117,13 +117,13 @@ jobs:
         cache-dependency-path: package-lock.json
 
     - name: Install dependencies
-      run: npm ci --workspace=hindsight-clients/typescript
+      run: npm ci --workspace=entelechy-clients/typescript
 
     - name: Build
-      run: npm run build --workspace=hindsight-clients/typescript
+      run: npm run build --workspace=entelechy-clients/typescript
 
     - name: Publish to npm
-      working-directory: ./hindsight-clients/typescript
+      working-directory: ./entelechy-clients/typescript
       run: |
         set +e
         OUTPUT=$(npm publish --access public 2>&1)
@@ -140,17 +140,17 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Pack for GitHub release
-      working-directory: ./hindsight-clients/typescript
+      working-directory: ./entelechy-clients/typescript
       run: npm pack
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v7
       with:
         name: typescript-client
-        path: hindsight-clients/typescript/*.tgz
+        path: entelechy-clients/typescript/*.tgz
         retention-days: 1
 
-  release-hindsight-all-npm:
+  release-entelechy-all-npm:
     runs-on: ubuntu-latest
     environment: npm
 
@@ -166,13 +166,13 @@ jobs:
         cache-dependency-path: package-lock.json
 
     - name: Install dependencies
-      run: npm ci --workspace=hindsight-all-npm
+      run: npm ci --workspace=entelechy-all-npm
 
     - name: Build
-      run: npm run build --workspace=hindsight-all-npm
+      run: npm run build --workspace=entelechy-all-npm
 
     - name: Publish to npm
-      working-directory: ./hindsight-all-npm
+      working-directory: ./entelechy-all-npm
       run: |
         set +e
         OUTPUT=$(npm publish --access public 2>&1)
@@ -189,14 +189,14 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Pack for GitHub release
-      working-directory: ./hindsight-all-npm
+      working-directory: ./entelechy-all-npm
       run: npm pack
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v7
       with:
-        name: hindsight-all-npm
-        path: hindsight-all-npm/*.tgz
+        name: entelechy-all-npm
+        path: entelechy-all-npm/*.tgz
         retention-days: 1
 
   release-control-plane:
@@ -218,7 +218,7 @@ jobs:
       run: npm ci
 
     - name: Build TypeScript client (dependency)
-      run: npm run build --workspace=hindsight-clients/typescript
+      run: npm run build --workspace=entelechy-clients/typescript
 
     - name: Fix platform-specific native modules
       run: |
@@ -228,13 +228,13 @@ jobs:
         npm install lightningcss @tailwindcss/postcss @tailwindcss/node
 
     - name: Build
-      run: npm run build --workspace=hindsight-control-plane
+      run: npm run build --workspace=entelechy-control-plane
 
     - name: Verify standalone build
-      run: test -f hindsight-control-plane/standalone/server.js || (echo 'standalone/server.js missing - build failed' && exit 1)
+      run: test -f entelechy-control-plane/standalone/server.js || (echo 'standalone/server.js missing - build failed' && exit 1)
 
     - name: Publish to npm
-      working-directory: ./hindsight-control-plane
+      working-directory: ./entelechy-control-plane
       run: |
         set +e
         OUTPUT=$(npm publish --access public --ignore-scripts 2>&1)
@@ -251,14 +251,14 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: Pack for GitHub release
-      working-directory: ./hindsight-control-plane
+      working-directory: ./entelechy-control-plane
       run: npm pack
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v7
       with:
         name: control-plane
-        path: hindsight-control-plane/*.tgz
+        path: entelechy-control-plane/*.tgz
         retention-days: 1
 
   release-rust-cli:
@@ -268,20 +268,20 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            artifact_name: hindsight
-            asset_name: hindsight-linux-amd64
+            artifact_name: entelechy
+            asset_name: entelechy-linux-amd64
           - os: macos-latest
             target: x86_64-apple-darwin
-            artifact_name: hindsight
-            asset_name: hindsight-darwin-amd64
+            artifact_name: entelechy
+            asset_name: entelechy-darwin-amd64
           - os: macos-latest
             target: aarch64-apple-darwin
-            artifact_name: hindsight
-            asset_name: hindsight-darwin-arm64
+            artifact_name: entelechy
+            asset_name: entelechy-darwin-arm64
           - os: ubuntu-24.04-arm
             target: aarch64-unknown-linux-gnu
-            artifact_name: hindsight
-            asset_name: hindsight-linux-arm64
+            artifact_name: entelechy
+            asset_name: entelechy-linux-arm64
 
     steps:
     - uses: actions/checkout@v6
@@ -292,13 +292,13 @@ jobs:
         targets: ${{ matrix.target }}
 
     - name: Build
-      working-directory: hindsight-cli
+      working-directory: entelechy-cli
       run: cargo build --release --target ${{ matrix.target }}
 
     - name: Prepare artifact
       run: |
         mkdir -p artifacts
-        cp hindsight-cli/target/${{ matrix.target }}/release/${{ matrix.artifact_name }} artifacts/${{ matrix.asset_name }}
+        cp entelechy-cli/target/${{ matrix.target }}/release/${{ matrix.artifact_name }} artifacts/${{ matrix.asset_name }}
         chmod +x artifacts/${{ matrix.asset_name }}
 
     - name: Upload artifacts
@@ -318,25 +318,25 @@ jobs:
       matrix:
         include:
           - target: api-only
-            image_name: hindsight-api
+            image_name: entelechy-api
             tag_suffix: ""
             build_args: ""
           - target: api-only
-            image_name: hindsight-api
+            image_name: entelechy-api
             tag_suffix: "-slim"
             build_args: |
               INCLUDE_LOCAL_MODELS=false
               PRELOAD_ML_MODELS=false
           - target: cp-only
-            image_name: hindsight-control-plane
+            image_name: entelechy-control-plane
             tag_suffix: ""
             build_args: ""
           - target: standalone
-            image_name: hindsight
+            image_name: entelechy
             tag_suffix: ""
             build_args: ""
           - target: standalone
-            image_name: hindsight
+            image_name: entelechy
             tag_suffix: "-slim"
             build_args: |
               INCLUDE_LOCAL_MODELS=false
@@ -439,10 +439,10 @@ jobs:
       run: echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ghcr.io -u ${{ github.actor }} --password-stdin
 
     - name: Lint Helm chart
-      run: helm lint helm/hindsight
+      run: helm lint helm/entelechy
 
     - name: Package Helm chart
-      run: helm package helm/hindsight --destination ./helm-packages
+      run: helm package helm/entelechy --destination ./helm-packages
 
     - name: Push to GHCR OCI
       run: helm push helm-packages/*.tgz oci://ghcr.io/${{ github.repository_owner }}/charts
@@ -456,7 +456,7 @@ jobs:
 
   create-github-release:
     runs-on: ubuntu-latest
-    needs: [release-python-packages, release-typescript-client, release-hindsight-all-npm, release-control-plane, release-rust-cli, release-docker-images, release-helm-chart]
+    needs: [release-python-packages, release-typescript-client, release-entelechy-all-npm, release-control-plane, release-rust-cli, release-docker-images, release-helm-chart]
     permissions:
       contents: write
 
@@ -485,34 +485,34 @@ jobs:
         name: control-plane
         path: ./artifacts/control-plane
 
-    - name: Download hindsight-embed npm wrapper
+    - name: Download entelechy-embed npm wrapper
       uses: actions/download-artifact@v8
       with:
-        name: hindsight-all-npm
-        path: ./artifacts/hindsight-all-npm
+        name: entelechy-all-npm
+        path: ./artifacts/entelechy-all-npm
 
     - name: Download Rust CLI (Linux)
       uses: actions/download-artifact@v8
       with:
-        name: rust-cli-hindsight-linux-amd64
+        name: rust-cli-entelechy-linux-amd64
         path: ./artifacts/rust-cli-linux
 
     - name: Download Rust CLI (Linux ARM)
       uses: actions/download-artifact@v8
       with:
-        name: rust-cli-hindsight-linux-arm64
+        name: rust-cli-entelechy-linux-arm64
         path: ./artifacts/rust-cli-linux-arm64
 
     - name: Download Rust CLI (macOS Intel)
       uses: actions/download-artifact@v8
       with:
-        name: rust-cli-hindsight-darwin-amd64
+        name: rust-cli-entelechy-darwin-amd64
         path: ./artifacts/rust-cli-darwin-amd64
 
     - name: Download Rust CLI (macOS ARM)
       uses: actions/download-artifact@v8
       with:
-        name: rust-cli-hindsight-darwin-arm64
+        name: rust-cli-entelechy-darwin-arm64
         path: ./artifacts/rust-cli-darwin-arm64
 
     - name: Download Helm chart
@@ -525,23 +525,23 @@ jobs:
       run: |
         mkdir -p release-assets
         # Python packages
-        cp artifacts/python-packages/hindsight-clients/python/dist/* release-assets/ || true
-        cp artifacts/python-packages/hindsight-api-slim/dist/* release-assets/ || true
-        cp artifacts/python-packages/hindsight-api/dist/* release-assets/ || true
-        cp artifacts/python-packages/hindsight-all/dist/* release-assets/ || true
-        cp artifacts/python-packages/hindsight-all-slim/dist/* release-assets/ || true
-        cp artifacts/python-packages/hindsight-embed/dist/* release-assets/ || true
+        cp artifacts/python-packages/entelechy-clients/python/dist/* release-assets/ || true
+        cp artifacts/python-packages/entelechy-api-slim/dist/* release-assets/ || true
+        cp artifacts/python-packages/entelechy-api/dist/* release-assets/ || true
+        cp artifacts/python-packages/entelechy-all/dist/* release-assets/ || true
+        cp artifacts/python-packages/entelechy-all-slim/dist/* release-assets/ || true
+        cp artifacts/python-packages/entelechy-embed/dist/* release-assets/ || true
         # TypeScript client
         cp artifacts/typescript-client/*.tgz release-assets/ || true
-        # hindsight-embed npm wrapper
-        cp artifacts/hindsight-all-npm/*.tgz release-assets/ || true
+        # entelechy-embed npm wrapper
+        cp artifacts/entelechy-all-npm/*.tgz release-assets/ || true
         # Control Plane
         cp artifacts/control-plane/*.tgz release-assets/ || true
         # Rust CLI binaries
-        cp artifacts/rust-cli-linux/hindsight-linux-amd64 release-assets/ || true
-        cp artifacts/rust-cli-linux-arm64/hindsight-linux-arm64 release-assets/ || true
-        cp artifacts/rust-cli-darwin-amd64/hindsight-darwin-amd64 release-assets/ || true
-        cp artifacts/rust-cli-darwin-arm64/hindsight-darwin-arm64 release-assets/ || true
+        cp artifacts/rust-cli-linux/entelechy-linux-amd64 release-assets/ || true
+        cp artifacts/rust-cli-linux-arm64/entelechy-linux-arm64 release-assets/ || true
+        cp artifacts/rust-cli-darwin-amd64/entelechy-darwin-amd64 release-assets/ || true
+        cp artifacts/rust-cli-darwin-arm64/entelechy-darwin-arm64 release-assets/ || true
         # Helm chart
         cp artifacts/helm-chart/*.tgz release-assets/ || true
         ls -la release-assets/

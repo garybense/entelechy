@@ -1,13 +1,13 @@
 {
-  "name": "hindsight",
+  "name": "entelechy",
   "private": true,
   "workspaces": [
-    "hindsight-clients/typescript",
-    "hindsight-control-plane",
-    "hindsight-docs",
-    "hindsight-all-npm",
-    "hindsight-tools/hindsight-agent-sdk",
-    "hindsight-tools/self-driving-agents"
+    "entelechy-clients/typescript",
+    "entelechy-control-plane",
+    "entelechy-docs",
+    "entelechy-all-npm",
+    "entelechy-tools/entelechy-agent-sdk",
+    "entelechy-tools/self-driving-agents"
   ],
   "scripts": {
     "prepare": "./scripts/setup-hooks.sh"
@@ -36,5 +36,8 @@
     "path-to-regexp": ">=0.1.13",
     "brace-expansion": ">=1.1.13 <2.0.0 || >=2.0.3 <3.0.0",
     "lodash-es": ">=4.18.1"
+  },
+  "dependencies": {
+    "tsup": "^8.5.1"
   }
 }

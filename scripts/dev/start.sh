@@ -11,7 +11,7 @@ for arg in "$@"; do
     fi
 done
 
-# Load .env to pick up HINDSIGHT_API_PORT if set
+# Load .env to pick up ENTELECHY_API_PORT if set
 ROOT_DIR="$(git rev-parse --show-toplevel)"
 if [ -f "$ROOT_DIR/.env" ]; then
     set -a
@@ -28,8 +28,8 @@ if [ "$RANDOM_PORT" = true ]; then
     CP_PORT="$(get_free_port)"
     echo "Using random ports — API: $API_PORT, Control Plane: $CP_PORT"
 else
-    API_PORT="${HINDSIGHT_API_PORT:-8888}"
-    CP_PORT="${HINDSIGHT_CP_PORT:-9999}"
+    API_PORT="${ENTELECHY_API_PORT:-8888}"
+    CP_PORT="${ENTELECHY_CP_PORT:-9999}"
 fi
 
 PIDS=()
@@ -82,12 +82,12 @@ fi
 
 # Start Control Plane
 echo ""
-PORT="$CP_PORT" HINDSIGHT_CP_DATAPLANE_API_URL="http://localhost:${API_PORT}" "$SCRIPT_DIR/start-control-plane.sh" &
+PORT="$CP_PORT" ENTELECHY_CP_DATAPLANE_API_URL="http://localhost:${API_PORT}" "$SCRIPT_DIR/start-control-plane.sh" &
 CP_PID=$!
 PIDS+=($CP_PID)
 
 echo ""
-echo "Hindsight is running!"
+echo "Entelechy is running!"
 echo ""
 echo "  API: http://localhost:${API_PORT}"
 echo "  Control Plane: http://localhost:${CP_PORT}"

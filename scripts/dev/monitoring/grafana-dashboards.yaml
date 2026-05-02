@@ -18,19 +18,19 @@ providers:
       path: /otel-lgtm/grafana-dashboard-jvm-metrics.json
       foldersFromFilesStructure: false
 
-  # Hindsight dashboards
-  - name: "Hindsight Operations"
+  # Entelechy dashboards
+  - name: "Entelechy Operations"
     type: file
     options:
-      path: /otel-lgtm/hindsight-operations.json
+      path: /otel-lgtm/entelechy-operations.json
       foldersFromFilesStructure: false
-  - name: "Hindsight LLM"
+  - name: "Entelechy LLM"
     type: file
     options:
-      path: /otel-lgtm/hindsight-llm.json
+      path: /otel-lgtm/entelechy-llm.json
       foldersFromFilesStructure: false
-  - name: "Hindsight API Service"
+  - name: "Entelechy API Service"
     type: file
     options:
-      path: /otel-lgtm/hindsight-api-service.json
+      path: /otel-lgtm/entelechy-api-service.json
       foldersFromFilesStructure: false

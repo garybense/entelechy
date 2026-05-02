@@ -1,6 +1,6 @@
-# Hindsight with Timescale Extensions
+# Entelechy with Timescale Extensions
 
-This Docker Compose setup provides a complete Hindsight deployment with **Timescale extensions**:
+This Docker Compose setup provides a complete Entelechy deployment with **Timescale extensions**:
 - **pgvectorscale** - DiskANN algorithm for disk-based scalable vector search  
 - **pg_textsearch** - High-performance BM25 text search
 
@@ -15,7 +15,7 @@ Both extensions are from [Timescale](https://github.com/timescale) and provide p
 
 ```bash
 # Set environment variables
-export HINDSIGHT_DB_PASSWORD="your-secure-password"
+export ENTELECHY_DB_PASSWORD="your-secure-password"
 export OPENAI_API_KEY="your-openai-api-key"
 
 # Build and start
@@ -46,12 +46,12 @@ docker compose -f docker/docker-compose/timescale/docker-compose.yaml down -v
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `HINDSIGHT_DB_PASSWORD` | PostgreSQL password | `hindsight_password` |
-| `HINDSIGHT_DB_USER` | PostgreSQL username | `hindsight_user` |
-| `HINDSIGHT_DB_NAME` | Database name | `hindsight_db` |
-| `HINDSIGHT_VERSION` | Hindsight Docker image version | `latest` |
+| `ENTELECHY_DB_PASSWORD` | PostgreSQL password | `entelechy_password` |
+| `ENTELECHY_DB_USER` | PostgreSQL username | `entelechy_user` |
+| `ENTELECHY_DB_NAME` | Database name | `entelechy_db` |
+| `ENTELECHY_VERSION` | Entelechy Docker image version | `latest` |
 | `OPENAI_API_KEY` | OpenAI API key | (required) |
-| `HINDSIGHT_API_LLM_PROVIDER` | LLM provider | `openai` |
+| `ENTELECHY_API_LLM_PROVIDER` | LLM provider | `openai` |
 
 ### Why Timescale Extensions?
 
@@ -73,7 +73,7 @@ docker compose -f docker/docker-compose/timescale/docker-compose.yaml down -v
 Check if extensions are available:
 
 ```bash
-docker exec -it hindsight-db-timescale psql -U hindsight_user -d hindsight_db -c "\dx"
+docker exec -it entelechy-db-timescale psql -U entelechy_user -d entelechy_db -c "\dx"
 ```
 
 You should see:
@@ -98,4 +98,4 @@ If port 5438 is already in use, modify the `ports` section in docker-compose.yam
 - [pgvectorscale GitHub](https://github.com/timescale/pgvectorscale)
 - [pg_textsearch GitHub](https://github.com/timescale/pg_textsearch)
 - [HNSW vs DiskANN](https://www.tigerdata.com/learn/hnsw-vs-diskann)
-- [Hindsight Documentation](https://hindsight.dev)
+- [Entelechy Documentation](https://entelechy.dev)

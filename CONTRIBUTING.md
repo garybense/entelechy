@@ -1,13 +1,13 @@
-# Contributing to Hindsight
+# Contributing to Entelechy
 
-Thanks for your interest in contributing to Hindsight!
+Thanks for your interest in contributing to Entelechy!
 
 ## Getting Started
 
 1. Fork and clone the repository
    ```bash
-   git clone git@github.com:vectorize-io/hindsight.git
-   cd hindsight
+   git clone git@github.com:vectorize-io/entelechy.git
+   cd entelechy
    ```
 2. Set up your environment:
    ```bash
@@ -18,7 +18,7 @@ Thanks for your interest in contributing to Hindsight!
 3. Install dependencies:
    ```bash
    # Python dependencies
-   uv sync --directory hindsight-api/
+   uv sync --directory entelechy-api/
 
    # Node dependencies (uses npm workspaces)
    npm install
@@ -47,7 +47,7 @@ Thanks for your interest in contributing to Hindsight!
 ### Running tests
 
 ```bash
-cd hindsight-api
+cd entelechy-api
 uv run pytest tests/
 ```
 
@@ -74,10 +74,10 @@ This configures git to use the hooks in `.githooks/`, which run all scripts in `
 ./scripts/hooks/lint.sh
 
 # Or run individually for Python:
-cd hindsight-api
+cd entelechy-api
 uv run ruff check --fix .   # Lint and auto-fix
 uv run ruff format .        # Format code
-uv run ty check hindsight_api  # Type check
+uv run ty check entelechy_api  # Type check
 ```
 
 #### Style guidelines

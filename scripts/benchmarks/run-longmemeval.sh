@@ -20,4 +20,4 @@ set -a
 source "$ENV_FILE"
 set +a
 
-uv run python hindsight-dev/benchmarks/longmemeval/longmemeval_benchmark.py "${ARGS[@]}"
+uv run python entelechy-dev/benchmarks/longmemeval/longmemeval_benchmark.py "${ARGS[@]}"

@@ -29,9 +29,9 @@ jobs:
     - name: Detect integration type
       id: type
       run: |
-        if [ -f "hindsight-integrations/${{ steps.info.outputs.integration }}/pyproject.toml" ]; then
+        if [ -f "entelechy-integrations/${{ steps.info.outputs.integration }}/pyproject.toml" ]; then
           echo "type=python" >> $GITHUB_OUTPUT
-        elif [ -f "hindsight-integrations/${{ steps.info.outputs.integration }}/package.json" ]; then
+        elif [ -f "entelechy-integrations/${{ steps.info.outputs.integration }}/package.json" ]; then
           echo "type=typescript" >> $GITHUB_OUTPUT
         else
           echo "type=plugin" >> $GITHUB_OUTPUT
@@ -53,14 +53,14 @@ jobs:
 
     - name: Build Python package
       if: steps.type.outputs.type == 'python'
-      working-directory: ./hindsight-integrations/${{ steps.info.outputs.integration }}
+      working-directory: ./entelechy-integrations/${{ steps.info.outputs.integration }}
       run: uv build --out-dir dist
 
     - name: Publish Python package to PyPI
       if: steps.type.outputs.type == 'python'
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        packages-dir: ./hindsight-integrations/${{ steps.info.outputs.integration }}/dist
+        packages-dir: ./entelechy-integrations/${{ steps.info.outputs.integration }}/dist
         skip-existing: true
 
     # ── TypeScript integrations (ai-sdk, chat, openclaw) ────────────────────
@@ -71,7 +71,7 @@ jobs:
       if: steps.type.outputs.type == 'plugin'
       run: |
         echo "Plugin integration ${{ steps.info.outputs.integration }} v${{ steps.info.outputs.version }} — no package to publish."
-        echo "Users install via: claude plugin marketplace add vectorize-io/hindsight --sparse hindsight-integrations"
+        echo "Users install via: claude plugin marketplace add vectorize-io/entelechy --sparse entelechy-integrations"
 
     # ── TypeScript integrations (ai-sdk, chat, openclaw) ────────────────────
 
@@ -88,33 +88,33 @@ jobs:
       if: steps.type.outputs.type == 'typescript'
       run: ./scripts/check-integration-lockfiles.sh
 
-    # Some integrations depend on workspace packages (hindsight-client,
-    # hindsight-all, hindsight-agent-sdk) via file: refs. Install from root
+    # Some integrations depend on workspace packages (entelechy-client,
+    # entelechy-all, entelechy-agent-sdk) via file: refs. Install from root
     # so npm resolves them, then build the workspace deps before the integration.
     - name: Install root workspace dependencies
       if: steps.type.outputs.type == 'typescript'
       run: npm ci
 
-    - name: Build workspace deps (hindsight-client, hindsight-all, hindsight-agent-sdk)
+    - name: Build workspace deps (entelechy-client, entelechy-all, entelechy-agent-sdk)
       if: steps.type.outputs.type == 'typescript'
       run: |
-        npm run build --workspace=hindsight-clients/typescript
-        npm run build --workspace=hindsight-all-npm
-        npm run build --workspace=hindsight-tools/hindsight-agent-sdk
+        npm run build --workspace=entelechy-clients/typescript
+        npm run build --workspace=entelechy-all-npm
+        npm run build --workspace=entelechy-tools/entelechy-agent-sdk
 
     - name: Install integration dependencies
       if: steps.type.outputs.type == 'typescript'
-      working-directory: ./hindsight-integrations/${{ steps.info.outputs.integration }}
+      working-directory: ./entelechy-integrations/${{ steps.info.outputs.integration }}
       run: npm ci
 
     - name: Build TypeScript package
       if: steps.type.outputs.type == 'typescript'
-      working-directory: ./hindsight-integrations/${{ steps.info.outputs.integration }}
+      working-directory: ./entelechy-integrations/${{ steps.info.outputs.integration }}
       run: npm run build
 
     - name: Publish TypeScript package to npm
       if: steps.type.outputs.type == 'typescript'
-      working-directory: ./hindsight-integrations/${{ steps.info.outputs.integration }}
+      working-directory: ./entelechy-integrations/${{ steps.info.outputs.integration }}
       run: |
         set +e
         OUTPUT=$(npm publish --access public 2>&1)

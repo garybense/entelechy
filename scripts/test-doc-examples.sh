@@ -9,7 +9,7 @@ NC='\033[0m' # No Color
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-EXAMPLES_DIR="$PROJECT_ROOT/hindsight-docs/examples/api"
+EXAMPLES_DIR="$PROJECT_ROOT/entelechy-docs/examples/api"
 LOG_DIR="/tmp/doc-example-logs"
 
 mkdir -p "$LOG_DIR"
@@ -88,10 +88,10 @@ if [ -z "$LANGUAGE_FILTER" ] || [ "$LANGUAGE_FILTER" = "python" ]; then
     echo "======================================"
     echo "Python Examples"
     echo "======================================"
-    cd "$PROJECT_ROOT/hindsight-clients/python"
+    cd "$PROJECT_ROOT/entelechy-clients/python"
     for f in "$EXAMPLES_DIR"/*.py; do
         [ -e "$f" ] || continue  # Skip if no files match
-        run_example "$f" "uv run python" "$PROJECT_ROOT/hindsight-clients/python"
+        run_example "$f" "uv run python" "$PROJECT_ROOT/entelechy-clients/python"
     done
     echo ""
 fi
@@ -127,10 +127,10 @@ if [ -z "$LANGUAGE_FILTER" ] || [ "$LANGUAGE_FILTER" = "go" ]; then
     echo "======================================"
     echo "Go Examples"
     echo "======================================"
-    cd "$PROJECT_ROOT/hindsight-clients/go"
+    cd "$PROJECT_ROOT/entelechy-clients/go"
     for f in "$EXAMPLES_DIR"/*.go; do
         [ -e "$f" ] || continue  # Skip if no files match
-        run_example "$f" "go run" "$PROJECT_ROOT/hindsight-clients/go"
+        run_example "$f" "go run" "$PROJECT_ROOT/entelechy-clients/go"
     done
     echo ""
 fi

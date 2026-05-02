@@ -32,23 +32,23 @@ jobs:
         cache: 'npm'
         cache-dependency-path: package-lock.json
 
-    # Tools live under hindsight-tools/ and may depend on workspace packages
-    # (e.g. @vectorize-io/hindsight-client). Install from root so npm resolves
+    # Tools live under entelechy-tools/ and may depend on workspace packages
+    # (e.g. @vectorize-io/entelechy-client). Install from root so npm resolves
     # workspace deps, then build any required workspace packages first.
     - name: Install root workspace dependencies
       run: npm ci
 
-    - name: Build hindsight-client (workspace dep)
-      run: npm run build --workspace=hindsight-clients/typescript
+    - name: Build entelechy-client (workspace dep)
+      run: npm run build --workspace=entelechy-clients/typescript
 
-    - name: Build hindsight-agent-sdk (workspace dep)
-      run: npm run build --workspace=hindsight-tools/hindsight-agent-sdk
+    - name: Build entelechy-agent-sdk (workspace dep)
+      run: npm run build --workspace=entelechy-tools/entelechy-agent-sdk
 
     - name: Build tool
-      run: npm run build --workspace=hindsight-tools/${{ steps.info.outputs.tool }}
+      run: npm run build --workspace=entelechy-tools/${{ steps.info.outputs.tool }}
 
     - name: Publish to npm
-      working-directory: ./hindsight-tools/${{ steps.info.outputs.tool }}
+      working-directory: ./entelechy-tools/${{ steps.info.outputs.tool }}
       run: |
         set +e
         OUTPUT=$(npm publish --access public 2>&1)

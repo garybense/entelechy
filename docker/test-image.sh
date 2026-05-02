@@ -2,44 +2,44 @@
 #
 # Docker Smoke Test Script
 #
-# Tests that a Hindsight Docker image starts correctly and becomes healthy.
+# Tests that a Entelechy Docker image starts correctly and becomes healthy.
 # Can be run locally or in CI pipelines.
 #
 # Usage:
 #   ./docker/test-image.sh <image> [target]
 #
 # Arguments:
-#   image   - Docker image to test (e.g., hindsight-api:test, ghcr.io/vectorize-io/hindsight:latest)
+#   image   - Docker image to test (e.g., entelechy-api:test, ghcr.io/vectorize-io/entelechy:latest)
 #   target  - Optional: 'cp-only' for control plane, otherwise assumes API image (default: api)
 #
 # Environment variables:
-#   HINDSIGHT_API_LLM_API_KEY                   - Required for API/standalone images (LLM verification)
-#   HINDSIGHT_API_LLM_PROVIDER                  - LLM provider (default: openai)
-#   HINDSIGHT_API_LLM_MODEL                     - LLM model (default: gpt-4o-mini)
-#   HINDSIGHT_API_EMBEDDINGS_PROVIDER           - Embeddings provider (optional, for slim images: openai, cohere, tei)
-#   HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY     - OpenAI API key for embeddings (optional)
-#   HINDSIGHT_API_RERANKER_PROVIDER             - Reranker provider (optional, for slim images: cohere, tei)
-#   HINDSIGHT_API_COHERE_API_KEY                - Cohere API key for reranking (optional)
+#   ENTELECHY_API_LLM_API_KEY                   - Required for API/standalone images (LLM verification)
+#   ENTELECHY_API_LLM_PROVIDER                  - LLM provider (default: openai)
+#   ENTELECHY_API_LLM_MODEL                     - LLM model (default: gpt-4o-mini)
+#   ENTELECHY_API_EMBEDDINGS_PROVIDER           - Embeddings provider (optional, for slim images: openai, cohere, tei)
+#   ENTELECHY_API_EMBEDDINGS_OPENAI_API_KEY     - OpenAI API key for embeddings (optional)
+#   ENTELECHY_API_RERANKER_PROVIDER             - Reranker provider (optional, for slim images: cohere, tei)
+#   ENTELECHY_API_COHERE_API_KEY                - Cohere API key for reranking (optional)
 #   SMOKE_TEST_TIMEOUT                          - Timeout in seconds (default: 120)
-#   SMOKE_TEST_CONTAINER_NAME                   - Container name (default: hindsight-smoke-test)
+#   SMOKE_TEST_CONTAINER_NAME                   - Container name (default: entelechy-smoke-test)
 #
 # Examples:
 #   # Test a locally built full image
-#   ./docker/test-image.sh hindsight-api:test
+#   ./docker/test-image.sh entelechy-api:test
 #
 #   # Test a released image
-#   ./docker/test-image.sh ghcr.io/vectorize-io/hindsight:latest
+#   ./docker/test-image.sh ghcr.io/vectorize-io/entelechy:latest
 #
 #   # Test control plane image
-#   ./docker/test-image.sh hindsight-control-plane:test cp-only
+#   ./docker/test-image.sh entelechy-control-plane:test cp-only
 #
 #   # Test slim image with external providers
-#   export HINDSIGHT_API_LLM_API_KEY=sk_xxx
-#   export HINDSIGHT_API_EMBEDDINGS_PROVIDER=openai
-#   export HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY=sk-xxx
-#   export HINDSIGHT_API_RERANKER_PROVIDER=cohere
-#   export HINDSIGHT_API_COHERE_API_KEY=xxx
-#   ./docker/test-image.sh hindsight-slim:test
+#   export ENTELECHY_API_LLM_API_KEY=sk_xxx
+#   export ENTELECHY_API_EMBEDDINGS_PROVIDER=openai
+#   export ENTELECHY_API_EMBEDDINGS_OPENAI_API_KEY=sk-xxx
+#   export ENTELECHY_API_RERANKER_PROVIDER=cohere
+#   export ENTELECHY_API_COHERE_API_KEY=xxx
+#   ./docker/test-image.sh entelechy-slim:test
 #
 # Exit codes:
 #   0 - Success (container healthy)
@@ -62,9 +62,9 @@ NC='\033[0m' # No Color
 IMAGE="${1:-}"
 TARGET="${2:-api}"
 TIMEOUT="${SMOKE_TEST_TIMEOUT:-120}"
-CONTAINER_NAME="${SMOKE_TEST_CONTAINER_NAME:-hindsight-smoke-test}"
-LLM_PROVIDER="${HINDSIGHT_API_LLM_PROVIDER:-openai}"
-LLM_MODEL="${HINDSIGHT_API_LLM_MODEL:-gpt-4o-mini}"
+CONTAINER_NAME="${SMOKE_TEST_CONTAINER_NAME:-entelechy-smoke-test}"
+LLM_PROVIDER="${ENTELECHY_API_LLM_PROVIDER:-openai}"
+LLM_MODEL="${ENTELECHY_API_LLM_MODEL:-gpt-4o-mini}"
 
 # Validate arguments
 if [ -z "$IMAGE" ]; then
@@ -73,9 +73,9 @@ if [ -z "$IMAGE" ]; then
     echo "Usage: $0 <image> [target]"
     echo ""
     echo "Examples:"
-    echo "  $0 hindsight-api:test"
-    echo "  $0 ghcr.io/vectorize-io/hindsight:latest"
-    echo "  $0 hindsight-control-plane:test cp-only"
+    echo "  $0 entelechy-api:test"
+    echo "  $0 ghcr.io/vectorize-io/entelechy:latest"
+    echo "  $0 entelechy-control-plane:test cp-only"
     exit 2
 fi
 
@@ -91,9 +91,9 @@ else
 fi
 
 # Check for required environment variables
-if [ "$NEEDS_LLM" = true ] && [ "$LLM_PROVIDER" != "vertexai" ] && [ -z "${HINDSIGHT_API_LLM_API_KEY:-}" ]; then
-    echo -e "${RED}Error: HINDSIGHT_API_LLM_API_KEY environment variable is required for API/standalone images${NC}"
-    echo "Set it with: export HINDSIGHT_API_LLM_API_KEY=your-api-key"
+if [ "$NEEDS_LLM" = true ] && [ "$LLM_PROVIDER" != "vertexai" ] && [ -z "${ENTELECHY_API_LLM_API_KEY:-}" ]; then
+    echo -e "${RED}Error: ENTELECHY_API_LLM_API_KEY environment variable is required for API/standalone images${NC}"
+    echo "Set it with: export ENTELECHY_API_LLM_API_KEY=your-api-key"
     exit 2
 fi
 
@@ -125,40 +125,40 @@ if [ "$TARGET" = "cp-only" ]; then
 else
     # Build docker run command with required and optional env vars
     DOCKER_CMD="docker run -d --name $CONTAINER_NAME"
-    DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_LLM_PROVIDER=$LLM_PROVIDER"
-    if [ -n "${HINDSIGHT_API_LLM_API_KEY:-}" ]; then
-        DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_LLM_API_KEY=${HINDSIGHT_API_LLM_API_KEY}"
+    DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_LLM_PROVIDER=$LLM_PROVIDER"
+    if [ -n "${ENTELECHY_API_LLM_API_KEY:-}" ]; then
+        DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_LLM_API_KEY=${ENTELECHY_API_LLM_API_KEY}"
     fi
-    DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_LLM_MODEL=$LLM_MODEL"
+    DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_LLM_MODEL=$LLM_MODEL"
 
     # Add Vertex AI config if provider is vertexai
     if [ "$LLM_PROVIDER" = "vertexai" ]; then
-        if [ -n "${HINDSIGHT_API_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY:-}" ]; then
-            DOCKER_CMD="$DOCKER_CMD -v ${HINDSIGHT_API_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY}:/tmp/gcp-credentials.json:ro"
-            DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY=/tmp/gcp-credentials.json"
+        if [ -n "${ENTELECHY_API_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY:-}" ]; then
+            DOCKER_CMD="$DOCKER_CMD -v ${ENTELECHY_API_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY}:/tmp/gcp-credentials.json:ro"
+            DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY=/tmp/gcp-credentials.json"
         fi
-        if [ -n "${HINDSIGHT_API_LLM_VERTEXAI_PROJECT_ID:-}" ]; then
-            DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_LLM_VERTEXAI_PROJECT_ID=${HINDSIGHT_API_LLM_VERTEXAI_PROJECT_ID}"
+        if [ -n "${ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID:-}" ]; then
+            DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=${ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID}"
         fi
-        if [ -n "${HINDSIGHT_API_LLM_VERTEXAI_REGION:-}" ]; then
-            DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_LLM_VERTEXAI_REGION=${HINDSIGHT_API_LLM_VERTEXAI_REGION}"
+        if [ -n "${ENTELECHY_API_LLM_VERTEXAI_REGION:-}" ]; then
+            DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_LLM_VERTEXAI_REGION=${ENTELECHY_API_LLM_VERTEXAI_REGION}"
         fi
     fi
 
     # Add optional embeddings provider config
-    if [ -n "${HINDSIGHT_API_EMBEDDINGS_PROVIDER:-}" ]; then
-        DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_EMBEDDINGS_PROVIDER=${HINDSIGHT_API_EMBEDDINGS_PROVIDER}"
+    if [ -n "${ENTELECHY_API_EMBEDDINGS_PROVIDER:-}" ]; then
+        DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_EMBEDDINGS_PROVIDER=${ENTELECHY_API_EMBEDDINGS_PROVIDER}"
     fi
-    if [ -n "${HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY:-}" ]; then
-        DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY=${HINDSIGHT_API_EMBEDDINGS_OPENAI_API_KEY}"
+    if [ -n "${ENTELECHY_API_EMBEDDINGS_OPENAI_API_KEY:-}" ]; then
+        DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_EMBEDDINGS_OPENAI_API_KEY=${ENTELECHY_API_EMBEDDINGS_OPENAI_API_KEY}"
     fi
 
     # Add optional reranker provider config
-    if [ -n "${HINDSIGHT_API_RERANKER_PROVIDER:-}" ]; then
-        DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_RERANKER_PROVIDER=${HINDSIGHT_API_RERANKER_PROVIDER}"
+    if [ -n "${ENTELECHY_API_RERANKER_PROVIDER:-}" ]; then
+        DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_RERANKER_PROVIDER=${ENTELECHY_API_RERANKER_PROVIDER}"
     fi
-    if [ -n "${HINDSIGHT_API_COHERE_API_KEY:-}" ]; then
-        DOCKER_CMD="$DOCKER_CMD -e HINDSIGHT_API_COHERE_API_KEY=${HINDSIGHT_API_COHERE_API_KEY}"
+    if [ -n "${ENTELECHY_API_COHERE_API_KEY:-}" ]; then
+        DOCKER_CMD="$DOCKER_CMD -e ENTELECHY_API_COHERE_API_KEY=${ENTELECHY_API_COHERE_API_KEY}"
     fi
 
     DOCKER_CMD="$DOCKER_CMD -p ${HEALTH_PORT}:${HEALTH_PORT}"

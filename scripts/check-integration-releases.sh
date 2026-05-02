@@ -15,7 +15,7 @@ ALL_INTEGRATIONS=("litellm" "pydantic-ai" "crewai" "ag2" "ai-sdk" "chat" "opencl
 usage() {
     echo "Usage: $0 [integration]"
     echo ""
-    echo "  integration   Optional. Name (e.g. 'crewai') or path (e.g. 'hindsight-integrations/crewai')."
+    echo "  integration   Optional. Name (e.g. 'crewai') or path (e.g. 'entelechy-integrations/crewai')."
     echo "                If omitted, checks all integrations."
     exit 1
 }
@@ -26,7 +26,7 @@ fi
 
 if [ -n "$1" ]; then
     arg="${1%/}"
-    arg="${arg#hindsight-integrations/}"
+    arg="${arg#entelechy-integrations/}"
     found=false
     for v in "${ALL_INTEGRATIONS[@]}"; do
         [ "$v" = "$arg" ] && found=true && break
@@ -45,7 +45,7 @@ git fetch --tags --quiet 2>/dev/null || true
 
 check_one() {
     local name="$1"
-    local dir="hindsight-integrations/$name"
+    local dir="entelechy-integrations/$name"
 
     if [ ! -d "$dir" ]; then
         echo -e "${RED}[MISSING]${NC} $name (no directory)"

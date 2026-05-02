@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Start the Hindsight documentation server
+# Start the Entelechy documentation server
 # This script starts a local Docusaurus development server for the documentation
 
 set -e
@@ -20,4 +20,4 @@ echo "Starting Docusaurus development server..."
 echo "Documentation will be available at: http://localhost:3000"
 echo "INCLUDE_CURRENT_VERSION=true (Next/unreleased docs visible)"
 echo ""
-npm run start -w hindsight-docs -- --no-open
+npm run start -w entelechy-docs -- --no-open

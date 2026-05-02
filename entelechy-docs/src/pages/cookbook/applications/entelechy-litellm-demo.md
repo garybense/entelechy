@@ -1,0 +1,206 @@
+---
+sidebar_position: 9
+---
+
+# Memory Approaches Comparison Demo
+
+
+:::info Complete Application
+This is a complete, runnable application demonstrating Entelechy integration.
+[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/entelechy-litellm-demo)
+:::
+
+
+Interactive Streamlit app comparing three memory approaches for LLM applications:
+
+1. **No Memory** - Each query is independent (baseline)
+2. **Full Conversation History** - Pass entire conversation (truncated to simulate context limits)
+3. **Entelechy Memory** - Intelligent semantic memory retrieval
+
+This demo showcases how Entelechy's semantic memory outperforms traditional approaches, especially as conversations grow longer.
+
+## Quick Start
+
+```bash
+# 1. Set your OpenAI API key
+export OPENAI_API_KEY=your-key
+
+# 2. Start Entelechy server
+docker run -d -p 8888:8888 -p 9999:9999 \
+  -e ENTELECHY_API_LLM_PROVIDER=openai \
+  -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
+  ghcr.io/vectorize-io/entelechy:latest
+
+# 3. Run the demo
+./run.sh
+```
+
+Then open http://localhost:8501 in your browser.
+
+## What This Demo Shows
+
+### The Problem with Traditional Approaches
+
+| Approach | How it Works | Limitation |
+|----------|--------------|------------|
+| **No Memory** | Each query standalone | Forgets everything between messages |
+| **Full History** | Pass all messages to LLM | Token limits cause truncation - loses early context |
+| **Entelechy** | Semantic retrieval of relevant facts | Retrieves what's relevant regardless of when it was said |
+
+### Key Insight
+
+After 5-10 messages, watch the **Full Conversation History** column start losing early context due to truncation (artificially set to 4 messages to demonstrate this quickly). Meanwhile, **Entelechy Memory** can still recall facts from the beginning because it uses semantic retrieval rather than sequential history.
+
+## Testing the Demo
+
+1. **Introduce yourself**:
+   - "Hi, I'm Sarah, a data scientist at Netflix"
+   - "I prefer Python and love machine learning"
+
+2. **Have several exchanges** about different topics
+
+3. **Test recall**:
+   - "What programming language should I use?"
+   - "What do you know about me?"
+
+Watch how the three columns respond differently as the conversation grows.
+
+## Features
+
+- **Side-by-side comparison** of all three approaches
+- **Debug panels** showing what context each approach uses
+- **Memory explorer** to search Entelechy memories directly
+- **Configurable settings** for history truncation, max memories, etc.
+- **Multi-provider support** via LiteLLM (OpenAI, Anthropic, Groq)
+
+## Prerequisites
+
+- Python 3.10+
+- Entelechy server running (Docker recommended)
+- At least one LLM API key (OpenAI recommended)
+
+## Setup
+
+### Using run.sh (Recommended)
+
+```bash
+# Set API key
+export OPENAI_API_KEY=your-key
+
+# Start Entelechy, then run:
+./run.sh
+```
+
+The script will check and install dependencies automatically.
+
+### Manual Setup
+
+```bash
+# Install dependencies
+pip install streamlit litellm
+
+# Install Entelechy packages
+pip install entelechy-client entelechy-litellm
+
+# Run the app
+streamlit run app.py
+```
+
+### Starting Entelechy Server
+
+```bash
+docker run -d -p 8888:8888 -p 9999:9999 \
+  -e ENTELECHY_API_LLM_PROVIDER=openai \
+  -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
+  ghcr.io/vectorize-io/entelechy:latest
+
+# Verify it's running
+curl http://localhost:8888/health
+```
+
+## Configuration
+
+### Sidebar Options
+
+**Model Selection:**
+- Provider: OpenAI, Anthropic, Groq
+- Model: Various models per provider
+- Custom model ID support
+
+**Full History Config:**
+- Max Messages to Keep (default: 4 to demonstrate truncation)
+
+**Entelechy Config:**
+- API URL (default: http://localhost:8888)
+- Bank ID and Entity ID for memory isolation
+- Max Memories to retrieve
+- Recall Budget (low/mid/high)
+
+**Generation Settings:**
+- Temperature
+- Max Tokens
+- System Prompt
+
+## Supported Models
+
+### OpenAI
+- gpt-4o, gpt-4o-mini, gpt-4-turbo, gpt-4, gpt-3.5-turbo
+
+### Anthropic
+- claude-3-5-sonnet-20241022, claude-3-5-haiku-20241022
+- claude-3-opus-20240229, claude-3-sonnet-20240229
+
+### Groq
+- groq/llama-3.1-70b-versatile, groq/llama-3.1-8b-instant
+- groq/mixtral-8x7b-32768
+
+## Environment Variables
+
+```bash
+# Required
+export OPENAI_API_KEY=sk-...
+
+# Optional (for other providers)
+export ANTHROPIC_API_KEY=sk-ant-...
+export GROQ_API_KEY=gsk_...
+
+# Optional
+export ENTELECHY_URL=http://localhost:8888
+```
+
+## Troubleshooting
+
+### Entelechy server not responding
+
+```bash
+# Check if running
+curl http://localhost:8888/health
+
+# Start with Docker
+docker run -d -p 8888:8888 -p 9999:9999 \
+  -e ENTELECHY_API_LLM_PROVIDER=openai \
+  -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
+  ghcr.io/vectorize-io/entelechy:latest
+```
+
+### entelechy-litellm not installed
+
+```bash
+pip install entelechy-litellm
+```
+
+### API key errors
+
+Make sure the appropriate API key is set:
+```bash
+export OPENAI_API_KEY=your-key
+```
+
+## Related
+
+- [Entelechy](https://github.com/vectorize-io/entelechy) - Memory infrastructure for AI applications
+- [entelechy-litellm](https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/litellm) - LiteLLM integration package
+
+## License
+
+MIT

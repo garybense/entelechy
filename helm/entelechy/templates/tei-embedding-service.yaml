@@ -1,0 +1,17 @@
+{{- if .Values.tei.embedding.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "entelechy.fullname" . }}-tei-embedding
+  labels:
+    {{- include "entelechy.tei.embedding.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{ .Values.tei.embedding.port }}
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    {{- include "entelechy.tei.embedding.selectorLabels" . | nindent 4 }}
+{{- end }}

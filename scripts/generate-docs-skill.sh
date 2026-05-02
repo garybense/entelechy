@@ -1,15 +1,15 @@
 #!/bin/bash
 set -e
 
-# Generate agent skill from Hindsight documentation
-# Converts docs/ to skills/hindsight-docs/ for AI agent consumption
+# Generate agent skill from Entelechy documentation
+# Converts docs/ to skills/entelechy-docs/ for AI agent consumption
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
-DOCS_DIR="$ROOT_DIR/hindsight-docs/docs"
-PAGES_DIR="$ROOT_DIR/hindsight-docs/src/pages"
-EXAMPLES_DIR="$ROOT_DIR/hindsight-docs/examples"
-SKILL_DIR="$ROOT_DIR/skills/hindsight-docs"
+DOCS_DIR="$ROOT_DIR/entelechy-docs/docs"
+PAGES_DIR="$ROOT_DIR/entelechy-docs/src/pages"
+EXAMPLES_DIR="$ROOT_DIR/entelechy-docs/examples"
+SKILL_DIR="$ROOT_DIR/skills/entelechy-docs"
 REFS_DIR="$SKILL_DIR/references"
 
 # Colors
@@ -25,7 +25,7 @@ print_warn() {
     echo -e "${YELLOW}[WARN]${NC} $1"
 }
 
-print_info "Generating Hindsight documentation skill..."
+print_info "Generating Entelechy documentation skill..."
 
 # Clean and recreate skill directory
 rm -rf "$SKILL_DIR"
@@ -61,7 +61,7 @@ convert_mdx_to_md() {
     local dest="$2"
 
     # Use Python for more robust processing
-    python3 - "$src" "$dest" "$EXAMPLES_DIR" "$ROOT_DIR/hindsight-docs/src/data/llmProviders.json" <<'PYTHON'
+    python3 - "$src" "$dest" "$EXAMPLES_DIR" "$ROOT_DIR/entelechy-docs/src/data/llmProviders.json" <<'PYTHON'
 import json
 import sys
 import re
@@ -132,7 +132,7 @@ content = re.sub(
 )
 
 # Render <LLMProvidersTable /> as a markdown table sourced from
-# hindsight-docs/src/data/llmProviders.json (single source of truth shared
+# entelechy-docs/src/data/llmProviders.json (single source of truth shared
 # with the React grid + table components).
 def render_llm_providers_table(_match):
     providers = json.loads(llm_providers_json.read_text())
@@ -234,7 +234,7 @@ elif [ -d "$PAGES_DIR/changelog" ]; then
 fi
 
 # Copy OpenAPI spec into the skill
-OPENAPI_SRC="$ROOT_DIR/hindsight-docs/static/openapi.json"
+OPENAPI_SRC="$ROOT_DIR/entelechy-docs/static/openapi.json"
 if [ -f "$OPENAPI_SRC" ]; then
     cp "$OPENAPI_SRC" "$REFS_DIR/openapi.json"
     print_info "Included: openapi.json"
@@ -246,21 +246,21 @@ fi
 print_info "Generating SKILL.md..."
 cat > "$SKILL_DIR/SKILL.md" <<'EOF'
 ---
-name: hindsight-docs
-description: Complete Hindsight documentation for AI agents. Use this to learn about Hindsight architecture, APIs, configuration, and best practices.
+name: entelechy-docs
+description: Complete Entelechy documentation for AI agents. Use this to learn about Entelechy architecture, APIs, configuration, and best practices.
 ---
 
-# Hindsight Documentation Skill
+# Entelechy Documentation Skill
 
-Complete technical documentation for Hindsight - a biomimetic memory system for AI agents.
+Complete technical documentation for Entelechy - a biomimetic memory system for AI agents.
 
 ## When to Use This Skill
 
 Use this skill when you need to:
-- Understand Hindsight architecture and core concepts
+- Understand Entelechy architecture and core concepts
 - Learn about retain/recall/reflect operations
 - Configure memory banks and dispositions
-- Set up the Hindsight API server (Docker, Kubernetes, pip)
+- Set up the Entelechy API server (Docker, Kubernetes, pip)
 - Integrate with Python/Node.js/Rust SDKs
 - Understand retrieval strategies (semantic, BM25, graph, temporal)
 - Debug issues or optimize performance
@@ -318,7 +318,7 @@ pattern: "disposition"        # Memory bank configuration
 pattern: "graph retrieval"    # Graph-based search
 pattern: "helm install"       # Kubernetes deployment
 pattern: "document_id"        # Document management
-pattern: "HINDSIGHT_API_"     # Environment variables
+pattern: "ENTELECHY_API_"     # Environment variables
 
 # Search in specific areas
 path: references/developer/api/
@@ -357,14 +357,14 @@ references/best-practices.md
 ## Notes
 
 - Code examples are inlined from working examples
-- Configuration uses `HINDSIGHT_API_*` environment variables
+- Configuration uses `ENTELECHY_API_*` environment variables
 - Database migrations run automatically on startup
 - Multi-bank queries require client-side orchestration
 - Use `document_id` for conversation evolution (same ID = upsert)
 
 ---
 
-**Auto-generated** from `hindsight-docs/docs/`. Run `./scripts/generate-docs-skill.sh` to update.
+**Auto-generated** from `entelechy-docs/docs/`. Run `./scripts/generate-docs-skill.sh` to update.
 EOF
 
 print_info "✓ Generated skill at: $SKILL_DIR"

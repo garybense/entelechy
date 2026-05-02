@@ -1,0 +1,17 @@
+{{- if .Values.tei.reranker.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "entelechy.fullname" . }}-tei-reranker
+  labels:
+    {{- include "entelechy.tei.reranker.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{ .Values.tei.reranker.port }}
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    {{- include "entelechy.tei.reranker.selectorLabels" . | nindent 4 }}
+{{- end }}

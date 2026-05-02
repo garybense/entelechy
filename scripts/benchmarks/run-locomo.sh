@@ -21,4 +21,4 @@ set -a
 source "$ENV_FILE"
 set +a
 
-uv run python hindsight-dev/benchmarks/locomo/locomo_benchmark.py "${ARGS[@]}"
+uv run python entelechy-dev/benchmarks/locomo/locomo_benchmark.py "${ARGS[@]}"

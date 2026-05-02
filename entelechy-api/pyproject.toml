@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "entelechy-api"
+version = "0.5.6"
+description = "Entelechy: Agent Memory That Works Like Human Memory"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "entelechy-api-slim[all]>=0.4.17",
+]
+
+[tool.uv.sources]
+entelechy-api-slim = { workspace = true }
+
+[project.scripts]
+entelechy-api = "entelechy_api.main:main"
+entelechy-worker = "entelechy_api.worker.main:main"
+entelechy-local-mcp = "entelechy_api.mcp_local:main"
+entelechy-admin = "entelechy_api.admin.cli:main"
+
+[tool.setuptools]
+packages = []

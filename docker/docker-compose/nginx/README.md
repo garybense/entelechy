@@ -1,6 +1,6 @@
 # Nginx Reverse Proxy with Custom Base Path
 
-Deploy Hindsight API under `/hindsight` (or any custom path) using Nginx reverse proxy.
+Deploy Entelechy API under `/entelechy` (or any custom path) using Nginx reverse proxy.
 
 ## Quick Start (Published Image - API Only)
 
@@ -8,7 +8,7 @@ Deploy Hindsight API under `/hindsight` (or any custom path) using Nginx reverse
 docker-compose up
 ```
 
-- **API:** http://localhost:8080/hindsight/docs
+- **API:** http://localhost:8080/entelechy/docs
 - **Control Plane:** http://localhost:9999 (direct access, not proxied)
 
 ## Full Stack with Custom Base Path (Requires Build)
@@ -19,27 +19,27 @@ docker-compose up
 
 1. **Clone the repository** (if you haven't):
 ```bash
-git clone https://github.com/vectorize-io/hindsight.git
-cd hindsight
+git clone https://github.com/vectorize-io/entelechy.git
+cd entelechy
 ```
 
 2. **Build with base path**:
 ```bash
 docker build \
-  --build-arg NEXT_PUBLIC_BASE_PATH=/hindsight \
+  --build-arg NEXT_PUBLIC_BASE_PATH=/entelechy \
   -f docker/standalone/Dockerfile \
-  -t hindsight:custom \
+  -t entelechy:custom \
   .
 ```
 
 3. **Update docker-compose.yml** to use your built image:
 ```yaml
 services:
-  hindsight:
-    image: hindsight:custom  # ← Change this
+  entelechy:
+    image: entelechy:custom  # ← Change this
     environment:
-      HINDSIGHT_API_BASE_PATH: /hindsight
-      NEXT_PUBLIC_BASE_PATH: /hindsight
+      ENTELECHY_API_BASE_PATH: /entelechy
+      NEXT_PUBLIC_BASE_PATH: /entelechy
 ```
 
 4. **Update nginx.conf** to handle Control Plane routes (see below)
@@ -60,31 +60,31 @@ http {
     include /etc/nginx/mime.types;
     default_type application/octet-stream;
 
-    upstream hindsight_api { server hindsight:8888; }
-    upstream hindsight_cp { server hindsight:9999; }
+    upstream entelechy_api { server entelechy:8888; }
+    upstream entelechy_cp { server entelechy:9999; }
 
     server {
         listen 80;
 
         # API
-        location ~ ^/hindsight/(docs|openapi\.json|health|metrics|v1|mcp) {
-            proxy_pass http://hindsight_api;
+        location ~ ^/entelechy/(docs|openapi\.json|health|metrics|v1|mcp) {
+            proxy_pass http://entelechy_api;
             proxy_set_header Host $http_host;
         }
 
         # Control Plane static files
-        location ~ ^/hindsight/_next/ {
-            proxy_pass http://hindsight_cp;
+        location ~ ^/entelechy/_next/ {
+            proxy_pass http://entelechy_cp;
             proxy_set_header Host $http_host;
         }
 
         # Control Plane UI
-        location /hindsight {
-            proxy_pass http://hindsight_cp;
+        location /entelechy {
+            proxy_pass http://entelechy_cp;
             proxy_set_header Host $http_host;
         }
 
-        location = / { return 301 /hindsight; }
+        location = / { return 301 /entelechy; }
     }
 }
 ```
@@ -93,4 +93,4 @@ http {
 
 Next.js requires `basePath` at **build time**. The published image was built without a custom base path, so you must rebuild from source with the `NEXT_PUBLIC_BASE_PATH` build arg to deploy the Control Plane under a subpath.
 
-The API works without rebuild because `HINDSIGHT_API_BASE_PATH` is a runtime environment variable.
+The API works without rebuild because `ENTELECHY_API_BASE_PATH` is a runtime environment variable.

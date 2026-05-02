@@ -19,32 +19,32 @@ if [ -d "$PG0_DATA_DIR" ]; then
         echo "⚠️  WARNING: pg0 data directory exists at $PG0_DATA_DIR but no PG_VERSION found."
         echo "   This may indicate data corruption or an incomplete previous shutdown."
         echo "   If you see all migrations running from scratch after this, your data may have been lost."
-        echo "   See: https://github.com/vectorize-io/hindsight/issues/675"
+        echo "   See: https://github.com/vectorize-io/entelechy/issues/675"
     fi
 fi
 
 # Service flags (default to true if not set)
-ENABLE_API="${HINDSIGHT_ENABLE_API:-true}"
-ENABLE_CP="${HINDSIGHT_ENABLE_CP:-true}"
+ENABLE_API="${ENTELECHY_ENABLE_API:-true}"
+ENABLE_CP="${ENTELECHY_ENABLE_CP:-true}"
 
 # =============================================================================
-# Dependency waiting (opt-in via HINDSIGHT_WAIT_FOR_DEPS=true)
+# Dependency waiting (opt-in via ENTELECHY_WAIT_FOR_DEPS=true)
 #
 # Problem: When running with LM Studio, the LLM may take time to load models.
-# If Hindsight starts before LM Studio is ready, it fails on LLM verification.
+# If Entelechy starts before LM Studio is ready, it fails on LLM verification.
 # This wait loop ensures dependencies are ready before starting.
 # =============================================================================
-if [ "${HINDSIGHT_WAIT_FOR_DEPS:-false}" = "true" ]; then
-    LLM_BASE_URL="${HINDSIGHT_API_LLM_BASE_URL:-http://host.docker.internal:1234/v1}"
-    MAX_RETRIES="${HINDSIGHT_RETRY_MAX:-0}"  # 0 = infinite
-    RETRY_INTERVAL="${HINDSIGHT_RETRY_INTERVAL:-10}"
+if [ "${ENTELECHY_WAIT_FOR_DEPS:-false}" = "true" ]; then
+    LLM_BASE_URL="${ENTELECHY_API_LLM_BASE_URL:-http://host.docker.internal:1234/v1}"
+    MAX_RETRIES="${ENTELECHY_RETRY_MAX:-0}"  # 0 = infinite
+    RETRY_INTERVAL="${ENTELECHY_RETRY_INTERVAL:-10}"
 
     # Check if external database is configured (skip check for embedded pg0)
     SKIP_DB_CHECK=false
-    if [ -z "${HINDSIGHT_API_DATABASE_URL}" ]; then
+    if [ -z "${ENTELECHY_API_DATABASE_URL}" ]; then
         SKIP_DB_CHECK=true
     else
-        DB_CHECK_HOST=$(echo "$HINDSIGHT_API_DATABASE_URL" | sed -E 's|.*@([^:/]+):([0-9]+)/.*|\1 \2|')
+        DB_CHECK_HOST=$(echo "$ENTELECHY_API_DATABASE_URL" | sed -E 's|.*@([^:/]+):([0-9]+)/.*|\1 \2|')
     fi
 
     check_db() {
@@ -97,12 +97,12 @@ fi
 # Graceful shutdown handler (#675)
 #
 # Docker sends SIGTERM on `docker stop`/`docker restart`. Without a trap, child
-# processes (hindsight-api + pg0, control-plane) are killed abruptly. For the
+# processes (entelechy-api + pg0, control-plane) are killed abruptly. For the
 # embedded pg0 database this can cause data loss when the data directory is on
 # a Docker volume that gets remounted after restart.
 #
 # The trap forwards SIGTERM to all tracked child PIDs so that:
-#   - hindsight-api receives the signal and can run its shutdown hooks
+#   - entelechy-api receives the signal and can run its shutdown hooks
 #   - pg0 gets a clean PostgreSQL shutdown (checkpoint + WAL flush)
 #   - The control-plane Node.js process exits cleanly
 # =============================================================================
@@ -156,11 +156,11 @@ PIDS=()
 # Start API if enabled
 if [ "$ENABLE_API" = "true" ]; then
     cd /app/api
-    API_HEALTH_URL="${HINDSIGHT_API_HEALTH_URL:-http://localhost:8888/health}"
-    API_STARTUP_WAIT_SECONDS="${HINDSIGHT_API_STARTUP_WAIT_SECONDS:-300}"
+    API_HEALTH_URL="${ENTELECHY_API_HEALTH_URL:-http://localhost:8888/health}"
+    API_STARTUP_WAIT_SECONDS="${ENTELECHY_API_STARTUP_WAIT_SECONDS:-300}"
 
     # Run API directly - Python's PYTHONUNBUFFERED=1 handles output buffering
-    hindsight-api &
+    entelechy-api &
     API_PID=$!
     PIDS+=($API_PID)
 
@@ -183,28 +183,28 @@ if [ "$ENABLE_API" = "true" ]; then
         exit 1
     fi
 else
-    echo "API disabled (HINDSIGHT_ENABLE_API=false)"
+    echo "API disabled (ENTELECHY_ENABLE_API=false)"
 fi
 
 # Start Control Plane if enabled
 if [ "$ENABLE_CP" = "true" ]; then
     echo "🎛️  Starting Control Plane..."
     cd /app/control-plane
-    export HOSTNAME="${HINDSIGHT_CP_HOSTNAME:-0.0.0.0}"
-    PORT="${HINDSIGHT_CP_PORT:-9999}" node server.js &
+    export HOSTNAME="${ENTELECHY_CP_HOSTNAME:-0.0.0.0}"
+    PORT="${ENTELECHY_CP_PORT:-9999}" node server.js &
     CP_PID=$!
     PIDS+=($CP_PID)
 else
-    echo "Control Plane disabled (HINDSIGHT_ENABLE_CP=false)"
+    echo "Control Plane disabled (ENTELECHY_ENABLE_CP=false)"
 fi
 
 # Print status
 echo ""
-echo "✅ Hindsight is running!"
+echo "✅ Entelechy is running!"
 echo ""
 echo "📍 Access:"
 if [ "$ENABLE_CP" = "true" ]; then
-    echo "   Control Plane: http://localhost:${HINDSIGHT_CP_PORT:-9999}"
+    echo "   Control Plane: http://localhost:${ENTELECHY_CP_PORT:-9999}"
 fi
 if [ "$ENABLE_API" = "true" ]; then
     echo "   API:           http://localhost:8888"
@@ -213,7 +213,7 @@ echo ""
 
 # Check if any services are running
 if [ ${#PIDS[@]} -eq 0 ]; then
-    echo "❌ No services enabled! Set HINDSIGHT_ENABLE_API=true or HINDSIGHT_ENABLE_CP=true"
+    echo "❌ No services enabled! Set ENTELECHY_ENABLE_API=true or ENTELECHY_ENABLE_CP=true"
     exit 1
 fi
 

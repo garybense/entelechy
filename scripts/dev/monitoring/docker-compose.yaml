@@ -1,7 +1,7 @@
 services:
   grafana-lgtm:
     image: grafana/otel-lgtm:latest
-    container_name: hindsight-monitoring
+    container_name: entelechy-monitoring
     ports:
       # Grafana UI
       - "3000:3000"
@@ -14,22 +14,22 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
     volumes:
-      # Mount Prometheus config for scraping Hindsight API metrics (override LGTM default)
+      # Mount Prometheus config for scraping Entelechy API metrics (override LGTM default)
       - ./prometheus.yml:/otel-lgtm/prometheus.yaml:ro
-      # Mount Hindsight dashboards to LGTM directory (where default dashboards are)
-      - ../../../monitoring/grafana/dashboards/hindsight-operations.json:/otel-lgtm/hindsight-operations.json:ro
-      - ../../../monitoring/grafana/dashboards/hindsight-llm.json:/otel-lgtm/hindsight-llm.json:ro
-      - ../../../monitoring/grafana/dashboards/hindsight-api-service.json:/otel-lgtm/hindsight-api-service.json:ro
-      # Mount custom dashboard provisioning config that includes Hindsight dashboards
+      # Mount Entelechy dashboards to LGTM directory (where default dashboards are)
+      - ../../../monitoring/grafana/dashboards/entelechy-operations.json:/otel-lgtm/entelechy-operations.json:ro
+      - ../../../monitoring/grafana/dashboards/entelechy-llm.json:/otel-lgtm/entelechy-llm.json:ro
+      - ../../../monitoring/grafana/dashboards/entelechy-api-service.json:/otel-lgtm/entelechy-api-service.json:ro
+      # Mount custom dashboard provisioning config that includes Entelechy dashboards
       - ./grafana-dashboards.yaml:/otel-lgtm/grafana/conf/provisioning/dashboards/grafana-dashboards.yaml:ro
     restart: unless-stopped
     networks:
-      - hindsight
+      - entelechy
     extra_hosts:
-      # Allow container to reach host services (Hindsight API on localhost:8888)
+      # Allow container to reach host services (Entelechy API on localhost:8888)
       - "host.docker.internal:host-gateway"
 
 networks:
-  hindsight:
-    name: hindsight-network
+  entelechy:
+    name: entelechy-network
     external: true

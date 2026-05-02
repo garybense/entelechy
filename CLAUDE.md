@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Hindsight is an agent memory system that provides long-term memory for AI agents using biomimetic data structures. Memories are organized as:
+Entelechy is an agent memory system that provides long-term memory for AI agents using biomimetic data structures. Memories are organized as:
 - **World facts**: General knowledge ("The sky is blue")
 - **Experience facts**: Personal experiences ("I visited Paris in 2023")
 - **Mental models**: Consolidated knowledge synthesized from facts ("User prefers functional programming patterns")
@@ -23,27 +23,27 @@ Hindsight is an agent memory system that provides long-term memory for AI agents
 ./scripts/dev/start-api.sh
 
 # Run all tests (parallelized with pytest-xdist)
-cd hindsight-api-slim && uv run pytest tests/
+cd entelechy-api-slim && uv run pytest tests/
 
 # Run specific test file
-cd hindsight-api-slim && uv run pytest tests/test_http_api_integration.py -v
+cd entelechy-api-slim && uv run pytest tests/test_http_api_integration.py -v
 
 # Run single test function
-cd hindsight-api-slim && uv run pytest tests/test_retain.py::test_retain_simple -v
+cd entelechy-api-slim && uv run pytest tests/test_retain.py::test_retain_simple -v
 
 # Lint and format
-cd hindsight-api-slim && uv run ruff check .
-cd hindsight-api-slim && uv run ruff format .
+cd entelechy-api-slim && uv run ruff check .
+cd entelechy-api-slim && uv run ruff format .
 
 # Type checking (uses ty - extremely fast type checker from Astral)
-cd hindsight-api-slim && uv run ty check hindsight_api/
+cd entelechy-api-slim && uv run ty check entelechy_api/
 ```
 
 ### Control Plane (Next.js)
 ```bash
 ./scripts/dev/start-control-plane.sh
 # Or manually:
-cd hindsight-control-plane && npm run dev
+cd entelechy-control-plane && npm run dev
 ```
 
 ### Documentation Site (Docusaurus)
@@ -79,15 +79,15 @@ cd hindsight-control-plane && npm run dev
 ## Architecture
 
 ### Monorepo Structure
-- **hindsight-api-slim/**: Core FastAPI server with memory engine (Python, uv)
-- **hindsight-control-plane/**: Admin UI (Next.js, npm)
-- **hindsight-cli/**: CLI tool (Rust, cargo, uses progenitor for API client)
-- **hindsight-clients/**: Generated SDK clients (Python, TypeScript, Rust)
-- **hindsight-docs/**: Docusaurus documentation site
-- **hindsight-integrations/**: Framework integrations (LiteLLM, CrewAI, LangGraph, Pydantic AI, AG2, Claude Code, etc.)
-- **hindsight-dev/**: Development tools and benchmarks
+- **entelechy-api-slim/**: Core FastAPI server with memory engine (Python, uv)
+- **entelechy-control-plane/**: Admin UI (Next.js, npm)
+- **entelechy-cli/**: CLI tool (Rust, cargo, uses progenitor for API client)
+- **entelechy-clients/**: Generated SDK clients (Python, TypeScript, Rust)
+- **entelechy-docs/**: Docusaurus documentation site
+- **entelechy-integrations/**: Framework integrations (LiteLLM, CrewAI, LangGraph, Pydantic AI, AG2, Claude Code, etc.)
+- **entelechy-dev/**: Development tools and benchmarks
 
-### Core Engine (hindsight-api-slim/hindsight_api/engine/)
+### Core Engine (entelechy-api-slim/entelechy_api/engine/)
 - `memory_engine.py`: Main orchestrator for retain/recall/reflect operations
 - `llm_wrapper.py`: LLM abstraction supporting OpenAI, Anthropic, Gemini, VertexAI, Groq, MiniMax, Ollama, LM Studio, LiteLLM, Claude Code
 - `embeddings.py`: Embedding generation (local sentence-transformers or TEI)
@@ -107,7 +107,7 @@ cd hindsight-control-plane && npm run dev
 - `fusion.py`: Reciprocal rank fusion for combining results
 - `reranking.py`: Cross-encoder reranking
 
-### API Layer (hindsight-api-slim/hindsight_api/api/)
+### API Layer (entelechy-api-slim/entelechy_api/api/)
 - `http.py`: FastAPI HTTP routers for all REST endpoints
 - `mcp.py`: Model Context Protocol server implementation
 
@@ -117,13 +117,13 @@ Main operations:
 - **Reflect**: Disposition-aware reasoning using memories and mental models.
 
 ### Database
-PostgreSQL with pgvector. Schema managed via Alembic migrations in `hindsight-api-slim/hindsight_api/alembic/`. Migrations run automatically on API startup.
+PostgreSQL with pgvector. Schema managed via Alembic migrations in `entelechy-api-slim/entelechy_api/alembic/`. Migrations run automatically on API startup.
 
 Key tables: `banks`, `memory_units`, `documents`, `entities`, `entity_links`
 
 ### Adding Database Migrations
 
-1. **Create a new migration file** in `hindsight-api-slim/hindsight_api/alembic/versions/`:
+1. **Create a new migration file** in `entelechy-api-slim/entelechy_api/alembic/versions/`:
    - File name format: `<revision_id>_<description>.py` (e.g., `f1a2b3c4d5e6_add_new_index.py`)
    - Use a unique hex revision ID (12 chars)
    - Set `down_revision` to the previous migration's revision ID
@@ -161,10 +161,10 @@ Key tables: `banks`, `memory_units`, `documents`, `entities`, `entity_links`
 3. **Run migrations locally**:
    ```bash
    # Set database URL and run migrations for the base schema plus all tenants
-   uv run hindsight-admin run-db-migration
+   uv run entelechy-admin run-db-migration
 
    # Run on a specific tenant schema
-   uv run hindsight-admin run-db-migration --schema tenant_xyz
+   uv run entelechy-admin run-db-migration --schema tenant_xyz
    ```
 
 ## Key Conventions
@@ -195,15 +195,15 @@ Key tables: `banks`, `memory_units`, `documents`, `entities`, `entity_links`
 
 ### Control Plane API Routes
 
-When adding or modifying parameters in the dataplane API (hindsight-api), you must also update the control plane routes that proxy to it:
+When adding or modifying parameters in the dataplane API (entelechy-api), you must also update the control plane routes that proxy to it:
 
-1. **API Routes** (`hindsight-control-plane/src/app/api/`):
+1. **API Routes** (`entelechy-control-plane/src/app/api/`):
    - `recall/route.ts` - proxies to `/v1/default/banks/{bank_id}/memories/recall`
    - `reflect/route.ts` - proxies to `/v1/default/banks/{bank_id}/reflect`
    - `memories/retain/route.ts` - proxies to `/v1/default/banks/{bank_id}/memories/retain`
    - Other routes follow the same pattern
 
-2. **Client types** (`hindsight-control-plane/src/lib/api.ts`):
+2. **Client types** (`entelechy-control-plane/src/lib/api.ts`):
    - Update the TypeScript type definitions for `recall()`, `reflect()`, `retain()` etc.
 
 3. **Checklist when adding new API parameters**:
@@ -214,9 +214,9 @@ When adding or modifying parameters in the dataplane API (hindsight-api), you mu
 
 ### Adding New Integrations
 
-Every new integration in `hindsight-integrations/` must satisfy all of the following before it can be merged:
+Every new integration in `entelechy-integrations/` must satisfy all of the following before it can be merged:
 
-1. **Tests are required** — tests must simulate or exercise the external system (mock the framework's interfaces and verify the integration actually calls Hindsight correctly). Pure unit tests of helper functions are not sufficient.
+1. **Tests are required** — tests must simulate or exercise the external system (mock the framework's interfaces and verify the integration actually calls Entelechy correctly). Pure unit tests of helper functions are not sufficient.
 2. **CI job** — add a test job in `.github/workflows/test.yml` following the existing pattern (e.g., `test-crewai-integration`). The job must build, install deps, and run `uv run pytest tests -v`. Also add the integration to `detect-changes` outputs so it only runs when its files change.
 3. **Release process** — add the integration name to the `VALID_INTEGRATIONS` array in `scripts/release-integration.sh` so it can be released via the standard release workflow.
 4. **Follow project code standards** — Python style, type safety, no raw dicts for structured data, no multi-item tuple returns (see `.claude/skills/code-review/SKILL.md`).
@@ -225,7 +225,7 @@ If any of these are missing, the integration is incomplete and must not be pushe
 
 ### Changelogs
 
-Never add "Unreleased" entries to changelogs (e.g. `hindsight-docs/src/pages/changelog/**`). Changelog entries are written by the release script (`./scripts/release-integration.sh`) when a version is actually cut. If a bug fix or feature needs documenting before release, describe it in the PR/commit — the release tooling will surface it in the published changelog section.
+Never add "Unreleased" entries to changelogs (e.g. `entelechy-docs/src/pages/changelog/**`). Changelog entries are written by the release script (`./scripts/release-integration.sh`) when a version is actually cut. If a bug fix or feature needs documenting before release, describe it in the PR/commit — the release tooling will surface it in the published changelog section.
 
 ### Adding New API Configuration Flags
 
@@ -235,10 +235,10 @@ Fields must be categorized as either **hierarchical** (can be overridden per-ten
 
 #### Adding a New Configuration Field
 
-1. **config.py** (`hindsight-api-slim/hindsight_api/config.py`):
-   - Add `ENV_*` constant for the environment variable name (e.g., `ENV_MY_SETTING = "HINDSIGHT_API_MY_SETTING"`)
+1. **config.py** (`entelechy-api-slim/entelechy_api/config.py`):
+   - Add `ENV_*` constant for the environment variable name (e.g., `ENV_MY_SETTING = "ENTELECHY_API_MY_SETTING"`)
    - Add `DEFAULT_*` constant for the default value
-   - Add field to `HindsightConfig` dataclass with type annotation
+   - Add field to `EntelechyConfig` dataclass with type annotation
    - **Mark as configurable** by adding to `_CONFIGURABLE_FIELDS` set if the field should be overridable per-tenant/bank via API
    - Add initialization in `from_env()` method
 
@@ -252,8 +252,8 @@ Fields must be categorized as either **hierarchical** (can be overridden per-ten
    # Static field - just don't add to _CONFIGURABLE_FIELDS
    ```
 
-2. **main.py** (`hindsight-api-slim/hindsight_api/main.py`):
-   - Add field to the manual `HindsightConfig()` constructor call (search for "CLI override")
+2. **main.py** (`entelechy-api-slim/entelechy_api/main.py`):
+   - Add field to the manual `EntelechyConfig()` constructor call (search for "CLI override")
 
 3. **Use hierarchical config in MemoryEngine**:
    ```python
@@ -269,7 +269,7 @@ Fields must be categorized as either **hierarchical** (can be overridden per-ten
    value = config.my_static_field
    ```
 
-5. **Documentation** (`hindsight-docs/docs/developer/configuration.md`):
+5. **Documentation** (`entelechy-docs/docs/developer/configuration.md`):
    - Add to appropriate section table with Variable, Description, Default
    - Mark if it's hierarchical (can be overridden per-bank)
 
@@ -292,19 +292,19 @@ cp .env.example .env
 # Edit .env with LLM API key
 
 # Python deps
-uv sync --directory hindsight-api-slim/
+uv sync --directory entelechy-api-slim/
 
 # Node deps (uses npm workspaces)
 npm install
 ```
 
 Required env vars:
-- `HINDSIGHT_API_LLM_PROVIDER`: openai, anthropic, gemini, groq, minimax, ollama, lmstudio
-- `HINDSIGHT_API_LLM_API_KEY`: Your API key
-- `HINDSIGHT_API_LLM_MODEL`: Model name (e.g., gpt-4o-mini, claude-sonnet-4-20250514)
+- `ENTELECHY_API_LLM_PROVIDER`: openai, anthropic, gemini, groq, minimax, ollama, lmstudio
+- `ENTELECHY_API_LLM_API_KEY`: Your API key
+- `ENTELECHY_API_LLM_MODEL`: Model name (e.g., gpt-4o-mini, claude-sonnet-4-20250514)
 
 Optional (uses local models by default):
-- `HINDSIGHT_API_EMBEDDINGS_PROVIDER`: local (default) or tei
-- `HINDSIGHT_API_RERANKER_PROVIDER`: local (default) or tei
-- `HINDSIGHT_API_DATABASE_URL`: External PostgreSQL (uses embedded pg0 by default)
-- `HINDSIGHT_API_ENABLE_BANK_CONFIG_API`: Enable per-bank config API (default: true)
+- `ENTELECHY_API_EMBEDDINGS_PROVIDER`: local (default) or tei
+- `ENTELECHY_API_RERANKER_PROVIDER`: local (default) or tei
+- `ENTELECHY_API_DATABASE_URL`: External PostgreSQL (uses embedded pg0 by default)
+- `ENTELECHY_API_ENABLE_BANK_CONFIG_API`: Enable per-bank config API (default: true)

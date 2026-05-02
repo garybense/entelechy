@@ -1,0 +1,13 @@
+apiVersion: v2
+name: entelechy
+description: Entelechy helm chart
+type: application
+version: 0.5.6
+appVersion: "0.5.6"
+keywords:
+  - ai
+  - memory
+  - llm
+  - agents
+maintainers:
+  - name: Entelechy Team

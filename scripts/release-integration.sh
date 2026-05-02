@@ -51,7 +51,7 @@ fi
 
 # Read current version from package manifest
 get_current_version() {
-    local dir="hindsight-integrations/$INTEGRATION"
+    local dir="entelechy-integrations/$INTEGRATION"
     if [ -f "$dir/pyproject.toml" ]; then
         grep '^version = ' "$dir/pyproject.toml" | sed 's/version = "\(.*\)"/\1/'
     elif [ -f "$dir/package.json" ]; then
@@ -136,7 +136,7 @@ if [ -z "$OPENAI_API_KEY" ]; then
 fi
 
 # Determine integration type and update version
-INTEGRATION_DIR="hindsight-integrations/$INTEGRATION"
+INTEGRATION_DIR="entelechy-integrations/$INTEGRATION"
 
 if [ ! -d "$INTEGRATION_DIR" ]; then
     print_error "Integration directory not found: $INTEGRATION_DIR"
@@ -166,7 +166,7 @@ fi
 
 # Generate changelog entry using LLM
 print_info "Generating changelog entry..."
-if cd hindsight-dev && uv run generate-changelog "$VERSION" --integration "$INTEGRATION"; then
+if cd entelechy-dev && uv run generate-changelog "$VERSION" --integration "$INTEGRATION"; then
     cd ..
     print_info "Changelog generated"
 else
@@ -182,7 +182,7 @@ print_info "Regenerating docs skill..."
 
 # Commit version bump + changelog + regenerated skill together
 print_info "Committing changes..."
-git add "hindsight-integrations/$INTEGRATION/" "hindsight-docs/src/pages/changelog/integrations/$INTEGRATION.md" "skills/"
+git add "entelechy-integrations/$INTEGRATION/" "entelechy-docs/src/pages/changelog/integrations/$INTEGRATION.md" "skills/"
 git commit --no-verify -m "release($INTEGRATION): v$VERSION"
 
 # Create annotated tag

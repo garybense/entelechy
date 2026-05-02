@@ -12,7 +12,7 @@ print_info() { echo -e "${YELLOW}$1${NC}"; }
 print_success() { echo -e "${GREEN}$1${NC}"; }
 print_error() { echo -e "${RED}$1${NC}" >&2; }
 
-VALID_TOOLS=("self-driving-agents" "hindsight-agent-sdk")
+VALID_TOOLS=("self-driving-agents" "entelechy-agent-sdk")
 
 usage() {
     echo "Usage: $0 <tool> <version>"
@@ -44,7 +44,7 @@ if ! echo "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$'; the
 fi
 
 # Resolve directory
-TOOL_DIR="hindsight-tools/$TOOL"
+TOOL_DIR="entelechy-tools/$TOOL"
 if [ ! -d "$TOOL_DIR" ]; then
     print_error "Tool directory not found: $TOOL_DIR"
     exit 1

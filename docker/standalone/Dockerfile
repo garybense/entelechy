@@ -1,4 +1,4 @@
-# Hindsight Docker Image
+# Entelechy Docker Image
 # Supports building API-only, Control Plane-only, or both
 #
 # Build args:
@@ -11,11 +11,11 @@
 #                                     NOTE: tiktoken encodings are ALWAYS preloaded (required for air-gapped deployments)
 #
 # Examples:
-#   docker build -t hindsight .                                          # Both (standalone)
-#   docker build -t hindsight-api --build-arg INCLUDE_CP=false .         # API only
-#   docker build -t hindsight-cp --build-arg INCLUDE_API=false .         # Control Plane only
-#   docker build -t hindsight --build-arg PRELOAD_ML_MODELS=false .      # Skip ML model preload
-#   docker build -t hindsight --build-arg INCLUDE_LOCAL_MODELS=false .   # Skip local ML deps (for external providers)
+#   docker build -t entelechy .                                          # Both (standalone)
+#   docker build -t entelechy-api --build-arg INCLUDE_CP=false .         # API only
+#   docker build -t entelechy-cp --build-arg INCLUDE_API=false .         # Control Plane only
+#   docker build -t entelechy --build-arg PRELOAD_ML_MODELS=false .      # Skip ML model preload
+#   docker build -t entelechy --build-arg INCLUDE_LOCAL_MODELS=false .   # Skip local ML deps (for external providers)
 
 ARG INCLUDE_API=true
 ARG INCLUDE_CP=true
@@ -42,8 +42,8 @@ RUN apt-get update && apt-get install -y \
     && pip install --no-cache-dir uv
 
 # Copy dependency files and README (required by pyproject.toml)
-COPY hindsight-api-slim/pyproject.toml ./api/
-COPY hindsight-api-slim/README.md ./api/
+COPY entelechy-api-slim/pyproject.toml ./api/
+COPY entelechy-api-slim/README.md ./api/
 
 WORKDIR /app/api
 
@@ -56,8 +56,8 @@ RUN if [ "$INCLUDE_LOCAL_MODELS" = "true" ]; then \
         uv sync --extra embedded-db; \
     fi
 
-# Copy source code (alembic migrations are inside hindsight_api/)
-COPY hindsight-api-slim/hindsight_api ./hindsight_api
+# Copy source code (alembic migrations are inside entelechy_api/)
+COPY entelechy-api-slim/entelechy_api ./entelechy_api
 
 # Install the local package (uv sync only installed dependencies, not the package itself)
 RUN uv pip install -e .
@@ -74,11 +74,11 @@ WORKDIR /app
 
 # Copy root package files for npm workspaces
 COPY package.json package-lock.json ./
-COPY hindsight-clients/typescript/ ./hindsight-clients/typescript/
+COPY entelechy-clients/typescript/ ./entelechy-clients/typescript/
 
 # Install and build SDK using workspace (--ignore-scripts skips git hooks setup)
-RUN npm ci --ignore-scripts -w @vectorize-io/hindsight-client
-RUN npm run build -w @vectorize-io/hindsight-client
+RUN npm ci --ignore-scripts -w @vectorize-io/entelechy-client
+RUN npm run build -w @vectorize-io/entelechy-client
 
 # =============================================================================
 # Stage: Control Plane Builder
@@ -89,28 +89,28 @@ ARG INCLUDE_CP
 RUN if [ "$INCLUDE_CP" != "true" ]; then echo "Skipping CP build" && exit 0; fi
 
 # Create directory structure matching the monorepo layout
-# This is required because build:standalone script expects .next/standalone/memory-poc/hindsight-control-plane
-WORKDIR /app/memory-poc/hindsight-control-plane
+# This is required because build:standalone script expects .next/standalone/memory-poc/entelechy-control-plane
+WORKDIR /app/memory-poc/entelechy-control-plane
 
 # Install Control Plane dependencies
 # Only copy package.json (not package-lock.json) to ensure npm installs
 # correct platform-specific native bindings for lightningcss/tailwindcss
-COPY hindsight-control-plane/package.json ./
+COPY entelechy-control-plane/package.json ./
 # Remove the file: dependency on SDK (we'll copy it directly later)
-RUN sed -i '/"@vectorize-io\/hindsight-client":/d' package.json
+RUN sed -i '/"@vectorize-io\/entelechy-client":/d' package.json
 RUN npm install
 
 # Copy Control Plane source (excluding node_modules via .dockerignore)
-COPY hindsight-control-plane/ ./
+COPY entelechy-control-plane/ ./
 # Remove package-lock.json to avoid conflicts with installed native bindings
 # Also remove the file: dependency from package.json (restored by COPY above)
-RUN rm -f package-lock.json && sed -i '/"@vectorize-io\/hindsight-client":/d' package.json
+RUN rm -f package-lock.json && sed -i '/"@vectorize-io\/entelechy-client":/d' package.json
 
 # Copy built SDK directly into node_modules (more reliable than npm link in Docker)
-COPY --from=sdk-builder /app/hindsight-clients/typescript ./node_modules/@vectorize-io/hindsight-client
+COPY --from=sdk-builder /app/entelechy-clients/typescript ./node_modules/@vectorize-io/entelechy-client
 
 # Accept base path as build argument for reverse proxy deployments
-# Usage: docker build --build-arg NEXT_PUBLIC_BASE_PATH=/hindsight ...
+# Usage: docker build --build-arg NEXT_PUBLIC_BASE_PATH=/entelechy ...
 ARG NEXT_PUBLIC_BASE_PATH=""
 
 # Build Control Plane - run next build first, then custom standalone copy
@@ -154,7 +154,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && pip install --no-cache-dir uv
 
-RUN useradd -m -s /bin/bash hindsight
+RUN useradd -m -s /bin/bash entelechy
 
 # Copy API with virtual environment from builder
 COPY --from=api-builder /app/api /app/api
@@ -163,14 +163,14 @@ COPY --from=api-builder /app/api /app/api
 COPY docker/standalone/start-all.sh /app/start-all.sh
 RUN chmod +x /app/start-all.sh
 
-RUN chown -R hindsight:hindsight /app
+RUN chown -R entelechy:entelechy /app
 
-USER hindsight
+USER entelechy
 
-# Create pg0 data directory as hindsight user so that Docker seeds new named
+# Create pg0 data directory as entelechy user so that Docker seeds new named
 # volumes with correct ownership (UID 1000) on first use, avoiding the
 # "Permission denied" error when mounting a fresh root-owned volume.
-RUN mkdir -p /home/hindsight/.pg0
+RUN mkdir -p /home/entelechy/.pg0
 
 ENV PATH="/app/api/.venv/bin:${PATH}"
 
@@ -230,11 +230,11 @@ print('Models cached successfully')" && break; \
 
 EXPOSE 8888
 
-ENV HINDSIGHT_API_HOST=0.0.0.0
-ENV HINDSIGHT_API_PORT=8888
-ENV HINDSIGHT_API_LOG_LEVEL=info
-ENV HINDSIGHT_ENABLE_API=true
-ENV HINDSIGHT_ENABLE_CP=false
+ENV ENTELECHY_API_HOST=0.0.0.0
+ENV ENTELECHY_API_PORT=8888
+ENV ENTELECHY_API_LOG_LEVEL=info
+ENV ENTELECHY_ENABLE_API=true
+ENV ENTELECHY_ENABLE_CP=false
 ENV PYTHONUNBUFFERED=1
 # Suppress verbose transformers/HuggingFace model loading warnings
 ENV TRANSFORMERS_VERBOSITY=error
@@ -251,13 +251,13 @@ FROM node:20-alpine AS cp-only
 WORKDIR /app
 
 # Copy built SDK
-COPY --from=sdk-builder /app/hindsight-clients/typescript /app/sdk
+COPY --from=sdk-builder /app/entelechy-clients/typescript /app/sdk
 
 # Copy Control Plane standalone build
 WORKDIR /app/control-plane
-COPY --from=cp-builder /app/memory-poc/hindsight-control-plane/standalone ./
-COPY --from=cp-builder /app/memory-poc/hindsight-control-plane/.next/static ./.next/static
-COPY --from=cp-builder /app/memory-poc/hindsight-control-plane/public ./public
+COPY --from=cp-builder /app/memory-poc/entelechy-control-plane/standalone ./
+COPY --from=cp-builder /app/memory-poc/entelechy-control-plane/.next/static ./.next/static
+COPY --from=cp-builder /app/memory-poc/entelechy-control-plane/public ./public
 
 WORKDIR /app
 
@@ -271,9 +271,9 @@ RUN apk add --no-cache curl bash
 EXPOSE 9999
 
 ENV NODE_ENV=production
-ENV HINDSIGHT_CP_DATAPLANE_API_URL=http://localhost:8888
-ENV HINDSIGHT_ENABLE_API=false
-ENV HINDSIGHT_ENABLE_CP=true
+ENV ENTELECHY_CP_DATAPLANE_API_URL=http://localhost:8888
+ENV ENTELECHY_ENABLE_API=false
+ENV ENTELECHY_ENABLE_CP=true
 
 CMD ["/app/start-all.sh"]
 
@@ -299,19 +299,19 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && pip install --no-cache-dir uv
 
-RUN useradd -m -s /bin/bash hindsight
+RUN useradd -m -s /bin/bash entelechy
 
 # Copy API with virtual environment from builder
 COPY --from=api-builder /app/api /app/api
 
 # Copy built SDK
-COPY --from=sdk-builder /app/hindsight-clients/typescript /app/sdk
+COPY --from=sdk-builder /app/entelechy-clients/typescript /app/sdk
 
 # Copy Control Plane standalone build
 WORKDIR /app/control-plane
-COPY --from=cp-builder /app/memory-poc/hindsight-control-plane/standalone ./
-COPY --from=cp-builder /app/memory-poc/hindsight-control-plane/.next/static ./.next/static
-COPY --from=cp-builder /app/memory-poc/hindsight-control-plane/public ./public
+COPY --from=cp-builder /app/memory-poc/entelechy-control-plane/standalone ./
+COPY --from=cp-builder /app/memory-poc/entelechy-control-plane/.next/static ./.next/static
+COPY --from=cp-builder /app/memory-poc/entelechy-control-plane/public ./public
 
 WORKDIR /app
 
@@ -319,14 +319,14 @@ WORKDIR /app
 COPY docker/standalone/start-all.sh /app/start-all.sh
 RUN chmod +x /app/start-all.sh
 
-RUN chown -R hindsight:hindsight /app
+RUN chown -R entelechy:entelechy /app
 
-USER hindsight
+USER entelechy
 
-# Create pg0 data directory as hindsight user so that Docker seeds new named
+# Create pg0 data directory as entelechy user so that Docker seeds new named
 # volumes with correct ownership (UID 1000) on first use, avoiding the
 # "Permission denied" error when mounting a fresh root-owned volume.
-RUN mkdir -p /home/hindsight/.pg0
+RUN mkdir -p /home/entelechy/.pg0
 
 ENV PATH="/app/api/.venv/bin:${PATH}"
 
@@ -386,13 +386,13 @@ print('Models cached successfully')" && break; \
 
 EXPOSE 8888 9999
 
-ENV HINDSIGHT_API_HOST=0.0.0.0
-ENV HINDSIGHT_API_PORT=8888
-ENV HINDSIGHT_API_LOG_LEVEL=info
+ENV ENTELECHY_API_HOST=0.0.0.0
+ENV ENTELECHY_API_PORT=8888
+ENV ENTELECHY_API_LOG_LEVEL=info
 ENV NODE_ENV=production
-ENV HINDSIGHT_CP_DATAPLANE_API_URL=http://localhost:8888
-ENV HINDSIGHT_ENABLE_API=true
-ENV HINDSIGHT_ENABLE_CP=true
+ENV ENTELECHY_CP_DATAPLANE_API_URL=http://localhost:8888
+ENV ENTELECHY_ENABLE_API=true
+ENV ENTELECHY_ENABLE_CP=true
 ENV PYTHONUNBUFFERED=1
 # Suppress verbose transformers/HuggingFace model loading warnings
 ENV TRANSFORMERS_VERBOSITY=error

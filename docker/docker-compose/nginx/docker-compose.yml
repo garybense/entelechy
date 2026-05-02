@@ -1,17 +1,17 @@
-# Hindsight API deployment with Nginx reverse proxy (API-only)
+# Entelechy API deployment with Nginx reverse proxy (API-only)
 #
-# This example deploys Hindsight API under the path /hindsight with:
-# - Hindsight standalone image (API + Control Plane + embedded pg0)
+# This example deploys Entelechy API under the path /entelechy with:
+# - Entelechy standalone image (API + Control Plane + embedded pg0)
 # - Nginx reverse proxy (API only)
 #
 # Quick Start:
 #   docker-compose -f docker/docker-compose/nginx/docker-compose.yml up
 #
 # Access:
-#   API (via nginx):         http://localhost:8080/hindsight/docs
+#   API (via nginx):         http://localhost:8080/entelechy/docs
 #   Control Plane (direct):  http://localhost:9999
 #
-# For full stack deployment (API + Control Plane both under /hindsight):
+# For full stack deployment (API + Control Plane both under /entelechy):
 #   See README.md in this directory for instructions on building with basePath.
 #
 # Note: This configuration uses the published image (no build required).
@@ -19,54 +19,54 @@
 #       build-time configuration. See README.md for the full stack option.
 
 services:
-  # Hindsight (API + Control Plane + embedded pg0)
-  hindsight:
-    image: ghcr.io/vectorize-io/hindsight:latest
+  # Entelechy (API + Control Plane + embedded pg0)
+  entelechy:
+    image: ghcr.io/vectorize-io/entelechy:latest
     ports:
       - "9999:9999"  # Control Plane (direct access, not proxied)
     environment:
       # API base path for reverse proxy
-      HINDSIGHT_API_BASE_PATH: /hindsight
+      ENTELECHY_API_BASE_PATH: /entelechy
 
       # LLM configuration
       # Using mock provider for testing (no API key needed)
       # For production, set OPENAI_API_KEY or ANTHROPIC_API_KEY and use a real provider
-      HINDSIGHT_API_LLM_PROVIDER: ${HINDSIGHT_API_LLM_PROVIDER:-mock}
-      HINDSIGHT_API_LLM_API_KEY: ${OPENAI_API_KEY:-not-needed-for-mock}
-      HINDSIGHT_API_LLM_MODEL: ${HINDSIGHT_API_LLM_MODEL:-mock-model}
+      ENTELECHY_API_LLM_PROVIDER: ${ENTELECHY_API_LLM_PROVIDER:-mock}
+      ENTELECHY_API_LLM_API_KEY: ${OPENAI_API_KEY:-not-needed-for-mock}
+      ENTELECHY_API_LLM_MODEL: ${ENTELECHY_API_LLM_MODEL:-mock-model}
 
       # Production examples (uncomment and set appropriate API key):
-      # HINDSIGHT_API_LLM_PROVIDER: openai
-      # HINDSIGHT_API_LLM_API_KEY: ${OPENAI_API_KEY}
-      # HINDSIGHT_API_LLM_MODEL: gpt-4o-mini
+      # ENTELECHY_API_LLM_PROVIDER: openai
+      # ENTELECHY_API_LLM_API_KEY: ${OPENAI_API_KEY}
+      # ENTELECHY_API_LLM_MODEL: gpt-4o-mini
 
-      # HINDSIGHT_API_LLM_PROVIDER: anthropic
-      # HINDSIGHT_API_LLM_API_KEY: ${ANTHROPIC_API_KEY}
-      # HINDSIGHT_API_LLM_MODEL: claude-sonnet-4-20250514
+      # ENTELECHY_API_LLM_PROVIDER: anthropic
+      # ENTELECHY_API_LLM_API_KEY: ${ANTHROPIC_API_KEY}
+      # ENTELECHY_API_LLM_MODEL: claude-sonnet-4-20250514
 
       # Server config
-      HINDSIGHT_API_HOST: 0.0.0.0
-      HINDSIGHT_API_PORT: 8888
-      HINDSIGHT_API_LOG_LEVEL: info
+      ENTELECHY_API_HOST: 0.0.0.0
+      ENTELECHY_API_PORT: 8888
+      ENTELECHY_API_LOG_LEVEL: info
 
       # Control Plane config
-      HINDSIGHT_CP_DATAPLANE_API_URL: http://localhost:8888
+      ENTELECHY_CP_DATAPLANE_API_URL: http://localhost:8888
     volumes:
       # Persist embedded pg0 database
-      - hindsight_data:/app/data
-    # Note: Ports not exposed - access via Nginx at localhost:8080/hindsight/
+      - entelechy_data:/app/data
+    # Note: Ports not exposed - access via Nginx at localhost:8080/entelechy/
     # To debug directly, uncomment these ports:
     # ports:
     #   - "8888:8888"  # API
     #   - "9999:9999"  # Control Plane
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8888/hindsight/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8888/entelechy/health"]
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 30s
     networks:
-      - hindsight
+      - entelechy
 
   # Nginx reverse proxy
   nginx:
@@ -76,13 +76,13 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      hindsight:
+      entelechy:
         condition: service_healthy
     networks:
-      - hindsight
+      - entelechy
 
 volumes:
-  hindsight_data:
+  entelechy_data:
 
 networks:
-  hindsight:
+  entelechy:

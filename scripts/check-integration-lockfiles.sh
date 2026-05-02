@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Ensures every `hindsight-integrations/*/package-lock.json` resolves its
+# Ensures every `entelechy-integrations/*/package-lock.json` resolves its
 # dependencies from a public npm registry — not from a monorepo workspace
 # symlink, a `file:` URL, or a relative path.
 #
@@ -11,7 +11,7 @@
 # with `Cannot find module '@vectorize-io/...'`.
 #
 # This bit us once on integrations/openclaw/v0.6.0 — the lockfile had
-# @vectorize-io/hindsight-client resolved to ../../hindsight-clients/typescript
+# @vectorize-io/entelechy-client resolved to ../../entelechy-clients/typescript
 # because `npm install` was originally run from the monorepo root, where npm
 # silently preferred the workspace even though openclaw isn't itself listed
 # in the root `workspaces` array. The test CI job masked it (it pre-builds
@@ -36,7 +36,7 @@ NC='\033[0m'
 FAIL=0
 
 shopt -s nullglob
-lockfiles=(hindsight-integrations/*/package-lock.json)
+lockfiles=(entelechy-integrations/*/package-lock.json)
 shopt -u nullglob
 
 if [[ ${#lockfiles[@]} -eq 0 ]]; then
@@ -69,10 +69,10 @@ for name, info in data.get("packages", {}).items():
     resolved = info.get("resolved", "")
     link = info.get("link")
 
-    # Packages under hindsight-tools/ are monorepo workspace deps that
+    # Packages under entelechy-tools/ are monorepo workspace deps that
     # aren't published yet.  The CI build pre-builds them before running
     # openclaw, so workspace resolution is expected and safe.
-    is_tools_pkg = resolved.startswith(("../../hindsight-tools/", "file:../../hindsight-tools/"))
+    is_tools_pkg = resolved.startswith(("../../entelechy-tools/", "file:../../entelechy-tools/"))
 
     if link is True and not is_tools_pkg:
         # Workspace symlink, no registry URL. This is the bug that broke

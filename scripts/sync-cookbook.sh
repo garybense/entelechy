@@ -1,5 +1,5 @@
 #!/bin/bash
-# Sync cookbook content from hindsight-cookbook repository
+# Sync cookbook content from entelechy-cookbook repository
 # Converts notebooks to markdown and updates the docs
 
 set -e

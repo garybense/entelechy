@@ -1,0 +1,16 @@
+"""Entelechy embedded CLI - local memory operations without a server."""
+
+from .daemon_embed_manager import DaemonEmbedManager
+from .embed_manager import EmbedManager
+
+__version__ = "0.5.6"
+
+__all__ = [
+    "EmbedManager",
+    "DaemonEmbedManager",
+]
+
+
+def get_embed_manager() -> EmbedManager:
+    """Get the default embed manager instance."""
+    return DaemonEmbedManager()

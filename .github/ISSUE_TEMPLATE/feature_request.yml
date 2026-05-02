@@ -41,7 +41,7 @@ body:
     attributes:
       label: Proposed Solution
       description: Describe your ideal solution (optional - we may have ideas too!)
-      placeholder: It would be great if Hindsight could...
+      placeholder: It would be great if Entelechy could...
     validations:
       required: false
 

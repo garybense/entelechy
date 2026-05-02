@@ -40,21 +40,21 @@ logs/
 .DS_Store
 
 # Generated docs files
-hindsight-docs/static/llms-full.txt
+entelechy-docs/static/llms-full.txt
 
 
-hindsight-dev/benchmarks/locomo/results/
-hindsight-dev/benchmarks/longmemeval/results/
-hindsight-dev/benchmarks/consolidation/results/
-hindsight-dev/benchmarks/perf/results/
+entelechy-dev/benchmarks/locomo/results/
+entelechy-dev/benchmarks/longmemeval/results/
+entelechy-dev/benchmarks/consolidation/results/
+entelechy-dev/benchmarks/perf/results/
 benchmarks/results/
-hindsight-cli/target
-hindsight-clients/rust/target
+entelechy-cli/target
+entelechy-clients/rust/target
 .claude/*
 !.claude/skills/
 whats-next.md
 TASK.md
-# Changelog is now tracked in hindsight-docs/src/pages/changelog.md
+# Changelog is now tracked in entelechy-docs/src/pages/changelog.md
 # CHANGELOG.md
 
 blog-post*

@@ -2,7 +2,7 @@
 #
 # Slim variant smoke test: retain + recall
 #
-# Verifies that a Hindsight API endpoint can store and retrieve memories.
+# Verifies that a Entelechy API endpoint can store and retrieve memories.
 # Used by both Docker slim and pip slim CI jobs.
 #
 # Usage:

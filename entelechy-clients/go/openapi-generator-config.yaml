@@ -1,0 +1,10 @@
+generatorName: go
+outputDir: ./
+inputSpec: ../../entelechy-docs/static/openapi.json
+packageName: entelechy
+gitUserId: vectorize-io
+gitRepoId: entelechy/entelechy-clients/go
+isGoSubmodule: true
+enumClassPrefix: true
+structPrefix: true
+generateInterfaces: true

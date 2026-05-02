@@ -137,10 +137,10 @@ Flag any new logic that lacks test coverage.
 
 ### 7. Check API consistency
 
-If any files in `hindsight-api-slim/hindsight_api/api/` were changed:
+If any files in `entelechy-api-slim/entelechy_api/api/` were changed:
 - Were the OpenAPI specs regenerated? (`./scripts/generate-openapi.sh`)
 - Were the client SDKs regenerated? (`./scripts/generate-clients.sh`)
-- Were the control plane proxy routes updated? (`hindsight-control-plane/src/app/api/`)
+- Were the control plane proxy routes updated? (`entelechy-control-plane/src/app/api/`)
 
 ### 8. Check code comments
 
@@ -151,7 +151,7 @@ For each non-trivial change:
 
 ### 9. Check integration completeness
 
-If any files in `hindsight-integrations/` were added or changed, verify:
+If any files in `entelechy-integrations/` were added or changed, verify:
 - **Tests exist** — the integration must have tests that simulate/exercise the external framework (not just pure unit tests of helpers). Check for a `tests/` directory with meaningful test files.
 - **CI job exists** — check `.github/workflows/test.yml` for a corresponding `test-<name>-integration` job. If missing, flag it.
 - **Release process** — check that the integration name is in the `VALID_INTEGRATIONS` array in `scripts/release-integration.sh`. If missing, flag it.
@@ -159,11 +159,11 @@ If any files in `hindsight-integrations/` were added or changed, verify:
 
 ### 10. Check MCP tool registration completeness
 
-If any new MCP tools were added or existing tools renamed in `hindsight-api-slim/hindsight_api/mcp_tools.py`:
+If any new MCP tools were added or existing tools renamed in `entelechy-api-slim/entelechy_api/mcp_tools.py`:
 - **`_ALL_TOOLS` set** in `mcp_tools.py` — must include the new tool name
 - **`tools_to_register` default set** in `register_mcp_tools()` in `mcp_tools.py` — must include the new tool name
-- **`_SINGLE_BANK_TOOLS` set** in `hindsight-api-slim/hindsight_api/api/mcp.py` — must include the new tool if it is bank-scoped (not a bank-management tool like `list_banks`/`create_bank`)
-- **`MCP_TOOL_GROUPS`** in `hindsight-control-plane/src/components/bank-config-view.tsx` — must include the new tool in the appropriate group for the UI tool selector
+- **`_SINGLE_BANK_TOOLS` set** in `entelechy-api-slim/entelechy_api/api/mcp.py` — must include the new tool if it is bank-scoped (not a bank-management tool like `list_banks`/`create_bank`)
+- **`MCP_TOOL_GROUPS`** in `entelechy-control-plane/src/components/bank-config-view.tsx` — must include the new tool in the appropriate group for the UI tool selector
 - **Tool count assertions** in tests (e.g., `test_mcp_tools.py`) — must be updated to reflect the new count
 
 ### 11. Review against other coding standards

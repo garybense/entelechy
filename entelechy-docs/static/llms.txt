@@ -1,0 +1,117 @@
+# Entelechy
+
+> Agent Memory that Works Like Human Memory
+
+Entelechy is an agent memory system that gives AI agents persistent, structured memory across sessions. It extracts facts, entities, and relationships from conversations and enables temporal reasoning, opinion formation, and multi-strategy retrieval.
+
+## Links
+
+- [Full Documentation (llms-full.txt)](https://vectorize-io.github.io/entelechy/llms-full.txt): Complete documentation for LLM consumption
+- [Quick Start](https://vectorize-io.github.io/entelechy/developer/api/quickstart): Get started in 60 seconds
+- [Python SDK](https://vectorize-io.github.io/entelechy/sdks/python): Python client library
+- [TypeScript SDK](https://vectorize-io.github.io/entelechy/sdks/nodejs): Node.js/TypeScript client
+- [API Reference](https://vectorize-io.github.io/entelechy/api-reference): REST API documentation
+- [OpenAPI Spec](https://vectorize-io.github.io/entelechy/openapi.json): Machine-readable API specification
+- [MCP Server](https://vectorize-io.github.io/entelechy/sdks/mcp): Model Context Protocol integration
+- [GitHub](https://github.com/vectorize-io/entelechy): Source code and issues
+
+## Core Operations
+
+- **Retain**: Store memories (extracts facts, entities, relationships automatically)
+- **Recall**: Retrieve memories (semantic, keyword, graph, temporal search)
+- **Reflect**: Deep analysis to form opinions and insights
+
+## Quick Start
+
+```bash
+pip install entelechy-client
+```
+
+```python
+from entelechy import EntelechyClient
+
+client = EntelechyClient(base_url="http://localhost:8888")
+
+# Store
+client.retain(bank_id="my-agent", content="Alice works at Google as a software engineer")
+
+# Query
+results = client.recall(bank_id="my-agent", query="What does Alice do?")
+
+# Reflect
+response = client.reflect(bank_id="my-agent", query="Tell me about Alice")
+```
+
+## Key Concepts
+
+### Memory Banks
+Each bank is an isolated memory store. One bank per user/agent. Banks contain facts, entities, documents, and their relationships.
+
+### Memory Types
+- World facts: General knowledge
+- Experience facts: Personal experiences
+- Opinion facts: Beliefs with confidence scores
+
+### Document ID for Evolving Conversations
+Use `document_id` to group messages in a conversation. Retaining with the same `document_id` replaces the previous version (upsert), keeping memory consistent as conversations evolve.
+
+```python
+client.retain(
+    bank_id="user-123",
+    content=messages,
+    document_id="session_abc"  # Same ID = replace old version
+)
+```
+
+## API Endpoints
+
+Base URL: `http://localhost:8888`
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/v1/default/banks/{bank_id}/retain` | Store memories |
+| POST | `/v1/default/banks/{bank_id}/recall` | Retrieve memories |
+| POST | `/v1/default/banks/{bank_id}/reflect` | Analyze and form opinions |
+| GET | `/v1/default/banks/{bank_id}/profile` | Get bank profile |
+| PUT | `/v1/default/banks/{bank_id}/profile` | Update bank profile |
+| GET | `/v1/default/banks` | List all banks |
+| POST | `/v1/default/banks` | Create a bank |
+
+## Architecture Patterns
+
+### Per-User Memory
+One bank per user. Simplest pattern for chatbots and assistants.
+[Guide](https://vectorize-io.github.io/entelechy/cookbook/per-user-memory)
+
+### Support Agent + Shared Knowledge
+User bank + shared docs bank. Client orchestrates queries to both banks and merges results.
+[Guide](https://vectorize-io.github.io/entelechy/cookbook/support-agent-with-shared-knowledge)
+
+## Installation
+
+### Docker (recommended)
+```bash
+docker run -p 8888:8888 -e ENTELECHY_API_LLM_PROVIDER=openai -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY ghcr.io/vectorize-io/entelechy
+```
+
+### Python (embedded)
+```bash
+pip install entelechy-all
+```
+
+### Clients
+```bash
+pip install entelechy-client          # Python
+npm install @vectorize-io/entelechy-client  # TypeScript
+```
+
+## MCP Integration
+
+Entelechy provides a Model Context Protocol server for direct AI agent integration:
+
+```bash
+pip install entelechy-mcp-server
+entelechy-mcp-server --api-url http://localhost:8888
+```
+
+Tools exposed: `retain`, `recall`, `reflect`, `list_banks`, `create_bank`
