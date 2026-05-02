@@ -7182,7 +7182,9 @@ class MemoryEngine(MemoryEngineInterface):
                        last_refreshed_at, created_at, reflect_response,
                        max_tokens, trigger, structured_content
                 FROM {fq_table("mental_models")}
-                WHERE bank_id = $1 {tag_filter}
+                WHERE bank_id = $1
+                  AND (subtype IS NULL OR subtype != 'soul')
+                  {tag_filter}
                 ORDER BY last_refreshed_at DESC
                 LIMIT $2 OFFSET $3
                 """,
