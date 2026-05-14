@@ -307,10 +307,9 @@ async function ensurePlugin(): Promise<void> {
       if (!ok) {
         p.log.info("Launching configuration wizard...");
         try {
-          execSync(
-            "npx --yes --package @garybense/entelechy-openclaw entelechy-openclaw-setup",
-            { stdio: "inherit" }
-          );
+          execSync("npx --yes --package @garybense/entelechy-openclaw entelechy-openclaw-setup", {
+            stdio: "inherit",
+          });
         } catch {
           p.cancel(
             "Configuration failed. Run manually:\n  npx --yes --package @garybense/entelechy-openclaw entelechy-openclaw-setup"
