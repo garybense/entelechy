@@ -14,7 +14,14 @@ Same bank + different soul = different wisdom. This is the killer demo.
 import logging
 from typing import Any
 
+from entelechy_api.engine.mwpm import PolicyParams
+from entelechy_api.engine.mwpm.application import apply_to_llm_kwargs
+from entelechy_api.engine.mwpm.frequency import compute_memory_stats
+from entelechy_api.engine.mwpm.modulator import modulate_policy
 from entelechy_api.engine.soul.operations import get_active_soul
+from entelechy_api.engine.srl import StateVector
+from entelechy_api.engine.srl.reconstructor import reconstruct_state
+from entelechy_api.engine.srl.synthesis import utc_now
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +64,7 @@ async def distill(
     budget: str = "high",
     max_tokens: int = 4096,
     use_soul: bool = True,
+    use_srl: bool = True,
     request_context: Any,
 ) -> dict[str, Any]:
     """Synthesize emergent wisdom from accumulated experience through the soul's lens.
@@ -102,30 +110,61 @@ async def distill(
             aesthetics=enc.get("aesthetics", ""),
             covenant=enc.get("covenant", ""),
         )
-        logger.info(
-            f"[DISTILL] Using soul v{soul_data['version']} "
-            f"for bank {bank_id} distillation"
-        )
+        logger.info(f"[DISTILL] Using soul v{soul_data['version']} for bank {bank_id} distillation")
     else:
         logger.info(f"[DISTILL] No soul found for {bank_id}, distilling without lens")
 
     # Build the soul-shaped context for reflect
     soul_preamble = _DISTILL_PREAMBLE.format(
-        soul_context=soul_context_str if soul_context_str else
-        "(No soul encoding found — distilling without identity lens)"
+        soul_context=soul_context_str
+        if soul_context_str
+        else "(No soul encoding found — distilling without identity lens)"
     )
 
     full_context = soul_preamble
     if context:
         full_context = f"{soul_preamble}\n\nAdditional context: {context}"
 
-    # Call reflect_async with soul-shaped context
+    # SRL + MWPM: re-derive State Vector and modulate policy for this distillation.
+    # The policy params shape max_tokens (verbosity_target) and rationale is
+    # surfaced in the response for audit / patent evidence.
+    state_vector: StateVector | None = None
+    policy: PolicyParams | None = None
+    if use_srl:
+        try:
+            state_vector = await reconstruct_state(
+                engine=engine,
+                bank_id=bank_id,
+                query=query,
+                request_context=request_context,
+                cache_key=f"distill:{utc_now().timestamp()}",
+            )
+            stats = compute_memory_stats(
+                [],  # no precomputed memories — modulator falls back on state_vector
+                now_epoch=utc_now().timestamp(),
+            )
+            policy = modulate_policy(state_vector=state_vector, memory_stats=stats)
+        except Exception as exc:
+            logger.warning(
+                "[DISTILL] SRL/MWPM reconstruction failed for %s: %s — proceeding without modulation",
+                bank_id,
+                exc,
+            )
+            state_vector = None
+            policy = None
+
+    effective_max_tokens = max_tokens
+    if policy is not None:
+        modulated = apply_to_llm_kwargs(policy, base_max_tokens=max_tokens)
+        effective_max_tokens = int(modulated.get("max_completion_tokens", max_tokens))
+
+    # Call reflect_async with soul-shaped context (and modulated max_tokens)
     try:
         reflect_result = await engine.reflect_async(
             bank_id=bank_id,
             query=query,
             context=full_context,
-            max_tokens=max_tokens,
+            max_tokens=effective_max_tokens,
             request_context=request_context,
         )
     except Exception as e:
@@ -134,11 +173,18 @@ async def distill(
 
     return {
         "query": query,
-        "wisdom": getattr(reflect_result, 'response', None) or getattr(reflect_result, 'content', None) or str(reflect_result),
+        "wisdom": getattr(reflect_result, "response", None)
+        or getattr(reflect_result, "content", None)
+        or str(reflect_result),
         "soul_version": soul_data["version"] if soul_data else None,
         "soul_id": soul_data["soul_id"] if soul_data else None,
         "bank_id": bank_id,
         "budget": budget,
         "lens_applied": bool(soul_context_str),
         "status": "distilled",
+        "srl_applied": state_vector is not None,
+        "reconstruction_id": state_vector.reconstruction_id if state_vector else None,
+        "drift_signal": state_vector.drift_signal if state_vector else None,
+        "policy_rationale": policy.rationale if policy else None,
+        "policy": policy.model_dump() if policy else None,
     }

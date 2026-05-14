@@ -7461,6 +7461,10 @@ class MemoryEngine(MemoryEngineInterface):
                 # write a doc and then enable delta mode expect their content to
                 # be the starting point, not discarded by a one-time full rebuild.
                 use_delta = last_refreshed_source_query is None or last_refreshed_source_query == current_source_query
+                # If the content is empty or the placeholder, force a full generation
+                # rather than trying to delta-edit a placeholder.
+                if current_content.strip() in ("", "Generating content..."):
+                    use_delta = False
                 if tracking_row is not None:
                     raw_struct = tracking_row["structured_content"]
                     if isinstance(raw_struct, str):
@@ -7633,6 +7637,7 @@ class MemoryEngine(MemoryEngineInterface):
                             mental_model_id,
                             reflect_response=reflect_response_payload,
                             last_refreshed_source_query=current_source_query,
+                            update_last_refreshed_at=True,
                             request_context=request_context,
                         )
 
@@ -7722,6 +7727,7 @@ class MemoryEngine(MemoryEngineInterface):
                     mental_model_id,
                     reflect_response=reflect_response_payload,
                     last_refreshed_source_query=current_source_query,
+                    update_last_refreshed_at=True,
                     request_context=request_context,
                 )
 
@@ -7764,6 +7770,7 @@ class MemoryEngine(MemoryEngineInterface):
         reflect_response: dict[str, Any] | None = None,
         last_refreshed_source_query: str | None = None,
         structured_content: dict[str, Any] | None = None,
+        update_last_refreshed_at: bool = False,
         request_context: "RequestContext",
     ) -> dict[str, Any] | None:
         """Update a pinned mental model.
@@ -7823,7 +7830,6 @@ class MemoryEngine(MemoryEngineInterface):
                 updates.append(f"content = ${param_idx}")
                 params.append(content)
                 param_idx += 1
-                updates.append("last_refreshed_at = NOW()")
                 # Record history entry with the previous content
                 if get_config().enable_mental_model_history:
                     history_entry = json.dumps(
@@ -7880,6 +7886,9 @@ class MemoryEngine(MemoryEngineInterface):
                 updates.append(f"structured_content = ${param_idx}")
                 params.append(json.dumps(structured_content))
                 param_idx += 1
+
+            if update_last_refreshed_at or content is not None:
+                updates.append("last_refreshed_at = NOW()")
 
             if not updates:
                 return None

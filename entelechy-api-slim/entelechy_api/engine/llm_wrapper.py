@@ -508,7 +508,7 @@ class LLMProvider:
         max_completion_tokens: int | None = None,
         temperature: float | None = None,
         scope: str = "memory",
-        max_retries: int = 10,
+        max_retries: int | None = None,
         initial_backoff: float = 1.0,
         max_backoff: float = 60.0,
         skip_validation: bool = False,
@@ -549,7 +549,8 @@ class LLMProvider:
         set_stage(f"llm.{self.provider}.{scope}{structured}")
 
         async with _global_llm_semaphore:
-            # Delegate to provider implementation
+            from ..config import get_config
+            max_retries = max_retries if max_retries is not None else get_config().llm_max_retries
             result = await self._provider_impl.call(
                 messages=messages,
                 response_format=response_format,
@@ -582,7 +583,7 @@ class LLMProvider:
         max_completion_tokens: int | None = None,
         temperature: float | None = None,
         scope: str = "tools",
-        max_retries: int = 5,
+        max_retries: int | None = None,
         initial_backoff: float = 1.0,
         max_backoff: float = 30.0,
         tool_choice: str | dict[str, Any] = "auto",
@@ -609,6 +610,8 @@ class LLMProvider:
         set_stage(f"llm.{self.provider}.{scope}+tools")
 
         async with _global_llm_semaphore:
+            from ..config import get_config
+            max_retries = max_retries if max_retries is not None else get_config().llm_max_retries
             # Delegate to provider implementation
             result = await self._provider_impl.call_with_tools(
                 messages=messages,

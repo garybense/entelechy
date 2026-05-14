@@ -658,39 +658,73 @@ export function MentalModelDetailModal({
     const originalRefreshedAt = mentalModel.last_refreshed_at;
 
     try {
-      await client.refreshMentalModel(currentBank, mentalModel.id);
+      const { operation_id } = await client.refreshMentalModel(currentBank, mentalModel.id);
+      console.log(`Started refresh operation: ${operation_id}`);
 
-      const pollInterval = 1000;
-      const maxAttempts = 120;
+      const pollInterval = 2000; // Poll operation status every 2s
+      const maxAttempts = 300; // 10 minutes total
       let attempts = 0;
 
       const poll = async (): Promise<void> => {
         attempts++;
         try {
-          const updated = await client.getMentalModel(currentBank, mentalModel.id);
-          if (updated.last_refreshed_at !== originalRefreshedAt) {
+          const op = await client.getOperationStatus(currentBank, operation_id);
+          
+          if (op.status === "completed") {
+            // Operation finished successfully, get the updated model
+            const updated = await client.getMentalModel(currentBank, mentalModel.id);
             setMentalModel(updated);
             setHistory(null);
             onRefreshed?.(updated);
             setRefreshing(false);
+            toast.success("Mental model refreshed");
             return;
           }
-          if (attempts >= maxAttempts) {
+          
+          if (op.status === "failed") {
             setRefreshing(false);
-            toast.error("Refresh timeout", {
-              description:
-                "Refresh is taking longer than expected. Check the operations list for status.",
+            toast.error("Refresh failed", {
+              description: op.error_message || "The background task encountered an error."
             });
             return;
           }
+
+          if (op.status === "cancelled") {
+            setRefreshing(false);
+            toast.error("Refresh cancelled");
+            return;
+          }
+          
+          if (attempts >= maxAttempts) {
+            setRefreshing(false);
+            toast.error("Refresh timeout", {
+              description: "The operation is still running in the background. Check back later.",
+            });
+            return;
+          }
+          
+          // Still pending or processing, keep polling
           setTimeout(poll, pollInterval);
         } catch (err) {
-          console.error("Error polling mental model:", err);
-          setRefreshing(false);
+          console.error(`Error polling operation status (attempt ${attempts}):`, err);
+          
+          const status = (err as any).status;
+          if (status === 401 || status === 403) {
+            setRefreshing(false);
+            toast.error("Authentication lost");
+            return;
+          }
+          
+          // Transient error (502, 504, connection), keep polling
+          setTimeout(poll, pollInterval);
         }
       };
       setTimeout(poll, pollInterval);
-    } catch {
+    } catch (err) {
+      console.error("Failed to start refresh:", err);
+      toast.error("Refresh failed", {
+        description: (err as Error).message || "Could not start the refresh operation."
+      });
       setRefreshing(false);
     }
   };

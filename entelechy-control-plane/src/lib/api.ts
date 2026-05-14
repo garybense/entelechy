@@ -866,7 +866,7 @@ export class ControlPlaneClient {
     const qs = opts?.includePayload ? "?include_payload=true" : "";
     return this.fetchApi<{
       operation_id: string;
-      status: "pending" | "completed" | "failed" | "not_found";
+      status: "pending" | "processing" | "completed" | "failed" | "cancelled" | "not_found";
       operation_type: string | null;
       created_at: string | null;
       updated_at: string | null;

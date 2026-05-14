@@ -283,8 +283,8 @@ def _register_list_soul_lineage(mcp: FastMCP, memory: MemoryEngine, config: MCPT
 
     if config.include_bank_id_param:
 
-        @mcp.tool()
-        async def list_soul_lineage(
+        @mcp.tool(name="list_soul_lineage")
+        async def list_soul_lineage_tool(
             limit: int = 50,
             bank_id: str | None = None,
         ) -> str:
@@ -322,8 +322,8 @@ def _register_list_soul_lineage(mcp: FastMCP, memory: MemoryEngine, config: MCPT
 
     else:
 
-        @mcp.tool()
-        async def list_soul_lineage(
+        @mcp.tool(name="list_soul_lineage")
+        async def list_soul_lineage_tool(
             limit: int = 50,
         ) -> list[dict]:
             """
@@ -357,9 +357,7 @@ def _register_list_soul_lineage(mcp: FastMCP, memory: MemoryEngine, config: MCPT
                 return [{"error": str(e)}]
 
 
-def _register_distill(
-    mcp: FastMCP, memory: MemoryEngine, config: MCPToolsConfig
-) -> None:
+def _register_distill(mcp: FastMCP, memory: MemoryEngine, config: MCPToolsConfig) -> None:
     """Register the distill tool."""
 
     if config.include_bank_id_param:
