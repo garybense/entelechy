@@ -20,7 +20,7 @@ This guide walks through the plugin setup, the key config options, the differenc
 
 > **Quick answer**
 >
-> 1. Add `@vectorize-io/opencode-entelechy` to your OpenCode plugin config.
+> 1. Add `@garybense/opencode-entelechy` to your OpenCode plugin config.
 > 2. Point the plugin at your Entelechy backend.
 > 3. Enable auto-recall and auto-retain.
 > 4. Choose a bank ID strategy, static or dynamic.
@@ -41,7 +41,7 @@ Add the Entelechy plugin to your OpenCode config.
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["@vectorize-io/opencode-entelechy"]
+  "plugin": ["@garybense/opencode-entelechy"]
 }
 ```
 
@@ -70,7 +70,7 @@ You can also configure plugin options inline in `opencode.json`.
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    ["@vectorize-io/opencode-entelechy", {
+    ["@garybense/opencode-entelechy", {
       "entelechyApiUrl": "https://api.entelechy.vectorize.io",
       "entelechyApiToken": "your-api-key"
     }]
@@ -123,7 +123,7 @@ A practical starting point looks like this:
 ```json
 {
   "plugin": [
-    ["@vectorize-io/opencode-entelechy", {
+    ["@garybense/opencode-entelechy", {
       "entelechyApiUrl": "http://localhost:8888",
       "bankId": "my-project",
       "autoRecall": true,

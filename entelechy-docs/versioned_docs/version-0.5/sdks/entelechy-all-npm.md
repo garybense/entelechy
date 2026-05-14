@@ -4,11 +4,11 @@ sidebar_position: 6
 
 # Programmatic API (Node.js)
 
-The `@vectorize-io/entelechy-all` npm package is the Node.js equivalent of the Python [`entelechy-all`](./entelechy-all.md) package. It lets your Node code spawn and supervise a local Entelechy daemon without deploying any server infrastructure — pair it with [`@vectorize-io/entelechy-client`](./nodejs.md) for memory operations.
+The `@garybense/entelechy-all` npm package is the Node.js equivalent of the Python [`entelechy-all`](./entelechy-all.md) package. It lets your Node code spawn and supervise a local Entelechy daemon without deploying any server infrastructure — pair it with [`@garybense/entelechy-client`](./nodejs.md) for memory operations.
 
 The daemon runs as a **separate OS process** on `127.0.0.1` (not in your Node process). Your code talks to it over HTTP via `EntelechyClient`.
 
-This package **does not ship an HTTP client** — it only owns the server process. Once the daemon is running, talk to it with [`@vectorize-io/entelechy-client`](./nodejs.md) against `server.getBaseUrl()`. The two packages compose: one owns the process, the other owns the API surface.
+This package **does not ship an HTTP client** — it only owns the server process. Once the daemon is running, talk to it with [`@garybense/entelechy-client`](./nodejs.md) against `server.getBaseUrl()`. The two packages compose: one owns the process, the other owns the API surface.
 
 ## How it works
 
@@ -28,14 +28,14 @@ The server is intentionally transparent: new daemon env vars or CLI flags never 
 ## Install
 
 ```bash
-npm install @vectorize-io/entelechy-all @vectorize-io/entelechy-client
+npm install @garybense/entelechy-all @garybense/entelechy-client
 ```
 
 ## Example
 
 ```ts
-import { EntelechyServer, consoleLogger } from '@vectorize-io/entelechy-all';
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyServer, consoleLogger } from '@garybense/entelechy-all';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const server = new EntelechyServer({
   profile: 'my-app',
@@ -87,4 +87,4 @@ For a remote Entelechy API, skip the server entirely and point `EntelechyClient`
 | `getBaseUrl()` | `string` | `http://host:port` — pass this straight to `EntelechyClient`. |
 | `getProfile()` | `string` | The profile name this server operates on. |
 
-For memory operations (retain, recall, reflect, bank management) use [`@vectorize-io/entelechy-client`](./nodejs.md).
+For memory operations (retain, recall, reflect, bank management) use [`@garybense/entelechy-client`](./nodejs.md).

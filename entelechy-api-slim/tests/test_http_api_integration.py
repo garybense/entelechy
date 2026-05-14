@@ -469,7 +469,7 @@ async def test_document_deletion_with_slashes_in_id(api_client):
     """
     Test document deletion when document_id contains forward slashes.
 
-    Regression test for https://github.com/vectorize-io/entelechy/issues/92
+    Regression test for https://github.com/garybense/entelechy/issues/92
 
     Document IDs with slashes (e.g., "folder/file.md") should work correctly
     for all operations including creation, listing, retrieval, and deletion.

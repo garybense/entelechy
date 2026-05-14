@@ -1,12 +1,12 @@
 # entelechy-autogen
 
-AutoGen integration for [Entelechy](https://github.com/vectorize-io/entelechy) — persistent long-term memory for AI agents.
+AutoGen integration for [Entelechy](https://github.com/garybense/entelechy) — persistent long-term memory for AI agents.
 
 Provides `FunctionTool` instances that give [AutoGen](https://microsoft.github.io/autogen/) agents the ability to store, search, and synthesize memories across conversations.
 
 ## Prerequisites
 
-- A running Entelechy instance ([self-hosted via Docker](https://github.com/vectorize-io/entelechy#quick-start) or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup))
+- A running Entelechy instance ([self-hosted via Docker](https://github.com/garybense/entelechy#quick-start) or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup))
 - Python 3.10+
 
 ## Installation

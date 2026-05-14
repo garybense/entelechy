@@ -2,7 +2,7 @@ generatorName: go
 outputDir: ./
 inputSpec: ../../entelechy-docs/static/openapi.json
 packageName: entelechy
-gitUserId: vectorize-io
+gitUserId: garybense
 gitRepoId: entelechy/entelechy-clients/go
 isGoSubmodule: true
 enumClassPrefix: true

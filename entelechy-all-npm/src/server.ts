@@ -29,7 +29,7 @@ const DEFAULT_READY_POLL_INTERVAL_MS = 1_000;
  * This is the Node.js equivalent of the Python `entelechy-all` package's
  * `EntelechyServer`: a thin programmatic lifecycle wrapper around the
  * Entelechy daemon. It does NOT ship an HTTP client — once `start()`
- * resolves, use `@vectorize-io/entelechy-client` against `getBaseUrl()` for
+ * resolves, use `@garybense/entelechy-client` against `getBaseUrl()` for
  * retain / recall / reflect.
  *
  * The class is deliberately transparent about the daemon: new CLI flags or

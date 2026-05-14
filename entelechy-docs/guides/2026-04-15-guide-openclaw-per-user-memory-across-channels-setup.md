@@ -47,15 +47,15 @@ Before you change bank granularity, make sure a few basics are already true.
 You should have:
 
 - OpenClaw installed and running.
-- `@vectorize-io/entelechy-openclaw` installed.
+- `@garybense/entelechy-openclaw` installed.
 - A working Entelechy backend, either local, cloud, or external API.
 - A recent plugin version, ideally 0.6 or later, because that is where the bank-granularity behavior is documented clearly and configured in `openclaw.json`.
 
 If you have not installed the plugin yet, start there:
 
 ```bash
-openclaw plugins install @vectorize-io/entelechy-openclaw
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup
+openclaw plugins install @garybense/entelechy-openclaw
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 openclaw gateway
 ```
 

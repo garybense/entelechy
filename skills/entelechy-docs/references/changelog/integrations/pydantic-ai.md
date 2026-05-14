@@ -8,14 +8,14 @@ import PageHero from '@site/src/components/PageHero';
 
 ← Pydantic AI integration
 
-## [0.4.20](https://github.com/vectorize-io/entelechy/tree/integrations/pydantic-ai/v0.4.20)
+## [0.4.20](https://github.com/garybense/entelechy/tree/integrations/pydantic-ai/v0.4.20)
 
 **Features**
 
-- Added Pydantic AI integration to provide persistent agent memory in Entelechy. ([`cab5a40f`](https://github.com/vectorize-io/entelechy/commit/cab5a40f))
+- Added Pydantic AI integration to provide persistent agent memory in Entelechy. ([`cab5a40f`](https://github.com/garybense/entelechy/commit/cab5a40f))
 
 **Improvements**
 
-- Set an identifying User-Agent header on all HTTP requests made by clients. ([`9372462e`](https://github.com/vectorize-io/entelechy/commit/9372462e))
-- Added a PEP 561 py.typed marker so type checkers recognize bundled type hints. ([`d054b884`](https://github.com/vectorize-io/entelechy/commit/d054b884))
-- Updated dependencies to address critical and high-severity security vulnerabilities. ([`ee4510a7`](https://github.com/vectorize-io/entelechy/commit/ee4510a7))
+- Set an identifying User-Agent header on all HTTP requests made by clients. ([`9372462e`](https://github.com/garybense/entelechy/commit/9372462e))
+- Added a PEP 561 py.typed marker so type checkers recognize bundled type hints. ([`d054b884`](https://github.com/garybense/entelechy/commit/d054b884))
+- Updated dependencies to address critical and high-severity security vulnerabilities. ([`ee4510a7`](https://github.com/garybense/entelechy/commit/ee4510a7))

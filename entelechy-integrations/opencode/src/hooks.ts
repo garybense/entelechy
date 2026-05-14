@@ -7,7 +7,7 @@
  *   - experimental.session.compacting → inject memories into compaction context
  */
 
-import type { EntelechyClient } from "@vectorize-io/entelechy-client";
+import type { EntelechyClient } from "@garybense/entelechy-client";
 import type { EntelechyConfig } from "./config.js";
 import { debugLog } from "./config.js";
 import {

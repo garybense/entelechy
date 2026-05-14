@@ -20,7 +20,7 @@ AI agents forget everything between sessions. Entelechy gives them persistent, s
 - One Docker command to run the full stack locally. Connect any MCP-compatible client.
 - Three core operations: `retain` (store), `recall` (search), `reflect` (reason). Plus mental models — living documents that auto-update as memories grow.
 - Entelechy isn't a vector database. It extracts structured facts, resolves entities, builds a knowledge graph, and uses cross-encoder reranking to surface what actually matters.
-- Open source: [github.com/vectorize-io/entelechy](https://github.com/vectorize-io/entelechy).
+- Open source: [github.com/garybense/entelechy](https://github.com/garybense/entelechy).
 
 ---
 
@@ -70,7 +70,7 @@ The quickest way to run Entelechy is with Docker. One command gives you the full
 docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=YOUR_LLM_API_KEY \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 You'll need an LLM API key for Entelechy's internal processing (fact extraction, entity resolution, reflect). Entelechy supports multiple LLM providers — OpenAI, Anthropic, Gemini, Groq, or a local model via Ollama or LM Studio. Set the provider explicitly if you're not using OpenAI:
@@ -81,7 +81,7 @@ docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=YOUR_GEMINI_API_KEY \
   -e ENTELECHY_API_LLM_MODEL=gemini-2.5-flash \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 The `-v` flag persists your data across container restarts. Without it, memories are lost when the container stops. Port 8888 is the API and MCP endpoint; port 9999 is an optional admin UI for browsing memories.
@@ -263,5 +263,5 @@ The MCP tools cover the full lifecycle: `retain` to store, `recall` to search wi
 - **Build up your memory**: Start using your agent normally. Tell it your preferences, your project context, your decisions. It will retain what matters.
 - **Explore mental models**: Create living documents that auto-update as your memory grows. Try: `"Create a mental model that summarizes my project architecture."`
 - **Try multi-bank setups**: Run separate banks for different projects or agents. Connect to `/mcp/` for multi-bank mode.
-- **Use the SDK directly**: Beyond MCP, Entelechy has [Python](https://pypi.org/project/entelechy-client/) and [TypeScript](https://www.npmjs.com/package/@vectorize-io/entelechy-client) SDKs for integrating memory into your own applications.
+- **Use the SDK directly**: Beyond MCP, Entelechy has [Python](https://pypi.org/project/entelechy-client/) and [TypeScript](https://www.npmjs.com/package/@garybense/entelechy-client) SDKs for integrating memory into your own applications.
 - **Check out the docs**: Full API reference, SDK guides, and more at [entelechy.vectorize.io](https://entelechy.vectorize.io).

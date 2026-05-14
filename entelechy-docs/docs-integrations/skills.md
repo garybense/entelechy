@@ -65,13 +65,13 @@ If you use [add-skill](https://add-skill.org/) to manage your agent skills:
 
 ```bash
 # For local mode (individual developers)
-npx add-skill vectorize-io/entelechy --skill entelechy-local
+npx add-skill garybense/entelechy --skill entelechy-local
 
 # For Entelechy Cloud (teams)
-npx add-skill vectorize-io/entelechy --skill entelechy-cloud
+npx add-skill garybense/entelechy --skill entelechy-cloud
 
 # For self-hosted Entelechy servers
-npx add-skill vectorize-io/entelechy --skill entelechy-self-hosted
+npx add-skill garybense/entelechy --skill entelechy-self-hosted
 ```
 
 On first use, the AI will guide you through the remaining setup:

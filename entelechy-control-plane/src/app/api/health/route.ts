@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient, createConfig, sdk } from "@vectorize-io/entelechy-client";
+import { createClient, createConfig, sdk } from "@garybense/entelechy-client";
 import { getDataplaneHeaders } from "@/lib/entelechy-client";
 
 const HEALTH_CHECK_TIMEOUT_MS = 3000;

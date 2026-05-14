@@ -8,7 +8,7 @@ hide_table_of_contents: true
 description: "entelechy-openclaw 0.6 adds an interactive setup wizard, per-channel OpenClaw memory banks, an external API backend for shared persistent memory, and several reliability improvements."
 ---
 
-`@vectorize-io/entelechy-openclaw` 0.6 is a significant update to the Entelechy OpenClaw memory plugin. The headline change is an interactive setup wizard that replaces manual configuration, alongside a breaking config overhaul that moves all plugin settings into `openclaw.json`. This release also adds per-channel memory banks, external Entelechy API support, recall injection controls, a JSONL-backed retain queue, and session filtering.
+`@garybense/entelechy-openclaw` 0.6 is a significant update to the Entelechy OpenClaw memory plugin. The headline change is an interactive setup wizard that replaces manual configuration, alongside a breaking config overhaul that moves all plugin settings into `openclaw.json`. This release also adds per-channel memory banks, external Entelechy API support, recall injection controls, a JSONL-backed retain queue, and session filtering.
 
 <!-- truncate -->
 
@@ -32,7 +32,7 @@ description: "entelechy-openclaw 0.6 adds an interactive setup wizard, per-chann
 Getting started with `entelechy-openclaw` used to require setting the right environment variables in the right places. 0.6.0 replaces that with an interactive wizard:
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 ```
 
 The wizard walks through three modes:
@@ -47,15 +47,15 @@ For scripted or CI setups, the wizard also runs non-interactively:
 
 ```bash
 # Cloud
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode cloud --token hsk_your_cloud_token
 
 # Embedded with OpenAI
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode embedded --provider openai --api-key sk-...
 
 # Embedded with Claude Code (authenticates via the Claude Code CLI, no separate API key required)
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode embedded --provider claude-code
 ```
 
@@ -237,10 +237,10 @@ Tags appear on all memories retained by this plugin instance. Use them to scope 
 If you're enabling Entelechy memory on an existing OpenClaw deployment, the backfill CLI lets you ingest historical conversations retroactively:
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-backfill
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-backfill
 ```
 
-The CLI reads your `openclaw.json` plugin config and processes historical conversation data into your configured Entelechy backend. Run it once after enabling the plugin to prime the memory store before users interact with the agent. The plugin is published on [npm](https://www.npmjs.com/package/@vectorize-io/entelechy-openclaw).
+The CLI reads your `openclaw.json` plugin config and processes historical conversation data into your configured Entelechy backend. Run it once after enabling the plugin to prime the memory store before users interact with the agent. The plugin is published on [npm](https://www.npmjs.com/package/@garybense/entelechy-openclaw).
 
 ---
 
@@ -259,13 +259,13 @@ This change improves the fidelity of stored conversations for analysis and repla
 Install the latest version:
 
 ```bash
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 If you were using environment variables for configuration, run the setup wizard to migrate:
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 ```
 
 The wizard will detect your existing setup and write the equivalent configuration to `openclaw.json`.

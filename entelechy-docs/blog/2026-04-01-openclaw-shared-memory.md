@@ -67,7 +67,7 @@ Any OpenAI-compatible endpoint works too — OpenRouter, a local model, etc. A s
 Run this on every machine in the team:
 
 ```bash
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 You should see:
@@ -192,7 +192,7 @@ For most teams, Entelechy Cloud is the right starting point. Create an account, 
 
 1. [Sign up for Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) (or self-host) and get your API URL and token
 2. Set an extraction LLM API key on each machine
-3. Run `openclaw plugins install @vectorize-io/entelechy-openclaw` on each machine
+3. Run `openclaw plugins install @garybense/entelechy-openclaw` on each machine
 4. Add the shared bank config (`dynamicBankId: false` or `dynamicBankGranularity: ["user"]`) to each instance
 5. Optionally add a `retainMission` to focus what gets retained
 6. Launch each instance — the bank builds from the first conversation

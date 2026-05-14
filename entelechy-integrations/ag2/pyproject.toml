@@ -33,9 +33,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/vectorize-io/entelechy"
-Documentation = "https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/ag2"
-Repository = "https://github.com/vectorize-io/entelechy"
+Homepage = "https://github.com/garybense/entelechy"
+Documentation = "https://github.com/garybense/entelechy/tree/main/entelechy-integrations/ag2"
+Repository = "https://github.com/garybense/entelechy"
 
 [build-system]
 requires = ["hatchling"]

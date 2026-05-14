@@ -305,7 +305,7 @@ async def test_english_content_stays_english(memory, request_context):
     CONCISE extraction prompt mentioned Japanese/Chinese explicitly, which primed
     the LLM to sometimes output facts in those languages even for English input.
 
-    See: https://github.com/vectorize-io/entelechy/issues/181
+    See: https://github.com/garybense/entelechy/issues/181
     """
     bank_id = f"test_english_retain_{datetime.now(timezone.utc).timestamp()}"
 
@@ -381,7 +381,7 @@ async def test_italian_content_stays_italian(memory, request_context):
     Similar to the English test, this catches the bug where non-CJK languages
     could be incorrectly translated due to biased language instruction.
 
-    See: https://github.com/vectorize-io/entelechy/issues/181
+    See: https://github.com/garybense/entelechy/issues/181
     """
     bank_id = f"test_italian_retain_{datetime.now(timezone.utc).timestamp()}"
 

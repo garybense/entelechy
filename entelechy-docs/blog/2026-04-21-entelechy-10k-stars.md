@@ -107,7 +107,7 @@ Similarly, another team captured what many organizations are experiencing:
 And this from a developer who finally solved a problem that's haunted every agent system:
 
 > "Entelechy is the best thing since ChatGPT—my agents have been cured from amnesia for once."  
-> — iRonin ([GitHub Discussion](https://github.com/vectorize-io/entelechy/discussions/168))
+> — iRonin ([GitHub Discussion](https://github.com/garybense/entelechy/discussions/168))
 
 These aren't marketing quotes crafted for a blog post. They're real stories from teams actively building agent systems.
 
@@ -171,7 +171,7 @@ export OPENAI_API_KEY=sk-xxx
 docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 That's it. You have a running Entelechy agent memory system. Access the API at `http://localhost:8888` and the web UI at `http://localhost:9999`. Connect it to your agent framework (Claude Code, LangGraph, CrewAI, etc.) and start extracting facts from conversations.
@@ -222,9 +222,9 @@ Thank you.
 
 If you're building an agent system and memory matters:
 
-- **Star [the repo](https://github.com/vectorize-io/entelechy)** (totally optional, but hey—it got us here)
+- **Star [the repo](https://github.com/garybense/entelechy)** (totally optional, but hey—it got us here)
 - **Try it locally** — `docker run -p 8000:8000 vectorize/entelechy` (that's it)
 - **Try Entelechy Cloud** — [managed deployment, scaling handled, usage-based pricing](https://ui.entelechy.vectorize.io/signup)
-- **Join the conversation** — [GitHub Discussions](https://github.com/vectorize-io/entelechy/discussions) or [Slack](https://entelechy-space.slack.com)
+- **Join the conversation** — [GitHub Discussions](https://github.com/garybense/entelechy/discussions) or [Slack](https://entelechy-space.slack.com)
 
 Thanks for 10k stars. More importantly, thanks for building with us.

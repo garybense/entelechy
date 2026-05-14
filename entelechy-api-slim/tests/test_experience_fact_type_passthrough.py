@@ -5,7 +5,7 @@ The LLM extraction layer normalizes raw "assistant" → "experience" early in pa
 The subsequent conversion to ExtractedFactType must pass through the already-normalized
 fact_type rather than re-checking for "assistant" (which would remap experience → world).
 
-See: https://github.com/vectorize-io/entelechy/pull/839
+See: https://github.com/garybense/entelechy/pull/839
 """
 
 from datetime import datetime, timezone

@@ -6,10 +6,10 @@ Biomimetic long-term memory for [OpenClaw](https://openclaw.ai) using [Entelechy
 
 ```bash
 # 1. Install the plugin
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 
 # 2. Run the interactive setup wizard
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 
 # 3. Start OpenClaw
 openclaw gateway
@@ -208,7 +208,7 @@ By default it mirrors the active plugin settings for:
 Dry-run example:
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-backfill \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-backfill \
   --openclaw-root ~/.openclaw \
   --dry-run
 ```
@@ -243,7 +243,7 @@ Useful options:
 
 - [Entelechy Documentation](https://vectorize.io/entelechy)
 - [OpenClaw Documentation](https://openclaw.ai)
-- [GitHub Repository](https://github.com/vectorize-io/entelechy)
+- [GitHub Repository](https://github.com/garybense/entelechy)
 
 ## License
 

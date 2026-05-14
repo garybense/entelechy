@@ -6,22 +6,22 @@ description: "Give your Vercel Chat SDK bot persistent, per-user memory across S
 
 # Vercel Chat SDK
 
-We built `@vectorize-io/entelechy-chat` to give [Vercel Chat SDK](https://github.com/vercel/chat) bots persistent, per-user memory with a single handler wrapper. The integration works across Slack, Discord, Teams, Google Chat, GitHub, and Linear — no custom plumbing required.
+We built `@garybense/entelechy-chat` to give [Vercel Chat SDK](https://github.com/vercel/chat) bots persistent, per-user memory with a single handler wrapper. The integration works across Slack, Discord, Teams, Google Chat, GitHub, and Linear — no custom plumbing required.
 
 [View Changelog →](/changelog/integrations/chat)
 
 ## Installation
 
 ```bash
-npm install @vectorize-io/entelechy-chat
+npm install @garybense/entelechy-chat
 ```
 
 ## Quick Start
 
 ```typescript
 import { Chat } from 'chat';
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
-import { withEntelechyChat } from '@vectorize-io/entelechy-chat';
+import { EntelechyClient } from '@garybense/entelechy-client';
+import { withEntelechyChat } from '@garybense/entelechy-chat';
 import { streamText } from 'ai';
 import { openai } from '@ai-sdk/openai';
 

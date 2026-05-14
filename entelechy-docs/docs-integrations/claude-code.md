@@ -14,7 +14,7 @@ Biomimetic long-term memory for [Claude Code](https://docs.anthropic.com/en/docs
 
 ```bash
 # 1. Add the Entelechy marketplace and install the plugin
-claude plugin marketplace add vectorize-io/entelechy
+claude plugin marketplace add garybense/entelechy
 claude plugin install entelechy-memory
 
 # 2. Configure your LLM provider for memory extraction

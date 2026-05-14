@@ -7,7 +7,7 @@ sidebar_position: 9
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/entelechy-litellm-demo)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/entelechy-litellm-demo)
 :::
 
 
@@ -29,7 +29,7 @@ export OPENAI_API_KEY=your-key
 docker run -d -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_PROVIDER=openai \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 
 # 3. Run the demo
 ./run.sh
@@ -112,7 +112,7 @@ streamlit run app.py
 docker run -d -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_PROVIDER=openai \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 
 # Verify it's running
 curl http://localhost:8888/health
@@ -180,7 +180,7 @@ curl http://localhost:8888/health
 docker run -d -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_PROVIDER=openai \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 ### entelechy-litellm not installed
@@ -198,8 +198,8 @@ export OPENAI_API_KEY=your-key
 
 ## Related
 
-- [Entelechy](https://github.com/vectorize-io/entelechy) - Memory infrastructure for AI applications
-- [entelechy-litellm](https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/litellm) - LiteLLM integration package
+- [Entelechy](https://github.com/garybense/entelechy) - Memory infrastructure for AI applications
+- [entelechy-litellm](https://github.com/garybense/entelechy/tree/main/entelechy-integrations/litellm) - LiteLLM integration package
 
 ## License
 

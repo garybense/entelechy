@@ -9,13 +9,13 @@ Official TypeScript/JavaScript client for the Entelechy API.
 ## Installation
 
 ```bash
-npm install @vectorize-io/entelechy-client
+npm install @garybense/entelechy-client
 ```
 
 ## Quick Start
 
 ```typescript
-const { EntelechyClient } = require('@vectorize-io/entelechy-client');
+const { EntelechyClient } = require('@garybense/entelechy-client');
 
 const client = new EntelechyClient({ baseUrl: 'http://localhost:8888' });
 
@@ -36,7 +36,7 @@ console.log(answer.text);
 ## Client Initialization
 
 ```typescript
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const client = new EntelechyClient({
     baseUrl: 'http://localhost:8888',

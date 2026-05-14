@@ -21,7 +21,7 @@
 services:
   # Entelechy (API + Control Plane + embedded pg0)
   entelechy:
-    image: ghcr.io/vectorize-io/entelechy:latest
+    image: ghcr.io/garybense/entelechy:latest
     ports:
       - "9999:9999"  # Control Plane (direct access, not proxied)
     environment:

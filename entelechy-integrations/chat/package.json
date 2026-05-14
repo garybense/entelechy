@@ -1,5 +1,5 @@
 {
-  "name": "@vectorize-io/entelechy-chat",
+  "name": "@garybense/entelechy-chat",
   "version": "0.4.20",
   "description": "Entelechy memory integration for Vercel Chat SDK - Give your chat bots persistent, per-user memory",
   "main": "dist/index.js",
@@ -27,7 +27,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vectorize-io/entelechy.git",
+    "url": "https://github.com/garybense/entelechy.git",
     "directory": "entelechy-integrations/chat"
   },
   "files": [

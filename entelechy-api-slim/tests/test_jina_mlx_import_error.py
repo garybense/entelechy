@@ -1,7 +1,7 @@
 """
 Regression test for the JinaMLXCrossEncoder import-error handling.
 
-See: https://github.com/vectorize-io/entelechy/issues/994
+See: https://github.com/garybense/entelechy/issues/994
 
 Before the fix, the bare `except ImportError` around `import mlx_lm` masked
 *any* ImportError raised transitively during mlx_lm's own initialization

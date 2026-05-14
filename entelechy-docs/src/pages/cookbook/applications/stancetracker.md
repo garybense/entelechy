@@ -7,7 +7,7 @@ sidebar_position: 14
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/stancetracker)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/stancetracker)
 :::
 
 
@@ -27,7 +27,7 @@ An AI-powered application that tracks political candidates' stances on issues ov
 
 ### Memory System (Entelechy Integration)
 
-This app uses the Entelechy memory system from `github.com/vectorize-io/entelechy`:
+This app uses the Entelechy memory system from `github.com/garybense/entelechy`:
 
 1. **Banks**: Each scraper agent has its own memory bank
 2. **Retain**: Stores candidate statements and web scraping results
@@ -40,7 +40,7 @@ This app uses the Entelechy memory system from `github.com/vectorize-io/entelech
 - **Frontend**: Next.js 16, React, TypeScript, TailwindCSS
 - **Visualization**: Recharts for timeline graphs
 - **Backend**: Next.js API routes
-- **Memory**: Entelechy (from github.com/vectorize-io/entelechy)
+- **Memory**: Entelechy (from github.com/garybense/entelechy)
 - **Database**: JSON file storage (no database required)
 - **Web Search**: Tavily API
 - **LLM**: OpenAI/Anthropic/Groq (configurable)
@@ -48,7 +48,7 @@ This app uses the Entelechy memory system from `github.com/vectorize-io/entelech
 
 ## Prerequisites
 
-1. **Entelechy API** running (from github.com/vectorize-io/entelechy)
+1. **Entelechy API** running (from github.com/garybense/entelechy)
 2. **API Keys**:
    - Tavily API key (for web search)
    - LLM provider API key (OpenAI, Anthropic, or Groq)
@@ -72,7 +72,7 @@ cp .env.example .env
 Edit `.env`:
 
 ```env
-# Entelechy API (from github.com/vectorize-io/entelechy)
+# Entelechy API (from github.com/garybense/entelechy)
 ENTELECHY_API_URL=http://localhost:8888
 
 # Tavily API (for web search)
@@ -86,10 +86,10 @@ LLM_MODEL=gpt-4-turbo-preview
 
 ### 3. Start Entelechy
 
-Clone and run Entelechy from github.com/vectorize-io/entelechy:
+Clone and run Entelechy from github.com/garybense/entelechy:
 
 ```bash
-# Clone and run github.com/vectorize-io/entelechy
+# Clone and run github.com/garybense/entelechy
 cd /path/to/entelechy
 cargo run --bin entelechy-server
 ```
@@ -271,6 +271,6 @@ MIT
 ## Support
 
 For issues or questions, please check:
-- Entelechy documentation: `github.com/vectorize-io/entelechy/README.md`
+- Entelechy documentation: `github.com/garybense/entelechy/README.md`
 - Tavily API docs: https://tavily.com/
 - Project issues: Create an issue in the repository

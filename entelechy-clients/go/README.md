@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```go
-import entelechy "github.com/vectorize-io/entelechy/entelechy-clients/go"
+import entelechy "github.com/garybense/entelechy/entelechy-clients/go"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:

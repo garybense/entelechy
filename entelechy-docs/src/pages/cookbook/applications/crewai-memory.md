@@ -7,7 +7,7 @@ sidebar_position: 6
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/crewai-memory)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/crewai-memory)
 :::
 
 
@@ -51,7 +51,7 @@ Run 2: "Compare Rust with Go"
      -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
      -e ENTELECHY_API_LLM_MODEL=o3-mini \
      -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-     ghcr.io/vectorize-io/entelechy:latest
+     ghcr.io/garybense/entelechy:latest
    ```
 
 2. **OpenAI API key** (for CrewAI's LLM)
@@ -68,7 +68,7 @@ Run 2: "Compare Rust with Go"
    ```
 
    > **Note:** `entelechy-crewai` is not on PyPI — it is installed directly from the
-   > [Entelechy repo](https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/crewai) via git.
+   > [Entelechy repo](https://github.com/garybense/entelechy/tree/main/entelechy-integrations/crewai) via git.
 
 ## Quick Start
 
@@ -179,7 +179,7 @@ storage = EntelechyStorage(
 | `tags` | `None` | Tags applied when storing |
 | `verbose` | `False` | Enable logging |
 
-See the [entelechy-crewai documentation](https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/crewai) for the full API reference.
+See the [entelechy-crewai documentation](https://github.com/garybense/entelechy/tree/main/entelechy-integrations/crewai) for the full API reference.
 
 ## Common Issues
 
@@ -200,5 +200,5 @@ pip install -r requirements.txt
 
 **Built with:**
 - [CrewAI](https://crewai.com) - Multi-agent orchestration
-- [entelechy-crewai](https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/crewai) - Entelechy storage backend for CrewAI
-- [Entelechy](https://github.com/vectorize-io/entelechy) - Long-term memory for AI agents
+- [entelechy-crewai](https://github.com/garybense/entelechy/tree/main/entelechy-integrations/crewai) - Entelechy storage backend for CrewAI
+- [Entelechy](https://github.com/garybense/entelechy) - Long-term memory for AI agents

@@ -9,7 +9,7 @@ import type { Logger } from "./logger.js";
  * custom provider settings, and the two `extra*` arrays to append raw CLI
  * args to `profile create` or `daemon start`.
  *
- * For talking to the daemon after `start()`, use `@vectorize-io/entelechy-client`
+ * For talking to the daemon after `start()`, use `@garybense/entelechy-client`
  * against `server.getBaseUrl()`. This package does not ship its own HTTP
  * client.
  */

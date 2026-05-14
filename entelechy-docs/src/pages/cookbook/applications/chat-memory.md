@@ -7,7 +7,7 @@ sidebar_position: 2
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/chat-memory)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/chat-memory)
 :::
 
 
@@ -35,7 +35,7 @@ docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$GROQ_API_KEY \
   -e ENTELECHY_API_LLM_MODEL="openai/gpt-oss-20b" \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 - **API**: http://localhost:8888

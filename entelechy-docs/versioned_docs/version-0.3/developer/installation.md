@@ -44,7 +44,7 @@ export OPENAI_API_KEY=sk-xxx
 docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 - **API Server**: http://localhost:8888
@@ -58,23 +58,23 @@ docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
 
 ```bash
 # Install with built-in PostgreSQL
-helm install entelechy oci://ghcr.io/vectorize-io/charts/entelechy \
+helm install entelechy oci://ghcr.io/garybense/charts/entelechy \
   --set api.llm.provider=groq \
   --set api.llm.apiKey=gsk_xxxxxxxxxxxx \
   --set postgresql.enabled=true
 
 # Or use external PostgreSQL
-helm install entelechy oci://ghcr.io/vectorize-io/charts/entelechy \
+helm install entelechy oci://ghcr.io/garybense/charts/entelechy \
   --set api.llm.provider=groq \
   --set api.llm.apiKey=gsk_xxxxxxxxxxxx \
   --set postgresql.enabled=false \
   --set api.database.url=postgresql://user:pass@postgres.example.com:5432/entelechy
 
 # Install a specific version
-helm install entelechy oci://ghcr.io/vectorize-io/charts/entelechy --version 0.1.3
+helm install entelechy oci://ghcr.io/garybense/charts/entelechy --version 0.1.3
 
 # Upgrade to latest
-helm upgrade entelechy oci://ghcr.io/vectorize-io/charts/entelechy
+helm upgrade entelechy oci://ghcr.io/garybense/charts/entelechy
 ```
 
 **Requirements**:
@@ -86,14 +86,14 @@ helm upgrade entelechy oci://ghcr.io/vectorize-io/charts/entelechy
 For high-throughput deployments, enable dedicated worker pods to scale task processing independently:
 
 ```bash
-helm install entelechy oci://ghcr.io/vectorize-io/charts/entelechy \
+helm install entelechy oci://ghcr.io/garybense/charts/entelechy \
   --set worker.enabled=true \
   --set worker.replicaCount=3
 ```
 
 See [Services - Worker Service](./services#worker-service) for configuration details and architecture.
 
-See the [Helm chart values.yaml](https://github.com/vectorize-io/entelechy/tree/main/helm/entelechy/values.yaml) for all chart options.
+See the [Helm chart values.yaml](https://github.com/garybense/entelechy/tree/main/helm/entelechy/values.yaml) for all chart options.
 
 ---
 
@@ -148,7 +148,7 @@ entelechy-api --log-level debug    # Verbose logging
 The Control Plane (Web UI) can be run standalone using npx:
 
 ```bash
-npx @vectorize-io/entelechy-control-plane --api-url http://localhost:8888
+npx @garybense/entelechy-control-plane --api-url http://localhost:8888
 ```
 
 This connects to your running API server and provides a visual interface for managing memory banks, exploring entities, and testing queries.
@@ -165,14 +165,14 @@ This connects to your running API server and provides a visual interface for man
 
 ```bash
 # Run on custom port
-npx @vectorize-io/entelechy-control-plane --port 9999 --api-url http://localhost:8888
+npx @garybense/entelechy-control-plane --port 9999 --api-url http://localhost:8888
 
 # Using environment variables
 export ENTELECHY_CP_DATAPLANE_API_URL=http://api.example.com
-npx @vectorize-io/entelechy-control-plane
+npx @garybense/entelechy-control-plane
 
 # Production deployment
-PORT=80 ENTELECHY_CP_DATAPLANE_API_URL=https://api.entelechy.io npx @vectorize-io/entelechy-control-plane
+PORT=80 ENTELECHY_CP_DATAPLANE_API_URL=https://api.entelechy.io npx @garybense/entelechy-control-plane
 ```
 
 ---

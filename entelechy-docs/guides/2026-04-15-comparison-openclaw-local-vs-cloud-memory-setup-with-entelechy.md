@@ -41,7 +41,7 @@ You configure an extraction model for Entelechy, start OpenClaw, and the local d
 A typical embedded setup command looks like this:
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode embedded --provider openai --api-key-env OPENAI_API_KEY
 ```
 
@@ -54,7 +54,7 @@ In cloud mode, OpenClaw talks to a managed Entelechy endpoint at `https://api.en
 A typical cloud setup command looks like this:
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode cloud --token-env ENTELECHY_CLOUD_TOKEN
 ```
 
@@ -218,7 +218,7 @@ The nice part is that this choice is not permanent.
 The cleanest path is usually just rerunning the setup wizard in cloud mode:
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode cloud --token-env ENTELECHY_CLOUD_TOKEN
 openclaw gateway restart
 ```
@@ -230,7 +230,7 @@ Then verify the updated config and test a real memory-enabled conversation.
 Likewise, rerun the wizard in embedded mode:
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode embedded --provider openai --api-key-env OPENAI_API_KEY
 openclaw gateway restart
 ```

@@ -5,12 +5,12 @@ Give your AI agents persistent, human-like memory using [Entelechy](https://vect
 ## Quick Start
 
 ```bash
-npm install @vectorize-io/entelechy-ai-sdk @vectorize-io/entelechy-client ai zod
+npm install @garybense/entelechy-ai-sdk @garybense/entelechy-client ai zod
 ```
 
 ```typescript
-import { EntelechyClient } from "@vectorize-io/entelechy-client";
-import { createEntelechyTools } from "@vectorize-io/entelechy-ai-sdk";
+import { EntelechyClient } from "@garybense/entelechy-client";
+import { createEntelechyTools } from "@garybense/entelechy-ai-sdk";
 import { generateText } from "ai";
 import { anthropic } from "@ai-sdk/anthropic";
 
@@ -67,12 +67,12 @@ uvx entelechy-embed@latest -p myapp daemon start
 
 ## Examples
 
-Full examples are available in the [GitHub repository](https://github.com/vectorize-io/entelechy/tree/main/examples/ai-sdk).
+Full examples are available in the [GitHub repository](https://github.com/garybense/entelechy/tree/main/examples/ai-sdk).
 
 ## Support
 
 - [Documentation](https://vectorize.io/entelechy)
-- [GitHub Issues](https://github.com/vectorize-io/entelechy/issues)
+- [GitHub Issues](https://github.com/garybense/entelechy/issues)
 - Email: support@vectorize.io
 
 ## License

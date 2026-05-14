@@ -30,7 +30,7 @@ ENTELECHY_API_TENANT_SUPABASE_URL=https://your-project.supabase.co
 ENTELECHY_API_TENANT_SUPABASE_SERVICE_KEY=your-service-role-key
 ```
 
-See the [source code](https://github.com/vectorize-io/entelechy/blob/main/entelechy-api-slim/entelechy_api/extensions/builtin/supabase_tenant.py) for complete configuration options and implementation details.
+See the [source code](https://github.com/garybense/entelechy/blob/main/entelechy-api-slim/entelechy_api/extensions/builtin/supabase_tenant.py) for complete configuration options and implementation details.
 
 For other multi-tenant setups with separate schemas per tenant (e.g., custom JWT-based auth), implement a custom `TenantExtension`.
 
@@ -291,4 +291,4 @@ Custom extensions that solve common use cases are welcome contributions to the E
 - Metrics exporters (Datadog, New Relic, etc.)
 - Custom HTTP endpoints for specific platforms
 
-Consider contributing it to the `entelechy_api.extensions.builtin` package. Open an issue or pull request on [GitHub](https://github.com/vectorize-io/entelechy) to discuss your extension.
+Consider contributing it to the `entelechy_api.extensions.builtin` package. Open an issue or pull request on [GitHub](https://github.com/garybense/entelechy) to discuss your extension.

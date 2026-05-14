@@ -31,7 +31,7 @@ Linux ARM64 支持很重要，因为许多自托管 Entelechy 部署恰好登陆
 直接使用已发布的发布资产：
 
 ```bash
-curl -L   -o entelechy   https://github.com/vectorize-io/entelechy/releases/latest/download/entelechy-linux-arm64
+curl -L   -o entelechy   https://github.com/garybense/entelechy/releases/latest/download/entelechy-linux-arm64
 
 chmod +x entelechy
 sudo mv entelechy /usr/local/bin/entelechy

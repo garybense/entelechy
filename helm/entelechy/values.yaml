@@ -21,7 +21,7 @@ api:
   enabled: true
   replicaCount: 1
   image:
-    repository: ghcr.io/vectorize-io/entelechy-api
+    repository: ghcr.io/garybense/entelechy-api
     pullPolicy: IfNotPresent
     # tag defaults to .Values.version if not specified
 
@@ -110,7 +110,7 @@ worker:
   enabled: false
   replicaCount: 2
   image:
-    repository: ghcr.io/vectorize-io/entelechy-api
+    repository: ghcr.io/garybense/entelechy-api
     pullPolicy: IfNotPresent
     # tag: ""  # defaults to .Values.version, then Chart.appVersion if not specified
 
@@ -201,7 +201,7 @@ controlPlane:
   enabled: true
   replicaCount: 1
   image:
-    repository: ghcr.io/vectorize-io/entelechy-control-plane
+    repository: ghcr.io/garybense/entelechy-control-plane
     pullPolicy: IfNotPresent
     # tag defaults to .Values.version if not specified
 

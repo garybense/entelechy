@@ -46,14 +46,14 @@ export async function runSetup(args: CliArgs): Promise<void> {
 
   // Step 1 — Install entelechy-openclaw plugin
   if (!args.skipPluginInstall) {
-    step(1, "Installing @vectorize-io/entelechy-openclaw plugin...");
+    step(1, "Installing @garybense/entelechy-openclaw plugin...");
     if (args.dryRun) {
-      log("  [dry-run] would run: openclaw plugins install @vectorize-io/entelechy-openclaw");
+      log("  [dry-run] would run: openclaw plugins install @garybense/entelechy-openclaw");
     } else {
       const { stdout } = await execFileAsync("openclaw", [
         "plugins",
         "install",
-        "@vectorize-io/entelechy-openclaw",
+        "@garybense/entelechy-openclaw",
       ]);
       log(stdout.trim() || "  ✓ Plugin installed");
     }

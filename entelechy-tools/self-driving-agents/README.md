@@ -1,9 +1,9 @@
-# @vectorize-io/self-driving-agents
+# @garybense/self-driving-agents
 
 Install self-driving agents with portable memory on any harness.
 
 ```bash
-npx @vectorize-io/self-driving-agents install ./my-agent --harness openclaw
+npx @garybense/self-driving-agents install ./my-agent --harness openclaw
 ```
 
 ## What it does
@@ -27,7 +27,7 @@ Agent name defaults to the directory name. Override with `--agent <name>`.
 ## Options
 
 ```
-npx @vectorize-io/self-driving-agents install <dir> --harness <harness> [options]
+npx @garybense/self-driving-agents install <dir> --harness <harness> [options]
 
 --harness <h>      Required. openclaw | hermes | claude-code
 --agent <name>     Agent name (defaults to directory name)
@@ -39,11 +39,11 @@ npx @vectorize-io/self-driving-agents install <dir> --harness <harness> [options
 
 ```bash
 # Clone an agent repo
-git clone https://github.com/vectorize-io/self-driving-agents
+git clone https://github.com/garybense/self-driving-agents
 cd self-driving-agents
 
 # Install the SEO blog writer
-npx @vectorize-io/self-driving-agents install ./marketing-seo-blog-posts --harness openclaw
+npx @garybense/self-driving-agents install ./marketing-seo-blog-posts --harness openclaw
 
 # Create and start the agent
 openclaw agents add marketing-seo-blog-posts --workspace ~/.entelechy-agents/openclaw/marketing-seo-blog-posts --non-interactive

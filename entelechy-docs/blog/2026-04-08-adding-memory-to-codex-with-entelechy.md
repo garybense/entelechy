@@ -31,7 +31,7 @@ Every session starts from nothing. Codex doesn't know which libraries your proje
 
 ## How Entelechy Adds Persistent Memory to Codex
 
-[Entelechy](https://github.com/vectorize-io/entelechy) adds a persistent memory layer to Codex by hooking into its lifecycle at two points: before every prompt and after every session.
+[Entelechy](https://github.com/garybense/entelechy) adds a persistent memory layer to Codex by hooking into its lifecycle at two points: before every prompt and after every session.
 
 **Auto-recall.** On every user prompt, the recall hook queries Entelechy for memories relevant to what you're about to ask. The results are injected into Codex as `additionalContext` — prepended to the conversation before the model sees it, but not visible in your terminal output. Codex has the context; you didn't have to repeat it.
 
@@ -167,7 +167,7 @@ Example `retainMission` for a focused memory bank:
 
 **Hooks not firing.** The installer sets `codex_hooks = true` in `~/.codex/config.toml` automatically, but if you installed manually or the file already existed, this may have been missed. Check the file and add the setting under `[features]` if it's missing.
 
-**No memories recalled in the first session.** Recall returns results only after something has been retained. Complete one session first, or seed your bank manually using the [cookbook example](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/codex-memory).
+**No memories recalled in the first session.** Recall returns results only after something has been retained. Complete one session first, or seed your bank manually using the [cookbook example](https://github.com/garybense/entelechy-cookbook/tree/main/applications/codex-memory).
 
 **Retention seems delayed.** `retainEveryNTurns` defaults to `10` in chunked mode — retain fires every 10 turns. In full-session mode (the default), retention fires once at session end. If you're testing, add `"retainEveryNTurns": 1` to your config.
 
@@ -207,4 +207,4 @@ A few things worth knowing before you commit.
 - **Install**: `curl -fsSL https://entelechy.vectorize.io/get-codex | bash`
 - **Config reference**: [Codex integration docs](/sdks/integrations/codex)
 - **Team memory**: [Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/2026/03/31/team-shared-memory-ai-coding-agents)
-- **Cookbook**: [applications/codex-memory](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/codex-memory)
+- **Cookbook**: [applications/codex-memory](https://github.com/garybense/entelechy-cookbook/tree/main/applications/codex-memory)

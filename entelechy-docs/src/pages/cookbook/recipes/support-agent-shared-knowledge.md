@@ -7,7 +7,7 @@ sidebar_position: 3
 
 :::tip Run this notebook
 This recipe is available as an interactive Jupyter notebook.
-[**Open in GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/blob/main/notebooks/03-support-agent-shared-knowledge.ipynb)
+[**Open in GitHub →**](https://github.com/garybense/entelechy-cookbook/blob/main/notebooks/03-support-agent-shared-knowledge.ipynb)
 :::
 
 

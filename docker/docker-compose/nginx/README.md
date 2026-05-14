@@ -19,7 +19,7 @@ docker-compose up
 
 1. **Clone the repository** (if you haven't):
 ```bash
-git clone https://github.com/vectorize-io/entelechy.git
+git clone https://github.com/garybense/entelechy.git
 cd entelechy
 ```
 

@@ -30,7 +30,7 @@ This guide shows what each injection mode does, how to switch it safely, which r
 
 Before changing recall injection, make sure:
 
-- OpenClaw is already running with `@vectorize-io/entelechy-openclaw`.
+- OpenClaw is already running with `@garybense/entelechy-openclaw`.
 - Auto-recall is enabled.
 - You already have useful memories in the bank, so there is something to inject.
 - You know whether your main problem is prompt layout, latency, or model behavior.

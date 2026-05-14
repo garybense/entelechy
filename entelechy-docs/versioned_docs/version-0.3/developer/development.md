@@ -18,7 +18,7 @@ Guide to setting up a local development environment for contributing to Entelech
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/vectorize-io/entelechy.git
+git clone https://github.com/garybense/entelechy.git
 cd entelechy
 ```
 

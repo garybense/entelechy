@@ -1,5 +1,7 @@
-from typing import Any, Literal, Optional, Union, List
+from typing import Any, List, Literal, Optional, Union
+
 from pydantic import BaseModel, Field
+
 
 class ChatCompletionMessage(BaseModel):
     role: str
@@ -8,14 +10,17 @@ class ChatCompletionMessage(BaseModel):
     tool_calls: Optional[List[dict[str, Any]]] = None
     tool_call_id: Optional[str] = None
 
+
 class ChatCompletionToolFunction(BaseModel):
     name: str
     description: Optional[str] = None
     parameters: dict[str, Any]
 
+
 class ChatCompletionTool(BaseModel):
     type: Literal["function"]
     function: ChatCompletionToolFunction
+
 
 class ChatCompletionRequest(BaseModel):
     model: str
@@ -33,15 +38,18 @@ class ChatCompletionRequest(BaseModel):
     logit_bias: Optional[dict[str, float]] = None
     user: Optional[str] = None
 
+
 class ChatCompletionChoice(BaseModel):
     index: int
     message: ChatCompletionMessage
     finish_reason: Optional[Literal["stop", "length", "tool_calls", "content_filter"]] = None
 
+
 class ChatCompletionUsage(BaseModel):
     prompt_tokens: int
     completion_tokens: int
     total_tokens: int
+
 
 class ChatCompletionResponse(BaseModel):
     id: str
@@ -51,10 +59,12 @@ class ChatCompletionResponse(BaseModel):
     choices: List[ChatCompletionChoice]
     usage: Optional[ChatCompletionUsage] = None
 
+
 class ChatCompletionStreamChoice(BaseModel):
     index: int
     delta: ChatCompletionMessage
     finish_reason: Optional[Literal["stop", "length", "tool_calls", "content_filter"]] = None
+
 
 class ChatCompletionStreamResponse(BaseModel):
     id: str

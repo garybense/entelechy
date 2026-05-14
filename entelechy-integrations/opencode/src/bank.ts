@@ -11,7 +11,7 @@
 import { basename } from "node:path";
 import type { EntelechyConfig } from "./config.js";
 import { debugLog } from "./config.js";
-import type { EntelechyClient } from "@vectorize-io/entelechy-client";
+import type { EntelechyClient } from "@garybense/entelechy-client";
 
 const DEFAULT_BANK_NAME = "opencode";
 const VALID_FIELDS = new Set(["agent", "project", "channel", "user"]);

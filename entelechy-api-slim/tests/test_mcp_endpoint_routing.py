@@ -287,7 +287,7 @@ async def test_mcp_bank_named_messages_routes_to_single_bank(memory):
 async def test_mcp_tool_execution_with_different_mcp_and_tenant_tokens(memory):
     """Test that MCP tool calls work when MCP_AUTH_TOKEN and TENANT_API_KEY differ.
 
-    Regression test for https://github.com/vectorize-io/entelechy/issues/627
+    Regression test for https://github.com/garybense/entelechy/issues/627
     When both ENTELECHY_API_MCP_AUTH_TOKEN and ApiKeyTenantExtension are configured
     with different values, tool calls should succeed because MCP transport auth
     already validated the token — the tenant extension should not re-validate.

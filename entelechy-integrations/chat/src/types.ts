@@ -74,7 +74,7 @@ export interface RetainResponse {
 }
 
 /**
- * Entelechy client interface — matches @vectorize-io/entelechy-client.
+ * Entelechy client interface — matches @garybense/entelechy-client.
  */
 export interface EntelechyClient {
   retain(

@@ -21,7 +21,7 @@ from rich.console import Console
 
 console = Console()
 
-GITHUB_REPO = "vectorize-io/entelechy"
+GITHUB_REPO = "garybense/entelechy"
 GITHUB_RELEASES_URL = f"https://github.com/{GITHUB_REPO}/releases"
 GITHUB_COMMIT_URL = f"https://github.com/{GITHUB_REPO}/commit"
 REPO_PATH = Path(__file__).parent.parent.parent
@@ -42,18 +42,18 @@ INTEGRATIONS: dict[str, IntegrationMeta] = {
     "pydantic-ai": IntegrationMeta("entelechy-pydantic-ai", "Pydantic AI"),
     "crewai": IntegrationMeta("entelechy-crewai", "CrewAI"),
     "ag2": IntegrationMeta("entelechy-ag2"),
-    "ai-sdk": IntegrationMeta("@vectorize-io/entelechy-ai-sdk", "AI SDK"),
-    "chat": IntegrationMeta("@vectorize-io/entelechy-chat", "Chat SDK"),
-    "openclaw": IntegrationMeta("@vectorize-io/entelechy-openclaw", "OpenClaw"),
+    "ai-sdk": IntegrationMeta("@garybense/entelechy-ai-sdk", "AI SDK"),
+    "chat": IntegrationMeta("@garybense/entelechy-chat", "Chat SDK"),
+    "openclaw": IntegrationMeta("@garybense/entelechy-openclaw", "OpenClaw"),
     "langgraph": IntegrationMeta("entelechy-langgraph", "LangGraph"),
-    "nemoclaw": IntegrationMeta("@vectorize-io/entelechy-nemoclaw", "NemoClaw"),
+    "nemoclaw": IntegrationMeta("@garybense/entelechy-nemoclaw", "NemoClaw"),
     "strands": IntegrationMeta("entelechy-strands", "Strands"),
     "claude-code": IntegrationMeta("entelechy-memory", "Claude Code"),
     "llamaindex": IntegrationMeta("entelechy-llamaindex", "LlamaIndex"),
     "codex": IntegrationMeta("entelechy-codex", "Codex"),
     "autogen": IntegrationMeta("entelechy-autogen", "AutoGen"),
-    "paperclip": IntegrationMeta("@vectorize-io/entelechy-paperclip", "Paperclip"),
-    "opencode": IntegrationMeta("@vectorize-io/opencode-entelechy", "OpenCode"),
+    "paperclip": IntegrationMeta("@garybense/entelechy-paperclip", "Paperclip"),
+    "opencode": IntegrationMeta("@garybense/opencode-entelechy", "OpenCode"),
     "cloudflare-oauth-proxy": IntegrationMeta("entelechy-cloudflare-oauth-proxy"),
     "openai-agents": IntegrationMeta("entelechy-openai-agents"),
     "pipecat": IntegrationMeta("entelechy-pipecat", "Pipecat"),
@@ -512,7 +512,7 @@ hide_table_of_contents: true
 
 This changelog highlights user-facing changes only. Internal maintenance, CI/CD, and infrastructure updates are omitted.
 
-For full release details, see [GitHub Releases](https://github.com/vectorize-io/entelechy/releases).
+For full release details, see [GitHub Releases](https://github.com/garybense/entelechy/releases).
 
 """
     header, existing_releases = read_existing_changelog(CHANGELOG_PATH, default_header)
@@ -630,7 +630,7 @@ def _get_package_name(integration: str) -> str:
 
 def _package_url(integration: str, package_name: str) -> str:
     if integration == "claude-code":
-        return "https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/claude-code"
+        return "https://github.com/garybense/entelechy/tree/main/entelechy-integrations/claude-code"
     if package_name.startswith("@"):
         return f"https://www.npmjs.com/package/{package_name}"
     return f"https://pypi.org/project/{package_name}/"

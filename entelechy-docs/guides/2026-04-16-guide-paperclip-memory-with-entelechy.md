@@ -20,7 +20,7 @@ This guide covers the quick-start path, the HTTP and process adapter patterns, b
 
 > **Quick answer**
 >
-> 1. Install `@vectorize-io/entelechy-paperclip`.
+> 1. Install `@garybense/entelechy-paperclip`.
 > 2. Load the config and call recall before the heartbeat executes.
 > 3. Call retain after the agent produces output.
 > 4. Keep bank IDs scoped by company and agent unless you intentionally want shared memory.
@@ -41,13 +41,13 @@ The identifier design matters. Paperclip's default isolation pattern works well 
 Install the Paperclip package:
 
 ```bash
-npm install @vectorize-io/entelechy-paperclip
+npm install @garybense/entelechy-paperclip
 ```
 
 Then load configuration from your environment.
 
 ```typescript
-import { recall, retain, loadConfig } from '@vectorize-io/entelechy-paperclip'
+import { recall, retain, loadConfig } from '@garybense/entelechy-paperclip'
 
 const config = loadConfig()
 ```
@@ -111,8 +111,8 @@ If your Paperclip agent runs as an HTTP webhook server, use the middleware path.
 
 ```typescript
 import express from 'express'
-import { createMemoryMiddleware, loadConfig } from '@vectorize-io/entelechy-paperclip'
-import type { EntelechyRequest } from '@vectorize-io/entelechy-paperclip'
+import { createMemoryMiddleware, loadConfig } from '@garybense/entelechy-paperclip'
+import type { EntelechyRequest } from '@garybense/entelechy-paperclip'
 
 const app = express()
 app.use(express.json())
@@ -138,7 +138,7 @@ This is a good option when Paperclip is already operating as a service and you w
 If your Paperclip agent runs as a script, use the process-style recall and retain flow.
 
 ```typescript
-import { recall, retain, loadConfig } from '@vectorize-io/entelechy-paperclip'
+import { recall, retain, loadConfig } from '@garybense/entelechy-paperclip'
 
 const config = loadConfig()
 const { PAPERCLIP_AGENT_ID, PAPERCLIP_COMPANY_ID, PAPERCLIP_RUN_ID } = process.env

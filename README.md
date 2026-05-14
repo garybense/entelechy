@@ -4,15 +4,15 @@
 
 [Documentation](https://entelechy.vectorize.io) • [Paper](https://arxiv.org/abs/2512.12818) • [Cookbook](https://entelechy.vectorize.io/cookbook) • [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup)
 
-[![CI](https://github.com/vectorize-io/entelechy/actions/workflows/release.yml/badge.svg)](https://github.com/vectorize-io/entelechy/actions/workflows/release.yml)
+[![CI](https://github.com/garybense/entelechy/actions/workflows/release.yml/badge.svg)](https://github.com/garybense/entelechy/actions/workflows/release.yml)
 [![Slack Community](https://img.shields.io/badge/Slack-Join%20Community-4A154B?logo=slack)](https://join.slack.com/t/entelechy-space/shared_invite/zt-3nhbm4w29-LeSJ5Ixi6j8PdiYOCPlOgg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![gitcgr](https://gitcgr.com/badge/vectorize-io/entelechy.svg)](https://gitcgr.com/vectorize-io/entelechy)
+[![gitcgr](https://gitcgr.com/badge/garybense/entelechy.svg)](https://gitcgr.com/garybense/entelechy)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/entelechy-api?label=PyPI)
-![NPM Downloads](https://img.shields.io/npm/dm/%40vectorize-io%2Fentelechy-client?logoColor=orange&label=NPM&color=blue&link=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2F%40vectorize-io%2Fentelechy-client)
+![NPM Downloads](https://img.shields.io/npm/dm/%40garybense%2Fentelechy-client?logoColor=orange&label=NPM&color=blue&link=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2F%40garybense%2Fentelechy-client)
 <br/>
 
-<a href="https://trendshift.io/repositories/15603" target="_blank"><img src="https://trendshift.io/api/badge/repositories/15603" alt="vectorize-io%2Fentelechy | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/15603" target="_blank"><img src="https://trendshift.io/api/badge/repositories/15603" alt="garybense%2Fentelechy | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </div>
 
 ---
@@ -48,7 +48,7 @@ If you need more control over how and when your agent stores and recalls memorie
 
 > 🤖 **Using a coding agent?** Install the Entelechy documentation skill for instant access to docs while you code:
 > ```bash
-> npx skills add https://github.com/vectorize-io/entelechy --skill entelechy-docs
+> npx skills add https://github.com/garybense/entelechy --skill entelechy-docs
 > ```
 > Works with Claude Code, Cursor, and other AI coding assistants.
 
@@ -65,7 +65,7 @@ export OPENAI_API_KEY=sk-xxx
 docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 >API: http://localhost:8888
@@ -93,7 +93,7 @@ docker compose up
 ```bash
 pip install entelechy-client -U
 # or
-npm install @vectorize-io/entelechy-client
+npm install @garybense/entelechy-client
 ```
 
 #### Python
@@ -116,11 +116,11 @@ client.reflect(bank_id="my-bank", query="Tell me about Alice")
 #### Node.js / TypeScript
 
 ```bash
-npm install @vectorize-io/entelechy-client
+npm install @garybense/entelechy-client
 ```
 
 ```javascript
-const { EntelechyClient } = require('@vectorize-io/entelechy-client');
+const { EntelechyClient } = require('@garybense/entelechy-client');
 
 const main = async () => {
   const client = new EntelechyClient({ baseUrl: 'http://localhost:8888' });
@@ -290,12 +290,12 @@ client.reflect(bank_id="my-bank", query="What should I know about Alice?")
 
 **Community:**
 - [Slack](https://join.slack.com/t/entelechy-space/shared_invite/zt-3nhbm4w29-LeSJ5Ixi6j8PdiYOCPlOgg)
-- [GitHub Issues](https://github.com/vectorize-io/entelechy/issues)
+- [GitHub Issues](https://github.com/garybense/entelechy/issues)
 
 ---
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=vectorize-io/entelechy&type=date&legend=top-left)](https://www.star-history.com/#vectorize-io/entelechy&type=date&legend=top-left)
+[![Star History Chart](https://api.star-history.com/svg?repos=garybense/entelechy&type=date&legend=top-left)](https://www.star-history.com/#garybense/entelechy&type=date&legend=top-left)
 ---
 
 ## Contributing
@@ -310,4 +310,4 @@ MIT — see [LICENSE](./LICENSE)
 
 Built by [Vectorize.io](https://vectorize.io)
 
-<img src="https://umami-pixel.chris-latimer.workers.dev/?id=a8b043e6-6964-454d-80df-69b69d3f0d50&host=github.com&url=/vectorize-io/entelechy" width="1" height="1" alt="" />
+<img src="https://umami-pixel.chris-latimer.workers.dev/?id=a8b043e6-6964-454d-80df-69b69d3f0d50&host=github.com&url=/garybense/entelechy" width="1" height="1" alt="" />

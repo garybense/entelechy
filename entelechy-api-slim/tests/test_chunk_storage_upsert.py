@@ -1,7 +1,7 @@
 """
 Regression tests for chunk_storage.store_chunks_batch idempotency.
 
-Covers vectorize-io/entelechy#977: re-submitting a retain under the same
+Covers garybense/entelechy#977: re-submitting a retain under the same
 document_id must not fail with ``UniqueViolationError`` on ``pk_chunks``.
 The upstream retain paths (cascade delete on first batch, delta retain)
 should usually prevent a chunk_id collision, but any bug in those paths

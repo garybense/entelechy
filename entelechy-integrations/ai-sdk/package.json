@@ -1,5 +1,5 @@
 {
-  "name": "@vectorize-io/entelechy-ai-sdk",
+  "name": "@garybense/entelechy-ai-sdk",
   "version": "0.5.1",
   "description": "Entelechy memory integration for Vercel AI SDK - Give your AI agents persistent, human-like memory",
   "main": "dist/index.js",
@@ -25,7 +25,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vectorize-io/entelechy.git",
+    "url": "https://github.com/garybense/entelechy.git",
     "directory": "entelechy-integrations/ai-sdk"
   },
   "files": [

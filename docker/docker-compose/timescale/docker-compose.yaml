@@ -72,7 +72,7 @@ services:
       - entelechy-net
 
   entelechy:
-    image: ghcr.io/vectorize-io/entelechy:${ENTELECHY_VERSION:-latest}
+    image: ghcr.io/garybense/entelechy:${ENTELECHY_VERSION:-latest}
     container_name: entelechy-app-timescale
     ports:
       - "8888:8888"

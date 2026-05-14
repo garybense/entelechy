@@ -11,7 +11,7 @@ Official TypeScript/JavaScript client for the Entelechy API. Supports **Node.js*
 ### Node.js
 
 ```bash
-npm install @vectorize-io/entelechy-client
+npm install @garybense/entelechy-client
 ```
 
 ### Deno
@@ -19,13 +19,13 @@ npm install @vectorize-io/entelechy-client
 No installation needed — import directly via the `npm:` specifier:
 
 ```typescript
-import { EntelechyClient } from "npm:@vectorize-io/entelechy-client";
+import { EntelechyClient } from "npm:@garybense/entelechy-client";
 ```
 
 ## Quick Start
 
 ```typescript
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const client = new EntelechyClient({ baseUrl: 'http://localhost:8888' });
 
@@ -46,7 +46,7 @@ console.log(answer.text);
 ## Client Initialization
 
 ```typescript
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const client = new EntelechyClient({
     baseUrl: 'http://localhost:8888',

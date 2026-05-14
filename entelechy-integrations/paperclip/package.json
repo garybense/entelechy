@@ -1,5 +1,5 @@
 {
-  "name": "@vectorize-io/entelechy-paperclip",
+  "name": "@garybense/entelechy-paperclip",
   "version": "0.2.1",
   "description": "Persistent long-term memory for Paperclip agents via Entelechy — recall before every heartbeat, retain after every run",
   "type": "module",
@@ -19,7 +19,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vectorize-io/entelechy.git",
+    "url": "https://github.com/garybense/entelechy.git",
     "directory": "entelechy-integrations/paperclip"
   },
   "files": [

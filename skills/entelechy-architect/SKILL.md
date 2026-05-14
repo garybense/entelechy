@@ -753,7 +753,7 @@ BANK_ID = os.environ["ENTELECHY_BANK_ID"]
 
 **Node.js:**
 ```javascript
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const client = new EntelechyClient({
     baseUrl: process.env.ENTELECHY_API_URL,
@@ -816,7 +816,7 @@ OPENAI_API_KEY=<your key>
 Install commands:
 - Cloud/Self-hosted Python: `pip install entelechy-client`
 - Local Python: `pip install entelechy-all`
-- Node.js: `npm install @vectorize-io/entelechy-client`
+- Node.js: `npm install @garybense/entelechy-client`
 
 ### Compliance & Privacy Notes (only if the user selected any enterprise/privacy/compliance considerations)
 

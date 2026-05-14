@@ -7,7 +7,7 @@ import integrationsData from '@site/src/data/integrations.json';
 import styles from './index.module.css';
 
 const INTEGRATIONS_JSON_URL =
-  'https://github.com/vectorize-io/entelechy/edit/main/entelechy-docs/src/data/integrations.json';
+  'https://github.com/garybense/entelechy/edit/main/entelechy-docs/src/data/integrations.json';
 
 type IntegrationType = 'official' | 'community';
 

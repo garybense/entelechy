@@ -169,7 +169,7 @@ With this config, running Codex in `~/projects/api` and `~/projects/frontend` st
 
 **Hooks not firing**: Check that `~/.codex/config.toml` contains `codex_hooks = true` under `[features]`. Re-run the installer to fix this automatically.
 
-**No memories recalled**: Recall returns results only after something has been retained. Either complete one Codex session first, or seed your bank manually using the [cookbook example](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/codex-memory).
+**No memories recalled**: Recall returns results only after something has been retained. Either complete one Codex session first, or seed your bank manually using the [cookbook example](https://github.com/garybense/entelechy-cookbook/tree/main/applications/codex-memory).
 
 **Memory not being stored**: `retainEveryNTurns` defaults to `10` — retain only fires every 10 turns. While testing, add `"retainEveryNTurns": 1` to `~/.entelechy/codex.json`.
 

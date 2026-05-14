@@ -1297,7 +1297,7 @@ class JinaMLXCrossEncoder(CrossEncoderModel):
         # which has an unguarded window where `from transformers import AutoTokenizer`
         # raises ImportError if another thread is concurrently initializing the
         # namespace (e.g. embeddings init in an executor thread).
-        # See: https://github.com/vectorize-io/entelechy/issues/994
+        # See: https://github.com/garybense/entelechy/issues/994
         import transformers
 
         _ = transformers.AutoTokenizer

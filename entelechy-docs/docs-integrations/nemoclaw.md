@@ -15,7 +15,7 @@ NemoClaw runs [OpenClaw](https://openclaw.ai) inside an OpenShell sandbox with c
 ## Quick Start
 
 ```bash
-npx @vectorize-io/entelechy-nemoclaw setup \
+npx @garybense/entelechy-nemoclaw setup \
   --sandbox my-assistant \
   --api-url https://api.entelechy.vectorize.io \
   --api-token <your-api-key> \
@@ -31,7 +31,7 @@ You'll see output like:
   ✓ openshell found
   ✓ openclaw found
 
-[1] Installing @vectorize-io/entelechy-openclaw plugin...
+[1] Installing @garybense/entelechy-openclaw plugin...
   ✓ Plugin installed
 
 [2] Configuring plugin in ~/.openclaw/openclaw.json...
@@ -58,7 +58,7 @@ The `entelechy-openclaw` plugin supports **external API mode**, where it skips t
 ### What the setup command does
 
 1. **Preflight** — verifies `openshell` and `openclaw` are installed
-2. **Install plugin** — runs `openclaw plugins install @vectorize-io/entelechy-openclaw`
+2. **Install plugin** — runs `openclaw plugins install @garybense/entelechy-openclaw`
 3. **Configure plugin** — writes external API mode config to `~/.openclaw/openclaw.json`
 4. **Apply policy** — reads the current sandbox policy, merges the Entelechy egress block, and re-applies via `openshell policy set`
 5. **Restart gateway** — runs `openclaw gateway restart`
@@ -97,7 +97,7 @@ If you prefer to apply the steps yourself instead of using the CLI:
 ### 1. Install the plugin
 
 ```bash
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 ### 2. Configure `~/.openclaw/openclaw.json`
@@ -223,7 +223,7 @@ openclaw plugins list | grep entelechy
 # Should show: ✓ enabled │ Entelechy Memory │ ...
 
 # Reinstall
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 ### Egress blocked

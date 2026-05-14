@@ -89,7 +89,7 @@ describe("runSetup", () => {
     expect(calls.some((c) => c.includes("which openshell"))).toBe(true);
     expect(calls.some((c) => c.includes("which openclaw"))).toBe(true);
     expect(
-      calls.some((c) => c.includes("openclaw plugins install @vectorize-io/entelechy-openclaw"))
+      calls.some((c) => c.includes("openclaw plugins install @garybense/entelechy-openclaw"))
     ).toBe(true);
     expect(calls.some((c) => c.includes("openshell policy set my-assistant"))).toBe(true);
     expect(calls.some((c) => c.includes("openclaw gateway restart"))).toBe(true);

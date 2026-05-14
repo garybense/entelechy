@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { createKnowledgeTools, TOOL_NAMES } from "../src/index.js";
 import type { KnowledgeTool } from "../src/index.js";
 
-// Mock fetch globally — the SDK uses @vectorize-io/entelechy-client which calls fetch.
+// Mock fetch globally — the SDK uses @garybense/entelechy-client which calls fetch.
 // The generated client passes a Request object (not a plain URL string).
 const mockFetch = vi.fn();
 vi.stubGlobal("fetch", mockFetch);

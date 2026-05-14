@@ -1,5 +1,5 @@
 {
-  "name": "@vectorize-io/self-driving-agents",
+  "name": "@garybense/self-driving-agents",
   "version": "0.0.6",
   "description": "Install self-driving agents with portable memory on any harness",
   "type": "module",
@@ -28,7 +28,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vectorize-io/entelechy.git",
+    "url": "https://github.com/garybense/entelechy.git",
     "directory": "entelechy-agent-setup"
   },
   "devDependencies": {
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.2.0",
-    "@vectorize-io/entelechy-client": "^0.5.6",
+    "@garybense/entelechy-client": "^0.5.6",
     "picocolors": "^1.1.0"
   }
 }

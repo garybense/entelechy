@@ -3,7 +3,7 @@
  *
  * Exercises both HTTP mode (direct API calls) and Embed mode (local daemon
  * spawned via EntelechyServer), talking to Entelechy through
- * `@vectorize-io/entelechy-client`.
+ * `@garybense/entelechy-client`.
  *
  * Requirements:
  *   HTTP mode:  Running Entelechy API at ENTELECHY_API_URL (default: http://localhost:8888)
@@ -17,8 +17,8 @@
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import { EntelechyServer } from "@vectorize-io/entelechy-all";
-import { EntelechyClient } from "@vectorize-io/entelechy-client";
+import { EntelechyServer } from "@garybense/entelechy-all";
+import { EntelechyClient } from "@garybense/entelechy-client";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

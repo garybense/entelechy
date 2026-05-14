@@ -2,10 +2,10 @@
 /**
  * self-driving-agents — install a self-driving agent.
  *
- * npx @vectorize-io/self-driving-agents install <agent> --harness openclaw [--agent <name>]
+ * npx @garybense/self-driving-agents install <agent> --harness openclaw [--agent <name>]
  *
  * Agent resolution:
- *   marketing-agent            → vectorize-io/self-driving-agents/marketing-agent (default repo)
+ *   marketing-agent            → garybense/self-driving-agents/marketing-agent (default repo)
  *   my-org/my-repo/my-agent   → my-org/my-repo/my-agent on GitHub
  *   ./local-dir                → local directory
  *   /absolute/path             → local directory
@@ -30,9 +30,9 @@ import { fileURLToPath } from "url";
 import { execSync } from "child_process";
 import * as p from "@clack/prompts";
 import color from "picocolors";
-import { EntelechyClient, sdk, createClient, createConfig } from "@vectorize-io/entelechy-client";
+import { EntelechyClient, sdk, createClient, createConfig } from "@garybense/entelechy-client";
 
-const DEFAULT_REPO = "vectorize-io/self-driving-agents";
+const DEFAULT_REPO = "garybense/self-driving-agents";
 
 // ── Content discovery ──────────────────────────────────
 
@@ -71,7 +71,7 @@ function isLocalPath(input: string): boolean {
  * Resolve the agent specifier to a local directory.
  *
  * - Local paths (./foo, /foo, ~/foo) → resolve directly
- * - "name"                          → GitHub: vectorize-io/self-driving-agents/name
+ * - "name"                          → GitHub: garybense/self-driving-agents/name
  * - "org/repo/path"                 → GitHub: org/repo/path
  */
 async function resolveAgentDir(
@@ -90,7 +90,7 @@ async function resolveAgentDir(
 
   if (parts.length <= 2) {
     // "name" or "name/subpath" → default repo
-    org = "vectorize-io";
+    org = "garybense";
     repo = "self-driving-agents";
     subpath = input;
   } else {
@@ -269,12 +269,12 @@ async function ensurePlugin(): Promise<void> {
         writeFileSync(OPENCLAW_CONFIG_PATH, JSON.stringify(cfg, null, 2) + "\n");
       }
 
-      execSync("openclaw plugins install @vectorize-io/entelechy-openclaw", { stdio: "inherit" });
+      execSync("openclaw plugins install @garybense/entelechy-openclaw", { stdio: "inherit" });
       const newVersion = getInstalledPluginVersion();
       p.log.success(`Entelechy plugin v${newVersion} installed`);
     } catch {
       p.cancel(
-        "Failed to install plugin. Run manually:\n  openclaw plugins install @vectorize-io/entelechy-openclaw"
+        "Failed to install plugin. Run manually:\n  openclaw plugins install @garybense/entelechy-openclaw"
       );
       process.exit(1);
     }
@@ -285,12 +285,12 @@ async function ensurePlugin(): Promise<void> {
   if (!isPluginConfigured()) {
     p.log.warn("Entelechy plugin needs configuration.");
     try {
-      execSync("npx --yes --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup", {
+      execSync("npx --yes --package @garybense/entelechy-openclaw entelechy-openclaw-setup", {
         stdio: "inherit",
       });
     } catch {
       p.cancel(
-        "Run the wizard manually:\n  npx --yes --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup"
+        "Run the wizard manually:\n  npx --yes --package @garybense/entelechy-openclaw entelechy-openclaw-setup"
       );
       process.exit(1);
     }
@@ -308,12 +308,12 @@ async function ensurePlugin(): Promise<void> {
         p.log.info("Launching configuration wizard...");
         try {
           execSync(
-            "npx --yes --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup",
+            "npx --yes --package @garybense/entelechy-openclaw entelechy-openclaw-setup",
             { stdio: "inherit" }
           );
         } catch {
           p.cancel(
-            "Configuration failed. Run manually:\n  npx --yes --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup"
+            "Configuration failed. Run manually:\n  npx --yes --package @garybense/entelechy-openclaw entelechy-openclaw-setup"
           );
           process.exit(1);
         }
@@ -334,7 +334,7 @@ async function main() {
   ${color.bold("self-driving-agents")} — install a self-driving agent
 
   ${color.dim("Usage:")}
-    npx @vectorize-io/self-driving-agents install <agent> --harness <harness> [--agent <name>]
+    npx @garybense/self-driving-agents install <agent> --harness <harness> [--agent <name>]
 
   ${color.dim("Agent sources:")}
     ${color.cyan("marketing-agent")}             → ${DEFAULT_REPO}/marketing-agent

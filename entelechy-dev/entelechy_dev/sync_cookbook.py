@@ -24,7 +24,7 @@ import subprocess
 import tempfile
 from pathlib import Path
 
-COOKBOOK_REPO = "https://github.com/vectorize-io/entelechy-cookbook.git"
+COOKBOOK_REPO = "https://github.com/garybense/entelechy-cookbook.git"
 IGNORE_DIRS = {".git", "notebooks", "node_modules", "__pycache__", ".venv", "venv"}
 
 
@@ -284,7 +284,7 @@ def process_notebooks(cookbook_dir: Path, recipes_dir: Path) -> list[dict]:
         md_content = strip_frontmatter(md_content)
 
         # Create recipe page with frontmatter
-        notebook_url = f"https://github.com/vectorize-io/entelechy-cookbook/blob/main/notebooks/{notebook_path.name}"
+        notebook_url = f"https://github.com/garybense/entelechy-cookbook/blob/main/notebooks/{notebook_path.name}"
 
         frontmatter = f"""---
 sidebar_position: {i + 1}
@@ -374,7 +374,7 @@ def process_applications(cookbook_dir: Path, apps_dir: Path) -> list[dict]:
         readme_content = strip_local_md_links(readme_content)
 
         # Create application page with frontmatter
-        app_url = f"https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/{entry.name}"
+        app_url = f"https://github.com/garybense/entelechy-cookbook/tree/main/applications/{entry.name}"
 
         frontmatter = f"""---
 sidebar_position: {len(apps) + 1}

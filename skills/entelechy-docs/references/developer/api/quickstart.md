@@ -32,7 +32,7 @@ export OPENAI_API_KEY=sk-xxx
 docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 - **API**: http://localhost:8888
@@ -70,11 +70,11 @@ client.reflect(bank_id="my-bank", query="Tell me about Alice")
 ### Node.js
 
 ```bash
-npm install @vectorize-io/entelechy-client
+npm install @garybense/entelechy-client
 ```
 
 ```javascript
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const client = new EntelechyClient({ baseUrl: 'http://localhost:8888' });
 
@@ -108,7 +108,7 @@ entelechy memory reflect my-bank "Tell me about Alice"
 ### Go
 
 ```bash
-go get github.com/vectorize-io/entelechy/entelechy-clients/go
+go get github.com/garybense/entelechy/entelechy-clients/go
 ```
 
 ```go

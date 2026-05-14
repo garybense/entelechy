@@ -3,7 +3,7 @@ Tests that LLM connection verification failures don't crash server startup.
 
 When the LLM provider is unavailable (e.g. 429 quota exhaustion), the server
 should log a warning and continue booting rather than crash-looping.
-See: https://github.com/vectorize-io/entelechy/issues/1147
+See: https://github.com/garybense/entelechy/issues/1147
 """
 
 import logging

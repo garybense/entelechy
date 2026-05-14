@@ -23,7 +23,7 @@ import {
   vi,
   type MockInstance,
 } from "vitest";
-import type { RecallResponse, RetainResponse } from "@vectorize-io/entelechy-client";
+import type { RecallResponse, RetainResponse } from "@garybense/entelechy-client";
 import type { MoltbotPluginAPI, PluginConfig } from "../src/types.js";
 
 const ENTELECHY_API_URL = process.env.ENTELECHY_API_URL || "http://localhost:8888";
@@ -163,7 +163,7 @@ beforeAll(async () => {
   vi.resetModules();
 
   const mod = await import("../src/index.js");
-  const { EntelechyClient } = await import("@vectorize-io/entelechy-client");
+  const { EntelechyClient } = await import("@garybense/entelechy-client");
   const pluginFn = mod.default;
   const getClient = mod.getClient;
 

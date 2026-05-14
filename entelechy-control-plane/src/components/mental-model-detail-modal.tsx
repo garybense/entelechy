@@ -669,7 +669,7 @@ export function MentalModelDetailModal({
         attempts++;
         try {
           const op = await client.getOperationStatus(currentBank, operation_id);
-          
+
           if (op.status === "completed") {
             // Operation finished successfully, get the updated model
             const updated = await client.getMentalModel(currentBank, mentalModel.id);
@@ -680,11 +680,11 @@ export function MentalModelDetailModal({
             toast.success("Mental model refreshed");
             return;
           }
-          
+
           if (op.status === "failed") {
             setRefreshing(false);
             toast.error("Refresh failed", {
-              description: op.error_message || "The background task encountered an error."
+              description: op.error_message || "The background task encountered an error.",
             });
             return;
           }
@@ -694,7 +694,7 @@ export function MentalModelDetailModal({
             toast.error("Refresh cancelled");
             return;
           }
-          
+
           if (attempts >= maxAttempts) {
             setRefreshing(false);
             toast.error("Refresh timeout", {
@@ -702,19 +702,19 @@ export function MentalModelDetailModal({
             });
             return;
           }
-          
+
           // Still pending or processing, keep polling
           setTimeout(poll, pollInterval);
         } catch (err) {
           console.error(`Error polling operation status (attempt ${attempts}):`, err);
-          
+
           const status = (err as any).status;
           if (status === 401 || status === 403) {
             setRefreshing(false);
             toast.error("Authentication lost");
             return;
           }
-          
+
           // Transient error (502, 504, connection), keep polling
           setTimeout(poll, pollInterval);
         }
@@ -723,7 +723,7 @@ export function MentalModelDetailModal({
     } catch (err) {
       console.error("Failed to start refresh:", err);
       toast.error("Refresh failed", {
-        description: (err as Error).message || "Could not start the refresh operation."
+        description: (err as Error).message || "Could not start the refresh operation.",
       });
       setRefreshing(false);
     }

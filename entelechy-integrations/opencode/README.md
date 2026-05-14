@@ -1,4 +1,4 @@
-# @vectorize-io/opencode-entelechy
+# @garybense/opencode-entelechy
 
 Entelechy memory plugin for [OpenCode](https://opencode.ai) — give your AI coding agent persistent long-term memory across sessions.
 
@@ -18,7 +18,7 @@ Add to your `opencode.json` (project) or `~/.config/opencode/opencode.json` (glo
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["@vectorize-io/opencode-entelechy"]
+  "plugin": ["@garybense/opencode-entelechy"]
 }
 ```
 
@@ -50,7 +50,7 @@ Or configure inline in `opencode.json`:
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
     [
-      "@vectorize-io/opencode-entelechy",
+      "@garybense/opencode-entelechy",
       {
         "entelechyApiUrl": "https://api.entelechy.vectorize.io",
         "entelechyApiToken": "your-api-key"
@@ -70,7 +70,7 @@ Pass options directly in `opencode.json`:
 {
   "plugin": [
     [
-      "@vectorize-io/opencode-entelechy",
+      "@garybense/opencode-entelechy",
       {
         "entelechyApiUrl": "http://localhost:8888",
         "bankId": "my-project",

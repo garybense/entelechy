@@ -8,12 +8,12 @@ description: "Add long-term memory to all Paperclip agents with Entelechy. Insta
 
 Persistent memory for [Paperclip AI](https://github.com/paperclipai/paperclip) agents using [Entelechy](https://entelechy.vectorize.io).
 
-Install the `@vectorize-io/entelechy-paperclip` plugin once. Every agent in your Paperclip instance automatically gets long-term memory that persists across runs, companies, and restarts — no code changes required.
+Install the `@garybense/entelechy-paperclip` plugin once. Every agent in your Paperclip instance automatically gets long-term memory that persists across runs, companies, and restarts — no code changes required.
 
 ## Installation
 
 ```bash
-pnpm paperclipai plugin install @vectorize-io/entelechy-paperclip
+pnpm paperclipai plugin install @garybense/entelechy-paperclip
 ```
 
 Then configure in **Settings → Plugins → Entelechy Memory**.

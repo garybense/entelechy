@@ -147,7 +147,7 @@ async def test_none_event_date_with_empty_facts_no_crash():
     When event_date is None and the LLM returns an empty facts list,
     the debug log should not crash with AttributeError on .isoformat().
 
-    Regression test for https://github.com/vectorize-io/entelechy/issues/874
+    Regression test for https://github.com/garybense/entelechy/issues/874
     """
     from entelechy_api.engine.retain.fact_extraction import _extract_facts_from_chunk
 

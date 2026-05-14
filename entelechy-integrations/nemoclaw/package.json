@@ -1,5 +1,5 @@
 {
-  "name": "@vectorize-io/entelechy-nemoclaw",
+  "name": "@garybense/entelechy-nemoclaw",
   "version": "0.1.2",
   "description": "Setup CLI for entelechy-openclaw on NemoClaw sandboxes — installs the plugin, configures external API mode, and applies the OpenShell network policy",
   "type": "module",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vectorize-io/entelechy.git",
+    "url": "https://github.com/garybense/entelechy.git",
     "directory": "entelechy-integrations/nemoclaw"
   },
   "files": [

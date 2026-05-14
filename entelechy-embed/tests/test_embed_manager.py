@@ -62,7 +62,7 @@ def test_register_profile_skips_when_no_api_keys():
     _register_profile should not call create_profile, preserving any
     existing profile .env file.
 
-    Regression test for https://github.com/vectorize-io/entelechy/issues/894
+    Regression test for https://github.com/garybense/entelechy/issues/894
     """
     manager = DaemonEmbedManager()
     manager._profile_manager = MagicMock()
@@ -105,7 +105,7 @@ def test_find_ui_command_uses_npx_yes_flag_for_published_control_plane(monkeypat
         assert manager._find_ui_command() == [
             "npx",
             "-y",
-            "@vectorize-io/entelechy-control-plane@9.9.9",
+            "@garybense/entelechy-control-plane@9.9.9",
         ]
 
 

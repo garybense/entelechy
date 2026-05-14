@@ -1,5 +1,5 @@
 {
-  "name": "@vectorize-io/entelechy-openclaw",
+  "name": "@garybense/entelechy-openclaw",
   "version": "0.7.2",
   "description": "Entelechy memory plugin for OpenClaw - biomimetic long-term memory with fact extraction",
   "main": "dist/index.js",
@@ -26,7 +26,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vectorize-io/entelechy.git",
+    "url": "https://github.com/garybense/entelechy.git",
     "directory": "entelechy-integrations/openclaw"
   },
   "files": [
@@ -46,9 +46,9 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.2.0",
-    "@vectorize-io/entelechy-agent-sdk": "^0.1.0",
-    "@vectorize-io/entelechy-all": "^0.1.0",
-    "@vectorize-io/entelechy-client": "^0.5.0"
+    "@garybense/entelechy-agent-sdk": "^0.1.0",
+    "@garybense/entelechy-all": "^0.1.0",
+    "@garybense/entelechy-client": "^0.5.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

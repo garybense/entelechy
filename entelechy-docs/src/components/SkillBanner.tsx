@@ -64,7 +64,7 @@ function extractMarkdown(element: Element): string {
 export default function SkillBanner(): JSX.Element {
   const [commandCopied, setCommandCopied] = useState(false);
   const [pageCopied, setPageCopied] = useState(false);
-  const command = 'npx skills add https://github.com/vectorize-io/entelechy --skill entelechy-docs';
+  const command = 'npx skills add https://github.com/garybense/entelechy --skill entelechy-docs';
 
   const handleCopyCommand = async () => {
     try {

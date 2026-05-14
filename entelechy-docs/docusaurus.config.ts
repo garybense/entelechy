@@ -25,7 +25,7 @@ const config: Config = {
   url: 'https://entelechy.vectorize.io',
   baseUrl: '/',
 
-  organizationName: 'vectorize-io',
+  organizationName: 'garybense',
   projectName: 'entelechy',
   trailingSlash: false,
 
@@ -324,7 +324,7 @@ const config: Config = {
           className: 'navbar-item-cloud',
         },
         {
-          href: 'https://github.com/vectorize-io/entelechy',
+          href: 'https://github.com/garybense/entelechy',
           position: 'right',
           label: 'GitHub',
           className: 'header-github-link',
@@ -381,7 +381,7 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/vectorize-io/entelechy',
+              href: 'https://github.com/garybense/entelechy',
             },
             {
               label: 'Slack',

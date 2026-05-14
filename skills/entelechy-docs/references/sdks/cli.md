@@ -357,7 +357,7 @@ This runs the Control Plane locally on port 9999 using the API URL from your con
 - **Operation history** — View ingestion and processing logs
 
 :::tip
-The UI command requires Node.js to be installed. It automatically downloads and runs the `@vectorize-io/entelechy-control-plane` package via npx.
+The UI command requires Node.js to be installed. It automatically downloads and runs the `@garybense/entelechy-control-plane` package via npx.
 :::
 
 ## Interactive Explorer

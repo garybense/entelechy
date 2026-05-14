@@ -1,17 +1,17 @@
-# @vectorize-io/entelechy-chat
+# @garybense/entelechy-chat
 
 Give your [Vercel Chat SDK](https://github.com/vercel/chat) bots persistent, per-user memory with a single handler wrapper. Works with Slack, Discord, Teams, Google Chat, GitHub, and Linear.
 
 ## Quick Start
 
 ```bash
-npm install @vectorize-io/entelechy-chat
+npm install @garybense/entelechy-chat
 ```
 
 ```typescript
 import { Chat } from "chat";
-import { EntelechyClient } from "@vectorize-io/entelechy-client";
-import { withEntelechyChat } from "@vectorize-io/entelechy-chat";
+import { EntelechyClient } from "@garybense/entelechy-client";
+import { withEntelechyChat } from "@garybense/entelechy-chat";
 import { streamText } from "ai";
 import { openai } from "@ai-sdk/openai";
 

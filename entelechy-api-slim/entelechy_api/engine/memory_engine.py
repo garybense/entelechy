@@ -1229,7 +1229,7 @@ class MemoryEngine(MemoryEngineInterface):
                     # (UniqueViolationError, ForeignKeyViolationError, CheckViolationError,
                     # NotNullViolationError, ExclusionViolationError / ORA-00001, ORA-02291, etc.)
                     # will never succeed on retry — the offending row state is already committed.
-                    # Retrying just burns worker capacity. See vectorize-io/entelechy#980.
+                    # Retrying just burns worker capacity. See garybense/entelechy#980.
                     logger.error(
                         f"Not retrying task {task_type} (integrity violation, deterministic): {type(e).__name__}"
                     )

@@ -7,7 +7,7 @@ sidebar_position: 8
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/go-memory-service)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/go-memory-service)
 :::
 
 
@@ -31,7 +31,7 @@ docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -e ENTELECHY_API_LLM_MODEL=o3-mini \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 ### 2. Run the service

@@ -137,7 +137,7 @@ storage = EntelechyStorage(
 
 ## Examples
 
-See the [CrewAI memory example](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/crewai-memory) in the Entelechy Cookbook for a complete working demo with a Researcher + Writer crew.
+See the [CrewAI memory example](https://github.com/garybense/entelechy-cookbook/tree/main/applications/crewai-memory) in the Entelechy Cookbook for a complete working demo with a Researcher + Writer crew.
 
 ## Configuration Reference
 

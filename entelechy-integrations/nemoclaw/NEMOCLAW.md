@@ -35,7 +35,7 @@ openclaw plugins install /path/to/entelechy-integrations/openclaw
 Alternatively, install from npm:
 
 ```bash
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 ## Step 3: Configure the plugin

@@ -12,7 +12,7 @@ import quickstartGo from '!!raw-loader!@site/examples/api/quickstart.go';
 ## Installation
 
 ```bash
-go get github.com/vectorize-io/entelechy/entelechy-clients/go
+go get github.com/garybense/entelechy/entelechy-clients/go
 ```
 
 Requires Go 1.23+.

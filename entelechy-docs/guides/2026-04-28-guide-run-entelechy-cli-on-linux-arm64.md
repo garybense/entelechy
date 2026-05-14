@@ -31,7 +31,7 @@ Before this release asset was wired into the release job, the CLI itself was eas
 Use the published release asset directly:
 
 ```bash
-curl -L   -o entelechy   https://github.com/vectorize-io/entelechy/releases/latest/download/entelechy-linux-arm64
+curl -L   -o entelechy   https://github.com/garybense/entelechy/releases/latest/download/entelechy-linux-arm64
 
 chmod +x entelechy
 sudo mv entelechy /usr/local/bin/entelechy

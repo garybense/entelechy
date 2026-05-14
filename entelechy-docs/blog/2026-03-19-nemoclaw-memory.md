@@ -69,7 +69,7 @@ For background on the OpenClaw plugin itself — how it hooks into the gateway l
 The `entelechy-nemoclaw` package automates the entire setup — installing the plugin, configuring external API mode, reading your current sandbox policy, merging the Entelechy egress rule, and restarting the gateway:
 
 ```bash
-npx @vectorize-io/entelechy-nemoclaw setup \
+npx @garybense/entelechy-nemoclaw setup \
   --sandbox my-assistant \
   --api-url https://api.entelechy.vectorize.io \
   --api-token <your-api-key> \
@@ -83,7 +83,7 @@ That's it. You'll see output like:
   ✓ openshell found
   ✓ openclaw found
 
-[1] Installing @vectorize-io/entelechy-openclaw plugin...
+[1] Installing @garybense/entelechy-openclaw plugin...
   ✓ Plugin installed
 
 [2] Configuring plugin in ~/.openclaw/openclaw.json...
@@ -150,7 +150,7 @@ If you prefer to apply the steps yourself, here's what `entelechy-nemoclaw setup
 **Install the plugin:**
 
 ```bash
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 **Configure `~/.openclaw/openclaw.json`:**
@@ -217,7 +217,7 @@ On macOS, the OpenClaw gateway runs as a LaunchAgent with a restricted security 
 
 ```bash
 # This works — copies files to ~/.openclaw/extensions/
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 If you see `EPERM: operation not permitted, scandir` in your gateway logs, this is what's happening.
@@ -262,17 +262,17 @@ There's also an interesting property of `dynamicBankId`:
 - **Enabled** (`true`): each user gets an isolated memory bank. Memories from one user's sessions can't bleed into another's. Use this for multi-tenant deployments.
 - **Disabled** (`false`): a shared bank accumulates context from all sessions. Use this for single-user sandboxes like a personal coding assistant.
 
-> **Want to skip self-hosting?** [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) is what we used in this walkthrough — no Docker, no infrastructure. Sign up, grab an API key, and run `npx @vectorize-io/entelechy-nemoclaw setup`.
+> **Want to skip self-hosting?** [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) is what we used in this walkthrough — no Docker, no infrastructure. Sign up, grab an API key, and run `npx @garybense/entelechy-nemoclaw setup`.
 
 ## Recap
 
-Persistent memory in a sandboxed AI agent is one command: `npx @vectorize-io/entelechy-nemoclaw setup`. It installs the plugin, applies the network egress rule, and configures external API mode — everything the sandbox needs to let Entelechy through.
+Persistent memory in a sandboxed AI agent is one command: `npx @garybense/entelechy-nemoclaw setup`. It installs the plugin, applies the network egress rule, and configures external API mode — everything the sandbox needs to let Entelechy through.
 
 The key insight: sandbox isolation and persistent memory are orthogonal concerns. The sandbox controls what the agent can affect; memory controls what the agent knows. One network policy rule bridges them without compromising either.
 
 ## Next Steps
 
-- **Run the setup**: `npx @vectorize-io/entelechy-nemoclaw setup --help` to get started.
+- **Run the setup**: `npx @garybense/entelechy-nemoclaw setup --help` to get started.
 - **Try per-user memory banks**: Enable `dynamicBankId: true` to give each user isolated memory in multi-tenant deployments.
 - **Explore the OpenClaw plugin in depth**: See [The Memory Upgrade Every OpenClaw User Needs](https://entelechy.vectorize.io/blog/2026/03/06/adding-memory-to-openclaw-with-entelechy) for how the plugin hooks into gateway lifecycle events.
 - **Connect other agents to the same memory**: Entelechy works with [Hermes Agent](https://entelechy.vectorize.io/blog/2026/03/17/hermes-agent-memory), [Streamlit chatbots](https://entelechy.vectorize.io/blog/2026/03/17/python-chatbot-memory-streamlit), and [any MCP client](https://entelechy.vectorize.io/blog/2026/03/04/mcp-agent-memory).
@@ -281,7 +281,7 @@ The key insight: sandbox isolation and persistent memory are orthogonal concerns
 ---
 
 **Resources:**
-- [entelechy-nemoclaw on npm](https://www.npmjs.com/package/@vectorize-io/entelechy-nemoclaw)
-- [entelechy-openclaw on npm](https://www.npmjs.com/package/@vectorize-io/entelechy-openclaw)
+- [entelechy-nemoclaw on npm](https://www.npmjs.com/package/@garybense/entelechy-nemoclaw)
+- [entelechy-openclaw on npm](https://www.npmjs.com/package/@garybense/entelechy-openclaw)
 - [OpenClaw plugin documentation](https://vectorize.io/entelechy/sdks/integrations/openclaw)
 - [Entelechy Cloud](https://ui.entelechy.vectorize.io)

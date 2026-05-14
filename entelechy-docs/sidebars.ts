@@ -472,7 +472,7 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'link',
-          href: 'https://github.com/vectorize-io/entelechy',
+          href: 'https://github.com/garybense/entelechy',
           label: 'GitHub',
           customProps: { icon: 'si-github', iconAfter: 'lu-arrow-up-right' },
         },

@@ -6,8 +6,8 @@ import type {
   MemoryResult,
   RetainRequest,
 } from "./types.js";
-import { EntelechyServer, type Logger } from "@vectorize-io/entelechy-all";
-import { EntelechyClient, type EntelechyClientOptions } from "@vectorize-io/entelechy-client";
+import { EntelechyServer, type Logger } from "@garybense/entelechy-all";
+import { EntelechyClient, type EntelechyClientOptions } from "@garybense/entelechy-client";
 import { RetainQueue } from "./retain-queue.js";
 import { compileSessionPatterns, matchesSessionPattern } from "./session-patterns.js";
 import { createHash } from "crypto";
@@ -18,7 +18,7 @@ import { configureLogger, setApiLogger, stopLogger } from "./logger.js";
 import { mkdirSync } from "fs";
 import { createRequire } from "module";
 import { homedir } from "os";
-import { createKnowledgeTools, TOOL_NAMES } from "@vectorize-io/entelechy-agent-sdk";
+import { createKnowledgeTools, TOOL_NAMES } from "@garybense/entelechy-agent-sdk";
 
 function loadPackageVersion(): string {
   try {
@@ -63,7 +63,7 @@ let usingExternalApi = false; // Track if using external API (skip daemon manage
 
 // Capability detected once per service.start() against `<apiUrl>/version`.
 // `true` when the Entelechy API supports `update_mode: 'append'` (added in
-// 0.5.0 — see vectorize-io/entelechy#932). When false, retain falls back to a
+// 0.5.0 — see garybense/entelechy#932). When false, retain falls back to a
 // per-turn document id so prior turns aren't silently overwritten.
 let supportsUpdateModeAppend = false;
 let appendCapabilityProbed = false;

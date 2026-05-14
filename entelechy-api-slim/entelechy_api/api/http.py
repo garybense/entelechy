@@ -2829,6 +2829,7 @@ def create_app(
 
     # Register OpenAI compatibility routes
     from .openai_router import router as openai_router
+
     app.include_router(openai_router)
 
     # Mount HTTP extension router if available

@@ -10,9 +10,9 @@ const managerStart = vi.fn();
 const managerStop = vi.fn();
 const managerGetBaseUrl = vi.fn(() => "http://127.0.0.1:9077");
 
-vi.mock("@vectorize-io/entelechy-all", async () => {
-  const actual = await vi.importActual<typeof import("@vectorize-io/entelechy-all")>(
-    "@vectorize-io/entelechy-all"
+vi.mock("@garybense/entelechy-all", async () => {
+  const actual = await vi.importActual<typeof import("@garybense/entelechy-all")>(
+    "@garybense/entelechy-all"
   );
   return {
     ...actual,

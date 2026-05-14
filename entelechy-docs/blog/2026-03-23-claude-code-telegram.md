@@ -159,7 +159,7 @@ This is completely automatic. Once installed, every conversation builds your age
 ### Step 7: Install the Entelechy Plugin
 
 ```bash
-claude plugin marketplace add vectorize-io/entelechy
+claude plugin marketplace add garybense/entelechy
 claude plugin install entelechy-memory
 ```
 
@@ -320,9 +320,9 @@ Set it up, use it for a week, and see the difference.
 [3]:	https://t.me/botfather
 [4]:	https://t.me/userinfobot
 [5]:	https://vectorize.io/entelechy
-[6]:	https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/openclaw
-[7]:	https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/claude-code
-[9]:	https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/claude-code
+[6]:	https://github.com/garybense/entelechy/tree/main/entelechy-integrations/openclaw
+[7]:	https://github.com/garybense/entelechy/tree/main/entelechy-integrations/claude-code
+[9]:	https://github.com/garybense/entelechy/tree/main/entelechy-integrations/claude-code
 [10]:	https://openclaw.ai
-[11]:	https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/claude-code
-[12]:	https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/claude-code
+[11]:	https://github.com/garybense/entelechy/tree/main/entelechy-integrations/claude-code
+[12]:	https://github.com/garybense/entelechy/tree/main/entelechy-integrations/claude-code

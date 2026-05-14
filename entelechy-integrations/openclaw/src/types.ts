@@ -130,7 +130,7 @@ export type {
   RecallResult as MemoryResult,
   RecallResponse,
   ReflectResponse,
-} from "@vectorize-io/entelechy-client";
+} from "@garybense/entelechy-client";
 
 /**
  * Internal retain payload shape built by `buildRetainRequest`. Not a

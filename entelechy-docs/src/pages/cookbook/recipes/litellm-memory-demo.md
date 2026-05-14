@@ -7,7 +7,7 @@ sidebar_position: 4
 
 :::tip Run this notebook
 This recipe is available as an interactive Jupyter notebook.
-[**Open in GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/blob/main/notebooks/04-litellm-memory-demo.ipynb)
+[**Open in GitHub →**](https://github.com/garybense/entelechy-cookbook/blob/main/notebooks/04-litellm-memory-demo.ipynb)
 :::
 
 
@@ -33,7 +33,7 @@ docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -e ENTELECHY_API_LLM_MODEL=o3-mini \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 - API: http://localhost:8888

@@ -1,8 +1,8 @@
-# @vectorize-io/entelechy-all
+# @garybense/entelechy-all
 
 Node.js equivalent of the Python [`entelechy-all`](https://pypi.org/project/entelechy-all/) package — programmatic lifecycle manager for a local Entelechy daemon. Use this when you want to embed Entelechy in a Node application without hand-rolling subprocess management.
 
-This package deliberately does **not** ship an HTTP client. Once the daemon is running, talk to it with [`@vectorize-io/entelechy-client`](https://www.npmjs.com/package/@vectorize-io/entelechy-client) against `server.getBaseUrl()`. The two packages compose — one owns the daemon process, the other owns the HTTP API surface.
+This package deliberately does **not** ship an HTTP client. Once the daemon is running, talk to it with [`@garybense/entelechy-client`](https://www.npmjs.com/package/@garybense/entelechy-client) against `server.getBaseUrl()`. The two packages compose — one owns the daemon process, the other owns the HTTP API surface.
 
 ## Requirements
 
@@ -12,14 +12,14 @@ This package deliberately does **not** ship an HTTP client. Once the daemon is r
 ## Install
 
 ```bash
-npm install @vectorize-io/entelechy-all @vectorize-io/entelechy-client
+npm install @garybense/entelechy-all @garybense/entelechy-client
 ```
 
 ## Example
 
 ```ts
-import { EntelechyServer, consoleLogger } from "@vectorize-io/entelechy-all";
-import { EntelechyClient } from "@vectorize-io/entelechy-client";
+import { EntelechyServer, consoleLogger } from "@garybense/entelechy-all";
+import { EntelechyClient } from "@garybense/entelechy-client";
 
 const server = new EntelechyServer({
   profile: "my-app",
@@ -73,7 +73,7 @@ new EntelechyServer({
 - `Logger` interface plus `silentLogger` (default) and `consoleLogger` helpers.
 - `getEmbedCommand(opts)` — low-level helper that returns the `[cmd, ...args]` tuple used to invoke the underlying Python CLI.
 
-For memory operations (retain, recall, reflect, bank management, stats) use [`@vectorize-io/entelechy-client`](https://www.npmjs.com/package/@vectorize-io/entelechy-client).
+For memory operations (retain, recall, reflect, bank management, stats) use [`@garybense/entelechy-client`](https://www.npmjs.com/package/@garybense/entelechy-client).
 
 ## License
 

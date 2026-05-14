@@ -7,7 +7,7 @@ NemoClaw runs [OpenClaw](https://openclaw.ai) inside an OpenShell sandbox with s
 ## Quick Start
 
 ```bash
-npx @vectorize-io/entelechy-nemoclaw setup \
+npx @garybense/entelechy-nemoclaw setup \
   --sandbox my-assistant \
   --api-url https://api.entelechy.vectorize.io \
   --api-token <your-api-key> \
@@ -43,7 +43,7 @@ Options:
 ## What It Does
 
 1. **Preflight** — verifies `openshell` and `openclaw` are installed
-2. **Install plugin** — runs `openclaw plugins install @vectorize-io/entelechy-openclaw`
+2. **Install plugin** — runs `openclaw plugins install @garybense/entelechy-openclaw`
 3. **Configure plugin** — writes external API mode config to `~/.openclaw/openclaw.json`
 4. **Apply policy** — reads current sandbox policy, merges Entelechy egress rule, re-applies via `openshell policy set`
 5. **Restart gateway** — runs `openclaw gateway restart`
@@ -53,7 +53,7 @@ Options:
 - [Entelechy Documentation](https://vectorize.io/entelechy)
 - [NemoClaw](https://nemoclaw.ai)
 - [OpenClaw](https://openclaw.ai)
-- [GitHub Repository](https://github.com/vectorize-io/entelechy)
+- [GitHub Repository](https://github.com/garybense/entelechy)
 
 ## License
 

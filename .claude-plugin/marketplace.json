@@ -3,7 +3,7 @@
   "name": "entelechy",
   "description": "Official Entelechy integrations for Claude Code",
   "owner": {
-    "name": "vectorize-io"
+    "name": "garybense"
   },
   "plugins": [
     {

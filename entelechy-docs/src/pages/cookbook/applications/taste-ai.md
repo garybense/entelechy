@@ -7,7 +7,7 @@ sidebar_position: 15
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/taste-ai)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/taste-ai)
 :::
 
 
@@ -118,5 +118,5 @@ npm run dev
 
 ## Learn More
 
-- [Entelechy AI SDK on npm](https://www.npmjs.com/package/@vectorize-io/entelechy-ai-sdk)
+- [Entelechy AI SDK on npm](https://www.npmjs.com/package/@garybense/entelechy-ai-sdk)
 - [AI SDK Documentation](https://sdk.vercel.ai/docs)

@@ -1,6 +1,6 @@
-# @vectorize-io/entelechy-paperclip
+# @garybense/entelechy-paperclip
 
-Persistent long-term memory for Paperclip agents via [Entelechy](https://github.com/vectorize-io/entelechy).
+Persistent long-term memory for Paperclip agents via [Entelechy](https://github.com/garybense/entelechy).
 
 Install once. Every agent in your Paperclip instance gets memory that persists across runs, companies, and restarts.
 
@@ -13,7 +13,7 @@ Install once. Every agent in your Paperclip instance gets memory that persists a
 ## Installation
 
 ```bash
-pnpm paperclipai plugin install @vectorize-io/entelechy-paperclip
+pnpm paperclipai plugin install @garybense/entelechy-paperclip
 ```
 
 Then configure in **Settings → Plugins → Entelechy Memory**.

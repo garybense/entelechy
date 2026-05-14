@@ -40,7 +40,7 @@ By committing to PostgreSQL, we keep the system simple:
 
 ## Development with pg0
 
-For local development, Entelechy uses **[pg0](https://github.com/vectorize-io/pg0)**—an embedded PostgreSQL distribution.
+For local development, Entelechy uses **[pg0](https://github.com/garybense/pg0)**—an embedded PostgreSQL distribution.
 
 ### What is pg0?
 

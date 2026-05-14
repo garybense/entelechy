@@ -15,7 +15,7 @@ Add to your `opencode.json` (project) or `~/.config/opencode/opencode.json` (glo
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["@vectorize-io/opencode-entelechy"]
+  "plugin": ["@garybense/opencode-entelechy"]
 }
 ```
 
@@ -44,7 +44,7 @@ Or configure inline via plugin options in `opencode.json`:
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    ["@vectorize-io/opencode-entelechy", {
+    ["@garybense/opencode-entelechy", {
       "entelechyApiUrl": "https://api.entelechy.vectorize.io",
       "entelechyApiToken": "your-api-key"
     }]
@@ -87,7 +87,7 @@ This ensures memories survive context window trimming.
 ```json
 {
   "plugin": [
-    ["@vectorize-io/opencode-entelechy", {
+    ["@garybense/opencode-entelechy", {
       "entelechyApiUrl": "http://localhost:8888",
       "entelechyApiToken": "your-api-key",
       "bankId": "my-project",

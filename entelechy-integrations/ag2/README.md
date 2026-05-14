@@ -1,13 +1,13 @@
 # entelechy-ag2
 
-AG2 integration for [Entelechy](https://github.com/vectorize-io/entelechy) — persistent long-term memory for AI agents.
+AG2 integration for [Entelechy](https://github.com/garybense/entelechy) — persistent long-term memory for AI agents.
 
 Provides Entelechy-backed tool functions that give [AG2](https://ag2.ai) agents long-term memory across conversations via retain/recall/reflect operations.
 
 ## Prerequisites
 
 - Python 3.10+
-- Running Entelechy instance ([quickstart](https://github.com/vectorize-io/entelechy#quick-start))
+- Running Entelechy instance ([quickstart](https://github.com/garybense/entelechy#quick-start))
 
 ## Installation
 

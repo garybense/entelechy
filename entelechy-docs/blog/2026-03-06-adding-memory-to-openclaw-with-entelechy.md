@@ -7,7 +7,7 @@ image: /img/blog/adding-memory-to-openclaw-with-entelechy.png
 hide_table_of_contents: true
 ---
 
-OpenClaw's built-in memory depends on the agent deciding what to save — and models don't do this consistently. [Entelechy](https://github.com/vectorize-io/entelechy) replaces it with automated extraction and auto-recall: every conversation is captured, facts and entities are extracted in the background, and relevant context is injected before every response automatically. One plugin install, one setup wizard, no Docker.
+OpenClaw's built-in memory depends on the agent deciding what to save — and models don't do this consistently. [Entelechy](https://github.com/garybense/entelechy) replaces it with automated extraction and auto-recall: every conversation is captured, facts and entities are extracted in the background, and relevant context is injected before every response automatically. One plugin install, one setup wizard, no Docker.
 
 <!-- truncate -->
 
@@ -37,7 +37,7 @@ There's also a data question that matters for OpenClaw users specifically. OpenC
 
 ## The Approach
 
-[Entelechy](https://github.com/vectorize-io/entelechy) is an open-source memory engine that replaces OpenClaw's memory layer with automated, structured knowledge extraction. The key differences from the built-in system:
+[Entelechy](https://github.com/garybense/entelechy) is an open-source memory engine that replaces OpenClaw's memory layer with automated, structured knowledge extraction. The key differences from the built-in system:
 
 **Automatic capture, not manual.** Every conversation is captured after each turn without the agent needing to decide what's worth remembering. Entelechy extracts facts, entities, and relationships in the background — the model doesn't need to be prompted to "save this."
 
@@ -65,7 +65,7 @@ There's also a data question that matters for OpenClaw users specifically. OpenC
 ### Step 1: Install the Plugin
 
 ```bash
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 You should see output confirming the install and that Entelechy takes over the memory slot:
@@ -78,7 +78,7 @@ Installed plugin: entelechy-openclaw
 ### Step 2: Run the Setup Wizard
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 ```
 
 The wizard walks you through three modes:
@@ -93,15 +93,15 @@ The wizard can also run non-interactively for CI or scripted setups:
 
 ```bash
 # Cloud
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode cloud --token hsk_your_cloud_token
 
 # Embedded with OpenAI
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode embedded --provider openai --api-key sk-...
 
 # Embedded with Claude Code (authenticates via the Claude Code CLI — no separate API key required)
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode embedded --provider claude-code
 ```
 
@@ -258,7 +258,7 @@ Example: high-fidelity recall with multi-turn context:
 
 **Memory isolation defaults to per-agent + per-channel + per-user.** This means your Slack group chat memories don't bleed into your Telegram DM memories and vice versa. If you want unified memory across channels, adjust `dynamicBankGranularity` to just `["user"]` or set `dynamicBankId: false` for a single shared bank.
 
-**The embedded PostgreSQL needs system libraries.** `entelechy-embed` bundles PostgreSQL via [pg0](https://github.com/vectorize-io/pg0). On minimal Docker images (e.g. `ubuntu:latest`), you'll need to install `libxml2` and `libreadline` before the daemon can start:
+**The embedded PostgreSQL needs system libraries.** `entelechy-embed` bundles PostgreSQL via [pg0](https://github.com/garybense/pg0). On minimal Docker images (e.g. `ubuntu:latest`), you'll need to install `libxml2` and `libreadline` before the daemon can start:
 
 ```bash
 apt-get install -y libxml2 libreadline8t64
@@ -314,6 +314,6 @@ And because Entelechy is open source and local-first (or Cloud, if you prefer), 
 - Experiment with different LLM providers for extraction and compare the quality of captured facts.
 - Tune recall with `recallBudget`, `recallMaxTokens`, and `recallContextTurns` to find the right balance for your use case.
 - Adjust `dynamicBankGranularity` if you want memories shared across channels or isolated per provider.
-- Browse the [Entelechy source on GitHub](https://github.com/vectorize-io/entelechy) to understand the extraction pipeline.
+- Browse the [Entelechy source on GitHub](https://github.com/garybense/entelechy) to understand the extraction pipeline.
 - Read the [full integration docs](/sdks/integrations/openclaw) for the complete configuration reference.
 - If you're running multiple OpenClaw instances, try Cloud or External API mode for shared memory.

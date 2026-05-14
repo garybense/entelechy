@@ -10,15 +10,15 @@
  * @example
  * ```json
  * // opencode.json
- * { "plugin": ["@vectorize-io/opencode-entelechy"] }
+ * { "plugin": ["@garybense/opencode-entelechy"] }
  *
  * // With options:
- * { "plugin": [["@vectorize-io/opencode-entelechy", { "bankId": "my-bank" }]] }
+ * { "plugin": [["@garybense/opencode-entelechy", { "bankId": "my-bank" }]] }
  * ```
  */
 
 import type { Plugin } from "@opencode-ai/plugin";
-import { EntelechyClient } from "@vectorize-io/entelechy-client";
+import { EntelechyClient } from "@garybense/entelechy-client";
 import { loadConfig } from "./config.js";
 import { deriveBankId } from "./bank.js";
 import { createTools } from "./tools.js";

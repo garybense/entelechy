@@ -4,19 +4,19 @@ hide_table_of_contents: true
 
 # Paperclip Integration Changelog
 
-Changelog for [`@vectorize-io/entelechy-paperclip`](https://www.npmjs.com/package/@vectorize-io/entelechy-paperclip).
+Changelog for [`@garybense/entelechy-paperclip`](https://www.npmjs.com/package/@garybense/entelechy-paperclip).
 
-For the source code, see [`entelechy-integrations/paperclip`](https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/paperclip).
+For the source code, see [`entelechy-integrations/paperclip`](https://github.com/garybense/entelechy/tree/main/entelechy-integrations/paperclip).
 
 ← [Back to main changelog](/changelog)
 
-## [0.2.1](https://github.com/vectorize-io/entelechy/tree/integrations/paperclip/v0.2.1)
+## [0.2.1](https://github.com/garybense/entelechy/tree/integrations/paperclip/v0.2.1)
 
 **Breaking Changes**
 
-- Replaced the Paperclip integration with the new Paperclip plugin (v0.2.0), changing how the integration is packaged and used.<span style={{color: "var(--ifm-color-emphasis-500)", margin: "0 0.3em"}}>·</span><a href="https://github.com/benfrank241" target="_blank" rel="noopener noreferrer" style={{color: "var(--ifm-color-primary)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "4px", verticalAlign: "middle"}}><img src="https://github.com/benfrank241.png?size=40" alt="@benfrank241" width="18" height="18" style={{borderRadius: "50%"}} />@benfrank241</a><span style={{color: "var(--ifm-color-emphasis-500)", margin: "0 0.3em"}}>·</span><a href="https://github.com/vectorize-io/entelechy/commit/c571fac7" target="_blank" rel="noopener noreferrer" style={{fontFamily: "var(--ifm-font-family-monospace, monospace)", fontSize: "0.85em", color: "var(--ifm-color-emphasis-600)"}}>c571fac7</a>
+- Replaced the Paperclip integration with the new Paperclip plugin (v0.2.0), changing how the integration is packaged and used.<span style={{color: "var(--ifm-color-emphasis-500)", margin: "0 0.3em"}}>·</span><a href="https://github.com/benfrank241" target="_blank" rel="noopener noreferrer" style={{color: "var(--ifm-color-primary)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "4px", verticalAlign: "middle"}}><img src="https://github.com/benfrank241.png?size=40" alt="@benfrank241" width="18" height="18" style={{borderRadius: "50%"}} />@benfrank241</a><span style={{color: "var(--ifm-color-emphasis-500)", margin: "0 0.3em"}}>·</span><a href="https://github.com/garybense/entelechy/commit/c571fac7" target="_blank" rel="noopener noreferrer" style={{fontFamily: "var(--ifm-font-family-monospace, monospace)", fontSize: "0.85em", color: "var(--ifm-color-emphasis-600)"}}>c571fac7</a>
 
-## [0.2.0](https://github.com/vectorize-io/entelechy/tree/integrations/paperclip/v0.2.0)
+## [0.2.0](https://github.com/garybense/entelechy/tree/integrations/paperclip/v0.2.0)
 
 **Breaking Changes**
 
@@ -31,18 +31,18 @@ For the source code, see [`entelechy-integrations/paperclip`](https://github.com
 - `onValidateConfig`: live connectivity check when operator saves settings
 - Configurable bank granularity (company+agent, company-only, agent-only)
 
-## [0.1.2](https://github.com/vectorize-io/entelechy/tree/integrations/paperclip/v0.1.2)
+## [0.1.2](https://github.com/garybense/entelechy/tree/integrations/paperclip/v0.1.2)
 
 **Improvements**
 
-- Paperclip integration now sends an identifying User-Agent on all HTTP requests for better request tracing and compatibility. ([`9372462e`](https://github.com/vectorize-io/entelechy/commit/9372462e))
+- Paperclip integration now sends an identifying User-Agent on all HTTP requests for better request tracing and compatibility. ([`9372462e`](https://github.com/garybense/entelechy/commit/9372462e))
 
-## [0.1.1](https://github.com/vectorize-io/entelechy/tree/integrations/paperclip/v0.1.1)
+## [0.1.1](https://github.com/garybense/entelechy/tree/integrations/paperclip/v0.1.1)
 
 **Features**
 
-- Added the Entelechy Paperclip TypeScript integration. ([`81441ee9`](https://github.com/vectorize-io/entelechy/commit/81441ee9))
+- Added the Entelechy Paperclip TypeScript integration. ([`81441ee9`](https://github.com/garybense/entelechy/commit/81441ee9))
 
 **Bug Fixes**
 
-- Fixed issues in the Paperclip integration based on review feedback. ([`7863ffeb`](https://github.com/vectorize-io/entelechy/commit/7863ffeb))
+- Fixed issues in the Paperclip integration based on review feedback. ([`7863ffeb`](https://github.com/garybense/entelechy/commit/7863ffeb))

@@ -408,4 +408,4 @@ ENTELECHY_CP_DATAPLANE_API_URL=http://localhost:8888
 
 ---
 
-For configuration issues not covered here, please [open an issue](https://github.com/vectorize-io/entelechy/issues) on GitHub.
+For configuration issues not covered here, please [open an issue](https://github.com/garybense/entelechy/issues) on GitHub.

@@ -6,7 +6,7 @@ Thanks for your interest in contributing to Entelechy!
 
 1. Fork and clone the repository
    ```bash
-   git clone git@github.com:vectorize-io/entelechy.git
+   git clone git@github.com:garybense/entelechy.git
    cd entelechy
    ```
 2. Set up your environment:

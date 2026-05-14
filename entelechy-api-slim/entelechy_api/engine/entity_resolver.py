@@ -233,7 +233,7 @@ class EntityResolver:
                         "pg_trgm extension is not available — falling back to 'full' "
                         "entity lookup strategy. Install pg_trgm for faster entity "
                         "resolution on large banks. See: "
-                        "https://github.com/vectorize-io/entelechy/issues/626"
+                        "https://github.com/garybense/entelechy/issues/626"
                     )
                     self.entity_lookup = "full"
                     return await self._resolve_entities_batch_full(conn, bank_id, entities_data, unit_event_date)

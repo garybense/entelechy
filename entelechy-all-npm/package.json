@@ -1,7 +1,7 @@
 {
-  "name": "@vectorize-io/entelechy-all",
+  "name": "@garybense/entelechy-all",
   "version": "0.5.6",
-  "description": "Node.js programmatic lifecycle manager for Entelechy — embeds a local entelechy daemon in a Node application. Pair with @vectorize-io/entelechy-client for memory operations.",
+  "description": "Node.js programmatic lifecycle manager for Entelechy — embeds a local entelechy daemon in a Node application. Pair with @garybense/entelechy-client for memory operations.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
@@ -25,7 +25,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vectorize-io/entelechy.git",
+    "url": "https://github.com/garybense/entelechy.git",
     "directory": "entelechy-all-npm"
   },
   "files": [

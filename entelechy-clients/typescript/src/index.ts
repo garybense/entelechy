@@ -3,7 +3,7 @@
  *
  * Example:
  * ```typescript
- * import { EntelechyClient } from '@vectorize-io/entelechy-client';
+ * import { EntelechyClient } from '@garybense/entelechy-client';
  *
  * // Without authentication
  * const client = new EntelechyClient({ baseUrl: 'http://localhost:8888' });

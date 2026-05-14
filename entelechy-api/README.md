@@ -102,7 +102,7 @@ entelechy-api
 docker run --rm -it -p 8888:8888 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 ## MCP Server

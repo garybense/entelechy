@@ -550,6 +550,7 @@ class LLMProvider:
 
         async with _global_llm_semaphore:
             from ..config import get_config
+
             max_retries = max_retries if max_retries is not None else get_config().llm_max_retries
             result = await self._provider_impl.call(
                 messages=messages,
@@ -611,6 +612,7 @@ class LLMProvider:
 
         async with _global_llm_semaphore:
             from ..config import get_config
+
             max_retries = max_retries if max_retries is not None else get_config().llm_max_retries
             # Delegate to provider implementation
             result = await self._provider_impl.call_with_tools(

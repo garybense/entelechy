@@ -1,5 +1,5 @@
 {
-  "name": "@vectorize-io/entelechy-client",
+  "name": "@garybense/entelechy-client",
   "version": "0.5.6",
   "description": "TypeScript client for Entelechy - Semantic memory system with personality-driven thinking",
   "main": "./dist/index.js",

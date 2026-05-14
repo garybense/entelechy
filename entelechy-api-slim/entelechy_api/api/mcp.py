@@ -747,12 +747,14 @@ class MCPMiddleware:
         if not bank_id:
             x_bank = self._get_header(scope, "X-Bank-Id")
             x_membank = self._get_header(scope, "X-Membank-Id")
-            
+
             if x_bank and x_membank and x_bank != x_membank:
                 logger.warning(f"Conflicting bank headers: X-Bank-Id='{x_bank}', X-Membank-Id='{x_membank}'")
-                await self._send_error(send, 400, "Ambiguous bank ID: X-Bank-Id and X-Membank-Id must match if both are provided")
+                await self._send_error(
+                    send, 400, "Ambiguous bank ID: X-Bank-Id and X-Membank-Id must match if both are provided"
+                )
                 return
-            
+
             bank_id = x_membank or x_bank
 
         # Fall back to default bank_id

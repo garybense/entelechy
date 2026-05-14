@@ -1,6 +1,6 @@
 # entelechy-llamaindex
 
-LlamaIndex integration for [Entelechy](https://github.com/vectorize-io/entelechy) — persistent long-term memory for AI agents.
+LlamaIndex integration for [Entelechy](https://github.com/garybense/entelechy) — persistent long-term memory for AI agents.
 
 Provides two complementary patterns:
 

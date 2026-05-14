@@ -2,7 +2,7 @@
  * Entelechy Agent SDK — harness-agnostic knowledge tools.
  *
  * Provides agent_knowledge_* tool definitions that any harness can register.
- * Uses @vectorize-io/entelechy-client for all API calls.
+ * Uses @garybense/entelechy-client for all API calls.
  */
 
 import {
@@ -11,7 +11,7 @@ import {
   createClient,
   createConfig,
   type EntelechyClientOptions,
-} from "@vectorize-io/entelechy-client";
+} from "@garybense/entelechy-client";
 
 // ── Types ──────────────────────────────────────────────
 

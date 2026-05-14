@@ -660,7 +660,7 @@ class TestSetDefaults:
 class TestStreamingResponseHandling:
     """Tests for streaming response handling in monkeypatch wrappers and callbacks.
 
-    Regression tests for https://github.com/vectorize-io/entelechy/issues/1221
+    Regression tests for https://github.com/garybense/entelechy/issues/1221
     CustomStreamWrapper objects don't have .choices and crash _format_conversation_for_storage.
     """
 

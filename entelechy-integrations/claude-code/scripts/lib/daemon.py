@@ -1,6 +1,6 @@
 """Entelechy-embed daemon lifecycle management.
 
-Port of: EntelechyServer in @vectorize-io/entelechy-all, adapted for Python
+Port of: EntelechyServer in @garybense/entelechy-all, adapted for Python
 subprocess calls from ephemeral hook processes.
 
 Manages three connection modes (same as Openclaw):
@@ -31,7 +31,7 @@ PROFILE_NAME = "claude-code"
 def _get_embed_command(config: dict) -> list:
     """Get the command to run entelechy-embed.
 
-    Port of: getEmbedCommand() in @vectorize-io/entelechy-all
+    Port of: getEmbedCommand() in @garybense/entelechy-all
     """
     embed_path = config.get("embedPackagePath")
     if embed_path:
@@ -140,7 +140,7 @@ def get_api_url(config: dict, debug_fn=None, allow_daemon_start: bool = False) -
 def _ensure_daemon_running(config: dict, port: int, debug_fn=None):
     """Start the entelechy-embed daemon if not already running.
 
-    Port of: EntelechyServer.start() in @vectorize-io/entelechy-all
+    Port of: EntelechyServer.start() in @garybense/entelechy-all
     """
     # Fast-fail if entelechy-embed toolchain is not available
     if not _is_embed_available(config):

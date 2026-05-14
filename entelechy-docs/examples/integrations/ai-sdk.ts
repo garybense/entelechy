@@ -4,8 +4,8 @@
  */
 
 // [docs:setup]
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
-import { createEntelechyTools } from '@vectorize-io/entelechy-ai-sdk';
+import { EntelechyClient } from '@garybense/entelechy-client';
+import { createEntelechyTools } from '@garybense/entelechy-ai-sdk';
 
 const client = new EntelechyClient({ baseUrl: 'http://localhost:8888' });
 
@@ -47,8 +47,8 @@ for await (const chunk of result.textStream) {
 // [docs:tool-loop-agent]
 import { generateText, ToolLoopAgent, stepCountIs } from 'ai';
 import { openai } from '@ai-sdk/openai';
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
-import { createEntelechyTools } from '@vectorize-io/entelechy-ai-sdk';
+import { EntelechyClient } from '@garybense/entelechy-client';
+import { createEntelechyTools } from '@garybense/entelechy-ai-sdk';
 
 const client = new EntelechyClient({ baseUrl: process.env.ENTELECHY_API_URL! });
 
@@ -68,8 +68,8 @@ const result = await agent.generate({
 // app/api/chat/route.ts
 import { streamText } from 'ai';
 import { openai } from '@ai-sdk/openai';
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
-import { createEntelechyTools } from '@vectorize-io/entelechy-ai-sdk';
+import { EntelechyClient } from '@garybense/entelechy-client';
+import { createEntelechyTools } from '@garybense/entelechy-ai-sdk';
 
 const entelechyClient = new EntelechyClient({
   baseUrl: process.env.ENTELECHY_API_URL!,

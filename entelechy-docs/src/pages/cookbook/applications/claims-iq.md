@@ -7,7 +7,7 @@ sidebar_position: 5
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/claims-iq)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/claims-iq)
 :::
 
 

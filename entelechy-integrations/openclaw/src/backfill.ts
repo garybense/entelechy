@@ -3,8 +3,8 @@ import { existsSync, realpathSync } from "fs";
 import { dirname, join, resolve } from "path";
 import { createRequire } from "module";
 import { fileURLToPath, pathToFileURL } from "url";
-import { EntelechyServer } from "@vectorize-io/entelechy-all";
-import { EntelechyClient } from "@vectorize-io/entelechy-client";
+import { EntelechyServer } from "@garybense/entelechy-all";
+import { EntelechyClient } from "@garybense/entelechy-client";
 
 function loadPackageVersion(): string {
   try {

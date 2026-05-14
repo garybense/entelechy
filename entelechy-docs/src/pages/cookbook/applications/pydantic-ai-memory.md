@@ -7,7 +7,7 @@ sidebar_position: 12
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/pydantic-ai-memory)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/pydantic-ai-memory)
 :::
 
 
@@ -49,7 +49,7 @@ Session 2:
      -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
      -e ENTELECHY_API_LLM_MODEL=o3-mini \
      -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-     ghcr.io/vectorize-io/entelechy:latest
+     ghcr.io/garybense/entelechy:latest
    ```
 
 2. **OpenAI API key** (for Pydantic AI's LLM)
@@ -232,5 +232,5 @@ pip install -r requirements.txt
 
 **Built with:**
 - [Pydantic AI](https://ai.pydantic.dev) - Type-safe AI agent framework
-- [entelechy-pydantic-ai](https://github.com/vectorize-io/entelechy/tree/main/entelechy-integrations/pydantic-ai) - Entelechy memory tools for Pydantic AI
-- [Entelechy](https://github.com/vectorize-io/entelechy) - Long-term memory for AI agents
+- [entelechy-pydantic-ai](https://github.com/garybense/entelechy/tree/main/entelechy-integrations/pydantic-ai) - Entelechy memory tools for Pydantic AI
+- [Entelechy](https://github.com/garybense/entelechy) - Long-term memory for AI agents

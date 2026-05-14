@@ -17,7 +17,7 @@ This plugin integrates [entelechy-embed](https://vectorize.io/entelechy/cli), a 
 **Step 1: Install the plugin**
 
 ```bash
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 **Step 2: Run the setup wizard**
@@ -27,7 +27,7 @@ but does not put its bins on `PATH`. Run the wizard through `npx` instead —
 it resolves the bin out of the published package:
 
 ```bash
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 ```
 
 The wizard walks you through picking one of three install modes:
@@ -42,31 +42,31 @@ For CI and scripted setups the wizard also runs non-interactively — either wit
 
 ```bash
 # Cloud — inline token (simplest)
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode cloud --token hsk_your_cloud_token
 
 # Cloud — SecretRef (read from env at gateway startup)
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode cloud --token-env ENTELECHY_CLOUD_TOKEN
 
 # External API (no auth)
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode api --api-url https://mcp.entelechy.example.com --no-token
 
 # Embedded daemon with OpenAI — inline API key
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode embedded --provider openai --api-key sk-...
 
 # Embedded daemon with OpenAI — SecretRef
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode embedded --provider openai --api-key-env OPENAI_API_KEY
 
 # Embedded daemon with Claude Code (no API key needed)
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup \
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup \
     --mode embedded --provider claude-code
 ```
 
-Run `npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup --help` for the full flag list.
+Run `npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup --help` for the full flag list.
 
 **Step 3: Start OpenClaw**
 
@@ -364,7 +364,7 @@ openclaw plugins list | grep entelechy
 # Should show: ✓ enabled │ Entelechy Memory │ ...
 
 # Reinstall if needed
-openclaw plugins install @vectorize-io/entelechy-openclaw
+openclaw plugins install @garybense/entelechy-openclaw
 ```
 
 ### Daemon not starting

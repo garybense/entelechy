@@ -1,5 +1,5 @@
 """
-Regression tests for vectorize-io/entelechy#980.
+Regression tests for garybense/entelechy#980.
 
 Deterministic Postgres integrity-constraint violations (UniqueViolationError,
 ForeignKeyViolationError, CheckViolationError, NotNullViolationError,

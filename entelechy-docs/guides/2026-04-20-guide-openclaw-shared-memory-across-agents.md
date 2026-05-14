@@ -29,15 +29,15 @@ This guide shows how to configure that shared setup, how to decide between `["pr
 Before you share memory across agents, make sure these basics are already true:
 
 - OpenClaw is installed and the gateway is healthy.
-- `@vectorize-io/entelechy-openclaw` is installed for every agent that will participate.
+- `@garybense/entelechy-openclaw` is installed for every agent that will participate.
 - Every participating agent points at the same Entelechy backend, local or cloud.
 - You know whether you want sharing per provider or across every provider.
 
 If you have not installed the plugin yet, start there:
 
 ```bash
-openclaw plugins install @vectorize-io/entelechy-openclaw
-npx --package @vectorize-io/entelechy-openclaw entelechy-openclaw-setup
+openclaw plugins install @garybense/entelechy-openclaw
+npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 openclaw gateway status
 ```
 

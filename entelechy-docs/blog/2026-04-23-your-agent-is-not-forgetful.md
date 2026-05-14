@@ -22,7 +22,7 @@ That is fine for one-off prompts. It becomes a real problem as soon as you expec
 - Retrieval from documents solves a different problem than learning from conversations, preferences, and decisions
 - Without memory, agents feel repetitive, inconsistent, and unable to improve with use
 - Real agent learning requires selective retention, relevant recall, reflection across experience, and careful scoping
-- [Entelechy](https://github.com/vectorize-io/entelechy) enables agents to learn from accumulated experience through a simple API and integrations
+- [Entelechy](https://github.com/garybense/entelechy) enables agents to learn from accumulated experience through a simple API and integrations
 
 ---
 

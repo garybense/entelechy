@@ -159,7 +159,7 @@ jobs:
   # Fail fast if any entelechy-integrations/*/package-lock.json was regenerated
   # from the monorepo root and ended up symlinked at a workspace path instead
   # of the npm registry. That bit us on the 0.6.0 openclaw release — tsc in
-  # the release workflow couldn't find `@vectorize-io/entelechy-client`
+  # the release workflow couldn't find `@garybense/entelechy-client`
   # because its `resolved` url pointed at a workspace dir whose `dist/` was
   # gitignored and unbuilt. Catching this at PR time means the release CI
   # never hits that class of failure.
@@ -291,7 +291,7 @@ jobs:
         cache-dependency-path: package-lock.json
 
     # openclaw depends on two monorepo workspaces via `file:` deps:
-    # @vectorize-io/entelechy-client and @vectorize-io/entelechy-all. Their
+    # @garybense/entelechy-client and @garybense/entelechy-all. Their
     # `dist/` directories are gitignored, so we must build them first.
     # Otherwise vitest/tsc in openclaw fails with
     # "Failed to resolve entry for package ..." on the value imports.
@@ -1949,8 +1949,8 @@ jobs:
         print('Models downloaded successfully')
         "
 
-    # openclaw depends on @vectorize-io/entelechy-client and
-    # @vectorize-io/entelechy-all via `file:` — their `dist/` directories are
+    # openclaw depends on @garybense/entelechy-client and
+    # @garybense/entelechy-all via `file:` — their `dist/` directories are
     # gitignored and must be built before openclaw's npm ci copies them.
     - name: Install root workspace dependencies
       run: npm ci

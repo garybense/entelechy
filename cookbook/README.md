@@ -2,7 +2,7 @@
 
 For the cookbook with detailed examples, tutorials, and integrations, visit:
 
-**[https://github.com/vectorize-io/entelechy-cookbook](https://github.com/vectorize-io/entelechy-cookbook)**
+**[https://github.com/garybense/entelechy-cookbook](https://github.com/garybense/entelechy-cookbook)**
 
 The cookbook repository includes:
 - Integration examples with popular frameworks

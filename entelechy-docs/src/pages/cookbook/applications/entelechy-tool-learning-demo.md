@@ -7,7 +7,7 @@ sidebar_position: 10
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/entelechy-tool-learning-demo)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/entelechy-tool-learning-demo)
 :::
 
 
@@ -45,7 +45,7 @@ docker run -d -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_PROVIDER=openai \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -e ENTELECHY_API_LLM_MODEL=gpt-4o-mini \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 2. **OpenAI API Key**:

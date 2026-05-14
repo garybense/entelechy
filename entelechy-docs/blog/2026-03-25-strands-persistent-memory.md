@@ -35,7 +35,7 @@ For most demo use cases this doesn't matter. For real applications — customer-
 
 ## The Approach
 
-[Entelechy](https://github.com/vectorize-io/entelechy) is a memory layer for AI agents. It stores facts, extracts semantically relevant ones at query time, and can synthesize reasoned answers from accumulated context. The `entelechy-strands` package wraps this into native Strands tools, so your agent can manage its own memory the same way it uses any other capability.
+[Entelechy](https://github.com/garybense/entelechy) is a memory layer for AI agents. It stores facts, extracts semantically relevant ones at query time, and can synthesize reasoned answers from accumulated context. The `entelechy-strands` package wraps this into native Strands tools, so your agent can manage its own memory the same way it uses any other capability.
 
 Three tools get added to your agent:
 
@@ -93,7 +93,7 @@ docker run --rm -it --pull always \
   -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 The API listens on port `8888`. The UI is available at `http://localhost:9999`. Entelechy also supports Anthropic, Gemini, Groq, and Ollama — swap `ENTELECHY_API_LLM_PROVIDER` and the key accordingly.

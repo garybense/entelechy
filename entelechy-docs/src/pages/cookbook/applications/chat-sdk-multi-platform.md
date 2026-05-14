@@ -7,13 +7,13 @@ sidebar_position: 4
 
 :::info Complete Application
 This is a complete, runnable application demonstrating Entelechy integration.
-[**View source on GitHub →**](https://github.com/vectorize-io/entelechy-cookbook/tree/main/applications/chat-sdk-multi-platform)
+[**View source on GitHub →**](https://github.com/garybense/entelechy-cookbook/tree/main/applications/chat-sdk-multi-platform)
 :::
 
 
 A demo chat bot that runs on Slack and Discord simultaneously, sharing a single Entelechy memory bank. Tell the bot something in Slack, ask about it in Discord, and it remembers.
 
-Built with [Vercel Chat SDK](https://github.com/vercel/chat), [Entelechy](https://github.com/vectorize-io/entelechy), and [Vercel AI SDK](https://sdk.vercel.ai).
+Built with [Vercel Chat SDK](https://github.com/vercel/chat), [Entelechy](https://github.com/garybense/entelechy), and [Vercel AI SDK](https://sdk.vercel.ai).
 
 ## Features
 
@@ -45,7 +45,7 @@ docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -e ENTELECHY_API_LLM_MODEL=gpt-4o-mini \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 - API: http://localhost:8888
@@ -149,7 +149,7 @@ bot.onNewMention(
 );
 ```
 
-- **`client`**: A `@vectorize-io/entelechy-client` instance pointing at your Entelechy API
+- **`client`**: A `@garybense/entelechy-client` instance pointing at your Entelechy API
 - **`bankId`**: Static string or function -- shared bank = cross-platform memory
 - **`ctx.memoriesAsSystemPrompt()`**: Formats recalled memories for the LLM system prompt
 - **`ctx.retain()`**: Stores conversation content back to the bank

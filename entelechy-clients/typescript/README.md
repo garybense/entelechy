@@ -5,15 +5,15 @@ TypeScript client library for the Entelechy API.
 ## Installation
 
 ```bash
-npm install @vectorize-io/entelechy-client
+npm install @garybense/entelechy-client
 # or
-yarn add @vectorize-io/entelechy-client
+yarn add @garybense/entelechy-client
 ```
 
 ## Usage
 
 ```typescript
-import { EntelechyClient } from "@vectorize-io/entelechy-client";
+import { EntelechyClient } from "@garybense/entelechy-client";
 
 const client = new EntelechyClient({ baseUrl: "http://localhost:8888" });
 
@@ -87,4 +87,4 @@ await client.createBank("my-bank", {
 
 ## Documentation
 
-For full documentation, visit [entelechy](https://github.com/vectorize-io/entelechy).
+For full documentation, visit [entelechy](https://github.com/garybense/entelechy).

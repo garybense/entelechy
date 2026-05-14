@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
 // Mock the EntelechyClient before importing the plugin
-vi.mock("@vectorize-io/entelechy-client", () => {
+vi.mock("@garybense/entelechy-client", () => {
   const MockEntelechyClient = vi.fn(function (this: any) {
     this.retain = vi.fn().mockResolvedValue({});
     this.recall = vi.fn().mockResolvedValue({ results: [] });
@@ -12,7 +12,7 @@ vi.mock("@vectorize-io/entelechy-client", () => {
 });
 
 import { EntelechyPlugin } from "./index.js";
-import { EntelechyClient } from "@vectorize-io/entelechy-client";
+import { EntelechyClient } from "@garybense/entelechy-client";
 
 const mockPluginInput = {
   client: {

@@ -7,7 +7,7 @@
 
 import { tool } from "@opencode-ai/plugin/tool";
 import type { ToolDefinition } from "@opencode-ai/plugin/tool";
-import type { EntelechyClient } from "@vectorize-io/entelechy-client";
+import type { EntelechyClient } from "@garybense/entelechy-client";
 import type { EntelechyConfig } from "./config.js";
 import { formatMemories, formatCurrentTime } from "./content.js";
 import { ensureBankMission } from "./bank.js";

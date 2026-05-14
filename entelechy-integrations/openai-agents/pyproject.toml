@@ -32,9 +32,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/vectorize-io/entelechy"
+Homepage = "https://github.com/garybense/entelechy"
 Documentation = "https://docs.entelechy.vectorize.io/docs/sdks/integrations/openai-agents"
-Repository = "https://github.com/vectorize-io/entelechy"
+Repository = "https://github.com/garybense/entelechy"
 
 [build-system]
 requires = ["hatchling"]

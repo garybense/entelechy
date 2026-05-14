@@ -1,6 +1,6 @@
 # entelechy-langgraph
 
-LangGraph and LangChain integration for [Entelechy](https://github.com/vectorize-io/entelechy) — persistent long-term memory for AI agents.
+LangGraph and LangChain integration for [Entelechy](https://github.com/garybense/entelechy) — persistent long-term memory for AI agents.
 
 Provides three integration patterns:
 - **Tools** — retain/recall/reflect as LangChain `@tool` functions for agent-driven memory. Works with **both LangChain and LangGraph**.
@@ -9,7 +9,7 @@ Provides three integration patterns:
 
 ## Prerequisites
 
-- A running Entelechy instance ([self-hosted via Docker](https://github.com/vectorize-io/entelechy#quick-start) or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup))
+- A running Entelechy instance ([self-hosted via Docker](https://github.com/garybense/entelechy#quick-start) or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup))
 - Python 3.10+
 
 ## Installation

@@ -33,7 +33,7 @@ jobs:
         cache-dependency-path: package-lock.json
 
     # Tools live under entelechy-tools/ and may depend on workspace packages
-    # (e.g. @vectorize-io/entelechy-client). Install from root so npm resolves
+    # (e.g. @garybense/entelechy-client). Install from root so npm resolves
     # workspace deps, then build any required workspace packages first.
     - name: Install root workspace dependencies
       run: npm ci

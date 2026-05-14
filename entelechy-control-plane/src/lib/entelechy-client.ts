@@ -9,7 +9,7 @@ import {
   createClient,
   createConfig,
   sdk,
-} from "@vectorize-io/entelechy-client";
+} from "@garybense/entelechy-client";
 
 export const DATAPLANE_URL = process.env.ENTELECHY_CP_DATAPLANE_API_URL || "http://localhost:8888";
 const DATAPLANE_API_KEY = process.env.ENTELECHY_CP_DATAPLANE_API_KEY || "";

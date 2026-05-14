@@ -140,7 +140,7 @@ export function loadConfig(pluginOptions?: Record<string, unknown>): EntelechyCo
     }
   }
 
-  // 3. Plugin options (from opencode.json: ["@vectorize-io/opencode-entelechy", { ... }])
+  // 3. Plugin options (from opencode.json: ["@garybense/opencode-entelechy", { ... }])
   if (pluginOptions) {
     for (const [key, value] of Object.entries(pluginOptions)) {
       if (value !== null && value !== undefined) {
