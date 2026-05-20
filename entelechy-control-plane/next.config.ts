@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
   // Set the monorepo root explicitly to avoid detecting wrong lockfiles in parent directories
   turbopack: {
     root: path.resolve(__dirname, '..'),
+    resolveAlias: {
+      // Explicit alias to fix Turbopack resolution across symlinked paths
+      '@garybense/entelechy-client': path.resolve(__dirname, '../entelechy-clients/typescript/dist'),
+    },
   },
 };
 

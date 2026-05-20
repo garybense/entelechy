@@ -74,12 +74,6 @@ pub struct OperationsResponse {
     pub operations: Vec<Operation>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
-pub struct TraceInfo {
-    pub total_time: Option<f64>,
-    pub activation_count: Option<i32>,
-}
-
 // Unified result for put_memories that handles both sync and async responses
 #[derive(Debug, Serialize, Deserialize)]
 pub struct MemoryPutResult {

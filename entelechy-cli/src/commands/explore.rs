@@ -785,30 +785,39 @@ fn render_control_bar(f: &mut Frame, app: &App, area: Rect) {
         (View::Memories(_), InputMode::Normal) => vec![
             ("Enter", "View", BRAND_START),
             ("/", "Query", BRAND_MID),
-            ("←→", "Scroll", BRAND_START),
+            ("e", "Entities", BRAND_START),
+            ("d", "Docs", BRAND_START),
+            ("←→", "Scroll", BRAND_MID),
             ("n", "Next", BRAND_MID),
             ("p", "Prev", BRAND_MID),
             ("Esc", "Back", BRAND_END),
             ("R", "Refresh", BRAND_END),
+            ("a", "Auto", BRAND_END),
             ("?", "Help", BRAND_END),
             ("q", "Quit", Color::Red),
         ],
         (View::Entities(_), InputMode::Normal) => vec![
             ("Enter", "View", BRAND_START),
             ("/", "Query", BRAND_MID),
-            ("←→", "Scroll", BRAND_START),
+            ("m", "Memories", BRAND_START),
+            ("d", "Docs", BRAND_START),
+            ("←→", "Scroll", BRAND_MID),
             ("Esc", "Back", BRAND_END),
             ("R", "Refresh", BRAND_END),
+            ("a", "Auto", BRAND_END),
             ("?", "Help", BRAND_END),
             ("q", "Quit", Color::Red),
         ],
         (View::Documents(_), InputMode::Normal) => vec![
             ("Enter", "View", BRAND_START),
             ("/", "Query", BRAND_MID),
-            ("←→", "Scroll", BRAND_START),
+            ("m", "Memories", BRAND_START),
+            ("e", "Entities", BRAND_START),
+            ("←→", "Scroll", BRAND_MID),
             ("Del", "Delete", Color::Red),
             ("Esc", "Back", BRAND_END),
             ("R", "Refresh", BRAND_END),
+            ("a", "Auto", BRAND_END),
             ("?", "Help", BRAND_END),
             ("q", "Quit", Color::Red),
         ],
@@ -1439,6 +1448,36 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, mut app: App) -> Result<()> {
                                 app.refresh()?;
                             }
 
+                            // Toggle auto-refresh
+                            KeyCode::Char('a') => {
+                                app.toggle_auto_refresh();
+                            }
+
+                            // View switching
+                            KeyCode::Char('m') => {
+                                if let Some(bank_id) = app.selected_bank_id.clone() {
+                                    match &app.view {
+                                        View::Query(_) => app.toggle_query_mode(),
+                                        View::Memories(_) => {} // Already in memories
+                                        _ => app.switch_to_view(View::Memories(bank_id))?,
+                                    }
+                                }
+                            }
+                            KeyCode::Char('e') => {
+                                if let Some(bank_id) = app.selected_bank_id.clone() {
+                                    if !matches!(app.view, View::Entities(_)) {
+                                        app.switch_to_view(View::Entities(bank_id))?;
+                                    }
+                                }
+                            }
+                            KeyCode::Char('d') => {
+                                if let Some(bank_id) = app.selected_bank_id.clone() {
+                                    if !matches!(app.view, View::Documents(_)) {
+                                        app.switch_to_view(View::Documents(bank_id))?;
+                                    }
+                                }
+                            }
+
                             // Query input - start query from any non-bank view
                             KeyCode::Char('/') => {
                                 match &app.view {
@@ -1461,11 +1500,6 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, mut app: App) -> Result<()> {
                             }
 
                             // Query view controls
-                            KeyCode::Char('m') => {
-                                if matches!(app.view, View::Query(_)) {
-                                    app.toggle_query_mode();
-                                }
-                            }
                             KeyCode::Char('b') => {
                                 if matches!(app.view, View::Query(_)) {
                                     app.cycle_budget();

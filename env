@@ -3,10 +3,10 @@
 
 # LLM Configuration (Required)
 # Supported providers: openai, groq, ollama, gemini, anthropic, lmstudio, vertexai, minimax, deepseek, volcano
-ENTELECHY_API_LLM_PROVIDER=gemini
-ENTELECHY_API_LLM_API_KEY="AIzaSyA3EZZK0-p9Ex2gXMz8roeVGEtf-_toETg"
-ENTELECHY_API_LLM_MODEL=gemini-flash-latest
-ENTELECHY_API_LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta
+#ENTELECHY_API_LLM_PROVIDER=gemini
+#ENTELECHY_API_LLM_API_KEY="AIzaSyA3EZZK0-p9Ex2gXMz8roeVGEtf-_toETg"
+#ENTELECHY_API_LLM_MODEL=gemini-flash-latest
+#ENTELECHY_API_LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta
 
 # Example: Anthropic Claude configuration
 # ENTELECHY_API_LLM_PROVIDER=anthropic
@@ -14,11 +14,11 @@ ENTELECHY_API_LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta
 # ENTELECHY_API_LLM_MODEL=claude-sonnet-4-20250514
 
 # Example: Google Vertex AI configuration
-# ENTELECHY_API_LLM_PROVIDER=vertexai
-# ENTELECHY_API_LLM_MODEL=google/gemini-2.0-flash-001
-# ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=your-gcp-project-id
-# ENTELECHY_API_LLM_VERTEXAI_REGION=us-central1
-# ENTELECHY_API_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY=/path/to/service-account-key.json  # Optional, uses ADC if not set
+ENTELECHY_API_LLM_PROVIDER=vertexai
+ENTELECHY_API_LLM_MODEL=gemini-2.5-pro
+ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=plan9-search-app-77
+ENTELECHY_API_LLM_VERTEXAI_REGION=us-central1
+#ENTELECHY_API_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY=/path/to/service-account-key.json  # Optional, uses ADC if not set
 
 # Example: MiniMax configuration (1M context window)
 # ENTELECHY_API_LLM_PROVIDER=minimax

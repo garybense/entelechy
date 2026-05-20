@@ -1,7 +1,7 @@
 ---
 title: "How We Built a 4-Way Hybrid Search System That Actually Runs in Parallel"
 description: Sequential async queries were killing our retrieval latency. Here's how we built a true 4-way parallel hybrid search system with asyncio and RRF fusion — then evolved it further with connection sharing, cross-encoder reranking, and multiplicative boost scoring.
-authors: [chrislatimer, nicoloboschi, benfrank241]
+authors: [chrislatimer, garybense, benfrank241]
 date: 2026-03-27T12:00
 tags: [engineering, retrieval, search, python, asyncio, performance]
 image: /img/blog/parallel-hybrid-search.png
