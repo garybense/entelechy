@@ -2,7 +2,7 @@
 
 ![Entelechy Banner](./entelechy-docs/static/img/entelechy-github-banner.png)
 
-[Documentation](https://entelechy.vectorize.io) • [Paper](https://arxiv.org/abs/2512.12818) • [Cookbook](https://entelechy.vectorize.io/cookbook) • [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup)
+[Documentation](https://mindmods.org) • [Paper](https://arxiv.org/abs/2512.12818) • [Cookbook](https://mindmods.org/cookbook) • [Entelechy Cloud](https://ui.mindmods.org/signup)
 
 [![CI](https://github.com/garybense/entelechy/actions/workflows/release.yml/badge.svg)](https://github.com/garybense/entelechy/actions/workflows/release.yml)
 [![Slack Community](https://img.shields.io/badge/Slack-Join%20Community-4A154B?logo=slack)](https://join.slack.com/t/entelechy-space/shared_invite/zt-3nhbm4w29-LeSJ5Ixi6j8PdiYOCPlOgg)
@@ -50,7 +50,7 @@ If you need more control over how and when your agent stores and recalls memorie
 > ```bash
 > npx skills add https://github.com/garybense/entelechy --skill entelechy-docs
 > ```
-> Works with Claude Code, Cursor, and other AI coding assistants.
+> Works with Claude Code, Cursor, Gemini, and other AI coding assistants.
 
 ---
 
@@ -71,7 +71,7 @@ docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
 >API: http://localhost:8888
 >UI: http://localhost:9999
 
-You can modify the LLM provider by setting `ENTELECHY_API_LLM_PROVIDER`. Valid options are `openai`, `anthropic`, `gemini`, `groq`, `ollama`, `lmstudio`, and `minimax`. The documentation provides more details on [supported models](https://entelechy.vectorize.io/developer/models).
+You can modify the LLM provider by setting `ENTELECHY_API_LLM_PROVIDER`. Valid options are `openai`, `anthropic`, `gemini`, `groq`, `ollama`, `lmstudio`, and `minimax`. The documentation provides more details on [supported models](https://mindmods.org/developer/models).
 
 
 
@@ -247,7 +247,7 @@ Recall performs 4 retrieval strategies in parallel:
 - Graph: Entity/temporal/causal links
 - Temporal: Time range filtering
 
-![Retain Operation](entelechy-docs/static/img/recall-operation.webp)
+![Recall Operation](entelechy-docs/static/img/recall-operation.webp)
 
 The individual results from the retrievals are merged, then ordered by relevance using reciprocal rank fusion and a cross-encoder reranking model.
 
@@ -273,20 +273,20 @@ client = Entelechy(base_url="http://localhost:8888")
 client.reflect(bank_id="my-bank", query="What should I know about Alice?")
 ```
 
-![Retain Operation](entelechy-docs/static/img/reflect-operation.webp)
+![Reflect Operation](entelechy-docs/static/img/reflect-operation.webp)
 
 ---
 
 ## Resources
 
 **Documentation:** 
-- [https://entelechy.vectorize.io](https://entelechy.vectorize.io)
+- [https://mindmods.org](https://mindmods.org)
 
 **Clients:**
-- [Python](http://entelechy.vectorize.io/sdks/python)
-- [Node.js](http://entelechy.vectorize.io/sdks/nodejs)
-- [REST API](https://entelechy.vectorize.io/api-reference)
-- [CLI](https://entelechy.vectorize.io/sdks/cli)
+- [Python](https://mindmods.org/sdks/python)
+- [Node.js](https://mindmods.org/sdks/nodejs)
+- [REST API](https://mindmods.org/api-reference)
+- [CLI](https://mindmods.org/sdks/cli)
 
 **Community:**
 - [Slack](https://join.slack.com/t/entelechy-space/shared_invite/zt-3nhbm4w29-LeSJ5Ixi6j8PdiYOCPlOgg)
@@ -308,6 +308,4 @@ MIT — see [LICENSE](./LICENSE)
 
 ---
 
-Built by [Vectorize.io](https://vectorize.io)
-
-<img src="https://umami-pixel.chris-latimer.workers.dev/?id=a8b043e6-6964-454d-80df-69b69d3f0d50&host=github.com&url=/garybense/entelechy" width="1" height="1" alt="" />
+Built by [Gary Bense](https://github.com/garybense) — [mindmods.org](https://mindmods.org)
