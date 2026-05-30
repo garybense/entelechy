@@ -1,311 +1,91 @@
 <div align="center">
 
-![Entelechy Banner](./entelechy-docs/static/img/entelechy-github-banner.png)
+<img src="./entelechy-docs/static/img/entelechy-github-banner.png" alt="Entelechy MWPMC" width="400"/>
 
-[Documentation](https://mindmods.org) • [Paper](https://arxiv.org/abs/2512.12818) • [Cookbook](https://mindmods.org/cookbook) • [Entelechy Cloud](https://ui.mindmods.org/signup)
+**Closed-Loop State-Conditioned Generative Control System**
+
+[Documentation](https://mindmods.org) • [Paper](https://arxiv.org/abs/2512.12818) • [Cookbook](https://mindmods.org/cookbook)
 
 [![CI](https://github.com/garybense/entelechy/actions/workflows/release.yml/badge.svg)](https://github.com/garybense/entelechy/actions/workflows/release.yml)
-[![Slack Community](https://img.shields.io/badge/Slack-Join%20Community-4A154B?logo=slack)](https://join.slack.com/t/entelechy-space/shared_invite/zt-3nhbm4w29-LeSJ5Ixi6j8PdiYOCPlOgg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![gitcgr](https://gitcgr.com/badge/garybense/entelechy.svg)](https://gitcgr.com/garybense/entelechy)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/entelechy-api?label=PyPI)
-![NPM Downloads](https://img.shields.io/npm/dm/%40garybense%2Fentelechy-client?logoColor=orange&label=NPM&color=blue&link=https%3A%2F%2Fwww.npmjs.com%2Fpackage%2F%40garybense%2Fentelechy-client)
 <br/>
 
-<a href="https://trendshift.io/repositories/15603" target="_blank"><img src="https://trendshift.io/api/badge/repositories/15603" alt="garybense%2Fentelechy | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 </div>
 
 ---
 
 ## What is Entelechy?
 
-Entelechy™ is an agent memory system built to create smarter agents that learn over time. Most agent memory systems focus on recalling conversation history. Entelechy is focused on making agents that learn, not just remember.
+**Entelechy is a Memory-Weighted Policy Modulation Controller (MWPMC).**
 
+Most agent memory systems treat memory as a static "history" database that an LLM must actively choose to query. Entelechy inverts this paradigm. It acts as an **invisible orchestrating middleware**, treating the LLM not as an autonomous actor, but as a stateless functional unit that must be *conditioned* at every execution step.
 
-<video src="https://github.com/user-attachments/assets/923b798d-3581-4897-bb62-9cfa5a931682" controls></video>
+Memory is not persisted as runtime state; rather, identity and policy are **re-derived at every interaction** from a weighted episodic memory graph (the *State Reconstruction Loop*) and used to modulate the LLM's inference-time controls.
 
-It eliminates the shortcomings of alternative techniques such as RAG and knowledge graph and delivers state-of-the-art performance on long term memory tasks.
+## The Zero-Intervention Architecture
 
-## Memory Performance & Accuracy
+Entelechy removes the burden of "tool use" from the LLM. It guarantees compliance and continuity through the **SVT Continuation Protocol (SVT-CP)**, entirely mediated by your application backend (the Orchestrator).
 
-Entelechy is the most accurate agent memory system ever tested according to benchmark performance. It has achieved state-of-the-art performance on the LongMemEval benchmark, widely used to assess memory system performance across a variety of conversational AI scenarios. The current reported performance of Entelechy and other agent memory solutions as of January 2026 is shown here:
-
-![Overview](./entelechy-docs/static/img/entelechy-bench.jpg)
-
-The benchmark performance data for Entelechy has been independently reproduced by research collaborators at the Virginia Tech [Sanghani Center for Artificial Intelligence and Data Analytics](https://sanghani.cs.vt.edu/) and The Washington Post. Other scores are self-reported by software vendors.
-
-Entelechy is being used in production at Fortune 500 enterprises and by a growing number of AI startups. 
-
-## Adding Entelechy to Your AI Agents
-
-The easiest way to use Entelechy with an existing agent is with the LLM Wrapper. You can add memory to your agent with 2 lines of code. That will swap your current LLM client out with the Entelechy wrapper. After that, memories will be stored and retrieved automatically as you make LLM calls.
-
-If you need more control over how and when your agent stores and recalls memories, there's also a simple API you can integrate with using the SDKs or directly via HTTP.
-
-![Entelechy Banner](./entelechy-docs/static/img/migration-code.png)
+### The SVT-CP Loop:
+1. **Feature Extraction (Pre-Flight):** Before the LLM generates a single token, the Orchestrator calls Entelechy's `/bootstrap` endpoint. Entelechy parses the user's prompt against their memory graph to compute a dense **State Vector**.
+2. **Policy Synthesis:** Entelechy synthesizes the **Policy Vector (Vector P)**, calculating required reasoning depth, verbosity, and disposition (Skepticism, Literalism, Empathy) based on historical context.
+3. **Policy Control (Injection):** The Orchestrator invisibly injects this synthesized policy directly into the LLM's System Prompt. The LLM boots up completely aligned with the user's history.
+4. **Outcome Writeback:** When the LLM finishes streaming its response to the user, the Orchestrator intercepts the payload and fires a background `/retain_async` webhook to Entelechy, logging the interaction as an `[EXPERIENCE]` fact. The memory graph evolves without the LLM ever making a tool call.
 
 ---
 
-> 🤖 **Using a coding agent?** Install the Entelechy documentation skill for instant access to docs while you code:
+## Frictionless Onboarding: Implicit 1-to-1 Mapping
+
+Users should not have to manually configure "Brains" or manage memory infrastructure. Entelechy is designed to be deeply integrated with modern Auth providers (like Clerk, NextAuth, or Supabase).
+
+When a user signs up to your application, your auth webhook simply calls:
+```http
+POST /v1/default/banks/{user_id}
+```
+Entelechy's `create_bank` operation is an idempotent get-or-create. The user's isolated memory graph is provisioned instantly and invisibly.
+
+---
+
+## The Control Plane
+
+Entelechy ships with a Next.js **Control Plane** featuring a modern, cybernetic Coral-to-Amber GUI. 
+
+The Control Plane visualizes the SVT-CP execution pipeline and includes a built-in **Zero-Intervention Chat Simulator**. You can use the simulator to test your Orchestrator routing, observe the invisible `/bootstrap` injections, and watch background `/retain_async` operations evolve the graph in real-time.
+
+![Entelechy Control Plane](./entelechy-control-plane/public/logo.png)
+
+---
+
+## Quick Start (Docker)
+
+To launch the full Entelechy stack (PostgreSQL pgvector, Python API Engine, and Next.js Control Plane):
+
+```bash
+export ENTELECHY_API_LLM_PROVIDER=vertexai  # Or openai, anthropic, etc.
+# Note: For Vertex AI, ensure your service-account-key.json is mounted or ADC is configured.
+
+docker run --rm -it --pull always -p 8888:8888 -p 3005:3005 \
+  -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
+  ghcr.io/garybense/entelechy:latest
+```
+
+> **Dataplane API:** `http://localhost:8888`  
+> **Control Plane UI:** `http://localhost:3005/banks/newdev?view=chat-simulator`
+
+---
+
+## Documentation & Developer Tools
+
+> 🤖 **Using a coding agent?** Install the Entelechy documentation skill for instant access to the MWPMC architectural guidelines while you code:
 > ```bash
 > npx skills add https://github.com/garybense/entelechy --skill entelechy-docs
 > ```
 > Works with Claude Code, Cursor, Gemini, and other AI coding assistants.
 
----
-
-
-## Quick Start
-
-### Docker (recommended)
-
-```bash
-export OPENAI_API_KEY=sk-xxx
-
-docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
-  -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
-  -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/garybense/entelechy:latest
-```
-
->API: http://localhost:8888
->UI: http://localhost:9999
-
-You can modify the LLM provider by setting `ENTELECHY_API_LLM_PROVIDER`. Valid options are `openai`, `anthropic`, `gemini`, `groq`, `ollama`, `lmstudio`, and `minimax`. The documentation provides more details on [supported models](https://mindmods.org/developer/models).
-
-
-
-### Docker (external PostgreSQL)
-
-```bash
-export OPENAI_API_KEY=sk-xxx
-export ENTELECHY_DB_PASSWORD=choose-a-password
-cd docker/docker-compose
-docker compose up 
-```
-
-
->API: http://localhost:8888
->UI: http://localhost:9999
-
-### Client
-
-```bash
-pip install entelechy-client -U
-# or
-npm install @garybense/entelechy-client
-```
-
-#### Python
-
-```python
-from entelechy_client import Entelechy
-
-client = Entelechy(base_url="http://localhost:8888")
-
-# Retain: Store information
-client.retain(bank_id="my-bank", content="Alice works at Google as a software engineer")
-
-# Recall: Search memories
-client.recall(bank_id="my-bank", query="What does Alice do?")
-
-# Reflect: Generate disposition-aware response
-client.reflect(bank_id="my-bank", query="Tell me about Alice")
-```
-
-#### Node.js / TypeScript
-
-```bash
-npm install @garybense/entelechy-client
-```
-
-```javascript
-const { EntelechyClient } = require('@garybense/entelechy-client');
-
-const main = async () => {
-  const client = new EntelechyClient({ baseUrl: 'http://localhost:8888' });
-
-  await client.retain('my-bank', 'Alice loves hiking in Yosemite');
-
-  const results = await client.recall('my-bank', 'What does Alice like?');
-  console.log(results);
-}
-
-main();
-```
-
-
-### Python Embedded (no server required)
-
-```bash
-pip install entelechy-all -U
-```
-
-```python
-import os
-from entelechy import EntelechyServer, EntelechyClient
-
-with EntelechyServer(
-    llm_provider="openai",
-    llm_model="gpt-5-mini", 
-    llm_api_key=os.environ["OPENAI_API_KEY"]
-) as server:
-    client = EntelechyClient(base_url=server.url)
-    client.retain(bank_id="my-bank", content="Alice works at Google")
-    results = client.recall(bank_id="my-bank", query="Where does Alice work?")
-```
-
-
----
-
-## Use Cases
-
-
-Entelechy is built to support conversational AI agents as well as agents that are intended to perform tasks autonomously. The ideal use case for Entelechy are agents that require a blend of these features such as AI employees that need to handle open-ended tasks, change behavior based on user feedback, and learn to perform complex tasks to automate work at a level that approximates a human work. Entelechy can be used with simple AI workflows like those built with n8n and other similar tools, but may be overkill for such applications.
-
-### Per-User Memories and Chat History
-
-One of the simpler use cases you can use Entelechy for is to personalize AI chatbots and other conversational agents by storing and recalling memories associated with individual users.
-
-The requirements for this use case usually look something like this:
-
-![Per-User Memories](./entelechy-docs/static/img/per-user-memory-requirements.png)
-
-<video src="https://github.com/user-attachments/assets/4805e8e1-e7d1-47c6-a4f8-2344a5ec8906" controls></video>
-
-Satisfying these requirements in Entelechy is straightforward. When new user inputs and tool calls are ingested into Entelechy using the retain operation, custom metadata can be used to enrich the new memories. Metadata provides a convenient way to isolate memories that need to be restricted to a given user. Once these are fed into the retain operation, any raw memories and mental models that get created can be filtered when retrieving relevant memories. 
-
-![Per-User Memories](./entelechy-docs/static/img/per-user-memory-howto.png)
-
----
-
-## Architecture & Operations
-
-![Overview](./entelechy-docs/static/img/entelechy-overview.webp)
-
-Most agent memory implementations rely on basic vector search or sometimes use a knowledge graph. Entelechy uses biomimetic data structures to organize agent memories in a way that is more like how human memory works:
-
-- **World:** Facts about the world ("The stove gets hot")
-- **Experiences:** Agent's own experiences ("I touched the stove and it really hurt")
-- **Mental Models:** Learned understanding of the agent's world formed by reflecting on raw memories and experiences.
-
-Memories in Entelechy are stored in banks (i.e. memory banks). When memories are added to Entelechy, they are pushed into either the world facts or experiences memory pathway. They are then represented as a combination of entities, relationships, and time series with sparse/dense vector representations to aid in later recall.
-
-Entelechy provides three simple methods to interact with the system:
-
-- **Retain:** Provide information to Entelechy that you want it to remember
-- **Recall:** Retrieve memories from Entelechy
-- **Reflect:** Reflect on memories and experiences to generate new observations and insights from existing memories.
-
-### Retain
-
-The `retain` operation is used to push new memories into Entelechy. It tells Entelechy to _retain_ the information you pass in as an input.
-
-```python
-from entelechy_client import Entelechy
-
-client = Entelechy(base_url="http://localhost:8888")
-
-# Simple
-client.retain(
-    bank_id="my-bank",
-    content="Alice works at Google as a software engineer"
-)
-
-# With context and timestamp
-client.retain(
-    bank_id="my-bank",
-    content="Alice got promoted to senior engineer",
-    context="career update",
-    timestamp="2025-06-15T10:00:00Z"
-)
-```
-
-Behind the scenes, the retain operation uses an LLM to extract key facts, temporal data, entities, and relationships. It passes these through a normalization process to transform extracted data into canonical entities, time series, and search indexes along with metadata. These representations create the pathways for accurate memory retrieval in the recall and reflect operations. 
-
-![Retain Operation](entelechy-docs/static/img/retain-operation.webp)
-
-### Recall
-
-The recall operation is used to retrieve memories. These memories can come from any of the memory types (world, experiences, etc.)
-
-```python
-from entelechy_client import Entelechy
-
-client = Entelechy(base_url="http://localhost:8888")
-
-# Simple
-client.recall(bank_id="my-bank", query="What does Alice do?")
-
-# Temporal
-client.recall(bank_id="my-bank", query="What happened in June?")
-```
-
-Recall performs 4 retrieval strategies in parallel:
-- Semantic: Vector similarity
-- Keyword: BM25 exact matching
-- Graph: Entity/temporal/causal links
-- Temporal: Time range filtering
-
-![Recall Operation](entelechy-docs/static/img/recall-operation.webp)
-
-The individual results from the retrievals are merged, then ordered by relevance using reciprocal rank fusion and a cross-encoder reranking model.
-
-The final output is trimmed as needed to fit within the token limit.
-
-### Reflect
-
-The reflect operation is used to perform a more thorough analysis of existing memories. This allows the agent to form new connections between memories and build a more thorough understanding of its world.
-
-For example, the `reflect` operation can be used to support use cases such as:
-
-- An **AI Project Manager** reflecting on what risks need to be mitigated on a project.
-- A **Sales Agent** reflecting on why certain outreach messages have gotten responses while others haven't.
-- A **Support Agent** reflecting on opportunities where customers have questions not answered by current product documentation.
-
-The `reflect` operation can also be used to handle on-demand question answering or analysis which require more deep thinking.
-
-```python
-from entelechy_client import Entelechy
-
-client = Entelechy(base_url="http://localhost:8888")
-
-client.reflect(bank_id="my-bank", query="What should I know about Alice?")
-```
-
-![Reflect Operation](entelechy-docs/static/img/reflect-operation.webp)
-
----
-
-## Resources
-
-**Documentation:** 
-- [https://mindmods.org](https://mindmods.org)
-
-**Clients:**
-- [Python](https://mindmods.org/sdks/python)
-- [Node.js](https://mindmods.org/sdks/nodejs)
-- [REST API](https://mindmods.org/api-reference)
-- [CLI](https://mindmods.org/sdks/cli)
-
-**Community:**
-- [Slack](https://join.slack.com/t/entelechy-space/shared_invite/zt-3nhbm4w29-LeSJ5Ixi6j8PdiYOCPlOgg)
-- [GitHub Issues](https://github.com/garybense/entelechy/issues)
-
----
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=garybense/entelechy&type=date&legend=top-left)](https://www.star-history.com/#garybense/entelechy&type=date&legend=top-left)
----
-
-## Contributing
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md).
+### Core Endpoints for Orchestrators
+*   `POST /v1/default/banks/{bank_id}/sessions/bootstrap` - Pre-flight State Vector extraction.
+*   `POST /v1/default/memories/retain_async` - Fire-and-forget background interception.
+*   `GET /mcp/{bank_id}/` - Single-bank scoped MCP access for legacy agents.
 
 ## License
-
-MIT — see [LICENSE](./LICENSE)
-
----
-
-Built by [Gary Bense](https://github.com/garybense) — [mindmods.org](https://mindmods.org)
+MIT

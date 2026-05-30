@@ -667,10 +667,12 @@ class MCPMiddleware:
             return
 
         path = scope.get("path", "")
+        print(f"MCPMiddleware __call__ path: {path}")
 
         # Check if this is an MCP request (matches prefix)
         if not (path == self.prefix or path.startswith(self.prefix + "/")):
             # Not an MCP request — pass through to the inner app
+            print("Not MCP request")
             await self.app(scope, receive, send)
             return
 
@@ -678,12 +680,30 @@ class MCPMiddleware:
         # Without a valid Mcp-Session-Id, GET has no meaningful response — return 200 OK so
         # the client proceeds to POST initialize instead of marking the server as failed.
         method = scope.get("method", "")
+        print(f"MCPMiddleware method: {method}")
         if method == "GET":
-            session_id = self._get_header(scope, "Mcp-Session-Id")
-            if not session_id:
-                logger.debug("MCP GET without session ID (client probe) — returning 200 OK")
-                await self._send_ok(send)
-                return
+            # Do NOT return a 200 OK empty response for actual SSE stream or message requests,
+            # as standard SSE clients (like Grok) need to establish their event stream connection
+            # via a normal GET without a session ID.
+            accept_header = self._get_header(scope, "Accept") or ""
+            is_sse_accept = "text/event-stream" in accept_header
+            print(f"MCPMiddleware is_sse_accept: {is_sse_accept}, accept: {accept_header}")
+            
+            # Determine if this is a bank-scoped SSE/message endpoint path (e.g., /mcp/my-bank/sse).
+            # We split the stripped path (which starts with a slash) to inspect the parts.
+            stripped_path = path[len(self.prefix) :] or "/"
+            path_parts = [p for p in stripped_path.split("/") if p]
+            is_endpoint_path = len(path_parts) > 1 and path_parts[-1] in ("sse", "messages")
+            print(f"MCPMiddleware is_endpoint_path: {is_endpoint_path}, stripped_path: {stripped_path}, path_parts: {path_parts}")
+            
+            if not (is_sse_accept or is_endpoint_path):
+                session_id = self._get_header(scope, "Mcp-Session-Id")
+                print(f"MCPMiddleware session_id: {session_id}")
+                if not session_id:
+                    print("MCP GET without session ID (client probe) — returning welcome message")
+                    logger.debug("MCP GET without session ID (client probe) — returning welcome message")
+                    await self._send_welcome_message(send)
+                    return
 
         # Strip prefix from path
         path = path[len(self.prefix) :] or "/"
@@ -837,6 +857,39 @@ class MCPMiddleware:
             {
                 "type": "http.response.body",
                 "body": b"{}",
+            }
+        )
+
+    async def _send_welcome_message(self, send):
+        """Send a 200 OK response with a welcome/onboarding message."""
+        welcome_payload = {
+            "message": "Welcome to Entelechy's Model Context Protocol (MCP) server!",
+            "status": "Connected",
+            "version": ENTELECHY_VERSION,
+            "description": "To get started and understand available tools:",
+            "actions": {
+                "get_onboarding_info": "POST /mcp with {\"name\": \"start_here\"}",
+                "list_available_banks": "POST /mcp with {\"name\": \"list_banks\"}",
+                "access_specific_bank": "Use /mcp/{bank_id}/ for bank-scoped tools (e.g., /mcp/newdev/)",
+                "authenticate": "Include Authorization: Bearer <token> header for authenticated access (if required)",
+            },
+            "links": {
+                "documentation": "https://mindmods.org/docs/developer/mcp-server", 
+                "github": "https://github.com/garybense/entelechy",
+            }
+        }
+        body = json.dumps(welcome_payload).encode()
+        await send(
+            {
+                "type": "http.response.start",
+                "status": 200,
+                "headers": [(b"content-type", b"application/json")],
+            }
+        )
+        await send(
+            {
+                "type": "http.response.body",
+                "body": body,
             }
         )
 
