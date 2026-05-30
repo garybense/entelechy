@@ -98,5 +98,5 @@ go func() {
 
 ## Learn More
 
-- [Go SDK Documentation](https://entelechy.vectorize.io/sdks/go)
-- [Entelechy Documentation](https://entelechy.vectorize.io)
+- [Go SDK Documentation](https://mindmods.org/sdks/go)
+- [Entelechy Documentation](https://mindmods.org)

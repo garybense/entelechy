@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "entelechy-docs": {
+      "source": "garybense/entelechy",
+      "sourceType": "github",
+      "skillPath": "skills/entelechy-docs/SKILL.md",
+      "computedHash": "78fd008c35a40fc17d0d60f8c491816618c8b3009780e07086ad2d2d2c9299d8"
+    }
+  }
+}

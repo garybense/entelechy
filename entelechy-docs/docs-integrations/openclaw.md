@@ -32,7 +32,7 @@ npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 
 The wizard walks you through picking one of three install modes:
 
-- **Cloud** — managed Entelechy at `https://api.entelechy.vectorize.io`. Paste your cloud API token when prompted (masked input). No local setup needed.
+- **Cloud** — managed Entelechy at `https://api.mindmods.org`. Paste your cloud API token when prompted (masked input). No local setup needed.
 - **External API** — your own running Entelechy deployment. Prompts for the URL and, optionally, the token value (masked).
 - **Embedded daemon** — spawns a local `entelechy-embed` daemon on this machine. Prompts for the LLM provider (OpenAI / Anthropic / Gemini / Groq / Claude Code / OpenAI Codex / Ollama) and the API key (masked).
 

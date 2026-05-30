@@ -14,7 +14,7 @@ hide_table_of_contents: true
 
 Most agents are still built around short-term context management, not durable recall. They keep a sliding chat window, maybe add a summary, maybe attach a retriever, and hope that is enough. It often is not. Persistent memory for agents needs a different architecture, one that stores what matters and can bring it back when the agent needs it.
 
-This post breaks down the most common context-loss failure modes, explains what is happening technically, and shows why Entelechy fixes the problem more reliably than summary-only or vector-only approaches. For the implementation details behind the ideas here, keep the [docs home](https://entelechy.vectorize.io/docs), [the quickstart guide](https://entelechy.vectorize.io/docs/quickstart), and [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall) open as you read.
+This post breaks down the most common context-loss failure modes, explains what is happening technically, and shows why Entelechy fixes the problem more reliably than summary-only or vector-only approaches. For the implementation details behind the ideas here, keep the [docs home](https://mindmods.org/docs), [the quickstart guide](https://mindmods.org/docs/quickstart), and [Entelechy's recall API](https://mindmods.org/docs/api/recall) open as you read.
 
 <!-- truncate -->
 
@@ -95,7 +95,7 @@ This one gets worse as teams adopt more tools.
 
 Claude knows one thing, Codex knows another, OpenClaw knows a third, and none of them compound. Every surface starts cold because each tool owns its own narrow context.
 
-That is the exact problem explored in [One Memory for Every AI Tool I Use](https://entelechy.vectorize.io/blog/one-memory-for-every-ai-tool) and [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents).
+That is the exact problem explored in [One Memory for Every AI Tool I Use](https://mindmods.org/blog/one-memory-for-every-ai-tool) and [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents).
 
 ## Why these failures happen
 
@@ -120,7 +120,7 @@ A durable memory layer needs a few properties at the same time.
 
 The system must store more than raw transcript text. It should retain facts, entities, relationships, and useful metadata so later recall can operate over something better than chat logs.
 
-That is the role of [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain).
+That is the role of [Entelechy's retain API](https://mindmods.org/docs/api/retain).
 
 ### Multi-strategy retrieval
 
@@ -134,7 +134,7 @@ Entelechy runs:
 - temporal retrieval
 - fusion and reranking
 
-The retrieval stack is described in [the recall architecture guide](https://entelechy.vectorize.io/docs/developer/retrieval).
+The retrieval stack is described in [the recall architecture guide](https://mindmods.org/docs/developer/retrieval).
 
 ### Token-aware return, not just top-k
 
@@ -210,7 +210,7 @@ Stuffing more history into every call increases cost and slows response time.
 
 Real agents accumulate memory across weeks, months, or multiple tools. Eventually selective retrieval is not optional.
 
-That is exactly why benchmark work like [Entelechy Is #1 on BEAM](https://entelechy.vectorize.io/blog/2026/04/02/beam-sota) matters. It tests memory at scales where context stuffing is impossible.
+That is exactly why benchmark work like [Entelechy Is #1 on BEAM](https://mindmods.org/blog/2026/04/02/beam-sota) matters. It tests memory at scales where context stuffing is impossible.
 
 ## A simple architecture test
 
@@ -234,7 +234,7 @@ Use Entelechy when:
 - several agents or tools should share memory
 - you want a system whose behavior is exposed through APIs, not hidden behind one summary prompt
 
-If you are starting from scratch, the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) is the fastest place to begin.
+If you are starting from scratch, the [quickstart guide](https://mindmods.org/docs/quickstart) is the fastest place to begin.
 
 ## Bottom line
 
@@ -246,9 +246,9 @@ Persistent memory for agents needs retention, retrieval, entity continuity, temp
 
 ## Next steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want production memory without running your own stack
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- See the cross-tool pattern in [One Memory for Every AI Tool I Use](https://entelechy.vectorize.io/blog/one-memory-for-every-ai-tool)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want production memory without running your own stack
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- See the cross-tool pattern in [One Memory for Every AI Tool I Use](https://mindmods.org/blog/one-memory-for-every-ai-tool)

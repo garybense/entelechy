@@ -13,7 +13,7 @@ hide_table_of_contents: true
 ## TL;DR
 
 - [NemoClaw](https://nemoclaw.ai) sandboxes isolate AI agents — controlled filesystem, processes, and network. That isolation makes persistent memory harder.
-- We connected the `entelechy-openclaw` plugin to a live NemoClaw sandbox using [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup). No code changes — one command.
+- We connected the `entelechy-openclaw` plugin to a live NemoClaw sandbox using [Entelechy Cloud](https://ui.mindmods.org/signup). No code changes — one command.
 - External API mode is the natural fit: the plugin becomes a thin HTTP client, and the sandbox only needs one egress rule.
 - Memories captured in one session are recalled in the next. The sandbox didn't interfere.
 - The pattern generalizes: sandbox controls what the agent can *do*, memory controls what it *knows*. They compose cleanly.
@@ -34,7 +34,7 @@ We didn't need to change a line.
 
 By default, the sandbox ships with policies for the services it needs: the LLM provider, GitHub, npm, the OpenClaw API. Everything else is blocked. That's a good default — an agent that can call arbitrary endpoints is harder to trust.
 
-[Entelechy](https://entelechy.vectorize.io) operates as an external API. The plugin makes HTTPS calls to `api.entelechy.vectorize.io` to [retain and recall memories](https://entelechy.vectorize.io/blog/2026/03/04/mcp-agent-memory). From the sandbox's perspective, that's just another outbound endpoint — one that needs to be explicitly permitted.
+[Entelechy](https://mindmods.org) operates as an external API. The plugin makes HTTPS calls to `api.mindmods.org` to [retain and recall memories](https://mindmods.org/blog/2026/03/04/mcp-agent-memory). From the sandbox's perspective, that's just another outbound endpoint — one that needs to be explicitly permitted.
 
 The full stack looks like this:
 
@@ -52,17 +52,17 @@ The full stack looks like this:
 │  Network egress policy:                     │
 │    ✓ api.anthropic.com                      │
 │    ✓ integrate.api.nvidia.com               │
-│    ✓ api.entelechy.vectorize.io  ← added    │
+│    ✓ api.mindmods.org  ← added    │
 └─────────────────────────────────────────────┘
 ```
 
-When the plugin retains a conversation, Entelechy doesn't just store raw text. It extracts structured facts, resolves entities, builds a [knowledge graph](https://entelechy.vectorize.io/blog/2026/03/12/spreading-activation-memory-graphs), and indexes everything for multi-strategy retrieval — semantic search, BM25 keyword matching, graph traversal, and temporal filtering with [cross-encoder reranking](https://entelechy.vectorize.io/blog/2026/03/04/mcp-agent-memory). That's what makes recall useful even when the agent's question doesn't match the exact wording of what was stored.
+When the plugin retains a conversation, Entelechy doesn't just store raw text. It extracts structured facts, resolves entities, builds a [knowledge graph](https://mindmods.org/blog/2026/03/12/spreading-activation-memory-graphs), and indexes everything for multi-strategy retrieval — semantic search, BM25 keyword matching, graph traversal, and temporal filtering with [cross-encoder reranking](https://mindmods.org/blog/2026/03/04/mcp-agent-memory). That's what makes recall useful even when the agent's question doesn't match the exact wording of what was stored.
 
 The plugin has two modes. In **local daemon mode**, it spawns a local `entelechy-embed` process and communicates with it over a local port. In **external API mode**, it skips the daemon entirely and makes HTTP calls directly to a Entelechy Cloud endpoint.
 
 Inside a sandbox, local daemon mode is awkward. The sandbox controls which processes can be spawned, and a background daemon that launches `uvx` subprocesses is friction we don't need. External API mode is the natural fit: the plugin becomes a thin HTTP client, and the only infrastructure requirement is a network egress rule.
 
-For background on the OpenClaw plugin itself — how it hooks into the gateway lifecycle, auto-injects memory into context, and prevents feedback loops — see [The Memory Upgrade Every OpenClaw User Needs](https://entelechy.vectorize.io/blog/2026/03/06/adding-memory-to-openclaw-with-entelechy).
+For background on the OpenClaw plugin itself — how it hooks into the gateway lifecycle, auto-injects memory into context, and prevents feedback loops — see [The Memory Upgrade Every OpenClaw User Needs](https://mindmods.org/blog/2026/03/06/adding-memory-to-openclaw-with-entelechy).
 
 ## Implementation: One Command
 
@@ -71,7 +71,7 @@ The `entelechy-nemoclaw` package automates the entire setup — installing the p
 ```bash
 npx @garybense/entelechy-nemoclaw setup \
   --sandbox my-assistant \
-  --api-url https://api.entelechy.vectorize.io \
+  --api-url https://api.mindmods.org \
   --api-token <your-api-key> \
   --bank-prefix my-sandbox
 ```
@@ -107,7 +107,7 @@ After setup, the gateway logs confirm the plugin is running:
 
 ```
 [Entelechy] Plugin loaded successfully
-[Entelechy] ✓ Using external API: https://api.entelechy.vectorize.io
+[Entelechy] ✓ Using external API: https://api.mindmods.org
 [Entelechy] External API health: {"status":"healthy","database":"connected"}
 [Entelechy] Default bank: my-sandbox-openclaw
 [Entelechy] ✓ Ready (external API mode)
@@ -162,7 +162,7 @@ openclaw plugins install @garybense/entelechy-openclaw
       "entelechy-openclaw": {
         "enabled": true,
         "config": {
-          "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+          "entelechyApiUrl": "https://api.mindmods.org",
           "entelechyApiToken": "<your-api-key>",
           "llmProvider": "claude-code",
           "dynamicBankId": false,
@@ -181,7 +181,7 @@ network_policies:
   entelechy:
     name: entelechy
     endpoints:
-      - host: api.entelechy.vectorize.io
+      - host: api.mindmods.org
         port: 443
         protocol: rest
         tls: terminate
@@ -224,7 +224,7 @@ If you see `EPERM: operation not permitted, scandir` in your gateway logs, this 
 
 ### 3. Memory retention is asynchronous
 
-When the plugin calls `retain` at the end of a session, [fact extraction and entity resolution](https://entelechy.vectorize.io/blog/2026/03/12/spreading-activation-memory-graphs) happen in the background on Entelechy's side. If you open a new session immediately, the most recent memories may not be indexed yet. In practice this is a few seconds — but it's worth knowing if you're testing back-to-back.
+When the plugin calls `retain` at the end of a session, [fact extraction and entity resolution](https://mindmods.org/blog/2026/03/12/spreading-activation-memory-graphs) happen in the background on Entelechy's side. If you open a new session immediately, the most recent memories may not be indexed yet. In practice this is a few seconds — but it's worth knowing if you're testing back-to-back.
 
 ### 4. Binary-scoped egress is strict
 
@@ -244,7 +244,7 @@ The `binaries` field in the network policy means *only* the specified executable
 
 **Use local daemon mode** when data must stay on the machine, network egress is completely locked down, or you're running outside a sandbox where process spawning is unrestricted.
 
-For background on the local daemon approach, see [The Memory Upgrade Every OpenClaw User Needs](https://entelechy.vectorize.io/blog/2026/03/06/adding-memory-to-openclaw-with-entelechy).
+For background on the local daemon approach, see [The Memory Upgrade Every OpenClaw User Needs](https://mindmods.org/blog/2026/03/06/adding-memory-to-openclaw-with-entelechy).
 
 ## What This Pattern Means for Sandboxed Agent Memory
 
@@ -262,7 +262,7 @@ There's also an interesting property of `dynamicBankId`:
 - **Enabled** (`true`): each user gets an isolated memory bank. Memories from one user's sessions can't bleed into another's. Use this for multi-tenant deployments.
 - **Disabled** (`false`): a shared bank accumulates context from all sessions. Use this for single-user sandboxes like a personal coding assistant.
 
-> **Want to skip self-hosting?** [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) is what we used in this walkthrough — no Docker, no infrastructure. Sign up, grab an API key, and run `npx @garybense/entelechy-nemoclaw setup`.
+> **Want to skip self-hosting?** [Entelechy Cloud](https://ui.mindmods.org/signup) is what we used in this walkthrough — no Docker, no infrastructure. Sign up, grab an API key, and run `npx @garybense/entelechy-nemoclaw setup`.
 
 ## Recap
 
@@ -274,9 +274,9 @@ The key insight: sandbox isolation and persistent memory are orthogonal concerns
 
 - **Run the setup**: `npx @garybense/entelechy-nemoclaw setup --help` to get started.
 - **Try per-user memory banks**: Enable `dynamicBankId: true` to give each user isolated memory in multi-tenant deployments.
-- **Explore the OpenClaw plugin in depth**: See [The Memory Upgrade Every OpenClaw User Needs](https://entelechy.vectorize.io/blog/2026/03/06/adding-memory-to-openclaw-with-entelechy) for how the plugin hooks into gateway lifecycle events.
-- **Connect other agents to the same memory**: Entelechy works with [Hermes Agent](https://entelechy.vectorize.io/blog/2026/03/17/hermes-agent-memory), [Streamlit chatbots](https://entelechy.vectorize.io/blog/2026/03/17/python-chatbot-memory-streamlit), and [any MCP client](https://entelechy.vectorize.io/blog/2026/03/04/mcp-agent-memory).
-- **Check out the docs**: Full API reference and SDK guides at [docs.entelechy.vectorize.io](https://docs.entelechy.vectorize.io/recall/).
+- **Explore the OpenClaw plugin in depth**: See [The Memory Upgrade Every OpenClaw User Needs](https://mindmods.org/blog/2026/03/06/adding-memory-to-openclaw-with-entelechy) for how the plugin hooks into gateway lifecycle events.
+- **Connect other agents to the same memory**: Entelechy works with [Hermes Agent](https://mindmods.org/blog/2026/03/17/hermes-agent-memory), [Streamlit chatbots](https://mindmods.org/blog/2026/03/17/python-chatbot-memory-streamlit), and [any MCP client](https://mindmods.org/blog/2026/03/04/mcp-agent-memory).
+- **Check out the docs**: Full API reference and SDK guides at [docs.mindmods.org](https://docs.mindmods.org/recall/).
 
 ---
 
@@ -284,4 +284,4 @@ The key insight: sandbox isolation and persistent memory are orthogonal concerns
 - [entelechy-nemoclaw on npm](https://www.npmjs.com/package/@garybense/entelechy-nemoclaw)
 - [entelechy-openclaw on npm](https://www.npmjs.com/package/@garybense/entelechy-openclaw)
 - [OpenClaw plugin documentation](https://vectorize.io/entelechy/sdks/integrations/openclaw)
-- [Entelechy Cloud](https://ui.entelechy.vectorize.io)
+- [Entelechy Cloud](https://ui.mindmods.org)

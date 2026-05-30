@@ -73,7 +73,7 @@ Full examples are available in the [GitHub repository](https://github.com/garybe
 
 - [Documentation](https://vectorize.io/entelechy)
 - [GitHub Issues](https://github.com/garybense/entelechy/issues)
-- Email: support@vectorize.io
+- Email: support@mindmods.org
 
 ## License
 

@@ -14,7 +14,7 @@ If you want to **run Entelechy as a local MCP server**, the good news is that th
 
 This is a strong pattern for personal use, development, and privacy-focused setups. Instead of exposing memory over a public endpoint or managing a full hosted stack first, you start one local process and connect your MCP client to `localhost`.
 
-This guide walks through the local server startup flow, explains single-bank and multi-bank modes, and shows how to verify that the MCP tools are working before you trust them in real work. Keep the [docs home](https://entelechy.vectorize.io/docs) and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open while you work.
+This guide walks through the local server startup flow, explains single-bank and multi-bank modes, and shows how to verify that the MCP tools are working before you trust them in real work. Keep the [docs home](https://mindmods.org/docs) and the [quickstart guide](https://mindmods.org/docs/quickstart) open while you work.
 
 <!-- truncate -->
 
@@ -34,7 +34,7 @@ Before you start, make sure you have:
 - an LLM provider key, unless you are using a local model like Ollama
 - an MCP-compatible client, such as Claude Code, Claude Desktop, Cursor, or Windsurf
 
-If you would rather skip local infrastructure entirely, [Entelechy Cloud](https://entelechy.vectorize.io) is the easier managed alternative.
+If you would rather skip local infrastructure entirely, [Entelechy Cloud](https://mindmods.org) is the easier managed alternative.
 
 ## Step 1: Start the local MCP server
 
@@ -73,7 +73,7 @@ The local MCP server is not a thin demo wrapper. It runs the full memory API loc
 
 This is why it works well for both development and day-to-day single-user setups.
 
-For retrieval details, see [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall). For storage details, see [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain).
+For retrieval details, see [Entelechy's recall API](https://mindmods.org/docs/api/recall). For storage details, see [Entelechy's retain API](https://mindmods.org/docs/api/retain).
 
 ## Step 2: Choose multi-bank or single-bank mode
 
@@ -126,7 +126,7 @@ Typical examples:
 - Windsurf MCP settings
 - Claude Code CLI registration
 
-If you are comparing client patterns, the [Claude Code integration](https://entelechy.vectorize.io/docs/integrations/claude-code) and [Adding Memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) are useful related reads.
+If you are comparing client patterns, the [Claude Code integration](https://mindmods.org/docs/integrations/claude-code) and [Adding Memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) are useful related reads.
 
 ## Step 4: Verify that the tools are live
 
@@ -187,7 +187,7 @@ Local MCP is a great choice when:
 - you want minimal infrastructure
 - you want to avoid exposing a public endpoint
 
-If you eventually want multi-device access or easier OAuth-based client setup, move to [Entelechy Cloud](https://entelechy.vectorize.io).
+If you eventually want multi-device access or easier OAuth-based client setup, move to [Entelechy Cloud](https://mindmods.org).
 
 ## FAQ
 
@@ -209,9 +209,9 @@ Yes, the embedded PostgreSQL data persists locally across restarts.
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want a hosted alternative
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Compare coding workflows in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want a hosted alternative
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Compare coding workflows in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents)

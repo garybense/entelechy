@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![What's New in Entelechy Cloud: Native OAuth for MCP Clients](/img/blog/entelechy-cloud-mcp-oauth.png)
 
-[Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) now supports native OAuth 2.1 for MCP clients. Tools like Claude Code, Claude Desktop, ChatGPT, Cursor, and Windsurf can connect directly to Entelechy's memory API with no API keys to generate, copy, or paste.
+[Entelechy Cloud](https://ui.mindmods.org/signup) now supports native OAuth 2.1 for MCP clients. Tools like Claude Code, Claude Desktop, ChatGPT, Cursor, and Windsurf can connect directly to Entelechy's memory API with no API keys to generate, copy, or paste.
 
 This post covers what changed, how to connect each supported client, and when OAuth is the right choice versus a traditional API key.
 
@@ -59,7 +59,7 @@ From your perspective, steps 2–6 happen in a browser window that opens automat
 Add the Entelechy MCP server via the CLI:
 
 ```bash
-claude mcp add entelechy https://mcp.entelechy.vectorize.io --transport http
+claude mcp add entelechy https://mcp.mindmods.org --transport http
 ```
 
 Or edit `~/.claude/settings.json` directly:
@@ -68,7 +68,7 @@ Or edit `~/.claude/settings.json` directly:
 {
   "mcpServers": {
     "entelechy": {
-      "url": "https://mcp.entelechy.vectorize.io",
+      "url": "https://mcp.mindmods.org",
       "type": "http"
     }
   }
@@ -88,7 +88,7 @@ Edit your Claude Desktop config file:
 {
   "mcpServers": {
     "entelechy": {
-      "url": "https://mcp.entelechy.vectorize.io"
+      "url": "https://mcp.mindmods.org"
     }
   }
 }
@@ -101,7 +101,7 @@ Restart Claude Desktop. On the next launch it will prompt you to authorize Entel
 1. Open **Settings** (⌘, on macOS)
 2. Navigate to **Features → MCP Servers**
 3. Click **Add MCP Server**
-4. Enter the server URL: `https://mcp.entelechy.vectorize.io`
+4. Enter the server URL: `https://mcp.mindmods.org`
 5. Set the transport to **HTTP**
 6. Save
 
@@ -112,14 +112,14 @@ Cursor will open a browser window for the OAuth authorization flow on first conn
 1. Open the **Windsurf Settings** panel
 2. Go to **Cascade → MCP Servers**
 3. Click **Add Server**
-4. Enter `https://mcp.entelechy.vectorize.io` as the server URL
+4. Enter `https://mcp.mindmods.org` as the server URL
 5. Save and reload
 
 The OAuth prompt will appear automatically on the next session start.
 
 ### ChatGPT
 
-ChatGPT supports MCP via the Connectors panel in ChatGPT Plus and Team plans. Navigate to **Settings → Connectors**, click **Add Connector**, and paste `https://mcp.entelechy.vectorize.io`. The authorization flow runs in-browser.
+ChatGPT supports MCP via the Connectors panel in ChatGPT Plus and Team plans. Navigate to **Settings → Connectors**, click **Add Connector**, and paste `https://mcp.mindmods.org`. The authorization flow runs in-browser.
 
 ## OAuth vs. API Key: When to Use Each
 
@@ -168,6 +168,6 @@ Only **Owner** or **Admin** users can authorize an MCP client connection. This m
 
 ## Get Started
 
-Native MCP OAuth is available now in all [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) accounts. Add `https://mcp.entelechy.vectorize.io` to your MCP client config and follow the authorization prompt.
+Native MCP OAuth is available now in all [Entelechy Cloud](https://ui.mindmods.org/signup) accounts. Add `https://mcp.mindmods.org` to your MCP client config and follow the authorization prompt.
 
-For scripted or automated use cases, [API keys](https://entelechy.vectorize.io/developer/retrieval) remain available in the Entelechy Cloud dashboard. Both methods give full access to [recall](https://entelechy.vectorize.io/developer/retrieval), retain, and reflect.
+For scripted or automated use cases, [API keys](https://mindmods.org/developer/retrieval) remain available in the Entelechy Cloud dashboard. Both methods give full access to [recall](https://mindmods.org/developer/retrieval), retain, and reflect.

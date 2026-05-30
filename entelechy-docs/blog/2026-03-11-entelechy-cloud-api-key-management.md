@@ -6,7 +6,7 @@ tags: [entelechy-cloud, release, api]
 hide_table_of_contents: true
 ---
 
-[Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) now supports programmatic API key management. API keys with the **Key Creator** capability can create, list, and revoke bank-scoped child keys via the API — no admin or UI access required.
+[Entelechy Cloud](https://ui.mindmods.org/signup) now supports programmatic API key management. API keys with the **Key Creator** capability can create, list, and revoke bank-scoped child keys via the API — no admin or UI access required.
 
 <!-- truncate -->
 
@@ -27,4 +27,4 @@ Combined with [bank-scoped API keys](/blog/2026/03/09/entelechy-document-upload#
 
 ## Get Started
 
-Programmatic API key management is available now in [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup). Create a key with the Key Creator capability to start provisioning child keys via the API.
+Programmatic API key management is available now in [Entelechy Cloud](https://ui.mindmods.org/signup). Create a key with the Key Creator capability to start provisioning child keys via the API.

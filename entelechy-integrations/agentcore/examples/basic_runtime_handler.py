@@ -9,7 +9,7 @@ Requirements:
     pip install entelechy-agentcore
 
 Environment variables:
-    ENTELECHY_API_URL    - Entelechy API URL (default: https://api.entelechy.vectorize.io)
+    ENTELECHY_API_URL    - Entelechy API URL (default: https://api.mindmods.org)
     ENTELECHY_API_KEY    - Entelechy API key (required for Entelechy Cloud)
 
 Run:
@@ -26,7 +26,7 @@ from entelechy_agentcore import EntelechyRuntimeAdapter, TurnContext, configure
 
 # 1. Configure Entelechy once at module import (or in your Runtime cold start).
 configure(
-    entelechy_api_url=os.environ.get("ENTELECHY_API_URL", "https://api.entelechy.vectorize.io"),
+    entelechy_api_url=os.environ.get("ENTELECHY_API_URL", "https://api.mindmods.org"),
     api_key=os.environ.get("ENTELECHY_API_KEY"),
 )
 

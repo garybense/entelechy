@@ -14,7 +14,7 @@ If you are weighing **agent memory vs RAG**, the wrong move is to treat them as 
 
 That distinction matters because many teams reach for RAG first, then discover later that they were trying to solve a memory problem with a document retrieval stack. Other teams do the opposite, reaching for a memory system when what they really needed was static corpus search. Both mistakes are expensive.
 
-This guide explains what each approach actually does, where each one is strong, where each one breaks, and when a hybrid architecture is the best answer. If you want the lower-level reference material while you read, keep the [docs home](https://entelechy.vectorize.io/docs), [the quickstart guide](https://entelechy.vectorize.io/docs/quickstart), [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall), and [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain) nearby.
+This guide explains what each approach actually does, where each one is strong, where each one breaks, and when a hybrid architecture is the best answer. If you want the lower-level reference material while you read, keep the [docs home](https://mindmods.org/docs), [the quickstart guide](https://mindmods.org/docs/quickstart), [Entelechy's recall API](https://mindmods.org/docs/api/recall), and [Entelechy's retain API](https://mindmods.org/docs/api/retain) nearby.
 
 <!-- truncate -->
 
@@ -65,7 +65,7 @@ That makes it better suited for:
 - time-bounded questions
 - multi-agent shared memory
 
-The architecture is explained in [the recall architecture guide](https://entelechy.vectorize.io/docs/developer/retrieval) and [the RAG vs Entelechy doc](https://entelechy.vectorize.io/docs/developer/rag-vs-entelechy).
+The architecture is explained in [the recall architecture guide](https://mindmods.org/docs/developer/retrieval) and [the RAG vs Entelechy doc](https://mindmods.org/docs/developer/rag-vs-entelechy).
 
 ## Side-by-side comparison
 
@@ -116,7 +116,7 @@ Examples:
 - personal assistant that should retain preferences and commitments
 - multi-agent workflow where one agent should build on another's work
 
-This is the memory layer described in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) and [One Memory for Every AI Tool I Use](https://entelechy.vectorize.io/blog/one-memory-for-every-ai-tool).
+This is the memory layer described in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) and [One Memory for Every AI Tool I Use](https://mindmods.org/blog/one-memory-for-every-ai-tool).
 
 ## Where RAG breaks down for memory
 
@@ -245,9 +245,9 @@ RAG is great at surfacing relevant text from a corpus. Entelechy is built to pre
 
 ## Next steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want managed persistent memory for agents
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Compare the underlying model in [the RAG vs Entelechy guide](https://entelechy.vectorize.io/docs/developer/rag-vs-entelechy)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want managed persistent memory for agents
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Compare the underlying model in [the RAG vs Entelechy guide](https://mindmods.org/docs/developer/rag-vs-entelechy)

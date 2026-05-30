@@ -42,7 +42,7 @@ export default function SkillToast(): JSX.Element | null {
             Install the Entelechy documentation skill for faster development:
           </div>
           <code className={styles.command}>
-            curl -fsSL https://entelechy.vectorize.io/get-skill | bash
+            curl -fsSL https://mindmods.org/get-skill | bash
           </code>
         </div>
         <button

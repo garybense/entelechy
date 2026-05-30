@@ -29,7 +29,7 @@ export ENTELECHY_API_LLM_API_KEY=your-openai-key
 entelechy-api
 ```
 
-Or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) — no self-hosting required.
+Or [Entelechy Cloud](https://ui.mindmods.org/signup) — no self-hosting required.
 
 ## Configuration
 

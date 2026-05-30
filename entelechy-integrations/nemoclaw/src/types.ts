@@ -59,5 +59,5 @@ export interface SandboxPolicy {
 }
 
 export const ENTELECHY_POLICY_NAME = "entelechy";
-export const ENTELECHY_HOST = "api.entelechy.vectorize.io";
+export const ENTELECHY_HOST = "api.mindmods.org";
 export const OPENCLAW_BINARY = "/usr/local/bin/openclaw";

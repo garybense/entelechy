@@ -3,7 +3,7 @@
 Entelechy can be deployed in several ways depending on your infrastructure and requirements.
 
 :::tip Don't want to manage infrastructure?
-**[Entelechy Cloud](https://ui.entelechy.vectorize.io/signup)** is a fully managed service that handles all infrastructure, scaling, and maintenance — [sign up here](https://ui.entelechy.vectorize.io/signup).
+**[Entelechy Cloud](https://ui.mindmods.org/signup)** is a fully managed service that handles all infrastructure, scaling, and maintenance — [sign up here](https://ui.mindmods.org/signup).
 :::
 
 ## Prerequisites

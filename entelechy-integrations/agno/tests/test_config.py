@@ -13,7 +13,7 @@ from entelechy_agno.config import (
 
 class TestDefaults:
     def test_default_api_url(self):
-        assert DEFAULT_ENTELECHY_API_URL == "https://api.entelechy.vectorize.io"
+        assert DEFAULT_ENTELECHY_API_URL == "https://api.mindmods.org"
 
     def test_env_var_name(self):
         assert ENTELECHY_API_KEY_ENV == "ENTELECHY_API_KEY"

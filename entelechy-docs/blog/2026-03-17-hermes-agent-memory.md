@@ -20,7 +20,7 @@ The `entelechy-hermes` pip plugin described in this post is deprecated. Hermes n
 - Hermes Agent's built-in memory is local file-based — no structure, no retrieval intelligence, no cross-machine sync
 - `entelechy-hermes` is a pip-installable plugin that registers Entelechy retain/recall/reflect as native Hermes tools
 - One `pip install`, three environment variables, disable the built-in `memory` tool, and you're done
-- Works with [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) (zero infra) or self-hosted
+- Works with [Entelechy Cloud](https://ui.mindmods.org/signup) (zero infra) or self-hosted
 
 ## The problem: good memory, but it could go further
 
@@ -57,9 +57,9 @@ You have two options: Entelechy Cloud (no setup) or self-hosted.
 
 **Option A: Entelechy Cloud**
 
-1. [Sign up at Entelechy Cloud](https://ui.entelechy.vectorize.io/signup)
+1. [Sign up at Entelechy Cloud](https://ui.mindmods.org/signup)
 2. Create a memory bank in the dashboard and copy your API key
-3. Your base URL is `https://api.entelechy.vectorize.io`
+3. Your base URL is `https://api.mindmods.org`
 
 **Option B: Self-hosted with Docker**
 
@@ -120,7 +120,7 @@ export ENTELECHY_API_URL=http://localhost:8888
 # Required — the memory bank (an isolated "brain" for this agent)
 export ENTELECHY_BANK_ID=my-agent
 
-# Optional — only needed for Entelechy Cloud (https://api.entelechy.vectorize.io)
+# Optional — only needed for Entelechy Cloud (https://api.mindmods.org)
 export ENTELECHY_API_KEY=hsk_your-key-here
 
 # Optional — recall budget: low (fast), mid (default), high (thorough)
@@ -252,4 +252,4 @@ The key practical detail: disable Hermes's built-in `memory` tool. Otherwise the
 - **Use per-user banks.** Set `ENTELECHY_BANK_ID` per user for isolated memory per person.
 - **Explore the MCP alternative.** Hermes supports MCP servers natively. You can connect Entelechy's MCP server directly (`http://localhost:8888/mcp`) instead of the plugin — no `entelechy-hermes` package needed. The tradeoff is that the plugin registers tools with Hermes-native schemas, while MCP tools need discovery.
 - **Use manual registration for more control.** If you want to set tags, recall filters, or skip the plugin system, `entelechy-hermes` exposes `register_tools()` and `memory_instructions()` functions for direct use.
-- **Read the docs.** Full integration reference at [entelechy.vectorize.io/sdks/integrations/hermes](https://entelechy.vectorize.io/sdks/integrations/hermes).
+- **Read the docs.** Full integration reference at [mindmods.org/sdks/integrations/hermes](https://mindmods.org/sdks/integrations/hermes).

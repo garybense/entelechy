@@ -12,7 +12,7 @@ If you are choosing an **OpenClaw memory bank strategy for teams**, the importan
 
 OpenClaw gives you several viable patterns through Entelechy bank configuration. You can isolate per user, per provider, per channel, or collapse down to one intentionally shared bank for a team workflow. None of those options is universally right. The best choice depends on whether your agents serve individuals, shared queues, or a small team working on one project together.
 
-This guide explains the three patterns that matter most, how to pick one without overcomplicating the setup, and how to migrate later if your needs change. Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), the [docs home](https://entelechy.vectorize.io/docs), the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall), and the [team shared memory post](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) open while you compare.
+This guide explains the three patterns that matter most, how to pick one without overcomplicating the setup, and how to migrate later if your needs change. Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), the [docs home](https://mindmods.org/docs), the [Recall API reference](https://mindmods.org/docs/api/recall), and the [team shared memory post](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) open while you compare.
 
 <!-- truncate -->
 
@@ -32,7 +32,7 @@ Before choosing a team strategy, make sure:
 - Your team knows which conversations should stay personal and which should be shared.
 - You have one Entelechy backend, local or cloud, that all participating agents can reach.
 
-Base setup references: [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), [Retain API reference](https://entelechy.vectorize.io/docs/api/retain), and [docs home](https://entelechy.vectorize.io/docs).
+Base setup references: [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), [quickstart guide](https://mindmods.org/docs/quickstart), [Retain API reference](https://mindmods.org/docs/api/retain), and [docs home](https://mindmods.org/docs).
 
 ## Step by step
 
@@ -169,8 +169,8 @@ Yes. You can migrate from dynamic banks to a fixed bank, or the reverse, as long
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if your team wants one managed backend.
-- Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) open for the full plugin configuration surface.
-- Use the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you still need a backend.
-- Read the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) before tuning retrieval or storage.
-- Compare the broader collaboration pattern in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents).
+- Start with [Entelechy Cloud](https://mindmods.org) if your team wants one managed backend.
+- Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) open for the full plugin configuration surface.
+- Use the [quickstart guide](https://mindmods.org/docs/quickstart) if you still need a backend.
+- Read the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) before tuning retrieval or storage.
+- Compare the broader collaboration pattern in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents).

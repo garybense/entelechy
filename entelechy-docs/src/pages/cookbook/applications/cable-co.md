@@ -11,14 +11,14 @@ This is a complete, runnable application demonstrating Entelechy integration.
 :::
 
 
-An AI copilot that assists a customer service representative (CSR) by suggesting responses and actions for simulated customer scenarios. The CSR approves or rejects each suggestion with feedback. The copilot learns from corrections via [Entelechy](https://entelechy.vectorize.io) and stops repeating mistakes.
+An AI copilot that assists a customer service representative (CSR) by suggesting responses and actions for simulated customer scenarios. The CSR approves or rejects each suggestion with feedback. The copilot learns from corrections via [Entelechy](https://mindmods.org) and stops repeating mistakes.
 
 ## Prerequisites
 
 - Python 3.11+
 - Node.js 18+
 - An OpenAI API key (for GPT-4o)
-- A Entelechy API key ([sign up](https://entelechy.vectorize.io))
+- A Entelechy API key ([sign up](https://mindmods.org))
 
 ## Quick Start
 
@@ -38,7 +38,7 @@ pip install -r requirements.txt
 cat > .env << 'EOF'
 OPENAI_API_KEY=sk-your-openai-key
 ENTELECHY_API_KEY=hsk_your-entelechy-key
-ENTELECHY_API_URL=https://api.entelechy.vectorize.io
+ENTELECHY_API_URL=https://api.mindmods.org
 ENTELECHY_BANK_NAME=cable-connect-demo
 EOF
 
@@ -102,7 +102,7 @@ All configuration is via environment variables in `backend/.env`:
 |----------|---------|-------------|
 | `OPENAI_API_KEY` | — | Your OpenAI API key (required) |
 | `ENTELECHY_API_KEY` | — | Your Entelechy API key (required) |
-| `ENTELECHY_API_URL` | `https://api.entelechy.vectorize.io` | Entelechy API endpoint |
+| `ENTELECHY_API_URL` | `https://api.mindmods.org` | Entelechy API endpoint |
 | `ENTELECHY_BANK_NAME` | `cable-connect-demo` | Name of the memory bank |
 | `LLM_MODEL` | `openai/gpt-4o` | LLM model (via LiteLLM format) |
 | `BACKEND_PORT` | `8002` | Backend server port |

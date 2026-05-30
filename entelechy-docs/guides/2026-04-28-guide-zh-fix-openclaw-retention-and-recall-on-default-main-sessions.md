@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![修复 OpenClaw 默认主会话上的保留和回忆](/img/guides/guide-fix-openclaw-retention-and-recall-on-default-main-sessions.png)
 
-如果您需要**修复 OpenClaw 默认主会话上的保留和回忆**，最近的 OpenClaw 集成更新是您需要了解的。它修复了一个微妙的默认不匹配，该不匹配可能会导致 `agent:main:main` 会话被跳过，即使运行时的默认库粒度已经暗示它们应该被保留。结果看起来像是缺少内存，但根本问题是配置逻辑。在验证修复时，请保持打开 [OpenClaw 集成文档](https://entelechy.vectorize.io/sdks/integrations/openclaw)、[配置指南](https://entelechy.vectorize.io/sdks/developer/configuration)、[回忆 API 指南](https://entelechy.vectorize.io/sdks/api/recall) 和 [文档首页](https://entelechy.vectorize.io)。
+如果您需要**修复 OpenClaw 默认主会话上的保留和回忆**，最近的 OpenClaw 集成更新是您需要了解的。它修复了一个微妙的默认不匹配，该不匹配可能会导致 `agent:main:main` 会话被跳过，即使运行时的默认库粒度已经暗示它们应该被保留。结果看起来像是缺少内存，但根本问题是配置逻辑。在验证修复时，请保持打开 [OpenClaw 集成文档](https://mindmods.org/sdks/integrations/openclaw)、[配置指南](https://mindmods.org/sdks/developer/configuration)、[回忆 API 指南](https://mindmods.org/sdks/api/recall) 和 [文档首页](https://mindmods.org)。
 
 <!-- truncate -->
 
@@ -69,7 +69,7 @@ bug 是两段逻辑之间的不匹配。库推导路径已经默认为 `['agent'
 
 这个修复涵盖了一类特定的静默跳过。它不能消除内存看起来不存在的所有其他原因。
 
-您仍然应该检查排除的提供程序、无状态会话模式、缺少的发送者身份或与您正在检查的会话不匹配的库作用域。一旦 [OpenClaw 集成文档](https://entelechy.vectorize.io/sdks/integrations/openclaw)、[回忆 API 指南](https://entelechy.vectorize.io/sdks/api/recall) 和 [保留 API 指南](https://entelechy.vectorize.io/sdks/api/retain) 都在讨论相同的会话和库边界时，周围的行为就更容易理解了。
+您仍然应该检查排除的提供程序、无状态会话模式、缺少的发送者身份或与您正在检查的会话不匹配的库作用域。一旦 [OpenClaw 集成文档](https://mindmods.org/sdks/integrations/openclaw)、[回忆 API 指南](https://mindmods.org/sdks/api/recall) 和 [保留 API 指南](https://mindmods.org/sdks/api/retain) 都在讨论相同的会话和库边界时，周围的行为就更容易理解了。
 
 ## 常见问题
 
@@ -87,8 +87,8 @@ bug 是两段逻辑之间的不匹配。库推导路径已经默认为 `['agent'
 
 ## 后续步骤
 
-- [Entelechy Cloud](https://entelechy.vectorize.io)
-- [OpenClaw 集成文档](https://entelechy.vectorize.io/sdks/integrations/openclaw)
-- [配置指南](https://entelechy.vectorize.io/sdks/developer/configuration)
-- [回忆 API 指南](https://entelechy.vectorize.io/sdks/api/recall)
-- [文档首页](https://entelechy.vectorize.io)
+- [Entelechy Cloud](https://mindmods.org)
+- [OpenClaw 集成文档](https://mindmods.org/sdks/integrations/openclaw)
+- [配置指南](https://mindmods.org/sdks/developer/configuration)
+- [回忆 API 指南](https://mindmods.org/sdks/api/recall)
+- [文档首页](https://mindmods.org)

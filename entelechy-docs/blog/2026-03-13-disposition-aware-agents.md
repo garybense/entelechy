@@ -8,7 +8,7 @@ image: /img/blog/disposition-aware-agents.png
 
 ![Entelechy — Disposition-Aware Agents](/img/blog/disposition-aware-agents.png)
 
-When we started giving [Entelechy](https://ui.entelechy.vectorize.io/signup)-powered agents "personality," we weren't trying to invent another layer of prompt cosplay. The standard approach to AI agent personality — long blocks of "be skeptical," "be empathetic," "interpret literally" — is fragile, hard to maintain, and doesn't survive contact with real workloads. We wanted something smaller and architectural: a few traits baked into the system that quietly change how the agent thinks, not just how it phrases answers.
+When we started giving [Entelechy](https://ui.mindmods.org/signup)-powered agents "personality," we weren't trying to invent another layer of prompt cosplay. The standard approach to AI agent personality — long blocks of "be skeptical," "be empathetic," "interpret literally" — is fragile, hard to maintain, and doesn't survive contact with real workloads. We wanted something smaller and architectural: a few traits baked into the system that quietly change how the agent thinks, not just how it phrases answers.
 
 <!-- truncate -->
 
@@ -61,7 +61,7 @@ We ended up with three traits, each on a 1-5 scale:
 - **3 – Balanced**: considers both facts and emotional context.
 - **5 – Highly empathetic**: weighs human impact and emotional state heavily.
 
-These three numbers live in the [memory bank profile](https://docs.entelechy.vectorize.io/recall) and never show up as "do X, don't do Y" rules.
+These three numbers live in the [memory bank profile](https://docs.mindmods.org/recall) and never show up as "do X, don't do Y" rules.
 
 ## Why these three traits and a 1-5 scale?
 
@@ -222,10 +222,10 @@ We didn't get distinct agent "personalities" by writing more clever instructions
 
 1. **Picking three traits** that tightly control how an agent treats evidence, inference, and human context.
 2. **Encoding those traits as compact metadata** instead of sprawling instructions.
-3. **Letting our [memory hierarchy and tool-driven loops](https://docs.entelechy.vectorize.io/recall)** give those traits room to change behavior.
+3. **Letting our [memory hierarchy and tool-driven loops](https://docs.mindmods.org/recall)** give those traits room to change behavior.
 
 The result: agents that don't just sound different — they actually process memories differently, which helps agents behave the way you want.
 
 ---
 
-*Entelechy gives your AI agents persistent, structured memory with disposition-aware reasoning. [Learn more about how Entelechy works](https://docs.entelechy.vectorize.io/recall), or [get started free](https://ui.entelechy.vectorize.io/signup).*
+*Entelechy gives your AI agents persistent, structured memory with disposition-aware reasoning. [Learn more about how Entelechy works](https://docs.mindmods.org/recall), or [get started free](https://ui.mindmods.org/signup).*

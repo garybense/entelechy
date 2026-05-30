@@ -38,7 +38,7 @@ This default makes sense when you want full isolation. But when your instances a
 
 ### Step 1: Get a Entelechy API endpoint
 
-The shared bank requires an external Entelechy server that all instances can reach. The fastest option is [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) — sign up, create a bank, and get an API URL and token.
+The shared bank requires an external Entelechy server that all instances can reach. The fastest option is [Entelechy Cloud](https://ui.mindmods.org/signup) — sign up, create a bank, and get an API URL and token.
 
 If you need full data control, you can [self-host Entelechy](/developer/installation) on your own infrastructure instead.
 
@@ -90,7 +90,7 @@ Configure each instance to use the same Entelechy endpoint and disable per-insta
       "entelechy-openclaw": {
         "enabled": true,
         "config": {
-          "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+          "entelechyApiUrl": "https://api.mindmods.org",
           "entelechyApiToken": "hsk_your_token",
           "dynamicBankId": false
         }
@@ -131,7 +131,7 @@ Set `dynamicBankGranularity` to `["user"]`:
       "entelechy-openclaw": {
         "enabled": true,
         "config": {
-          "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+          "entelechyApiUrl": "https://api.mindmods.org",
           "entelechyApiToken": "hsk_your_token",
           "dynamicBankGranularity": ["user"]
         }
@@ -190,7 +190,7 @@ For most teams, Entelechy Cloud is the right starting point. Create an account, 
 
 ## Checklist
 
-1. [Sign up for Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) (or self-host) and get your API URL and token
+1. [Sign up for Entelechy Cloud](https://ui.mindmods.org/signup) (or self-host) and get your API URL and token
 2. Set an extraction LLM API key on each machine
 3. Run `openclaw plugins install @garybense/entelechy-openclaw` on each machine
 4. Add the shared bank config (`dynamicBankId: false` or `dynamicBankGranularity: ["user"]`) to each instance

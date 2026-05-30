@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![Fix OpenClaw Retention and Recall on Default Main Sessions](/img/guides/guide-fix-openclaw-retention-and-recall-on-default-main-sessions.png)
 
-If you need to **fix OpenClaw retention and recall on default main sessions**, the recent OpenClaw integration update is the one to know. It fixes a subtle default mismatch that could make `agent:main:main` sessions get skipped even though the runtime's default bank granularity already implied they should be retained. The result looked like missing memory, but the root problem was configuration logic. Keep [the OpenClaw integration docs](https://entelechy.vectorize.io/sdks/integrations/openclaw), [the configuration guide](https://entelechy.vectorize.io/sdks/developer/configuration), [the recall API guide](https://entelechy.vectorize.io/sdks/api/recall), and [the docs home](https://entelechy.vectorize.io) nearby while you verify the fix.
+If you need to **fix OpenClaw retention and recall on default main sessions**, the recent OpenClaw integration update is the one to know. It fixes a subtle default mismatch that could make `agent:main:main` sessions get skipped even though the runtime's default bank granularity already implied they should be retained. The result looked like missing memory, but the root problem was configuration logic. Keep [the OpenClaw integration docs](https://mindmods.org/sdks/integrations/openclaw), [the configuration guide](https://mindmods.org/sdks/developer/configuration), [the recall API guide](https://mindmods.org/sdks/api/recall), and [the docs home](https://mindmods.org) nearby while you verify the fix.
 
 <!-- truncate -->
 
@@ -69,7 +69,7 @@ Those logs matter because they finally make skip behavior discoverable without f
 
 This fix covers one specific class of silent skips. It does not remove every other reason memory can look absent.
 
-You should still check for excluded providers, stateless session patterns, missing sender identity, or a bank scope that does not match the session you are inspecting. The surrounding behavior is easier to understand once [the OpenClaw integration docs](https://entelechy.vectorize.io/sdks/integrations/openclaw), [the recall API guide](https://entelechy.vectorize.io/sdks/api/recall), and [the retain API guide](https://entelechy.vectorize.io/sdks/api/retain) are all talking about the same session and bank boundaries.
+You should still check for excluded providers, stateless session patterns, missing sender identity, or a bank scope that does not match the session you are inspecting. The surrounding behavior is easier to understand once [the OpenClaw integration docs](https://mindmods.org/sdks/integrations/openclaw), [the recall API guide](https://mindmods.org/sdks/api/recall), and [the retain API guide](https://mindmods.org/sdks/api/retain) are all talking about the same session and bank boundaries.
 
 ## FAQ
 
@@ -87,8 +87,8 @@ No. The same mismatch could affect both retain and recall behavior, which is why
 
 ## Next Steps
 
-- [Entelechy Cloud](https://entelechy.vectorize.io)
-- [the OpenClaw integration docs](https://entelechy.vectorize.io/sdks/integrations/openclaw)
-- [the configuration guide](https://entelechy.vectorize.io/sdks/developer/configuration)
-- [the recall API guide](https://entelechy.vectorize.io/sdks/api/recall)
-- [the docs home](https://entelechy.vectorize.io)
+- [Entelechy Cloud](https://mindmods.org)
+- [the OpenClaw integration docs](https://mindmods.org/sdks/integrations/openclaw)
+- [the configuration guide](https://mindmods.org/sdks/developer/configuration)
+- [the recall API guide](https://mindmods.org/sdks/api/recall)
+- [the docs home](https://mindmods.org)

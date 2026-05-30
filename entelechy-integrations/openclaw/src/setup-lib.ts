@@ -17,7 +17,7 @@ export const PLUGIN_ID = "entelechy-openclaw";
  * Default Entelechy Cloud endpoint. Update this when the hosted service URL is
  * finalized, or users can override it at the prompt.
  */
-export const ENTELECHY_CLOUD_URL = "https://api.entelechy.vectorize.io";
+export const ENTELECHY_CLOUD_URL = "https://api.mindmods.org";
 
 export const DEFAULT_OPENCLAW_CONFIG_PATH = join(homedir(), ".openclaw", "openclaw.json");
 

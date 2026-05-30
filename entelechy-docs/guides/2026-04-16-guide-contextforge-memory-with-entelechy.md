@@ -14,7 +14,7 @@ If you want **ContextForge memory with Entelechy**, the core idea is simple: reg
 
 This is a strong pattern for teams because ContextForge already solves gateway problems like auth, RBAC, and central endpoint management. Entelechy adds the memory layer on top: retain for storing durable context, recall for searching it, and reflect for synthesizing what the system has learned over time.
 
-This guide walks through the registration flow, explains when single-bank vs multi-bank mode matters, and shows how to verify that Entelechy tools are actually surfacing through ContextForge. Keep the [docs home](https://entelechy.vectorize.io/docs) and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) nearby while you work.
+This guide walks through the registration flow, explains when single-bank vs multi-bank mode matters, and shows how to verify that Entelechy tools are actually surfacing through ContextForge. Keep the [docs home](https://mindmods.org/docs) and the [quickstart guide](https://mindmods.org/docs/quickstart) nearby while you work.
 
 <!-- truncate -->
 
@@ -35,7 +35,7 @@ Before you start, make sure you have:
 - Network connectivity from ContextForge to Entelechy
 - Admin access to the ContextForge registration flow
 
-If you are still deciding how to run Entelechy itself, start with [Entelechy Cloud](https://entelechy.vectorize.io) or the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) before adding the gateway layer.
+If you are still deciding how to run Entelechy itself, start with [Entelechy Cloud](https://mindmods.org) or the [quickstart guide](https://mindmods.org/docs/quickstart) before adding the gateway layer.
 
 ## Why pair ContextForge with Entelechy
 
@@ -122,7 +122,7 @@ Use this when:
 - you want simpler client behavior
 - you want tighter isolation by configuration
 
-For deeper recall behavior, see [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall). For storage semantics, see [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain).
+For deeper recall behavior, see [Entelechy's recall API](https://mindmods.org/docs/api/recall). For storage semantics, see [Entelechy's retain API](https://mindmods.org/docs/api/retain).
 
 ## Connect clients to ContextForge
 
@@ -204,9 +204,9 @@ For teams with many tools, usually yes. For a single client, direct setup is oft
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want the easiest managed backend
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Compare cross-tool memory patterns in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want the easiest managed backend
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Compare cross-tool memory patterns in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents)

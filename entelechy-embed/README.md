@@ -262,7 +262,7 @@ entelechy-embed profile delete my-app
 This CLI is designed to work with AI coding assistants like Claude Code, Cursor, and Windsurf. Install the Entelechy skill:
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash
+curl -fsSL https://mindmods.org/get-skill | bash
 ```
 
 This will configure the LLM provider and install the skill to your assistant's skills directory.

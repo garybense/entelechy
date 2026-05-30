@@ -10,7 +10,7 @@ Persistent long-term memory for [Hermes Agent](https://github.com/NousResearch/h
 
 ## Quick Start
 
-**1. Get an API key** at [ui.entelechy.vectorize.io/connect](https://ui.entelechy.vectorize.io/connect). The API endpoint is `https://api.entelechy.vectorize.io`.
+**1. Get an API key** at [ui.mindmods.org/connect](https://ui.mindmods.org/connect). The API endpoint is `https://api.mindmods.org`.
 
 **2. Run the setup wizard:**
 
@@ -26,7 +26,7 @@ Or configure manually:
 hermes config set memory.provider entelechy
 # Add your key and the API endpoint
 echo "ENTELECHY_API_KEY=your-key" >> ~/.hermes/.env
-echo "ENTELECHY_API_URL=https://api.entelechy.vectorize.io" >> ~/.hermes/.env
+echo "ENTELECHY_API_URL=https://api.mindmods.org" >> ~/.hermes/.env
 ```
 
 **3. Confirm memory is active:**
@@ -63,12 +63,12 @@ The plugin registers via Hermes's `hermes_agent.plugins` entry point system:
 
 ### 1. Cloud (recommended for production)
 
-Connect to Entelechy Cloud at `https://api.entelechy.vectorize.io`. Get an API key at [ui.entelechy.vectorize.io/connect](https://ui.entelechy.vectorize.io/connect).
+Connect to Entelechy Cloud at `https://api.mindmods.org`. Get an API key at [ui.mindmods.org/connect](https://ui.mindmods.org/connect).
 
 ```json
 {
   "mode": "cloud",
-  "api_url": "https://api.entelechy.vectorize.io",
+  "api_url": "https://api.mindmods.org",
   "api_key": "hsk_your_token",
   "bank_id": "hermes"
 }
@@ -102,7 +102,7 @@ All settings are in `~/.hermes/entelechy/config.json`. Every setting can also be
 | Setting | Default | Env Var | Description |
 |---------|---------|---------|-------------|
 | `mode` | `cloud` | `ENTELECHY_MODE` | `cloud` or `local` |
-| `api_url` | `https://api.entelechy.vectorize.io` | `ENTELECHY_API_URL` | Entelechy API URL |
+| `api_url` | `https://api.mindmods.org` | `ENTELECHY_API_URL` | Entelechy API URL |
 | `api_key` | `null` | `ENTELECHY_API_KEY` | Auth token for Entelechy Cloud |
 | `apiPort` | `9077` | `ENTELECHY_API_PORT` | Port for local Entelechy daemon |
 | `daemonIdleTimeout` | `0` | `ENTELECHY_DAEMON_IDLE_TIMEOUT` | Seconds before idle daemon shuts down (0 = never) |

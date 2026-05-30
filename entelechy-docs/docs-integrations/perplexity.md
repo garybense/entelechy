@@ -22,7 +22,7 @@ Perplexity excels at research and fact-checking, but you have to re-discover the
 
 ### 1. Create a Entelechy Cloud Account
 
-[Sign up free](https://ui.entelechy.vectorize.io/signup) for Entelechy Cloud.
+[Sign up free](https://ui.mindmods.org/signup) for Entelechy Cloud.
 
 ### 2. Add Entelechy as a Connector in Perplexity
 
@@ -32,9 +32,9 @@ Requires **Perplexity Pro** subscription. Remote MCP connectors are a Pro featur
 2. Navigate to **Connectors → + Custom Connector**
 3. Fill in:
    - **Name:** `Entelechy`
-   - **MCP server URL:** `https://api.entelechy.vectorize.io/mcp/default/`
+   - **MCP server URL:** `https://api.mindmods.org/mcp/default/`
 4. Click **Add** — a browser window opens for Entelechy Cloud login
-5. Sign in to [Entelechy Cloud](https://ui.entelechy.vectorize.io) and approve access
+5. Sign in to [Entelechy Cloud](https://ui.mindmods.org) and approve access
 6. Return to Perplexity; the connector is now active
 
 OAuth auto-discovery handles authentication automatically. That's it!
@@ -132,7 +132,7 @@ Later, when you research *"What's the best LLM for my use case?"*, Entelechy rec
 
 Each connector accesses one memory bank. Simpler for most users.
 
-- **URL:** `https://api.entelechy.vectorize.io/mcp/default/`
+- **URL:** `https://api.mindmods.org/mcp/default/`
 - **Setup:** Just enter the URL in the Connector settings
 - **Best for:** Dedicated memory per tool (e.g., Perplexity uses a `research` bank)
 
@@ -140,7 +140,7 @@ Each connector accesses one memory bank. Simpler for most users.
 
 Both tools access multiple banks via bank_id parameter.
 
-- **URL:** `https://api.entelechy.vectorize.io/mcp`
+- **URL:** `https://api.mindmods.org/mcp`
 - **Setup:** Requires additional configuration in Entelechy Cloud
 - **Best for:** When ChatGPT and Perplexity collaborate on the same project
 

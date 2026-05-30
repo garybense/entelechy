@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![在 Linux ARM64 上运行 Entelechy CLI 而无需解决方法](/img/guides/guide-run-entelechy-cli-on-linux-arm64.png)
 
-如果您想**在 Linux ARM64 上运行 Entelechy CLI**，设置最终变得简单了。最新的发布流程现在提供了一流的 `entelechy-linux-arm64` 资产，这意味着 Raspberry Pi 盒子、Graviton 实例和小型 ARM 服务器不再需要本地重建或非官方复制步骤只是为了让 CLI 运行。如果您在工作时想要周围的文档，请保持打开 [CLI 参考](https://entelechy.vectorize.io/sdks/cli)、[安装指南](https://entelechy.vectorize.io/sdks/developer/installation)、[快速入门指南](https://entelechy.vectorize.io/sdks/developer/quickstart) 和 [文档首页](https://entelechy.vectorize.io)。
+如果您想**在 Linux ARM64 上运行 Entelechy CLI**，设置最终变得简单了。最新的发布流程现在提供了一流的 `entelechy-linux-arm64` 资产，这意味着 Raspberry Pi 盒子、Graviton 实例和小型 ARM 服务器不再需要本地重建或非官方复制步骤只是为了让 CLI 运行。如果您在工作时想要周围的文档，请保持打开 [CLI 参考](https://mindmods.org/sdks/cli)、[安装指南](https://mindmods.org/sdks/developer/installation)、[快速入门指南](https://mindmods.org/sdks/developer/quickstart) 和 [文档首页](https://mindmods.org)。
 
 <!-- truncate -->
 
@@ -22,7 +22,7 @@ hide_table_of_contents: true
 
 ## 为什么此更新很重要
 
-Linux ARM64 支持很重要，因为许多自托管 Entelechy 部署恰好登陆到该硬件类。壁橱里的 Raspberry Pi、廉价的 ARM VPS 或 AWS Graviton 实例通常足以用于轻量级内存服务，特别是如果您遵循较新的 [安装指导](https://entelechy.vectorize.io/sdks/developer/installation) 并根据精简映像或外部提供者来调整大小。
+Linux ARM64 支持很重要，因为许多自托管 Entelechy 部署恰好登陆到该硬件类。壁橱里的 Raspberry Pi、廉价的 ARM VPS 或 AWS Graviton 实例通常足以用于轻量级内存服务，特别是如果您遵循较新的 [安装指导](https://mindmods.org/sdks/developer/installation) 并根据精简映像或外部提供者来调整大小。
 
 在此发布资产被连接到发布作业之前，即使其余平台运行良好，CLI 本身也很容易被忽视。新资产弥补了这一差距。这是一个小的发布工作流更改，但它使 ARM64 成为真正支持的路径而不是接近。
 
@@ -46,16 +46,16 @@ entelechy --help
 
 ```bash
 # Managed cloud
-entelechy configure   --api-url https://api.entelechy.vectorize.io   --api-key YOUR_API_KEY
+entelechy configure   --api-url https://api.mindmods.org   --api-key YOUR_API_KEY
 
 # Or a local deployment
 entelechy configure --api-url http://localhost:8888
 ```
 
-如果在环境之间切换，请使用 [CLI 参考](https://entelechy.vectorize.io/sdks/cli) 中的命名配置文件，而不是一遍又一遍地重写一个共享配置文件：
+如果在环境之间切换，请使用 [CLI 参考](https://mindmods.org/sdks/cli) 中的命名配置文件，而不是一遍又一遍地重写一个共享配置文件：
 
 ```bash
-entelechy profile create prod   --api-url https://api.entelechy.vectorize.io   --api-key YOUR_API_KEY
+entelechy profile create prod   --api-url https://api.mindmods.org   --api-key YOUR_API_KEY
 
 entelechy -p prod bank list
 ```
@@ -72,7 +72,7 @@ entelechy memory retain test-bank "Alice prefers async updates"
 entelechy memory recall test-bank "How should I update Alice?"
 ```
 
-如果这有效，ARM64 故事就完成了。您正在使用与 [保留 API 指南](https://entelechy.vectorize.io/sdks/api/retain)、[回忆 API 指南](https://entelechy.vectorize.io/sdks/api/recall) 和 [快速入门指南](https://entelechy.vectorize.io/sdks/developer/quickstart) 中记录的相同内存命令，只是从 Linux ARM64 主机。
+如果这有效，ARM64 故事就完成了。您正在使用与 [保留 API 指南](https://mindmods.org/sdks/api/retain)、[回忆 API 指南](https://mindmods.org/sdks/api/recall) 和 [快速入门指南](https://mindmods.org/sdks/developer/quickstart) 中记录的相同内存命令，只是从 Linux ARM64 主机。
 
 ## 排除常见 Linux ARM64 错过
 
@@ -83,7 +83,7 @@ entelechy memory recall test-bank "How should I update Alice?"
 - **Connection refused** 通常意味着您的本地 API 还没有启动，或者您将 CLI 指向了错误的主机和端口。
 - **401 或 403 响应**通常意味着 API 密钥丢失、无效或针对错误的 Entelechy 环境。
 
-如果 CLI 本身有效但回忆速度缓慢或主机感觉 RAM 紧张，请根据安装文档中的新 [硬件指导](https://entelechy.vectorize.io/sdks/developer/installation) 比较您的盒子。这通常是一个部署大小问题，而不是 CLI 问题。
+如果 CLI 本身有效但回忆速度缓慢或主机感觉 RAM 紧张，请根据安装文档中的新 [硬件指导](https://mindmods.org/sdks/developer/installation) 比较您的盒子。这通常是一个部署大小问题，而不是 CLI 问题。
 
 ## 常见问题
 
@@ -101,8 +101,8 @@ entelechy memory recall test-bank "How should I update Alice?"
 
 ## 后续步骤
 
-- [Entelechy Cloud](https://entelechy.vectorize.io)
-- [CLI 参考](https://entelechy.vectorize.io/sdks/cli)
-- [安装指南](https://entelechy.vectorize.io/sdks/developer/installation)
-- [快速入门指南](https://entelechy.vectorize.io/sdks/developer/quickstart)
-- [文档首页](https://entelechy.vectorize.io)
+- [Entelechy Cloud](https://mindmods.org)
+- [CLI 参考](https://mindmods.org/sdks/cli)
+- [安装指南](https://mindmods.org/sdks/developer/installation)
+- [快速入门指南](https://mindmods.org/sdks/developer/quickstart)
+- [文档首页](https://mindmods.org)

@@ -32,7 +32,7 @@ jobs:
       - run: uv run generate-llms-full
       - run: npm run build --workspace=entelechy-docs
         env:
-          UMAMI_URL: https://analytics.entelechy.vectorize.io
+          UMAMI_URL: https://analytics.mindmods.org
           UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
       - uses: actions/upload-pages-artifact@v5
         with:

@@ -12,7 +12,7 @@ If you are designing a **Hermes memory bank strategy for production**, the part 
 
 The mistake I see most often is choosing one bank too early, then stretching it across unrelated workflows. That feels simple at first, but it turns recall into a grab bag. The healthier approach is to pick a bank naming scheme that matches how the agent will actually be used, then keep the scheme stable over time.
 
-This guide walks through the bank patterns that work in production, when to use each one, and how to keep staging, production, multi-user, and shared-team setups from stepping on each other. Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall), and the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) nearby while you design it.
+This guide walks through the bank patterns that work in production, when to use each one, and how to keep staging, production, multi-user, and shared-team setups from stepping on each other. Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [quickstart guide](https://mindmods.org/docs/quickstart), the [Recall API reference](https://mindmods.org/docs/api/recall), and the [Retain API reference](https://mindmods.org/docs/api/retain) nearby while you design it.
 
 <!-- truncate -->
 
@@ -32,7 +32,7 @@ Before you lock in a production bank strategy, make sure:
 - You know whether the deployment is single-user, multi-user, or multi-agent.
 - You know whether staging and production share the same Entelechy backend.
 
-Reference material: [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), [docs home](https://entelechy.vectorize.io/docs), [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), and [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents).
+Reference material: [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), [docs home](https://mindmods.org/docs), [quickstart guide](https://mindmods.org/docs/quickstart), and [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents).
 
 ## Step by step
 
@@ -108,7 +108,7 @@ path.parent.mkdir(parents=True, exist_ok=True)
 
 cfg = {
     'provider': 'entelechy',
-    'entelechy_api_url': 'https://api.entelechy.vectorize.io',
+    'entelechy_api_url': 'https://api.mindmods.org',
     'api_key': 'YOUR_ENTELECHY_TOKEN',
     'bank_id': f'tenant:{tenant_id}:user:{user_id}:env:{env}',
     'memory_mode': 'hybrid',
@@ -168,8 +168,8 @@ Yes. Different Hermes workflows can and often should use different bank shapes.
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want a managed backend for production Hermes.
-- Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) open for the provider config surface.
-- Use the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you still need a backend.
-- Read the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) before you tune retrieval and storage.
-- Compare the team-oriented tradeoffs in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents).
+- Start with [Entelechy Cloud](https://mindmods.org) if you want a managed backend for production Hermes.
+- Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) open for the provider config surface.
+- Use the [quickstart guide](https://mindmods.org/docs/quickstart) if you still need a backend.
+- Read the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) before you tune retrieval and storage.
+- Compare the team-oriented tradeoffs in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents).

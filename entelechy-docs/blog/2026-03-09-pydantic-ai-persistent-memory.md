@@ -38,7 +38,7 @@ Real agent memory means something different:
 - Retrieving relevant context across days, weeks, and months
 - Synthesizing coherent answers from scattered memories
 
-That is what [Entelechy](https://entelechy.vectorize.io/) provides. If you have used Entelechy with other frameworks like [CrewAI](/blog/2026/03/02/crewai) or [OpenAI](/blog/2026/03/05/add-memory-to-openai-application), the concept is the same. And `entelechy-pydantic-ai` wires it directly into Pydantic AI's tool and instruction system, so you do not need to build any of this yourself.
+That is what [Entelechy](https://mindmods.org/) provides. If you have used Entelechy with other frameworks like [CrewAI](/blog/2026/03/02/crewai) or [OpenAI](/blog/2026/03/05/add-memory-to-openai-application), the concept is the same. And `entelechy-pydantic-ai` wires it directly into Pydantic AI's tool and instruction system, so you do not need to build any of this yourself.
 
 ---
 
@@ -86,7 +86,7 @@ entelechy-api
 
 This runs locally at `http://localhost:8888`. It includes embedded Postgres, local embeddings, and local reranking. No external services are required beyond an LLM API key for entity extraction.
 
-> **Note:** You can also use [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) and skip the self-hosted setup entirely. The cloud version provides the same API with managed infrastructure.
+> **Note:** You can also use [Entelechy Cloud](https://ui.mindmods.org/signup) and skip the self-hosted setup entirely. The cloud version provides the same API with managed infrastructure.
 
 ### Step 2: Install the Pydantic AI Memory Integration
 
@@ -340,9 +340,9 @@ Memories survive process restarts, build a knowledge graph over time, and compou
 ## Next Steps
 
 - **Try it locally**: `pip install entelechy-all entelechy-pydantic-ai "pydantic-ai-slim[openai]"` and run the example above
-- **Use Entelechy Cloud**: Skip self-hosting with a [free account](https://ui.entelechy.vectorize.io/signup)
+- **Use Entelechy Cloud**: Skip self-hosting with a [free account](https://ui.mindmods.org/signup)
 - **Tag memories for scoping**: Use `tags` on retain and `recall_tags` on search to partition memories by project, environment, or topic
 - **Combine tools and instructions**: Use `memory_instructions` for automatic context and tools for explicit store and retrieve during conversations
 - **Read the Pydantic AI docs**: Learn more about [Pydantic AI tools and instructions](https://ai.pydantic.dev/tools/) to extend your agent further
 - **Explore other integrations**: Add memory to [CrewAI agents](/blog/2026/03/02/crewai), [OpenAI apps](/blog/2026/03/05/add-memory-to-openai-application), or any framework via [MCP](/blog/2026/03/04/mcp-agent-memory)
-- **Inspect the knowledge graph**: Run the Entelechy control plane or use the [cloud dashboard](https://ui.entelechy.vectorize.io/signup) to browse extracted facts, entities, and relationships
+- **Inspect the knowledge graph**: Run the Entelechy control plane or use the [cloud dashboard](https://ui.mindmods.org/signup) to browse extracted facts, entities, and relationships

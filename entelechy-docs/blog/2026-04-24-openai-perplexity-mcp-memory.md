@@ -11,7 +11,7 @@ image: /img/blog/openai-perplexity-mcp-memory.png
 
 ![Connect ChatGPT and Perplexity to Entelechy](/img/blog/openai-perplexity-mcp-memory.png)
 
-[ChatGPT](https://chatgpt.com) and [Perplexity](https://www.perplexity.ai) are powerful AI tools, but conversation history doesn't persist across separate chats. ChatGPT has built-in memory for personal preferences, but knowledge from specific conversations (research, decisions, code) is lost when you start a new thread. [Entelechy](https://ui.entelechy.vectorize.io/signup) adds persistent, searchable memory that carries context forward through the Model Context Protocol (MCP).
+[ChatGPT](https://chatgpt.com) and [Perplexity](https://www.perplexity.ai) are powerful AI tools, but conversation history doesn't persist across separate chats. ChatGPT has built-in memory for personal preferences, but knowledge from specific conversations (research, decisions, code) is lost when you start a new thread. [Entelechy](https://ui.mindmods.org/signup) adds persistent, searchable memory that carries context forward through the Model Context Protocol (MCP).
 
 This guide walks you through connecting ChatGPT and Perplexity to Entelechy for persistent memory across sessions. You'll learn how to set up OAuth-secured connections, store knowledge from your conversations, and automatically recall it in future sessions, all with a no-code setup.
 
@@ -79,10 +79,10 @@ ChatGPT Plus and Team accounts support MCP via **Connectors**, a secure way to l
 3. Click **Create connector**
 4. Fill in:
  - **Name:** `Entelechy` (or your preferred name)
- - **URL:** `https://api.entelechy.vectorize.io/mcp/YOUR_BANK_ID/`
+ - **URL:** `https://api.mindmods.org/mcp/YOUR_BANK_ID/`
  - Replace `YOUR_BANK_ID` with your memory bank name (or `default`)
 5. Click **Create**, a browser window opens for Entelechy Cloud login
-6. Sign in to [Entelechy Cloud](https://ui.entelechy.vectorize.io) and approve access
+6. Sign in to [Entelechy Cloud](https://ui.mindmods.org) and approve access
 7. Return to ChatGPT; the connector is now active
 
 ### Setting Up Entelechy with Perplexity (Perplexity Pro)
@@ -99,10 +99,10 @@ Perplexity's **Connectors** feature (available with Perplexity Pro) integrates E
 2. Navigate to **Connectors → + Custom Connector**
 3. Fill in:
  - **Name:** `Entelechy`
- - **MCP server URL:** `https://api.entelechy.vectorize.io/mcp/YOUR_BANK_ID/`
+ - **MCP server URL:** `https://api.mindmods.org/mcp/YOUR_BANK_ID/`
  - Replace `YOUR_BANK_ID` with your memory bank name (or `default`)
 4. Click **Add**, a browser window opens for Entelechy Cloud login
-5. Sign in to [Entelechy Cloud](https://ui.entelechy.vectorize.io) and approve access
+5. Sign in to [Entelechy Cloud](https://ui.mindmods.org) and approve access
 6. Return to Perplexity; the connector is now active
 
 ## Configuring Your AI to Use Entelechy
@@ -186,7 +186,7 @@ By default, you use **single-bank mode**, each connector accesses one memory ban
 
 | Aspect | Single-Bank | Multi-Bank |
 |--------|------------|-----------|
-| **URL** | `https://api.entelechy.vectorize.io/mcp/YOUR_BANK_ID/` | `https://api.entelechy.vectorize.io/mcp` |
+| **URL** | `https://api.mindmods.org/mcp/YOUR_BANK_ID/` | `https://api.mindmods.org/mcp` |
 | **Scope** | One bank per connector | Multiple banks via `bank_id` parameter |
 | **Best for** | Dedicated memory per tool | Sharing memory across tools |
 | **Complexity** | Simpler; implicit bank | More setup; requires bank specification |
@@ -197,7 +197,7 @@ Example: ChatGPT uses a `writing` bank for your writing projects. Perplexity use
 
 **Multi-bank mode** is for workflows where both tools need shared context.
 
-Example: Both ChatGPT and Perplexity → `https://api.entelechy.vectorize.io/mcp`. Both tools access the same memory banks. Great for when ChatGPT and Perplexity collaborate on the same project.
+Example: Both ChatGPT and Perplexity → `https://api.mindmods.org/mcp`. Both tools access the same memory banks. Great for when ChatGPT and Perplexity collaborate on the same project.
 
 ## Comparing ChatGPT and Perplexity as Memory Tools
 
@@ -274,7 +274,7 @@ Once you connect ChatGPT and Perplexity to Entelechy, a few practices maximize v
 
 ## Getting Started with ChatGPT and Perplexity Memory
 
-1. **Create a Entelechy Cloud account**, [Sign up free](https://ui.entelechy.vectorize.io/signup)
+1. **Create a Entelechy Cloud account**, [Sign up free](https://ui.mindmods.org/signup)
 2. **Add the connector**, follow the ChatGPT or Perplexity setup steps above
 3. **Set up your memory bank structure**, decide whether single-bank mode (separate memories per tool) or multi-bank mode (shared memory) fits your workflow
 4. **Store your first memory**, ask ChatGPT or Perplexity to remember something important to you

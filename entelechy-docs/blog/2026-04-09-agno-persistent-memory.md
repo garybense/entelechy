@@ -23,7 +23,7 @@ Adding persistent memory does not require building a custom RAG pipeline or main
 - Three lines of setup: install the package, create `EntelechyTools`, pass it to `Agent`.
 - `memory_instructions()` preloads relevant memories into `Agent(instructions=[...])` on every run, so the agent starts each conversation with context.
 - Per-user bank isolation works automatically via `user_id` or a custom `bank_resolver`.
-- [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) skips local setup entirely. Two lines of config and you are running.
+- [Entelechy Cloud](https://ui.mindmods.org/signup) skips local setup entirely. Two lines of config and you are running.
 
 ## The Problem: Agno Has No Persistent Memory
 
@@ -40,7 +40,7 @@ Real agent memory is different:
 - Retrieving relevant context across days, weeks, and months via semantic search
 - Synthesizing coherent answers from scattered, accumulated knowledge
 
-That is what [Entelechy](https://entelechy.vectorize.io/) provides. The `entelechy-agno` package wires it directly into Agno's `Toolkit` system, so you do not build any of this yourself.
+That is what [Entelechy](https://mindmods.org/) provides. The `entelechy-agno` package wires it directly into Agno's `Toolkit` system, so you do not build any of this yourself.
 
 ## How Agno Persistent Memory Works with Entelechy
 
@@ -82,7 +82,7 @@ entelechy-api
 
 This starts Entelechy locally at `http://localhost:8888`. The only external dependency is an LLM API key for entity extraction.
 
-Prefer not to self-host? Use [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) and skip this step entirely.
+Prefer not to self-host? Use [Entelechy Cloud](https://ui.mindmods.org/signup) and skip this step entirely.
 
 ### Step 2: Install the Agno integration
 
@@ -231,7 +231,7 @@ agent2_tools = EntelechyTools(bank_id="user-bob")
 from entelechy_agno import configure
 
 configure(
-    entelechy_api_url="https://api.entelechy.vectorize.io",
+    entelechy_api_url="https://api.mindmods.org",
     api_key="hsk_your_token",
 )
 ```
@@ -302,12 +302,12 @@ Skip the memory layer for one-shot agents that never interact with the same user
 | Memory setup | None | `pip install entelechy-agno` |
 | Recall mechanism | Not available | Semantic search via tool or instructions |
 | Per-user isolation | No | Via `user_id` or `bank_resolver` |
-| Hosting | N/A | Local or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) |
+| Hosting | N/A | Local or [Entelechy Cloud](https://ui.mindmods.org/signup) |
 
 ## Next Steps
 
-- **Entelechy Cloud**: [Sign up free](https://ui.entelechy.vectorize.io/signup)
+- **Entelechy Cloud**: [Sign up free](https://ui.mindmods.org/signup)
 - **Try it locally**: `pip install entelechy-all entelechy-agno agno` and run the example above
 - **Config reference**: [Agno integration docs](/sdks/integrations/agno)
 - **Explore other integrations**: [Pydantic AI](/sdks/integrations/pydantic-ai), [LangGraph](/sdks/integrations/langgraph), [CrewAI](/sdks/integrations/crewai)
-- **Inspect the knowledge graph**: Use the [Entelechy Cloud dashboard](https://ui.entelechy.vectorize.io/signup) to browse extracted facts, entities, and relationships
+- **Inspect the knowledge graph**: Use the [Entelechy Cloud dashboard](https://ui.mindmods.org/signup) to browse extracted facts, entities, and relationships

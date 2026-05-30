@@ -14,7 +14,7 @@ Most retrieval systems treat time as a filter. We treat it as a dimension to tra
 
 When an agent gets a question like "What happened during the product launch last March?", a naive "filter by March" query is nowhere near enough. The real answer lives in the story around that window: the prep work in January and February, the domino effects in April, the bugs that nearly killed the demo, the customer reactions that followed. We wanted retrieval that could reconstruct that story, not just return rows.
 
-Temporal spreading activation is how we do it in [Entelechy](https://ui.entelechy.vectorize.io/signup): a time-anchored graph traversal that starts from a temporal window, then walks causal and temporal links to build a coherent sequence of events. The idea draws on [spreading activation theory from cognitive science](https://en.wikipedia.org/wiki/Spreading_activation) — originally proposed by Collins and Loftus in 1975 to model how human memory retrieval works by propagating activation through semantic networks — but adapted here for structured memory graphs with explicit temporal and causal edges.
+Temporal spreading activation is how we do it in [Entelechy](https://ui.mindmods.org/signup): a time-anchored graph traversal that starts from a temporal window, then walks causal and temporal links to build a coherent sequence of events. The idea draws on [spreading activation theory from cognitive science](https://en.wikipedia.org/wiki/Spreading_activation) — originally proposed by Collins and Loftus in 1975 to model how human memory retrieval works by propagating activation through semantic networks — but adapted here for structured memory graphs with explicit temporal and causal edges.
 
 ## The problem: time is not just a WHERE clause
 
@@ -312,7 +312,7 @@ Either way, the algorithm **degrades gracefully** instead of blowing up.
 
 ## Temporal spreading activation in a hybrid retrieval stack
 
-Temporal spreading activation is just one leg of Entelechy's [hybrid retrieval system](https://docs.entelechy.vectorize.io/recall). In practice we run it alongside semantic search, [BM25](https://en.wikipedia.org/wiki/Okapi_BM25), and graph-only traversal:
+Temporal spreading activation is just one leg of Entelechy's [hybrid retrieval system](https://docs.mindmods.org/recall). In practice we run it alongside semantic search, [BM25](https://en.wikipedia.org/wiki/Okapi_BM25), and graph-only traversal:
 
 ```python
 semantic_result, bm25_result, graph_result, temporal_result = await asyncio.gather(
@@ -361,4 +361,4 @@ Most importantly, the agent no longer treats time as a dumb filter. It treats it
 
 ---
 
-*Entelechy is an AI agent memory system that gives your agents persistent, structured memory with hybrid retrieval. [Learn about the architecture](https://docs.entelechy.vectorize.io/recall), or [sign up for Entelechy Cloud](https://ui.entelechy.vectorize.io/signup).*
+*Entelechy is an AI agent memory system that gives your agents persistent, structured memory with hybrid retrieval. [Learn about the architecture](https://docs.mindmods.org/recall), or [sign up for Entelechy Cloud](https://ui.mindmods.org/signup).*

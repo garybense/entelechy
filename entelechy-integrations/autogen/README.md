@@ -6,7 +6,7 @@ Provides `FunctionTool` instances that give [AutoGen](https://microsoft.github.i
 
 ## Prerequisites
 
-- A running Entelechy instance ([self-hosted via Docker](https://github.com/garybense/entelechy#quick-start) or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup))
+- A running Entelechy instance ([self-hosted via Docker](https://github.com/garybense/entelechy#quick-start) or [Entelechy Cloud](https://ui.mindmods.org/signup))
 - Python 3.10+
 
 ## Installation
@@ -150,6 +150,6 @@ tools = create_entelechy_tools(
 
 ## Documentation
 
-- [Integration docs](https://docs.entelechy.vectorize.io/docs/sdks/integrations/autogen)
-- [Cookbook: AutoGen assistant with memory](https://docs.entelechy.vectorize.io/cookbook/recipes/autogen-assistant-agent)
-- [Entelechy API docs](https://docs.entelechy.vectorize.io)
+- [Integration docs](https://docs.mindmods.org/docs/sdks/integrations/autogen)
+- [Cookbook: AutoGen assistant with memory](https://docs.mindmods.org/cookbook/recipes/autogen-assistant-agent)
+- [Entelechy API docs](https://docs.mindmods.org)

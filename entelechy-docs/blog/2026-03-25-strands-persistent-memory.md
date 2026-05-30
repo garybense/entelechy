@@ -80,7 +80,7 @@ You'll also need a running Entelechy instance. Two options:
 
 **Option 1 — Entelechy Cloud (no setup required)**
 
-Sign up at [ui.entelechy.vectorize.io](https://ui.entelechy.vectorize.io/signup) and grab your API URL and key from the dashboard. Pass them directly to `create_entelechy_tools()`.
+Sign up at [ui.mindmods.org](https://ui.mindmods.org/signup) and grab your API URL and key from the dashboard. Pass them directly to `create_entelechy_tools()`.
 
 > **Note:** Use Entelechy Cloud if you want to skip self-hosting entirely — free to get started.
 
@@ -275,7 +275,7 @@ The mental model: memory banks are scoped by `bank_id`, tags let you filter acro
 ## Next Steps
 
 - [entelechy-strands on PyPI](https://pypi.org/project/entelechy-strands/)
-- [Entelechy docs: Strands integration guide](https://entelechy.vectorize.io/sdks/integrations/strands)
+- [Entelechy docs: Strands integration guide](https://mindmods.org/sdks/integrations/strands)
 - Run Entelechy locally with Docker and try the quick start above
 - Explore `memory_instructions()` for pre-warming agents in customer-facing applications
-- Check out the [CrewAI](https://entelechy.vectorize.io/blog/2026-03-02-crewai) and [LangGraph](https://entelechy.vectorize.io/blog/2026-03-24-langgraph-longterm-memory) integration posts for comparison on similar patterns
+- Check out the [CrewAI](https://mindmods.org/blog/2026-03-02-crewai) and [LangGraph](https://mindmods.org/blog/2026-03-24-langgraph-longterm-memory) integration posts for comparison on similar patterns

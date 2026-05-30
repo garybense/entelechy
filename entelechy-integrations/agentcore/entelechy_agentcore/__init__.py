@@ -12,7 +12,7 @@ Quick start:
     from entelechy_agentcore import EntelechyRuntimeAdapter, TurnContext, configure
 
     configure(
-        entelechy_api_url="https://api.entelechy.vectorize.io",
+        entelechy_api_url="https://api.mindmods.org",
         api_key=os.environ["ENTELECHY_API_KEY"],
     )
 

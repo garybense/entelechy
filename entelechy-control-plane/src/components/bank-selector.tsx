@@ -7,6 +7,7 @@ import { useBank } from "@/lib/bank-context";
 import { bankRoute } from "@/lib/bank-url";
 import { client } from "@/lib/api";
 import { Button } from "@/components/ui/button";
+import { UserButton } from "@clerk/nextjs";
 import {
   Command,
   CommandEmpty,
@@ -576,7 +577,7 @@ function BankSelectorInner() {
                 </div>
                 {useTemplate && (
                   <a
-                    href="https://entelechy.vectorize.io/templates"
+                    href="https://mindmods.org/templates"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs text-muted-foreground hover:text-foreground transition-colors"

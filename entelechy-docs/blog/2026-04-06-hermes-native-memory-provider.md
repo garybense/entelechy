@@ -124,4 +124,4 @@ For persistent memory across machines or shared across multiple Hermes instances
 - **BEAM benchmark results**: [Entelechy Is #1 on BEAM](/blog/2026/04/02/beam-sota)
 - **Quick start**: [/developer/api/quickstart](/developer/api/quickstart)
 - **GitHub**: [github.com/garybense/entelechy](https://github.com/garybense/entelechy)
-- **Cloud**: [ui.entelechy.vectorize.io/signup](https://ui.entelechy.vectorize.io/signup)
+- **Cloud**: [ui.mindmods.org/signup](https://ui.mindmods.org/signup)

@@ -30,10 +30,10 @@ opencode
 
 ### Using Entelechy Cloud
 
-Get an API key at [ui.entelechy.vectorize.io/connect](https://ui.entelechy.vectorize.io/connect):
+Get an API key at [ui.mindmods.org/connect](https://ui.mindmods.org/connect):
 
 ```bash
-export ENTELECHY_API_URL="https://api.entelechy.vectorize.io"
+export ENTELECHY_API_URL="https://api.mindmods.org"
 export ENTELECHY_API_TOKEN="your-api-key"
 opencode
 ```
@@ -45,7 +45,7 @@ Or configure inline via plugin options in `opencode.json`:
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
     ["@garybense/opencode-entelechy", {
-      "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+      "entelechyApiUrl": "https://api.mindmods.org",
       "entelechyApiToken": "your-api-key"
     }]
   ]

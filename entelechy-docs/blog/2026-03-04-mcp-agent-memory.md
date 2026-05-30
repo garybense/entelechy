@@ -88,14 +88,14 @@ The `-v` flag persists your data across container restarts. Without it, memories
 
 Once running, the MCP endpoint is available at `http://localhost:8888/mcp/your_bank_id/` (replace `your_bank_id` with any name you like).
 
-**Or use Entelechy Cloud** — skip Docker entirely. [Sign up for a free account](https://ui.entelechy.vectorize.io/signup), grab your API key, and connect via MCP:
+**Or use Entelechy Cloud** — skip Docker entirely. [Sign up for a free account](https://ui.mindmods.org/signup), grab your API key, and connect via MCP:
 
 ```json
 {
   "mcpServers": {
     "entelechy": {
       "type": "http",
-      "url": "https://api.entelechy.vectorize.io/mcp/your_bank_id/",
+      "url": "https://api.mindmods.org/mcp/your_bank_id/",
       "headers": {
         "Authorization": "Bearer YOUR_API_KEY"
       }
@@ -108,7 +108,7 @@ Or with Claude Code:
 
 ```bash
 claude mcp add --transport http entelechy \
-  https://api.entelechy.vectorize.io/mcp/your_bank_id/ \
+  https://api.mindmods.org/mcp/your_bank_id/ \
   --header "Authorization: Bearer YOUR_API_KEY"
 ```
 
@@ -254,7 +254,7 @@ The key insight is that memory isn't just storage and retrieval. Entelechy extra
 
 The MCP tools cover the full lifecycle: `retain` to store, `recall` to search with multi-strategy retrieval, `reflect` to synthesize insights, mental model tools for maintaining living documents that auto-update, and utility tools for browsing and managing memories, documents, and tags.
 
-> **Want managed hosting?** [Entelechy Cloud](https://ui.entelechy.vectorize.io) runs the full stack for you — no Docker, no infrastructure. Sign up, grab an API key, and connect over HTTPS.
+> **Want managed hosting?** [Entelechy Cloud](https://ui.mindmods.org) runs the full stack for you — no Docker, no infrastructure. Sign up, grab an API key, and connect over HTTPS.
 
 ---
 
@@ -264,4 +264,4 @@ The MCP tools cover the full lifecycle: `retain` to store, `recall` to search wi
 - **Explore mental models**: Create living documents that auto-update as your memory grows. Try: `"Create a mental model that summarizes my project architecture."`
 - **Try multi-bank setups**: Run separate banks for different projects or agents. Connect to `/mcp/` for multi-bank mode.
 - **Use the SDK directly**: Beyond MCP, Entelechy has [Python](https://pypi.org/project/entelechy-client/) and [TypeScript](https://www.npmjs.com/package/@garybense/entelechy-client) SDKs for integrating memory into your own applications.
-- **Check out the docs**: Full API reference, SDK guides, and more at [entelechy.vectorize.io](https://entelechy.vectorize.io).
+- **Check out the docs**: Full API reference, SDK guides, and more at [mindmods.org](https://mindmods.org).

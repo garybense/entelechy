@@ -14,7 +14,7 @@ If you are trying to **debug Hermes memory not recalling context**, the fastest 
 
 What makes this frustrating is that the system can look half-correct while still failing in practice. `hermes memory status` may show a configured provider, the Entelechy tools may appear in the tool list, and the config file may look fine, yet the agent still answers like it has amnesia. That usually means the issue is behavioral, not just configurational. The wrong mode, the wrong expectation, or the wrong timing is enough to make healthy infrastructure feel broken.
 
-This guide gives you a reliable troubleshooting sequence. You will check the active mode, confirm the Entelechy backend is reachable, verify whether auto-recall hooks are available, run a real next-turn memory test, inspect logs, and fix the most common causes of missing recall. If you need the full config reference while working, keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [docs home](https://entelechy.vectorize.io/docs), and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open.
+This guide gives you a reliable troubleshooting sequence. You will check the active mode, confirm the Entelechy backend is reachable, verify whether auto-recall hooks are available, run a real next-turn memory test, inspect logs, and fix the most common causes of missing recall. If you need the full config reference while working, keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [docs home](https://mindmods.org/docs), and the [quickstart guide](https://mindmods.org/docs/quickstart) open.
 
 <!-- truncate -->
 
@@ -55,7 +55,7 @@ print(json.dumps(json.loads(path.read_text()), indent=2))
 PY
 ```
 
-If you are new to Entelechy's retrieval and retention behavior, it is worth reading the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) once. Those two docs explain why a system can retain successfully but still not surface context when you expect it.
+If you are new to Entelechy's retrieval and retention behavior, it is worth reading the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) once. Those two docs explain why a system can retain successfully but still not surface context when you expect it.
 
 ## Step by step
 
@@ -99,7 +99,7 @@ print(f"Updated {path} to hybrid mode")
 PY
 ```
 
-If you are working through advanced mode choices, the dedicated guide on [Hermes memory modes with Entelechy](https://entelechy.vectorize.io/blog/2026/04/14/guide-hermes-memory-modes-with-entelechy-hybrid-context-tools) is the deeper explanation.
+If you are working through advanced mode choices, the dedicated guide on [Hermes memory modes with Entelechy](https://mindmods.org/blog/2026/04/14/guide-hermes-memory-modes-with-entelechy-hybrid-context-tools) is the deeper explanation.
 
 ### 2. Confirm the backend is healthy
 
@@ -121,7 +121,7 @@ grep '^ENTELECHY_' ~/.hermes/.env || true
 
 If the API key or URL is missing, Hermes may initialize without a working backend.
 
-If you are using local mode and want the broader setup reference, keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) and [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) handy while you debug.
+If you are using local mode and want the broader setup reference, keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) and [quickstart guide](https://mindmods.org/docs/quickstart) handy while you debug.
 
 ### 3. Test whether retention is succeeding at all
 
@@ -249,7 +249,7 @@ PY
 
 If the bank is wrong, Hermes is not failing to recall. It is recalling from the wrong place.
 
-This is also why migration guides emphasize keeping the same bank when moving from the older plugin path. If you need that walkthrough, see [Guide: Migrate entelechy-hermes to Native Hermes Memory](https://entelechy.vectorize.io/blog/2026/04/14/guide-migrate-entelechy-hermes-to-native-hermes-memory).
+This is also why migration guides emphasize keeping the same bank when moving from the older plugin path. If you need that walkthrough, see [Guide: Migrate entelechy-hermes to Native Hermes Memory](https://mindmods.org/blog/2026/04/14/guide-migrate-entelechy-hermes-to-native-hermes-memory).
 
 ## Verifying it works
 
@@ -321,7 +321,7 @@ Most likely causes:
 
 ### Pattern: the model seems to ignore obviously relevant history
 
-This can still happen even when recall is technically healthy. In that case, the issue may be relevance or prompt use, not provider failure. The [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) helps you reason about what Entelechy considers relevant.
+This can still happen even when recall is technically healthy. In that case, the issue may be relevance or prompt use, not provider failure. The [Recall API reference](https://mindmods.org/docs/api/recall) helps you reason about what Entelechy considers relevant.
 
 ## FAQ
 
@@ -347,13 +347,13 @@ Run a controlled retain test, wait for the response to finish, then query the ne
 
 ### Where can I learn more if I want to debug deeper than the CLI?
 
-Start with the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), then read the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain). If you want another example of automatic memory injection in practice, the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) are a useful comparison.
+Start with the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), then read the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain). If you want another example of automatic memory injection in practice, the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) are a useful comparison.
 
 ## Next Steps
 
-- [Create a Entelechy Cloud account](https://entelechy.vectorize.io) if you want the fastest path to testing memory without local daemon variables in the way.
-- Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) open while you debug live issues.
-- Read the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you want a simpler setup baseline before further troubleshooting.
-- Use the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) to understand what should be returned when recall is healthy.
-- Use the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) to reason about why expected information may never have been stored.
-- If this started after a migration, compare your setup against [Guide: Migrate entelechy-hermes to Native Hermes Memory](https://entelechy.vectorize.io/blog/2026/04/14/guide-migrate-entelechy-hermes-to-native-hermes-memory).
+- [Create a Entelechy Cloud account](https://mindmods.org) if you want the fastest path to testing memory without local daemon variables in the way.
+- Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) open while you debug live issues.
+- Read the [quickstart guide](https://mindmods.org/docs/quickstart) if you want a simpler setup baseline before further troubleshooting.
+- Use the [Recall API reference](https://mindmods.org/docs/api/recall) to understand what should be returned when recall is healthy.
+- Use the [Retain API reference](https://mindmods.org/docs/api/retain) to reason about why expected information may never have been stored.
+- If this started after a migration, compare your setup against [Guide: Migrate entelechy-hermes to Native Hermes Memory](https://mindmods.org/blog/2026/04/14/guide-migrate-entelechy-hermes-to-native-hermes-memory).

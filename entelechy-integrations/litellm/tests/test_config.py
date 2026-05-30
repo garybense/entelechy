@@ -26,7 +26,7 @@ class TestDefaults:
 
     def test_default_api_url(self):
         """Test default API URL is production."""
-        assert DEFAULT_ENTELECHY_API_URL == "https://api.entelechy.vectorize.io"
+        assert DEFAULT_ENTELECHY_API_URL == "https://api.mindmods.org"
 
     def test_default_bank_id(self):
         """Test default bank ID is 'default'."""

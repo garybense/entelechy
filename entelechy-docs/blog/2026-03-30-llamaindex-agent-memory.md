@@ -22,7 +22,7 @@ That's the core limitation of LlamaIndex's built-in memory: it's session-scoped.
 - How to set up cross-session memory in three steps with full code examples
 - When to use persistent memory and when to skip it
 
-Works with [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) or self-hosted.
+Works with [Entelechy Cloud](https://ui.mindmods.org/signup) or self-hosted.
 
 <!-- truncate -->
 
@@ -83,7 +83,7 @@ entelechy-api
 
 Runs locally at `http://localhost:8888` with embedded Postgres, embeddings, and reranking.
 
-Or use [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) and skip self-hosting entirely.
+Or use [Entelechy Cloud](https://ui.mindmods.org/signup) and skip self-hosting entirely.
 
 ## Step 2: Install the Integration
 
@@ -279,7 +279,7 @@ Persistent memory isn't always the right tool.
 | **Framework coupling** | LlamaIndex only | LlamaIndex only | None | None |
 | **Best for** | Single-session chat | Simple cross-session recall within LlamaIndex | Document search (RAG) | Long-term user/agent memory across frameworks |
 
-**vs. LangGraph/LangChain:** If you're using LangGraph instead of LlamaIndex, see [`entelechy-langgraph`](https://docs.entelechy.vectorize.io/docs/sdks/integrations/langgraph) which offers tools, graph nodes, and a `BaseStore` adapter.
+**vs. LangGraph/LangChain:** If you're using LangGraph instead of LlamaIndex, see [`entelechy-langgraph`](https://docs.mindmods.org/docs/sdks/integrations/langgraph) which offers tools, graph nodes, and a `BaseStore` adapter.
 
 ## FAQ
 
@@ -303,9 +303,9 @@ Session memory resets. Long-term memory doesn't have to.
 
 That's the practical difference between a session-scoped tool and an agent with genuine memory. The more it's used, the more useful it becomes.
 
-Try it now: `pip install entelechy-all entelechy-llamaindex` and run the example above. Or start with [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) if you'd rather skip self-hosting.
+Try it now: `pip install entelechy-all entelechy-llamaindex` and run the example above. Or start with [Entelechy Cloud](https://ui.mindmods.org/signup) if you'd rather skip self-hosting.
 
 ## Next Steps
 
-- **Docs**: [LlamaIndex integration guide](https://docs.entelechy.vectorize.io/docs/sdks/integrations/llamaindex)
-- **Other integrations**: [LangGraph](https://docs.entelechy.vectorize.io/docs/sdks/integrations/langgraph), [Pydantic AI](https://docs.entelechy.vectorize.io/docs/sdks/integrations/pydantic-ai), [CrewAI](https://docs.entelechy.vectorize.io/docs/sdks/integrations/crewai)
+- **Docs**: [LlamaIndex integration guide](https://docs.mindmods.org/docs/sdks/integrations/llamaindex)
+- **Other integrations**: [LangGraph](https://docs.mindmods.org/docs/sdks/integrations/langgraph), [Pydantic AI](https://docs.mindmods.org/docs/sdks/integrations/pydantic-ai), [CrewAI](https://docs.mindmods.org/docs/sdks/integrations/crewai)

@@ -252,7 +252,7 @@ describe("applyEmbeddedMode", () => {
 describe("summarize*", () => {
   it("produces human-readable mode summaries", () => {
     expect(summarizeCloud({ tokenEnvVar: "ENTELECHY_CLOUD_TOKEN" })).toBe(
-      "Cloud → https://api.entelechy.vectorize.io (token from ${ENTELECHY_CLOUD_TOKEN})"
+      "Cloud → https://api.mindmods.org (token from ${ENTELECHY_CLOUD_TOKEN})"
     );
     expect(summarizeApi({ apiUrl: "https://api.example.com", tokenEnvVar: "T" })).toBe(
       "External API → https://api.example.com (token from ${T})"

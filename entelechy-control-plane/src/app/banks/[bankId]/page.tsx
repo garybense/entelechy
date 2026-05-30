@@ -41,8 +41,32 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Brain, Download, Trash2, Loader2, MoreVertical, Pencil, RotateCcw } from "lucide-react";
 
-type NavItem = "recall" | "reflect" | "data" | "documents" | "entities" | "profile";
-type DataSubTab = "world" | "experience" | "observations" | "mental-models";
+// New MWPMC and SVT-CP related views
+import MwpmcOverviewView from "@/components/mwpmc-overview-view";
+import FeatureExtractionView from "@/components/feature-extraction-view";
+import PolicySynthesisView from "@/components/policy-synthesis-view";
+import PolicyControlView from "@/components/policy-control-view";
+import OutcomeWritebackView from "@/components/outcome-writeback-view";
+import { ObservationHistoryView } from "@/components/observation-history-view";
+import ChatSimulatorView from "@/components/chat-simulator-view";
+
+type NavItem =
+  | "mwpmc-overview"
+  | "feature-extraction"
+  | "policy-synthesis"
+  | "policy-control"
+  | "outcome-writeback"
+  | "memories"
+  | "recall"
+  | "reflect"
+  | "documents"
+  | "entities"
+  | "mental-models"
+  | "observations"
+  | "bank-config"
+  | "chat-simulator";
+
+  type DataSubTab = "world" | "experience" | "observations" | "mental-models";
 type BankConfigTab = "general" | "configuration" | "webhooks" | "audit-logs";
 
 export default function BankPage() {
@@ -52,7 +76,8 @@ export default function BankPage() {
   const { features } = useFeatures();
   const { currentBank: bankId, setCurrentBank, loadBanks } = useBank();
 
-  const view = (searchParams.get("view") || "profile") as NavItem;
+  const viewParam = searchParams.get("view");
+  const view = (viewParam === "data" ? "memories" : viewParam || "mwpmc-overview") as NavItem;
   const subTab = (searchParams.get("subTab") || "world") as DataSubTab;
   const bankConfigTab = (searchParams.get("bankConfigTab") || "general") as BankConfigTab;
   const observationsEnabled = features?.observations ?? false;
@@ -75,12 +100,12 @@ export default function BankPage() {
 
   const handleDataSubTabChange = (newSubTab: DataSubTab) => {
     if (!bankId) return;
-    router.push(bankRoute(bankId, `?view=data&subTab=${newSubTab}`));
+    router.push(bankRoute(bankId, `?view=memories&subTab=${newSubTab}`));
   };
 
   const handleBankConfigTabChange = (newTab: BankConfigTab) => {
     if (!bankId) return;
-    router.push(bankRoute(bankId, `?view=profile&bankConfigTab=${newTab}`));
+    router.push(bankRoute(bankId, `?view=bank-config&bankConfigTab=${newTab}`));
   };
 
   const handleDeleteBank = async () => {
@@ -168,8 +193,271 @@ export default function BankPage() {
 
         <main className="flex-1 overflow-y-auto">
           <div className="p-6">
-            {/* Bank Configuration Tab */}
-            {view === "profile" && (
+            {/* MWPMC Overview */}
+            {view === "mwpmc-overview" && <MwpmcOverviewView />}
+
+            {/* Feature Extraction (Stage A) */}
+            {view === "feature-extraction" && <FeatureExtractionView />}
+
+            {/* Policy Synthesis (Stage B) */}
+            {view === "policy-synthesis" && <PolicySynthesisView />}
+
+            {/* Policy Control & Inertia */}
+            {view === "policy-control" && <PolicyControlView />}
+
+            {/* Outcome Writeback */}
+            {view === "outcome-writeback" && <OutcomeWritebackView />}
+
+            {/* Memories Tab (renamed from Data) */}
+            {view === "memories" && (
+              <div>
+                <h1 className="text-3xl font-bold mb-2 text-foreground">Memories</h1>
+                <p className="text-muted-foreground mb-6">
+                  View and explore different types of memories stored in this memory bank.
+                </p>
+
+                <div className="mb-6 border-b border-border">
+                  <div className="flex gap-1">
+                    <button
+                      onClick={() => handleDataSubTabChange("world")}
+                      className={`px-6 py-3 font-semibold text-sm transition-all relative ${
+                        subTab === "world"
+                          ? "text-primary"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      World Facts
+                      {subTab === "world" && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                      )}
+                    </button>
+                    <button
+                      onClick={() => handleDataSubTabChange("experience")}
+                      className={`px-6 py-3 font-semibold text-sm transition-all relative ${
+                        subTab === "experience"
+                          ? "text-primary"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      Experience
+                      {subTab === "experience" && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                      )}
+                    </button>
+                    <button
+                      onClick={() => handleDataSubTabChange("observations")}
+                      className={`px-6 py-3 font-semibold text-sm transition-all relative ${
+                        subTab === "observations"
+                          ? "text-primary"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      Observations
+                      {!observationsEnabled && (
+                        <span className="ml-2 text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
+                          Off
+                        </span>
+                      )}
+                      {subTab === "observations" && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                      )}
+                    </button>
+                    <button
+                      onClick={() => handleDataSubTabChange("mental-models")}
+                      className={`px-6 py-3 font-semibold text-sm transition-all relative ${
+                        subTab === "mental-models"
+                          ? "text-primary"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                    >
+                      Mental Models
+                      {subTab === "mental-models" && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  {subTab === "world" && (
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Objective facts about the world received from external sources.
+                      </p>
+                      <DataView key="world" factType="world" />
+                    </div>
+                  )}
+                  {subTab === "experience" && (
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        The bank&apos;s own actions, interactions, and first-person experiences.
+                      </p>
+                      <DataView key="experience" factType="experience" />
+                    </div>
+                  )}
+                  {subTab === "observations" &&
+                    (observationsEnabled ? (
+                      <div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Consolidated knowledge synthesized from facts — patterns, preferences, and
+                          learnings that emerge from accumulated evidence.
+                        </p>
+                        <DataView key="observations" factType="observation" />
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center py-16 text-center">
+                        <div className="text-muted-foreground mb-2">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="48"
+                            height="48"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" />
+                            <path d="M12 8v4" />
+                            <path d="M12 16h.01" />
+                          </svg>
+                        </div>
+                        <h3 className="text-lg font-semibold text-foreground mb-1">
+                          Observations Not Enabled
+                        </h3>
+                        <p className="text-sm text-muted-foreground max-w-md">
+                          Observations consolidation is disabled on this server. Set{" "}
+                          <code className="px-1 py-0.5 bg-muted rounded text-xs">
+                            ENTELECHY_API_ENABLE_OBSERVATIONS=true
+                          </code>{" "}
+                          to enable.
+                        </p>
+                      </div>
+                    ))}
+                  {subTab === "mental-models" && (
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        User-curated summaries generated from queries — reusable knowledge snapshots
+                        that can be refreshed as memories evolve.
+                      </p>
+                      <MentalModelsView key="mental-models" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Recall Tab */}\
+            {view === "recall" && (
+              <div>
+                <h1 className="text-3xl font-bold mb-2 text-foreground">Recall</h1>
+                <p className="text-muted-foreground mb-6">
+                  Analyze memory recall with detailed trace information and retrieval methods.
+                </p>
+                <SearchDebugView />
+              </div>
+            )}
+
+            {/* Reflect Tab */}\
+            {view === "reflect" && (
+              <div>
+                <h1 className="text-3xl font-bold mb-2 text-foreground">Reflect</h1>
+                <p className="text-muted-foreground mb-6">
+                  Run an agentic loop that autonomously gathers evidence and reasons through the
+                  lens of the bank&apos;s disposition to generate contextual responses.
+                </p>
+                <ThinkView />
+              </div>
+            )}
+
+            {/* Documents Tab */}\
+            {view === "documents" && (
+              <div>
+                <h1 className="text-3xl font-bold mb-2 text-foreground">Documents</h1>
+                <p className="text-muted-foreground mb-6">
+                  Manage documents and retain new memories.
+                </p>
+                <DocumentsView />
+              </div>
+            )}
+
+            {/* Entities Tab */}\
+            {view === "entities" && (
+              <div>
+                <h1 className="text-3xl font-bold mb-2 text-foreground">Entities</h1>
+                <p className="text-muted-foreground mb-6">
+                  Explore entities (people, organizations, places) mentioned in memories.
+                </p>
+                <EntitiesView />
+              </div>
+            )}
+
+            {/* Mental Models Tab */}\
+            {view === "mental-models" && (
+              <div>
+                <h1 className="text-3xl font-bold mb-2 text-foreground">Mental Models</h1>
+                <p className="text-muted-foreground mb-6">
+                  User-curated summaries generated from queries — reusable knowledge snapshots
+                  that can be refreshed as memories evolve.
+                </p>
+                <MentalModelsView />
+              </div>
+            )}
+
+            {/* Observations Tab */}
+            {view === "observations" && (
+              <div>
+                <h1 className="text-3xl font-bold mb-2 text-foreground">Observations</h1>
+                <p className="text-muted-foreground mb-6">
+                  Consolidated knowledge synthesized from facts — patterns, preferences, and
+                  learnings that emerge from accumulated evidence.
+                </p>
+                {observationsEnabled ? (
+                  <DataView key="observations-main" factType="observation" />
+                ) : (
+                  <div className="flex flex-col items-center justify-center py-16 text-center">
+                    <div className="text-muted-foreground mb-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="48"
+                        height="48"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" />
+                        <path d="M12 8v4" />
+                        <path d="M12 16h.01" />
+                      </svg>
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">
+                      Observations Not Enabled
+                    </h3>
+                    <p className="text-sm text-muted-foreground max-w-md">
+                      Observations consolidation is disabled on this server. Set{" "}
+                      <code className="px-1 py-0.5 bg-muted rounded text-xs">
+                        ENTELECHY_API_ENABLE_OBSERVATIONS=true
+                      </code>{" "}
+                      to enable.
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Chat Simulator Tab */}
+            {view === "chat-simulator" && (
+              <div>
+                <ChatSimulatorView />
+              </div>
+            )}
+
+            {/* Bank Configuration Tab (renamed from Profile) */}
+            {view === "bank-config" && (
               <div>
                 <div className="flex justify-between items-start mb-6">
                   <div>
@@ -373,191 +661,6 @@ export default function BankPage() {
                     </div>
                   )}
                 </div>
-              </div>
-            )}
-
-            {/* Recall Tab */}
-            {view === "recall" && (
-              <div>
-                <h1 className="text-3xl font-bold mb-2 text-foreground">Recall</h1>
-                <p className="text-muted-foreground mb-6">
-                  Analyze memory recall with detailed trace information and retrieval methods.
-                </p>
-                <SearchDebugView />
-              </div>
-            )}
-
-            {/* Reflect Tab */}
-            {view === "reflect" && (
-              <div>
-                <h1 className="text-3xl font-bold mb-2 text-foreground">Reflect</h1>
-                <p className="text-muted-foreground mb-6">
-                  Run an agentic loop that autonomously gathers evidence and reasons through the
-                  lens of the bank&apos;s disposition to generate contextual responses.
-                </p>
-                <ThinkView />
-              </div>
-            )}
-
-            {/* Data/Memories Tab */}
-            {view === "data" && (
-              <div>
-                <h1 className="text-3xl font-bold mb-2 text-foreground">Memories</h1>
-                <p className="text-muted-foreground mb-6">
-                  View and explore different types of memories stored in this memory bank.
-                </p>
-
-                <div className="mb-6 border-b border-border">
-                  <div className="flex gap-1">
-                    <button
-                      onClick={() => handleDataSubTabChange("world")}
-                      className={`px-6 py-3 font-semibold text-sm transition-all relative ${
-                        subTab === "world"
-                          ? "text-primary"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      World Facts
-                      {subTab === "world" && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
-                      )}
-                    </button>
-                    <button
-                      onClick={() => handleDataSubTabChange("experience")}
-                      className={`px-6 py-3 font-semibold text-sm transition-all relative ${
-                        subTab === "experience"
-                          ? "text-primary"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      Experience
-                      {subTab === "experience" && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
-                      )}
-                    </button>
-                    <button
-                      onClick={() => handleDataSubTabChange("observations")}
-                      className={`px-6 py-3 font-semibold text-sm transition-all relative ${
-                        subTab === "observations"
-                          ? "text-primary"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      Observations
-                      {!observationsEnabled && (
-                        <span className="ml-2 text-xs px-1.5 py-0.5 rounded bg-muted text-muted-foreground">
-                          Off
-                        </span>
-                      )}
-                      {subTab === "observations" && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
-                      )}
-                    </button>
-                    <button
-                      onClick={() => handleDataSubTabChange("mental-models")}
-                      className={`px-6 py-3 font-semibold text-sm transition-all relative ${
-                        subTab === "mental-models"
-                          ? "text-primary"
-                          : "text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      Mental Models
-                      {subTab === "mental-models" && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  {subTab === "world" && (
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Objective facts about the world received from external sources.
-                      </p>
-                      <DataView key="world" factType="world" />
-                    </div>
-                  )}
-                  {subTab === "experience" && (
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        The bank&apos;s own actions, interactions, and first-person experiences.
-                      </p>
-                      <DataView key="experience" factType="experience" />
-                    </div>
-                  )}
-                  {subTab === "observations" &&
-                    (observationsEnabled ? (
-                      <div>
-                        <p className="text-sm text-muted-foreground mb-4">
-                          Consolidated knowledge synthesized from facts — patterns, preferences, and
-                          learnings that emerge from accumulated evidence.
-                        </p>
-                        <DataView key="observations" factType="observation" />
-                      </div>
-                    ) : (
-                      <div className="flex flex-col items-center justify-center py-16 text-center">
-                        <div className="text-muted-foreground mb-2">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="48"
-                            height="48"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z" />
-                            <path d="M12 8v4" />
-                            <path d="M12 16h.01" />
-                          </svg>
-                        </div>
-                        <h3 className="text-lg font-semibold text-foreground mb-1">
-                          Observations Not Enabled
-                        </h3>
-                        <p className="text-sm text-muted-foreground max-w-md">
-                          Observations consolidation is disabled on this server. Set{" "}
-                          <code className="px-1 py-0.5 bg-muted rounded text-xs">
-                            ENTELECHY_API_ENABLE_OBSERVATIONS=true
-                          </code>{" "}
-                          to enable.
-                        </p>
-                      </div>
-                    ))}
-                  {subTab === "mental-models" && (
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        User-curated summaries generated from queries — reusable knowledge snapshots
-                        that can be refreshed as memories evolve.
-                      </p>
-                      <MentalModelsView key="mental-models" />
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Documents Tab */}
-            {view === "documents" && (
-              <div>
-                <h1 className="text-3xl font-bold mb-2 text-foreground">Documents</h1>
-                <p className="text-muted-foreground mb-6">
-                  Manage documents and retain new memories.
-                </p>
-                <DocumentsView />
-              </div>
-            )}
-
-            {/* Entities Tab */}
-            {view === "entities" && (
-              <div>
-                <h1 className="text-3xl font-bold mb-2 text-foreground">Entities</h1>
-                <p className="text-muted-foreground mb-6">
-                  Explore entities (people, organizations, places) mentioned in memories.
-                </p>
-                <EntitiesView />
               </div>
             )}
           </div>

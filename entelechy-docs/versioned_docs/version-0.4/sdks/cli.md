@@ -9,7 +9,7 @@ The Entelechy CLI provides command-line access to memory operations and bank man
 ## Installation
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-cli | bash
+curl -fsSL https://mindmods.org/get-cli | bash
 ```
 
 ## Configuration

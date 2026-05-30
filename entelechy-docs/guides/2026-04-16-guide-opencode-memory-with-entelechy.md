@@ -14,7 +14,7 @@ If you want **OpenCode memory with Entelechy**, the cleanest setup is to add the
 
 This is a good fit for coding workflows because OpenCode already has a plugin model that Entelechy can hook into. Once configured, the plugin can recall context when sessions begin, preserve memory when sessions go idle, and expose retain, recall, and reflect as explicit tools inside the agent workflow.
 
-This guide walks through the plugin setup, the key config options, the difference between static and dynamic bank IDs, and a quick verification flow so you can confirm that memory is actually being used. Keep the [docs home](https://entelechy.vectorize.io/docs) and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) nearby while you work.
+This guide walks through the plugin setup, the key config options, the difference between static and dynamic bank IDs, and a quick verification flow so you can confirm that memory is actually being used. Keep the [docs home](https://mindmods.org/docs) and the [quickstart guide](https://mindmods.org/docs/quickstart) nearby while you work.
 
 <!-- truncate -->
 
@@ -31,7 +31,7 @@ This guide walks through the plugin setup, the key config options, the differenc
 Before you start, make sure you have:
 
 - OpenCode installed and working
-- A reachable Entelechy backend, local or [Entelechy Cloud](https://entelechy.vectorize.io)
+- A reachable Entelechy backend, local or [Entelechy Cloud](https://mindmods.org)
 - A decision about whether memory should be per project or shared across contexts
 
 ## Step 1: Add the plugin
@@ -59,7 +59,7 @@ opencode
 For Entelechy Cloud:
 
 ```bash
-export ENTELECHY_API_URL="https://api.entelechy.vectorize.io"
+export ENTELECHY_API_URL="https://api.mindmods.org"
 export ENTELECHY_API_TOKEN="your-api-key"
 opencode
 ```
@@ -71,7 +71,7 @@ You can also configure plugin options inline in `opencode.json`.
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
     ["@garybense/opencode-entelechy", {
-      "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+      "entelechyApiUrl": "https://api.mindmods.org",
       "entelechyApiToken": "your-api-key"
     }]
   ]
@@ -94,7 +94,7 @@ It also supports:
 
 That means the integration works at two levels: the agent can call memory tools explicitly, and the plugin can also preserve memory automatically in the background.
 
-For lower-level behavior, read [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall) and [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain).
+For lower-level behavior, read [Entelechy's recall API](https://mindmods.org/docs/api/recall) and [Entelechy's retain API](https://mindmods.org/docs/api/retain).
 
 ## Static vs dynamic bank IDs
 
@@ -191,13 +191,13 @@ Use static for one clear project bank. Use dynamic when the environment spans pr
 
 ### Is this similar to Claude Code or Codex memory?
 
-Yes in the broad sense, but OpenCode uses its own plugin and event model. For related workflows, compare [Adding Memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) and [the Claude Code integration](https://entelechy.vectorize.io/docs/integrations/claude-code).
+Yes in the broad sense, but OpenCode uses its own plugin and event model. For related workflows, compare [Adding Memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) and [the Claude Code integration](https://mindmods.org/docs/integrations/claude-code).
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want a hosted backend
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Compare coding workflows in [Adding Memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want a hosted backend
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Compare coding workflows in [Adding Memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy)

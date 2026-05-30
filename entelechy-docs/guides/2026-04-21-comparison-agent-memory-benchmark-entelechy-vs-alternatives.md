@@ -14,7 +14,7 @@ If you are searching for an **agent memory benchmark**, the most useful question
 
 That is why BEAM matters. At the 10 million token tier, no current context window can hold the whole history. A system either retrieves the right information from memory, or it fails. In that setting, Entelechy has the strongest published result, and the gap is large enough to say something real about architecture, not just prompt tuning.
 
-This post breaks down the published BEAM numbers, explains how Entelechy compares with alternatives like Honcho, LangChain-style memory, and custom retrieval stacks, and shows which tradeoffs actually matter in production. If you want the raw retrieval mechanics behind the results, keep the [docs home](https://entelechy.vectorize.io/docs), [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall), and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) nearby.
+This post breaks down the published BEAM numbers, explains how Entelechy compares with alternatives like Honcho, LangChain-style memory, and custom retrieval stacks, and shows which tradeoffs actually matter in production. If you want the raw retrieval mechanics behind the results, keep the [docs home](https://mindmods.org/docs), [Entelechy's recall API](https://mindmods.org/docs/api/recall), and the [quickstart guide](https://mindmods.org/docs/quickstart) nearby.
 
 <!-- truncate -->
 
@@ -51,7 +51,7 @@ That is why BEAM is important. It introduces tiers where the brute-force fallbac
 
 At 10M tokens, context stuffing is not a tradeoff. It is impossible.
 
-For the benchmark background and methodology, see [Agent Memory Benchmark: A Manifesto](https://entelechy.vectorize.io/blog/agent-memory-benchmark) and [Entelechy Is #1 on BEAM](https://entelechy.vectorize.io/blog/2026/04/02/beam-sota).
+For the benchmark background and methodology, see [Agent Memory Benchmark: A Manifesto](https://mindmods.org/blog/agent-memory-benchmark) and [Entelechy Is #1 on BEAM](https://mindmods.org/blog/2026/04/02/beam-sota).
 
 ## The published results
 
@@ -87,7 +87,7 @@ Entelechy does not treat memory as a bag of semantically similar chunks. It reta
 - temporal retrieval
 - cross-encoder reranking over the fused result set
 
-That pipeline is described in the [retrieval architecture guide](https://entelechy.vectorize.io/docs/developer/retrieval) and exposed directly in [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall).
+That pipeline is described in the [retrieval architecture guide](https://mindmods.org/docs/developer/retrieval) and exposed directly in [Entelechy's recall API](https://mindmods.org/docs/api/recall).
 
 This matters because memory queries are messy in practice. Agents do not only ask semantic questions. They ask:
 
@@ -174,7 +174,7 @@ A good memory system also needs to be:
 - easy to integrate
 - predictable under failure
 
-That is why it helps to read the benchmark numbers alongside the architecture and API docs. The [retain API](https://entelechy.vectorize.io/docs/api/retain) and [recall API](https://entelechy.vectorize.io/docs/api/recall) make the underlying model easier to reason about than a black-box score alone.
+That is why it helps to read the benchmark numbers alongside the architecture and API docs. The [retain API](https://mindmods.org/docs/api/retain) and [recall API](https://mindmods.org/docs/api/recall) make the underlying model easier to reason about than a black-box score alone.
 
 ## When to pick Entelechy
 
@@ -186,7 +186,7 @@ Use Entelechy when:
 - several tools or agents should share one memory layer
 - you want a system with public benchmark evidence at meaningful scale
 
-A related pattern is described in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents), where the value comes from compounding context across tools and sessions instead of re-explaining everything repeatedly.
+A related pattern is described in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents), where the value comes from compounding context across tools and sessions instead of re-explaining everything repeatedly.
 
 ## When a simpler option is enough
 
@@ -206,9 +206,9 @@ That does not end the conversation, but it changes the default one. The burden i
 
 ## Next steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want the fastest path to production memory
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- See the benchmark context in [Agent Memory Benchmark: A Manifesto](https://entelechy.vectorize.io/blog/agent-memory-benchmark)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want the fastest path to production memory
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- See the benchmark context in [Agent Memory Benchmark: A Manifesto](https://mindmods.org/blog/agent-memory-benchmark)

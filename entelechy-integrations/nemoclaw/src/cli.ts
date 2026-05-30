@@ -10,8 +10,8 @@ Usage:
 
 Required options:
   --sandbox <name>       NemoClaw sandbox name (e.g. my-assistant)
-  --api-url <url>        Entelechy Cloud API URL (https://api.entelechy.vectorize.io)
-  --api-token <token>    Entelechy API key from https://ui.entelechy.vectorize.io
+  --api-url <url>        Entelechy Cloud API URL (https://api.mindmods.org)
+  --api-token <token>    Entelechy API key from https://ui.mindmods.org
   --bank-prefix <prefix> Bank ID prefix (memories go to <prefix>-openclaw)
 
 Optional options:
@@ -23,7 +23,7 @@ Optional options:
 Example:
   entelechy-nemoclaw setup \\
     --sandbox my-assistant \\
-    --api-url https://api.entelechy.vectorize.io \\
+    --api-url https://api.mindmods.org \\
     --api-token hsk_abc123 \\
     --bank-prefix my-sandbox
 `);

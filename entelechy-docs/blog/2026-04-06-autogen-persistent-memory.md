@@ -19,7 +19,7 @@ AutoGen is Microsoft's open-source framework for building multi-agent systems: c
 - AutoGen agents have no built-in cross-session memory; state resets every run
 - `entelechy-autogen` provides three `FunctionTool` instances for `AssistantAgent`: `entelechy_retain`, `entelechy_recall`, `entelechy_reflect`
 - One pip install, pass `tools=[...]` to your agent, done
-- Works with [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) or self-hosted
+- Works with [Entelechy Cloud](https://ui.mindmods.org/signup) or self-hosted
 
 ## The problem
 
@@ -62,7 +62,7 @@ entelechy-api
 
 Runs locally at `http://localhost:8888` with embedded Postgres, embeddings, and reranking.
 
-Or use [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) and skip self-hosting.
+Or use [Entelechy Cloud](https://ui.mindmods.org/signup) and skip self-hosting.
 
 ## Step 2: Install the integration
 
@@ -180,7 +180,7 @@ Be explicit: persistent memory isn't always the right tool.
 
 **vs. AutoGen chat history:** Chat history stores raw messages in-session. It doesn't extract facts, doesn't generalize, and disappears when the conversation ends. Entelechy extracts structured facts, deduplicates, and retrieves only what's relevant — it compresses knowledge rather than accumulating tokens.
 
-**vs. raw vector stores (Pinecone, Weaviate, Chroma):** A vector store gives you embedding similarity search. Entelechy runs four parallel retrieval strategies (semantic, BM25, graph traversal, temporal) with cross-encoder reranking, plus it extracts entities, resolves coreferences, and builds a knowledge graph. It's a memory engine, not a database. For independent benchmark results on what that architecture achieves at scale, see [Entelechy on BEAM](https://entelechy.vectorize.io/blog/2026/04/02/beam-sota).
+**vs. raw vector stores (Pinecone, Weaviate, Chroma):** A vector store gives you embedding similarity search. Entelechy runs four parallel retrieval strategies (semantic, BM25, graph traversal, temporal) with cross-encoder reranking, plus it extracts entities, resolves coreferences, and builds a knowledge graph. It's a memory engine, not a database. For independent benchmark results on what that architecture achieves at scale, see [Entelechy on BEAM](https://mindmods.org/blog/2026/04/02/beam-sota).
 
 **vs. other framework integrations:** If you're using LlamaIndex, LangGraph, CrewAI, or Pydantic AI instead of AutoGen, Entelechy has dedicated integrations for each: [LlamaIndex](/sdks/integrations/llamaindex), [LangGraph](/sdks/integrations/langgraph), [CrewAI](/sdks/integrations/crewai), [Pydantic AI](/sdks/integrations/pydantic-ai).
 
@@ -194,6 +194,6 @@ Be explicit: persistent memory isn't always the right tool.
 ## Next steps
 
 - **Try it locally:** `pip install entelechy-all entelechy-autogen autogen-agentchat "autogen-ext[openai]"` and run the example above
-- **Use Entelechy Cloud:** Skip self-hosting with a [free account](https://ui.entelechy.vectorize.io/signup)
-- **Benchmark results:** [Why Entelechy leads on BEAM at 10M tokens](https://entelechy.vectorize.io/blog/2026/04/02/beam-sota)
+- **Use Entelechy Cloud:** Skip self-hosting with a [free account](https://ui.mindmods.org/signup)
+- **Benchmark results:** [Why Entelechy leads on BEAM at 10M tokens](https://mindmods.org/blog/2026/04/02/beam-sota)
 - **Explore other integrations:** [LlamaIndex](/sdks/integrations/llamaindex), [LangGraph](/sdks/integrations/langgraph), [Pydantic AI](/sdks/integrations/pydantic-ai), [CrewAI](/sdks/integrations/crewai)

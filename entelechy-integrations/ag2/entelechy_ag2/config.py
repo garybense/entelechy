@@ -4,7 +4,7 @@ import os
 from dataclasses import dataclass
 from typing import Optional
 
-DEFAULT_ENTELECHY_API_URL = "https://api.entelechy.vectorize.io"
+DEFAULT_ENTELECHY_API_URL = "https://api.mindmods.org"
 ENTELECHY_API_KEY_ENV = "ENTELECHY_API_KEY"
 
 

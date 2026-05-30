@@ -14,7 +14,7 @@ If you are trying to choose between **Hermes memory modes with Entelechy**, the 
 
 This matters more than it sounds. Teams often turn on Entelechy, see that memory works, and stop there. But the mode determines whether recall happens before every turn, whether the model can call `entelechy_recall` and `entelechy_reflect` directly, and whether your assistant behaves like a silent memory system or an explicit tool-using agent. Pick the wrong mode and the setup still looks healthy, but the behavior feels off.
 
-This guide explains what each mode does, when to use it, how to switch safely, how `prefetch_method` changes the experience, and how to verify that your chosen mode is actually doing what you think it is. For the complete reference, keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [docs home](https://entelechy.vectorize.io/docs), and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) nearby.
+This guide explains what each mode does, when to use it, how to switch safely, how `prefetch_method` changes the experience, and how to verify that your chosen mode is actually doing what you think it is. For the complete reference, keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [docs home](https://mindmods.org/docs), and the [quickstart guide](https://mindmods.org/docs/quickstart) nearby.
 
 <!-- truncate -->
 
@@ -52,7 +52,7 @@ If you have not validated the provider yet, do that first:
 hermes memory status
 ```
 
-It also helps to skim the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain), because they make the behavior of each mode easier to reason about. `memory_mode` controls how recall enters the conversation, while retain behavior continues to follow the provider's retention settings.
+It also helps to skim the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain), because they make the behavior of each mode easier to reason about. `memory_mode` controls how recall enters the conversation, while retain behavior continues to follow the provider's retention settings.
 
 ## Step by step
 
@@ -211,7 +211,7 @@ A quick practical map:
 - **Research or coding agent that should query memory intentionally**: `tools`
 - **Planning-heavy assistant with deep history**: `hybrid` or `context` plus `prefetch_method="reflect"`
 
-This is also where adjacent integrations are useful reference points. If you like the silent memory pattern, the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) show the same idea in a different agent architecture. If you want a tool-centric workflow, [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) is a good comparison.
+This is also where adjacent integrations are useful reference points. If you like the silent memory pattern, the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) show the same idea in a different agent architecture. If you want a tool-centric workflow, [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) is a good comparison.
 
 ## Verifying it works
 
@@ -312,13 +312,13 @@ Usually not. Use `recall` by default. Move to `reflect` when you have a real nee
 
 ### Where can I learn more about what Entelechy is injecting?
 
-The [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) is the best place to understand fact retrieval, and the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) explains how new information becomes memory in the first place. The [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) tie those concepts back to Hermes configuration.
+The [Recall API reference](https://mindmods.org/docs/api/recall) is the best place to understand fact retrieval, and the [Retain API reference](https://mindmods.org/docs/api/retain) explains how new information becomes memory in the first place. The [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) tie those concepts back to Hermes configuration.
 
 ## Next Steps
 
-- [Create a Entelechy Cloud account](https://entelechy.vectorize.io) if you want the fastest way to test mode changes without local infrastructure work.
-- Read the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) for the complete config surface.
-- Keep the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open if you want a cleaner end-to-end setup reference.
-- Read the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) to understand what `recall` prefetch actually returns.
-- Read the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) if you want to tighten what becomes memory.
-- Compare the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) and [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) if you want examples of other memory interaction styles.
+- [Create a Entelechy Cloud account](https://mindmods.org) if you want the fastest way to test mode changes without local infrastructure work.
+- Read the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) for the complete config surface.
+- Keep the [quickstart guide](https://mindmods.org/docs/quickstart) open if you want a cleaner end-to-end setup reference.
+- Read the [Recall API reference](https://mindmods.org/docs/api/recall) to understand what `recall` prefetch actually returns.
+- Read the [Retain API reference](https://mindmods.org/docs/api/retain) if you want to tighten what becomes memory.
+- Compare the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) and [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) if you want examples of other memory interaction styles.

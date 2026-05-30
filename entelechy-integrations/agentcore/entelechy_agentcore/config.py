@@ -9,7 +9,7 @@ from __future__ import annotations
 import os
 from dataclasses import dataclass, field
 
-DEFAULT_ENTELECHY_API_URL = "https://api.entelechy.vectorize.io"
+DEFAULT_ENTELECHY_API_URL = "https://api.mindmods.org"
 ENTELECHY_API_URL_ENV = "ENTELECHY_API_URL"
 ENTELECHY_API_KEY_ENV = "ENTELECHY_API_KEY"
 ENTELECHY_API_TOKEN_ENV = "ENTELECHY_API_TOKEN"
@@ -65,7 +65,7 @@ def configure(
         from entelechy_agentcore import configure
 
         configure(
-            entelechy_api_url="https://api.entelechy.vectorize.io",
+            entelechy_api_url="https://api.mindmods.org",
             api_key=os.environ["ENTELECHY_API_KEY"],
         )
     """

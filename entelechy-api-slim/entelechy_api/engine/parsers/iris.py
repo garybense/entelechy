@@ -1,4 +1,4 @@
-"""Iris parser implementation using the Vectorize Iris HTTP API."""
+"""Iris parser implementation using the Entelechy Iris HTTP API."""
 
 import asyncio
 import logging
@@ -18,9 +18,9 @@ _DEFAULT_TIMEOUT = 300.0  # seconds
 
 class IrisParser(FileParser):
     """
-    Iris file parser using the Vectorize Iris cloud extraction service.
+    Iris file parser using the Entelechy Iris cloud extraction service.
 
-    Uploads files to the Vectorize Iris API, starts an extraction job,
+    Uploads files to the Entelechy Iris API, starts an extraction job,
     and polls until the text is ready. The API determines which file types
     are supported — UnsupportedFileTypeError is raised if the file is rejected.
 
@@ -41,8 +41,8 @@ class IrisParser(FileParser):
         Initialize iris parser.
 
         Args:
-            token: Vectorize API token
-            org_id: Vectorize organization ID
+            token: Entelechy API token
+            org_id: Entelechy organization ID
             poll_interval: Seconds between status poll requests (default: 2)
             timeout: Maximum seconds to wait for extraction (default: 300)
         """
@@ -54,7 +54,7 @@ class IrisParser(FileParser):
 
     async def convert(self, file_data: bytes, filename: str) -> str:
         """
-        Parse file to text using the Vectorize Iris API.
+        Parse file to text using the Entelechy Iris API.
 
         Raises:
             UnsupportedFileTypeError: If the Iris API rejects the file type (4xx)

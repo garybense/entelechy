@@ -14,7 +14,7 @@ If you want **Paperclip memory with Entelechy**, the key move is to wrap the Pap
 
 This is useful because heartbeat-based agents often repeat the same expensive context gathering over and over. They rediscover the same user preferences, retry the same failed approaches, and lose the outcome of prior runs. Entelechy gives Paperclip a long-term memory layer so the next heartbeat can build on what the last one learned.
 
-This guide covers the quick-start path, the HTTP and process adapter patterns, bank isolation by company and agent, and the checks that tell you the memory layer is really working. Keep the [docs home](https://entelechy.vectorize.io/docs) and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open while you work.
+This guide covers the quick-start path, the HTTP and process adapter patterns, bank isolation by company and agent, and the checks that tell you the memory layer is really working. Keep the [docs home](https://mindmods.org/docs) and the [quickstart guide](https://mindmods.org/docs/quickstart) open while you work.
 
 <!-- truncate -->
 
@@ -31,7 +31,7 @@ This guide covers the quick-start path, the HTTP and process adapter patterns, b
 Before you start, make sure you have:
 
 - A Paperclip agent already running through the heartbeat model
-- A reachable Entelechy backend, either self-hosted or [Entelechy Cloud](https://entelechy.vectorize.io)
+- A reachable Entelechy backend, either self-hosted or [Entelechy Cloud](https://mindmods.org)
 - Stable identifiers for `companyId` and `agentId`
 
 The identifier design matters. Paperclip's default isolation pattern works well because it maps cleanly to a multi-tenant setup.
@@ -103,7 +103,7 @@ Common alternatives:
 - **agent-only** when one agent should carry memory across several company contexts
 - **custom prefix** when you want your own bank namespace scheme
 
-If you want to reason more deeply about retrieval behavior later, review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall). For what gets stored and how, review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain).
+If you want to reason more deeply about retrieval behavior later, review [Entelechy's recall API](https://mindmods.org/docs/api/recall). For what gets stored and how, review [Entelechy's retain API](https://mindmods.org/docs/api/retain).
 
 ## HTTP adapter integration
 
@@ -216,9 +216,9 @@ Yes. Procedure outcomes, recurring failures, and operational knowledge are all s
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want a hosted backend
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Compare shared knowledge patterns in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want a hosted backend
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Compare shared knowledge patterns in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents)

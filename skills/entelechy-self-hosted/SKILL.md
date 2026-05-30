@@ -21,7 +21,7 @@ cat ~/.entelechy/config
 
 1. **Install the CLI** (if `entelechy` command not found):
    ```bash
-   curl -fsSL https://entelechy.vectorize.io/get-cli | bash
+   curl -fsSL https://mindmods.org/get-cli | bash
    ```
 
 2. **Create the config file** - ask the user for:

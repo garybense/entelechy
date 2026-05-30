@@ -139,7 +139,7 @@ Once registered, these Entelechy tools become available through ContextForge:
 | `create_mental_model` | Create a new mental model |
 | `list_documents` | List ingested documents |
 
-See the full tool list in the [MCP Server reference](https://entelechy.vectorize.io/developer/mcp-server#available-tools).
+See the full tool list in the [MCP Server reference](https://mindmods.org/developer/mcp-server#available-tools).
 
 ## Helm Auto-Registration
 

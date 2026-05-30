@@ -12,7 +12,7 @@ If you want **Hermes shared memory across agents**, the setup is much simpler th
 
 That simplicity is powerful, but it also means you need to be intentional. Shared memory only improves outcomes when the participating agents truly belong to the same workflow. If two unrelated agents write into the same bank, recall gets noisy fast. If two cooperating agents share a bank with a focused mission, the effect is the opposite, each one becomes smarter because it can build on what the others already learned.
 
-This guide shows how to choose the right shared bank, how to configure multiple Hermes agents to reuse it, how to keep role boundaries without splitting the bank, and how to verify that one agent can recall memories produced by another. Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), and the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) open while you work.
+This guide shows how to choose the right shared bank, how to configure multiple Hermes agents to reuse it, how to keep role boundaries without splitting the bank, and how to verify that one agent can recall memories produced by another. Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [quickstart guide](https://mindmods.org/docs/quickstart), and the [Retain API reference](https://mindmods.org/docs/api/retain) open while you work.
 
 <!-- truncate -->
 
@@ -33,7 +33,7 @@ Before you share memory between Hermes agents, make sure:
 - The agents really belong to the same project, customer workflow, or team process.
 - You know what durable context should be shared.
 
-If you still need the base provider setup, start with the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [docs home](https://entelechy.vectorize.io/docs), the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), and the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall).
+If you still need the base provider setup, start with the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [docs home](https://mindmods.org/docs), the [quickstart guide](https://mindmods.org/docs/quickstart), and the [Recall API reference](https://mindmods.org/docs/api/recall).
 
 ## Step by step
 
@@ -60,7 +60,7 @@ In the Hermes Entelechy config, set the shared bank explicitly:
 ```json
 {
   "provider": "entelechy",
-  "entelechy_api_url": "https://api.entelechy.vectorize.io",
+  "entelechy_api_url": "https://api.mindmods.org",
   "api_key": "YOUR_ENTELECHY_TOKEN",
   "bank_id": "team-product-alpha",
   "memory_mode": "hybrid",
@@ -77,7 +77,7 @@ Use the same backend and the same `bank_id` for the second agent too:
 ```json
 {
   "provider": "entelechy",
-  "entelechy_api_url": "https://api.entelechy.vectorize.io",
+  "entelechy_api_url": "https://api.mindmods.org",
   "api_key": "YOUR_ENTELECHY_TOKEN",
   "bank_id": "team-product-alpha",
   "memory_mode": "hybrid",
@@ -95,7 +95,7 @@ A common mistake is trying to preserve role differences by splitting the bank. T
 - use different prompts or skills per agent
 - use a focused retain mission so only durable workflow context gets stored
 
-This is the same mental model discussed in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) and [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy).
+This is the same mental model discussed in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) and [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy).
 
 ### 5. Test a real cross-agent handoff
 
@@ -158,8 +158,8 @@ For ongoing workflows, yes. Shared memory reduces repeated handoff context and l
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want one managed backend for all Hermes agents.
-- Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) open for full provider configuration details.
-- Use the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you still need a backend.
-- Read the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) to tune retrieval and storage.
-- Compare the collaboration model in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents).
+- Start with [Entelechy Cloud](https://mindmods.org) if you want one managed backend for all Hermes agents.
+- Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) open for full provider configuration details.
+- Use the [quickstart guide](https://mindmods.org/docs/quickstart) if you still need a backend.
+- Read the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) to tune retrieval and storage.
+- Compare the collaboration model in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents).

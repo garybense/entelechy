@@ -1636,7 +1636,7 @@ def wrap_openai(
     Args:
         client: The OpenAI client instance to wrap
         entelechy_api_url: URL of the Entelechy API server
-            (default: https://api.entelechy.vectorize.io)
+            (default: https://api.mindmods.org)
         api_key: API key for Entelechy authentication. If not provided,
             reads from ENTELECHY_API_KEY environment variable.
         mission: Instructions guiding what Entelechy should learn and remember
@@ -1736,7 +1736,7 @@ def wrap_anthropic(
     Args:
         client: The Anthropic client instance to wrap
         entelechy_api_url: URL of the Entelechy API server
-            (default: https://api.entelechy.vectorize.io)
+            (default: https://api.mindmods.org)
         api_key: API key for Entelechy authentication. If not provided,
             reads from ENTELECHY_API_KEY environment variable.
         mission: Instructions guiding what Entelechy should learn and remember

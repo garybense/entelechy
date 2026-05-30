@@ -22,7 +22,7 @@ const config: Config = {
     mermaid: true,
   },
 
-  url: 'https://entelechy.vectorize.io',
+  url: 'https://mindmods.org',
   baseUrl: '/',
 
   organizationName: 'garybense',
@@ -296,12 +296,12 @@ const config: Config = {
               customProps: { icon: 'si-slack' },
             },
             {
-              href: 'https://benchmarks.entelechy.vectorize.io/',
+              href: 'https://benchmarks.mindmods.org/',
               label: 'Benchmarks',
               customProps: { icon: 'lu-chart-bar' },
             },
             {
-              href: 'https://benchmarks.entelechy.vectorize.io/',
+              href: 'https://benchmarks.mindmods.org/',
               label: 'Which Model Should I Use?',
               customProps: { icon: 'lu-cpu' },
             },
@@ -318,7 +318,7 @@ const config: Config = {
           className: 'navbar-item-version',
         },
         {
-          href: 'https://ui.entelechy.vectorize.io/signup',
+          href: 'https://ui.mindmods.org/signup',
           position: 'right',
           label: 'Cloud',
           className: 'navbar-item-cloud',
@@ -372,7 +372,7 @@ const config: Config = {
             },
             {
               label: 'Entelechy Cloud',
-              href: 'https://ui.entelechy.vectorize.io/signup',
+              href: 'https://ui.mindmods.org/signup',
             },
           ],
         },

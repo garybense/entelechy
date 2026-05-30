@@ -27,7 +27,7 @@ except metadata.PackageNotFoundError:
 USER_AGENT = f"entelechy-litellm/{_VERSION}"
 
 # Default Entelechy API URL (production)
-DEFAULT_ENTELECHY_API_URL = "https://api.entelechy.vectorize.io"
+DEFAULT_ENTELECHY_API_URL = "https://api.mindmods.org"
 DEFAULT_BANK_ID = "default"
 ENTELECHY_API_KEY_ENV = "ENTELECHY_API_KEY"
 
@@ -256,7 +256,7 @@ def configure(
 
     Args:
         entelechy_api_url: URL of the Entelechy API server
-            (default: https://api.entelechy.vectorize.io)
+            (default: https://api.mindmods.org)
         api_key: API key for Entelechy authentication. If not provided,
             reads from ENTELECHY_API_KEY environment variable.
         excluded_models: List of model patterns to exclude from interception

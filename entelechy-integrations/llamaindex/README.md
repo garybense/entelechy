@@ -78,5 +78,5 @@ configure(
 
 ## Documentation
 
-- [Integration docs](https://docs.entelechy.vectorize.io/docs/sdks/integrations/llamaindex)
-- [Entelechy API docs](https://docs.entelechy.vectorize.io)
+- [Integration docs](https://docs.mindmods.org/docs/sdks/integrations/llamaindex)
+- [Entelechy API docs](https://docs.mindmods.org)

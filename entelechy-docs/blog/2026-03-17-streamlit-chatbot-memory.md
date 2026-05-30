@@ -15,7 +15,7 @@ Build a web chatbot with persistent memory using Streamlit and Entelechy. ~80 li
 
 ## TL;DR
 
-- Build a web chatbot with persistent memory using [Streamlit](https://streamlit.io/) and [Entelechy](https://ui.entelechy.vectorize.io/signup)
+- Build a web chatbot with persistent memory using [Streamlit](https://streamlit.io/) and [Entelechy](https://ui.mindmods.org/signup)
 - ~80 lines of Python. No frontend framework, no JavaScript, no build step.
 - Memory survives browser refreshes and server restarts
 - Sidebar shows what the agent remembers — recalled facts and synthesized reflections
@@ -63,7 +63,7 @@ st.sidebar → show recalled facts + reflect button
 Three layers:
 
 - **`st.session_state`** — per-tab, ephemeral conversation history (lost on browser close)
-- **[Entelechy](https://entelechy.vectorize.io)** — persistent memory across restarts (facts, entities, [knowledge graph](/blog/2026/03/12/spreading-activation-memory-graphs))
+- **[Entelechy](https://mindmods.org)** — persistent memory across restarts (facts, entities, [knowledge graph](/blog/2026/03/12/spreading-activation-memory-graphs))
 - **OpenAI** — generates responses with memory-augmented context
 
 ---
@@ -140,7 +140,7 @@ export ENTELECHY_API_LLM_API_KEY=YOUR_OPENAI_KEY
 entelechy-api
 ```
 
-> **Note:** You can also use [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) instead of self-hosting — just change the `base_url` to `https://api.entelechy.vectorize.io` and add your API key.
+> **Note:** You can also use [Entelechy Cloud](https://ui.mindmods.org/signup) instead of self-hosting — just change the `base_url` to `https://api.mindmods.org` and add your API key.
 
 Now wire Entelechy into the chat. The key pattern: use [`@st.cache_resource`](https://docs.streamlit.io/develop/api-reference/caching-and-state/st.cache_resource) to initialize the client once, not on every re-run.
 
@@ -410,7 +410,7 @@ Streamlit handles the UI. Entelechy handles the memory. OpenAI handles the gener
 - **Add a "Clear Memory" button** that calls `entelechy.delete_bank()` and recreates it
 - **Show the knowledge graph** — use `include_entities=True` on recall and render entity connections
 - **Deploy with Streamlit Community Cloud** — add `OPENAI_API_KEY` and `ENTELECHY_API_URL` as secrets
-- **Try [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup)** for deployment without self-hosting the memory server
+- **Try [Entelechy Cloud](https://ui.mindmods.org/signup)** for deployment without self-hosting the memory server
 - **Customize agent reasoning** — use [disposition traits](/blog/2026/03/13/disposition-aware-agents) to make your chatbot more empathetic, skeptical, or literal
 
 A chatbot with memory is useful. A chatbot with memory you can inspect is a development tool.

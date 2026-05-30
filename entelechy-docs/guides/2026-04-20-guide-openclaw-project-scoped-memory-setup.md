@@ -12,7 +12,7 @@ If you want **OpenClaw project-scoped memory**, the goal is simple: when the age
 
 This is different from per-user memory. Per-user memory answers “who is talking?” Project-scoped memory answers “which body of work should this conversation draw from?” If your OpenClaw setup supports several repos, products, or client environments, project scoping often matters more than user scoping.
 
-This guide shows when project-scoped memory is the right fit, how to create one bank per project, and how to verify that cross-project bleed is gone without losing continuity inside the project itself. Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), the [docs home](https://entelechy.vectorize.io/docs), the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), and the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) nearby while you configure it.
+This guide shows when project-scoped memory is the right fit, how to create one bank per project, and how to verify that cross-project bleed is gone without losing continuity inside the project itself. Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), the [docs home](https://mindmods.org/docs), the [quickstart guide](https://mindmods.org/docs/quickstart), and the [Retain API reference](https://mindmods.org/docs/api/retain) nearby while you configure it.
 
 <!-- truncate -->
 
@@ -32,7 +32,7 @@ Before you scope memory by project, make sure:
 - You can run separate OpenClaw agents or config variants per project.
 - You know which projects deserve isolated memory banks.
 
-Reference material: [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), [Recall API reference](https://entelechy.vectorize.io/docs/api/recall), and [docs home](https://entelechy.vectorize.io/docs).
+Reference material: [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), [quickstart guide](https://mindmods.org/docs/quickstart), [Recall API reference](https://mindmods.org/docs/api/recall), and [docs home](https://mindmods.org/docs).
 
 ## Step by step
 
@@ -158,8 +158,8 @@ Only if wrong recall across repos would hurt more than shared context would help
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want one managed backend for multiple project agents.
-- Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) open for the full plugin configuration surface.
-- Use the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you still need to stand up Entelechy.
-- Read the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) before tuning retrieval or storage.
-- Compare adjacent collaboration patterns in [OpenClaw shared memory](https://entelechy.vectorize.io/blog/openclaw-shared-memory) and [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents).
+- Start with [Entelechy Cloud](https://mindmods.org) if you want one managed backend for multiple project agents.
+- Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) open for the full plugin configuration surface.
+- Use the [quickstart guide](https://mindmods.org/docs/quickstart) if you still need to stand up Entelechy.
+- Read the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) before tuning retrieval or storage.
+- Compare adjacent collaboration patterns in [OpenClaw shared memory](https://mindmods.org/blog/openclaw-shared-memory) and [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents).

@@ -123,7 +123,7 @@ export async function runSetup(args: CliArgs): Promise<void> {
     log("    entelechy:");
     log("      name: entelechy");
     log("      endpoints:");
-    log("        - host: api.entelechy.vectorize.io");
+    log("        - host: api.mindmods.org");
     log("          port: 443");
     log("          protocol: rest");
     log("          tls: terminate");

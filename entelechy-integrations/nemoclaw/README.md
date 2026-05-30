@@ -1,6 +1,6 @@
 # entelechy-nemoclaw
 
-One-command setup for [Entelechy](https://entelechy.vectorize.io) persistent memory on [NemoClaw](https://nemoclaw.ai) sandboxes.
+One-command setup for [Entelechy](https://mindmods.org) persistent memory on [NemoClaw](https://nemoclaw.ai) sandboxes.
 
 NemoClaw runs [OpenClaw](https://openclaw.ai) inside an OpenShell sandbox with strict network egress policies. This package automates the full setup: installing the `entelechy-openclaw` plugin, configuring external API mode, merging the Entelechy egress rule into your sandbox policy, and restarting the gateway.
 
@@ -9,12 +9,12 @@ NemoClaw runs [OpenClaw](https://openclaw.ai) inside an OpenShell sandbox with s
 ```bash
 npx @garybense/entelechy-nemoclaw setup \
   --sandbox my-assistant \
-  --api-url https://api.entelechy.vectorize.io \
+  --api-url https://api.mindmods.org \
   --api-token <your-api-key> \
   --bank-prefix my-sandbox
 ```
 
-Get an API key at [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup).
+Get an API key at [Entelechy Cloud](https://ui.mindmods.org/signup).
 
 ## Documentation
 

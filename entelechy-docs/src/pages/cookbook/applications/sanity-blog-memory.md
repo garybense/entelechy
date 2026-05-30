@@ -361,7 +361,7 @@ This is normal for the first query as Entelechy builds embeddings. Subsequent qu
 
 ## Resources
 
-- [Entelechy Documentation](https://entelechy.vectorize.io/)
+- [Entelechy Documentation](https://mindmods.org/)
 - [Entelechy GitHub](https://github.com/garybense/entelechy)
 - [Sanity CMS Documentation](https://www.sanity.io/docs)
 - [Entelechy Cookbook](https://github.com/garybense/entelechy-cookbook)

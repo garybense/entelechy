@@ -13,7 +13,7 @@ Persistent memory for [Codex CLI](https://github.com/openai/codex) using [Entele
 ## Quick Start
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-codex | bash
+curl -fsSL https://mindmods.org/get-codex | bash
 ```
 
 The installer will guide you through choosing local or cloud mode and configuring your connection. Once installed, start a new Codex session — memory is live.
@@ -21,7 +21,7 @@ The installer will guide you through choosing local or cloud mode and configurin
 To uninstall:
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-codex | bash -s -- --uninstall
+curl -fsSL https://mindmods.org/get-codex | bash -s -- --uninstall
 ```
 
 ## Features
@@ -64,7 +64,7 @@ Connect to a running Entelechy server (cloud or self-hosted):
 
 ```json
 {
-  "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+  "entelechyApiUrl": "https://api.mindmods.org",
   "entelechyApiToken": "hsk_your_token"
 }
 ```

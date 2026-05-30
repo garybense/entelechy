@@ -14,7 +14,7 @@ If you want to **share one Entelechy memory across AI tools**, the core pattern 
 
 This pattern becomes valuable fast. You might think through a design in one tool, refine it in another, and implement it in a third. Without a shared bank, that context gets fragmented. With a shared bank, the work compounds.
 
-This guide explains when a shared-bank setup makes sense, how to wire it safely, when not to do it, and how to verify that the tools are truly sharing memory rather than just happening to answer similarly. Keep the [docs home](https://entelechy.vectorize.io/docs) and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) nearby while you work.
+This guide explains when a shared-bank setup makes sense, how to wire it safely, when not to do it, and how to verify that the tools are truly sharing memory rather than just happening to answer similarly. Keep the [docs home](https://mindmods.org/docs) and the [quickstart guide](https://mindmods.org/docs/quickstart) nearby while you work.
 
 <!-- truncate -->
 
@@ -37,7 +37,7 @@ A shared bank works well when:
 
 This is especially compelling for coding assistants, research assistants, or mixed desktop and chat workflows.
 
-If you want a team-oriented example, [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) is a useful related read.
+If you want a team-oriented example, [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) is a useful related read.
 
 ## When a shared bank is a bad idea
 
@@ -69,7 +69,7 @@ The exact config depends on the client, but the principle is the same.
 For a single-bank MCP endpoint, several clients can target the same path:
 
 ```text
-https://api.entelechy.vectorize.io/mcp/my-shared-bank/
+https://api.mindmods.org/mcp/my-shared-bank/
 ```
 
 For SDK integrations, the same idea appears as a shared `bankId` value.
@@ -86,7 +86,7 @@ Typical write patterns:
 - explicit tool calls such as retain and reflect
 - prompt-guided memory behavior for clients without lifecycle hooks
 
-If one tool writes much noisier memory than the others, you may want a narrower bank boundary or tags for filtering. For the underlying behavior, review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain) and [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall).
+If one tool writes much noisier memory than the others, you may want a narrower bank boundary or tags for filtering. For the underlying behavior, review [Entelechy's retain API](https://mindmods.org/docs/api/retain) and [Entelechy's recall API](https://mindmods.org/docs/api/recall).
 
 ## Step 4: Verify cross-tool recall
 
@@ -114,7 +114,7 @@ This is the easiest path when you want several clients to share the same bank wi
 
 This works too, but remote clients may require more plumbing depending on how they authenticate and whether they can reach the server directly.
 
-If you are self-hosting and want several remote tools to share one bank, the architecture described in [One Memory for Every AI Tool I Use](https://entelechy.vectorize.io/blog/one-memory-for-every-ai-tool) is a strong reference point.
+If you are self-hosting and want several remote tools to share one bank, the architecture described in [One Memory for Every AI Tool I Use](https://mindmods.org/blog/one-memory-for-every-ai-tool) is a strong reference point.
 
 ## Biggest risks in shared memory setups
 
@@ -154,9 +154,9 @@ Start with one user or one project, not your whole organization.
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want the easiest multi-tool setup
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Compare multi-client wiring in [One Memory for Every AI Tool I Use](https://entelechy.vectorize.io/blog/one-memory-for-every-ai-tool)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want the easiest multi-tool setup
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Compare multi-client wiring in [One Memory for Every AI Tool I Use](https://mindmods.org/blog/one-memory-for-every-ai-tool)

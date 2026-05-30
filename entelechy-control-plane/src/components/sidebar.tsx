@@ -13,11 +13,31 @@ import {
   ChevronLeft,
   ChevronRight,
   Settings,
+  LayoutDashboard, // New icon for MWPMC Overview
+  Beaker, // New icon for Feature Extraction
+  Atom, // New icon for Policy Synthesis
+  GitBranch, // New icon for Policy Control & Inertia
+  Save, // New icon for Outcome Writeback
+  BrainCircuit, // New icon for Mental Models
+  Eye, // New icon for Observations
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-type NavItem = "recall" | "reflect" | "data" | "documents" | "entities" | "profile";
+type NavItem =
+  | "mwpmc-overview"
+  | "feature-extraction"
+  | "policy-synthesis"
+  | "policy-control"
+  | "outcome-writeback"
+  | "memories"
+  | "recall"
+  | "reflect"
+  | "documents"
+  | "entities"
+  | "mental-models"
+  | "observations"
+  | "bank-config";
 
 interface SidebarProps {
   currentTab: NavItem;
@@ -34,12 +54,19 @@ export function Sidebar({ currentTab, onTabChange }: SidebarProps) {
   }
 
   const navItems = [
-    { id: "data" as NavItem, label: "Memories", icon: Database },
+    { id: "mwpmc-overview" as NavItem, label: "MWPMC Overview", icon: LayoutDashboard },
+    { id: "feature-extraction" as NavItem, label: "Feature Extraction (Stage A)", icon: Beaker },
+    { id: "policy-synthesis" as NavItem, label: "Policy Synthesis (Stage B)", icon: Atom },
+    { id: "policy-control" as NavItem, label: "Policy Control & Inertia", icon: GitBranch },
+    { id: "outcome-writeback" as NavItem, label: "Outcome Writeback", icon: Save },
+    { id: "memories" as NavItem, label: "Memories", icon: Database },
     { id: "recall" as NavItem, label: "Recall", icon: Search },
     { id: "reflect" as NavItem, label: "Reflect", icon: Sparkles },
     { id: "documents" as NavItem, label: "Documents", icon: FileText },
     { id: "entities" as NavItem, label: "Entities", icon: Users },
-    { id: "profile" as NavItem, label: "Bank Configuration", icon: Settings },
+    { id: "mental-models" as NavItem, label: "Mental Models", icon: BrainCircuit },
+    { id: "observations" as NavItem, label: "Observations", icon: Eye },
+    { id: "bank-config" as NavItem, label: "Bank Configuration", icon: Settings },
   ];
 
   return (

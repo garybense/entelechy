@@ -9,7 +9,7 @@ Provides:
 Usage:
     from entelechy_agentcore import EntelechyRuntimeAdapter, TurnContext, configure
 
-    configure(entelechy_api_url="https://api.entelechy.vectorize.io", api_key="hsk_...")
+    configure(entelechy_api_url="https://api.mindmods.org", api_key="hsk_...")
 
     adapter = EntelechyRuntimeAdapter(agent_name="support-agent")
 
@@ -127,7 +127,7 @@ class EntelechyRuntimeAdapter:
 
         self._agent_name = agent_name
         self._api_url = entelechy_api_url or (
-            config.entelechy_api_url if config else "https://api.entelechy.vectorize.io"
+            config.entelechy_api_url if config else "https://api.mindmods.org"
         )
         self._api_key = api_key or (config.api_key if config else None)
         self._bank_resolver = bank_resolver or default_bank_resolver

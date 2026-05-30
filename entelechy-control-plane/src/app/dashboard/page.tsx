@@ -13,7 +13,7 @@ export default function DashboardPage() {
   // Redirect to bank page if a bank is selected
   useEffect(() => {
     if (currentBank) {
-      router.push(bankRoute(currentBank, "?view=data"));
+      router.push(bankRoute(currentBank, "?view=mwpmc-overview"));
     }
   }, [currentBank, router]);
 

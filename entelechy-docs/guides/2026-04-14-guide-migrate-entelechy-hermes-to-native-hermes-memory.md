@@ -14,7 +14,7 @@ If you need to **migrate `entelechy-hermes` to native Hermes memory**, the good 
 
 That last part matters. Many teams are nervous about migration because they assume it means rebuilding memory from scratch, re-teaching the agent, or manually exporting and importing data. Usually, none of that is required. If your old setup already stored memories in Entelechy, your bank already exists. The native provider can keep using it as long as you preserve the same backend and `bank_id`.
 
-This guide walks through the safe path, including how to back up your current config, uninstall the deprecated plugin cleanly, switch to Hermes's native Entelechy provider, verify recall and tools, and fix the most common migration mistakes. If you want the broader setup reference while you work, keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) and the [Entelechy docs home](https://entelechy.vectorize.io/docs) open in another tab.
+This guide walks through the safe path, including how to back up your current config, uninstall the deprecated plugin cleanly, switch to Hermes's native Entelechy provider, verify recall and tools, and fix the most common migration mistakes. If you want the broader setup reference while you work, keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) and the [Entelechy docs home](https://mindmods.org/docs) open in another tab.
 
 <!-- truncate -->
 
@@ -49,7 +49,7 @@ $HOME/.hermes/hermes-agent/venv/bin/python -m pip show entelechy-hermes
 
 If that command prints package metadata, you are almost certainly on the older plugin path.
 
-It is also worth skimming the newer [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [quickstart](https://entelechy.vectorize.io/docs/quickstart), and the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) before you begin. They are useful if you need to double-check how retention and recall behave after the cutover.
+It is also worth skimming the newer [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [quickstart](https://mindmods.org/docs/quickstart), and the [Retain API reference](https://mindmods.org/docs/api/retain) before you begin. They are useful if you need to double-check how retention and recall behave after the cutover.
 
 ## Step by step
 
@@ -138,7 +138,7 @@ If you prefer to configure it manually, set the provider and write the same cred
 ```bash
 hermes config set memory.provider entelechy
 printf '%s\n' 'ENTELECHY_API_KEY=your-key' >> ~/.hermes/.env
-printf '%s\n' 'ENTELECHY_API_URL=https://api.entelechy.vectorize.io' >> ~/.hermes/.env
+printf '%s\n' 'ENTELECHY_API_URL=https://api.mindmods.org' >> ~/.hermes/.env
 ```
 
 Then verify the native config exists:
@@ -160,7 +160,7 @@ A minimal native cloud config looks like this:
 ```json
 {
   "mode": "cloud",
-  "api_url": "https://api.entelechy.vectorize.io",
+  "api_url": "https://api.mindmods.org",
   "api_key": "hsk_your_token",
   "bank_id": "hermes"
 }
@@ -177,7 +177,7 @@ A minimal native local config looks like this:
 }
 ```
 
-If you want a deeper mental model of what the provider is doing during retention and recall, the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) are worth reading.
+If you want a deeper mental model of what the provider is doing during retention and recall, the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) are worth reading.
 
 ### 4. Decide whether to disable Hermes's built-in memory tool
 
@@ -350,13 +350,13 @@ For most users, `hybrid` is the safest default. You get automatic recall plus ex
 
 ### Where should I go if I want a more complete setup reference?
 
-Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [docs home](https://entelechy.vectorize.io/docs), and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) nearby. If you want to compare how other agent integrations handle shared memory, the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) and [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) are useful reference points.
+Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [docs home](https://mindmods.org/docs), and the [quickstart guide](https://mindmods.org/docs/quickstart) nearby. If you want to compare how other agent integrations handle shared memory, the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) and [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) are useful reference points.
 
 ## Next Steps
 
-- [Create a Entelechy Cloud account](https://entelechy.vectorize.io) if you want the fastest migration path with a managed backend.
-- Read the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) for the full configuration surface.
-- Read the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you want a smaller end-to-end Entelechy refresher.
-- Use the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) when you need to reason about what auto-recall is actually returning.
-- Use the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) if you want to tune what gets stored in your bank.
-- Compare adjacent workflows like the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) to see how other agent frameworks approach automatic memory injection.
+- [Create a Entelechy Cloud account](https://mindmods.org) if you want the fastest migration path with a managed backend.
+- Read the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) for the full configuration surface.
+- Read the [quickstart guide](https://mindmods.org/docs/quickstart) if you want a smaller end-to-end Entelechy refresher.
+- Use the [Recall API reference](https://mindmods.org/docs/api/recall) when you need to reason about what auto-recall is actually returning.
+- Use the [Retain API reference](https://mindmods.org/docs/api/retain) if you want to tune what gets stored in your bank.
+- Compare adjacent workflows like the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) to see how other agent frameworks approach automatic memory injection.

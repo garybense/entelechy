@@ -14,7 +14,7 @@ If you are choosing between **single-bank vs multi-bank Entelechy**, the real qu
 
 Both modes are valid. Both are built into Entelechy. The right choice depends on how much flexibility you need, how strict your isolation model is, and whether your clients should ever decide which bank to use at runtime.
 
-This comparison breaks down the tradeoffs, shows when each pattern fits best, and gives you a practical rule of thumb for choosing the safer default. Keep the [docs home](https://entelechy.vectorize.io/docs) and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open if you want the implementation details while you read.
+This comparison breaks down the tradeoffs, shows when each pattern fits best, and gives you a practical rule of thumb for choosing the safer default. Keep the [docs home](https://mindmods.org/docs) and the [quickstart guide](https://mindmods.org/docs/quickstart) open if you want the implementation details while you read.
 
 <!-- truncate -->
 
@@ -106,7 +106,7 @@ With single-bank mode, mistakes usually look like “I pointed this client at th
 
 With multi-bank mode, mistakes can look like “the client stored memory in the wrong bank at runtime.” That is usually a more dangerous class of error.
 
-For recall behavior itself, the underlying search system is the same. If you want to understand that layer more deeply, review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall) and [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain).
+For recall behavior itself, the underlying search system is the same. If you want to understand that layer more deeply, review [Entelechy's recall API](https://mindmods.org/docs/api/recall) and [Entelechy's retain API](https://mindmods.org/docs/api/retain).
 
 ## Common examples
 
@@ -165,9 +165,9 @@ Often multi-bank mode, because gateways frequently sit in front of several workf
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want the easiest managed deployment
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Compare shared workflows in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want the easiest managed deployment
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Compare shared workflows in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents)

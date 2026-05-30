@@ -14,7 +14,7 @@ If you want **Entelechy Skills for persistent memory**, the goal is to install a
 
 This is especially useful for coding assistants because they keep running into the same categories of context: project conventions, user preferences, bug workarounds, architecture decisions, and commands that worked last time. Entelechy Skills turn those into durable memory rather than ephemeral chat history.
 
-This guide covers the installer flow, local vs cloud mode, what the skill actually provides, and how to verify that it is storing the right kinds of information. Keep the [docs home](https://entelechy.vectorize.io/docs) and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open while you work.
+This guide covers the installer flow, local vs cloud mode, what the skill actually provides, and how to verify that it is storing the right kinds of information. Keep the [docs home](https://mindmods.org/docs) and the [quickstart guide](https://mindmods.org/docs/quickstart) open while you work.
 
 <!-- truncate -->
 
@@ -54,33 +54,33 @@ Cloud mode is best when:
 - several developers should benefit from the same memory bank
 - you want memory available across more than one machine
 
-If you want the easiest managed path, use [Entelechy Cloud](https://entelechy.vectorize.io).
+If you want the easiest managed path, use [Entelechy Cloud](https://mindmods.org).
 
 ## Step 1: Install the skill
 
 The recommended installer is:
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash
+curl -fsSL https://mindmods.org/get-skill | bash
 ```
 
 You can also target a specific platform.
 
 ```bash
 # Claude Code
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --app claude
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --app claude
 
 # OpenCode
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --app opencode
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --app opencode
 
 # Codex CLI
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --app codex
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --app codex
 ```
 
 If you already know you want cloud mode:
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --app claude --mode cloud
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --app claude --mode cloud
 ```
 
 ## Step 2: Choose what kind of memory you want
@@ -93,7 +93,7 @@ The skill can help store three especially valuable categories:
 
 That makes the skill more useful than a static `AGENTS.md`-style context file. A static file captures what someone remembered to write down. A memory skill can capture what actually happened.
 
-For the retrieval behavior beneath the skill, review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall). For storage behavior, review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain).
+For the retrieval behavior beneath the skill, review [Entelechy's recall API](https://mindmods.org/docs/api/recall). For storage behavior, review [Entelechy's retain API](https://mindmods.org/docs/api/retain).
 
 ## Step 3: Configure local or cloud mode
 
@@ -203,9 +203,9 @@ Yes. Skills and integration packages can complement each other depending on the 
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want team-shared memory
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Compare coding workflows in [Adding Memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want team-shared memory
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Compare coding workflows in [Adding Memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy)

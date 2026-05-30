@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![Share Entelechy Memory Across ChatGPT and Perplexity](/img/guides/guide-share-entelechy-memory-across-chatgpt-and-perplexity.png)
 
-If you want to **share Entelechy memory across ChatGPT and Perplexity**, the key decision is not the connector itself. It is the bank boundary. Both tools can talk to Entelechy already, but they only feel like one workflow when they write to and read from the same memory bank on purpose. Use [the ChatGPT guide](https://entelechy.vectorize.io/sdks/integrations/chatgpt), [the Perplexity guide](https://entelechy.vectorize.io/sdks/integrations/perplexity), [the MCP server docs](https://entelechy.vectorize.io/sdks/developer/mcp-server), and [the quickstart guide](https://entelechy.vectorize.io/sdks/developer/quickstart) as the technical references while you set up the shared path.
+If you want to **share Entelechy memory across ChatGPT and Perplexity**, the key decision is not the connector itself. It is the bank boundary. Both tools can talk to Entelechy already, but they only feel like one workflow when they write to and read from the same memory bank on purpose. Use [the ChatGPT guide](https://mindmods.org/sdks/integrations/chatgpt), [the Perplexity guide](https://mindmods.org/sdks/integrations/perplexity), [the MCP server docs](https://mindmods.org/sdks/developer/mcp-server), and [the quickstart guide](https://mindmods.org/sdks/developer/quickstart) as the technical references while you set up the shared path.
 
 <!-- truncate -->
 
@@ -27,7 +27,7 @@ A shared memory setup is only useful if the bank boundary matches the work. Pick
 For example, if both tools are helping with the same launch, use one bank such as:
 
 ```text
-https://api.entelechy.vectorize.io/mcp/product-launch/
+https://api.mindmods.org/mcp/product-launch/
 ```
 
 That keeps the context specific. If you pour unrelated work into the same shared bank, cross tool recall becomes noisy and the whole setup starts feeling less trustworthy.
@@ -39,7 +39,7 @@ After both tools are individually working, update each connector so the URL reso
 For example, both tools can target:
 
 ```text
-https://api.entelechy.vectorize.io/mcp/product-launch/
+https://api.mindmods.org/mcp/product-launch/
 ```
 
 Then keep the custom instructions aligned. Ask both tools to retain durable findings, decisions, and constraints, not every casual aside. If ChatGPT stores architecture choices while Perplexity stores source backed research, the shared bank becomes much more valuable than either tool alone.
@@ -64,7 +64,7 @@ A shared bank does not mean a sloppy bank. A few guardrails make a big differenc
 - review noisy memories periodically in Entelechy Cloud
 - split the work again if research and personal preference data should not mix
 
-If you need deeper control, the next layer is [the retain API](https://entelechy.vectorize.io/sdks/api/retain), [the recall API](https://entelechy.vectorize.io/sdks/api/recall), and bank level configuration from [the docs home](https://entelechy.vectorize.io). Shared memory is most useful when it stays scoped.
+If you need deeper control, the next layer is [the retain API](https://mindmods.org/sdks/api/retain), [the recall API](https://mindmods.org/sdks/api/recall), and bank level configuration from [the docs home](https://mindmods.org). Shared memory is most useful when it stays scoped.
 
 ## Where ChatGPT and Perplexity each help most
 
@@ -88,8 +88,8 @@ Perplexity should usually retain research findings and sources. ChatGPT should u
 
 ## Next Steps
 
-- [Entelechy Cloud](https://entelechy.vectorize.io)
-- [the ChatGPT integration guide](https://entelechy.vectorize.io/sdks/integrations/chatgpt)
-- [the Perplexity integration guide](https://entelechy.vectorize.io/sdks/integrations/perplexity)
-- [the MCP server docs](https://entelechy.vectorize.io/sdks/developer/mcp-server)
-- [the quickstart guide](https://entelechy.vectorize.io/sdks/developer/quickstart)
+- [Entelechy Cloud](https://mindmods.org)
+- [the ChatGPT integration guide](https://mindmods.org/sdks/integrations/chatgpt)
+- [the Perplexity integration guide](https://mindmods.org/sdks/integrations/perplexity)
+- [the MCP server docs](https://mindmods.org/sdks/developer/mcp-server)
+- [the quickstart guide](https://mindmods.org/sdks/developer/quickstart)

@@ -12,7 +12,7 @@ If you want to **move Hermes memory from local files to Entelechy Cloud**, the m
 
 The important part is not copying every local artifact byte for byte. It is preserving the durable facts you actually care about, then pointing Hermes at the managed Entelechy backend so future retention and recall happen there. In practice, that means backing up your current Hermes memory files, switching the provider config to Cloud, and validating recall with a few known facts before you fully trust the new path.
 
-This guide shows a safe migration path, how to configure Hermes for Entelechy Cloud, and how to test that your assistant still remembers what matters after the switch. Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain), and the [docs home](https://entelechy.vectorize.io/docs) open while you work.
+This guide shows a safe migration path, how to configure Hermes for Entelechy Cloud, and how to test that your assistant still remembers what matters after the switch. Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [quickstart guide](https://mindmods.org/docs/quickstart), the [Retain API reference](https://mindmods.org/docs/api/retain), and the [docs home](https://mindmods.org/docs) open while you work.
 
 <!-- truncate -->
 
@@ -32,7 +32,7 @@ Before you migrate, make sure:
 - Hermes already works locally, so you know what behavior you are trying to preserve.
 - You can edit `~/.hermes/entelechy/config.json`.
 
-Reference material: [Entelechy Cloud](https://entelechy.vectorize.io), [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain).
+Reference material: [Entelechy Cloud](https://mindmods.org), [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), [quickstart guide](https://mindmods.org/docs/quickstart), and [Retain API reference](https://mindmods.org/docs/api/retain).
 
 ## Step by step
 
@@ -72,7 +72,7 @@ path.parent.mkdir(parents=True, exist_ok=True)
 
 cfg = {
     'provider': 'entelechy',
-    'entelechy_api_url': 'https://api.entelechy.vectorize.io',
+    'entelechy_api_url': 'https://api.mindmods.org',
     'api_key': 'YOUR_ENTELECHY_TOKEN',
     'bank_id': 'hermes-primary',
     'memory_mode': 'hybrid',
@@ -158,8 +158,8 @@ Not automatically. Cloud is better when you want durability, sharing, or simpler
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you have not created the backend yet.
-- Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) open for the native provider configuration surface.
-- Use the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you want the self-hosted path instead of Cloud.
-- Read the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) and [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) if you want to seed or tune the new bank more deliberately.
-- Compare adjacent migration ideas in [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) and [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents).
+- Start with [Entelechy Cloud](https://mindmods.org) if you have not created the backend yet.
+- Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) open for the native provider configuration surface.
+- Use the [quickstart guide](https://mindmods.org/docs/quickstart) if you want the self-hosted path instead of Cloud.
+- Read the [Retain API reference](https://mindmods.org/docs/api/retain) and [Recall API reference](https://mindmods.org/docs/api/recall) if you want to seed or tune the new bank more deliberately.
+- Compare adjacent migration ideas in [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) and [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents).

@@ -3,7 +3,7 @@ import { mergePluginConfig } from "./openclaw-config.js";
 import type { OpenClawConfig, EntelechyPluginConfig } from "./openclaw-config.js";
 
 const PLUGIN_CONFIG: EntelechyPluginConfig = {
-  entelechyApiUrl: "https://api.entelechy.vectorize.io",
+  entelechyApiUrl: "https://api.mindmods.org",
   entelechyApiToken: "hsk_test123",
   llmProvider: "claude-code",
   dynamicBankId: false,
@@ -38,7 +38,7 @@ describe("mergePluginConfig", () => {
   it("writes the full plugin config", () => {
     const result = mergePluginConfig(BASE_CONFIG, PLUGIN_CONFIG);
     const config = result.plugins?.entries?.["entelechy-openclaw"]?.config;
-    expect(config?.entelechyApiUrl).toBe("https://api.entelechy.vectorize.io");
+    expect(config?.entelechyApiUrl).toBe("https://api.mindmods.org");
     expect(config?.entelechyApiToken).toBe("hsk_test123");
     expect(config?.llmProvider).toBe("claude-code");
     expect(config?.dynamicBankId).toBe(false);
@@ -73,7 +73,7 @@ describe("mergePluginConfig", () => {
     const result = mergePluginConfig(configWithExisting, PLUGIN_CONFIG);
     const config = result.plugins?.entries?.["entelechy-openclaw"]?.config;
     // New fields written
-    expect(config?.entelechyApiUrl).toBe("https://api.entelechy.vectorize.io");
+    expect(config?.entelechyApiUrl).toBe("https://api.mindmods.org");
     // Existing custom field preserved
     expect(config?.embedPackagePath).toBe("/some/local/path");
   });

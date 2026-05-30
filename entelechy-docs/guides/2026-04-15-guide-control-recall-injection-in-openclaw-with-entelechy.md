@@ -14,7 +14,7 @@ If you need to **control recall injection in OpenClaw**, the main setting to lea
 
 Most people never change the default. That is fine until they hit a real prompt-design problem: a large static system prompt that should stay cache-friendly, a workflow where recalled facts need to sit closer to the user message, or a model behavior issue where memories feel too dominant or not visible enough. At that point, knowing where recall is injected becomes part of prompt engineering, not just plugin setup.
 
-This guide shows what each injection mode does, how to switch it safely, which related recall settings matter, how to verify the result, and which mistakes to avoid. Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), the [docs home](https://entelechy.vectorize.io/docs), and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open if you want the full reference while you work.
+This guide shows what each injection mode does, how to switch it safely, which related recall settings matter, how to verify the result, and which mistakes to avoid. Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), the [docs home](https://mindmods.org/docs), and the [quickstart guide](https://mindmods.org/docs/quickstart) open if you want the full reference while you work.
 
 <!-- truncate -->
 
@@ -53,7 +53,7 @@ PY
 
 If `autoRecall` is off, changing injection position will do nothing. That sounds obvious, but it is a common source of confusion.
 
-It is also worth skimming the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) before you change anything. They make it much easier to reason about whether a missing memory is a retrieval problem or just a placement choice.
+It is also worth skimming the [Recall API reference](https://mindmods.org/docs/api/recall) and the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) before you change anything. They make it much easier to reason about whether a missing memory is a retrieval problem or just a placement choice.
 
 ## Step by step
 
@@ -182,7 +182,7 @@ print(f'Updated {path}')
 PY
 ```
 
-If recall feels weak, the issue may be recall volume or relevance, not injection position. That is why the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) matters so much here.
+If recall feels weak, the issue may be recall volume or relevance, not injection position. That is why the [Recall API reference](https://mindmods.org/docs/api/recall) matters so much here.
 
 ### 6. Restart OpenClaw and test the behavior, not just the setting
 
@@ -278,7 +278,7 @@ Try `append`, lower `recallMaxTokens`, or reduce `recallContextTurns`. Sometimes
 
 ### Problem: memory seems too weak
 
-Try `prepend`, raise `recallBudget`, or increase `recallMaxTokens`. The [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) is also worth checking in case the right facts were never stored cleanly.
+Try `prepend`, raise `recallBudget`, or increase `recallMaxTokens`. The [Retain API reference](https://mindmods.org/docs/api/retain) is also worth checking in case the right facts were never stored cleanly.
 
 ## FAQ
 
@@ -300,13 +300,13 @@ No. It changes where the recalled memories are injected, not the retrieval algor
 
 ### What else matters besides `recallInjectionPosition`?
 
-Usually `autoRecall`, `recallBudget`, `recallMaxTokens`, and `recallContextTurns`. The [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), [Recall API reference](https://entelechy.vectorize.io/docs/api/recall), and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) are the right places to go deeper.
+Usually `autoRecall`, `recallBudget`, `recallMaxTokens`, and `recallContextTurns`. The [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), [Recall API reference](https://mindmods.org/docs/api/recall), and [Retain API reference](https://mindmods.org/docs/api/retain) are the right places to go deeper.
 
 ## Next Steps
 
-- [Create a Entelechy Cloud account](https://entelechy.vectorize.io) if you want the fastest path to testing recall behavior across more than one machine or environment.
-- Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) open for the full plugin reference.
-- Keep the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) nearby if you want a clean baseline configuration to compare against.
-- Use the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) to reason about what gets retrieved before placement even matters.
-- Use the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) if you suspect the wrong facts are getting stored.
-- Compare related memory workflows like [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) and the [team shared memory post](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) if you want ideas for how prompt and memory layout interact in other agents.
+- [Create a Entelechy Cloud account](https://mindmods.org) if you want the fastest path to testing recall behavior across more than one machine or environment.
+- Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) open for the full plugin reference.
+- Keep the [quickstart guide](https://mindmods.org/docs/quickstart) nearby if you want a clean baseline configuration to compare against.
+- Use the [Recall API reference](https://mindmods.org/docs/api/recall) to reason about what gets retrieved before placement even matters.
+- Use the [Retain API reference](https://mindmods.org/docs/api/retain) if you suspect the wrong facts are getting stored.
+- Compare related memory workflows like [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) and the [team shared memory post](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) if you want ideas for how prompt and memory layout interact in other agents.

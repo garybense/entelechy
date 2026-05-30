@@ -40,7 +40,7 @@ export OPENAI_API_KEY=sk-xxx
 docker run --rm -it --pull always -p 8888:8888 -p 9999:9999 \
   -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY \
   -v $HOME/.entelechy-docker:/home/entelechy/.pg0 \
-  ghcr.io/vectorize-io/entelechy:latest
+  ghcr.io/garybense/entelechy:latest
 ```
 
 - **API**: http://localhost:8888
@@ -71,7 +71,7 @@ pip install entelechy-client
 <TabItem value="node" label="Node.js">
 
 ```bash
-npm install @vectorize-io/entelechy-client
+npm install @garybense/entelechy-client
 ```
 
 <CodeSnippet code={quickstartMjs} section="quickstart-full" language="javascript" />
@@ -80,7 +80,7 @@ npm install @vectorize-io/entelechy-client
 <TabItem value="cli" label="CLI">
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-cli | bash
+curl -fsSL https://mindmods.org/get-cli | bash
 ```
 
 <CodeSnippet code={quickstartSh} section="quickstart-full" language="bash" />

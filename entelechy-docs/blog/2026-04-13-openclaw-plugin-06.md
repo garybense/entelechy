@@ -37,7 +37,7 @@ npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 
 The wizard walks through three modes:
 
-- **Cloud (recommended)**: connects to managed Entelechy at `https://api.entelechy.vectorize.io`. Prompts for your [Cloud API token](https://ui.entelechy.vectorize.io/signup). No local setup required.
+- **Cloud (recommended)**: connects to managed Entelechy at `https://api.mindmods.org`. Prompts for your [Cloud API token](https://ui.mindmods.org/signup). No local setup required.
 - **External API**: connects to a self-hosted Entelechy server. Prompts for URL and optional token.
 - **Embedded daemon**: spawns a local `entelechy-embed` daemon on the machine. Prompts for LLM provider and API key.
 
@@ -146,7 +146,7 @@ You can now point the plugin at a self-hosted Entelechy API server instead of ru
 
 The plugin performs a health check against the remote API on startup. If the check fails, the gateway will log a warning but still start. Retain operations that occur while the API is unreachable are queued locally (see [JSONL Retain Queue](#reliability-jsonl-retain-queue) below).
 
-[Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) works as an external API endpoint. Use your Cloud URL and token, or run the wizard with `--mode cloud`.
+[Entelechy Cloud](https://ui.mindmods.org/signup) works as an external API endpoint. Use your Cloud URL and token, or run the wizard with `--mode cloud`.
 
 ---
 
@@ -274,6 +274,6 @@ The wizard will detect your existing setup and write the equivalent configuratio
 
 ## Get Started
 
-- [Sign up for Entelechy Cloud](https://ui.entelechy.vectorize.io/signup), the fastest path to working memory, no local infrastructure required.
+- [Sign up for Entelechy Cloud](https://ui.mindmods.org/signup), the fastest path to working memory, no local infrastructure required.
 - [OpenClaw integration docs](/sdks/integrations/openclaw), full configuration reference.
 - [OpenClaw plugin changelog](/changelog/integrations/openclaw), complete list of changes since 0.5.0.

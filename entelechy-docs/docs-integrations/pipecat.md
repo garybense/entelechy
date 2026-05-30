@@ -41,12 +41,12 @@ pipeline = Pipeline([
 ])
 ```
 
-Or with [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup):
+Or with [Entelechy Cloud](https://ui.mindmods.org/signup):
 
 ```python
 memory = EntelechyMemoryService(
     bank_id="user-123",
-    entelechy_api_url="https://api.entelechy.vectorize.io",
+    entelechy_api_url="https://api.mindmods.org",
     api_key="hsk_your_token_here",
 )
 ```
@@ -125,4 +125,4 @@ export ENTELECHY_API_LLM_API_KEY=your-api-key
 entelechy-api  # starts on http://localhost:8888
 ```
 
-**Entelechy Cloud:** [Sign up](https://ui.entelechy.vectorize.io/signup) — no self-hosting required.
+**Entelechy Cloud:** [Sign up](https://ui.mindmods.org/signup) — no self-hosting required.

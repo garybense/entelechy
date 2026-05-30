@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![What's New in Entelechy Cloud: Multi-Org Support and Credit Transfers](/img/blog/entelechy-cloud-multi-org.png)
 
-Two new features are live in [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup): multiple organizations per account and credit transfers between organizations you own.
+Two new features are live in [Entelechy Cloud](https://ui.mindmods.org/signup): multiple organizations per account and credit transfers between organizations you own.
 
 <!-- truncate -->
 
@@ -43,8 +43,8 @@ Key details:
 
 To transfer credits, go to **Billing** in the source organization and select **Transfer Credits**.
 
-[Learn more about credit transfers →](https://docs.entelechy.vectorize.io/whats-new/)
+[Learn more about credit transfers →](https://docs.mindmods.org/whats-new/)
 
 ## Get Started
 
-Both features are available now in all [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) accounts. Create a new organization from the org switcher, or head to your Billing page to transfer credits between existing organizations.
+Both features are available now in all [Entelechy Cloud](https://ui.mindmods.org/signup) accounts. Create a new organization from the org switcher, or head to your Billing page to transfer credits between existing organizations.

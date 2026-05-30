@@ -19,7 +19,7 @@ The good news is that you do not need a custom plugin or a second memory service
 
 This guide shows how to set that up safely, when to use `[
   "user"
-]` instead, how to test the result, and how to avoid the most common memory-isolation mistakes. If you want the full plugin reference while you work, keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), the [docs home](https://entelechy.vectorize.io/docs), and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) nearby.
+]` instead, how to test the result, and how to avoid the most common memory-isolation mistakes. If you want the full plugin reference while you work, keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), the [docs home](https://mindmods.org/docs), and the [quickstart guide](https://mindmods.org/docs/quickstart) nearby.
 
 <!-- truncate -->
 
@@ -65,7 +65,7 @@ It also helps to know the difference between these three patterns before you beg
 - **Per-user across channels**: same user shares memory across channels, usually within the same provider.
 - **Single shared bank**: everyone writes to the same bank, which is powerful for some team agents, but risky for normal one-to-one conversations.
 
-If you want the mental model behind recall and retention, the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall), the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain), and the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) are the best references to skim first.
+If you want the mental model behind recall and retention, the [Recall API reference](https://mindmods.org/docs/api/recall), the [Retain API reference](https://mindmods.org/docs/api/retain), and the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) are the best references to skim first.
 
 ## Step by step
 
@@ -198,7 +198,7 @@ PY
 
 This matters because a per-user bank accumulates context from multiple conversations. Without a mission, the memory engine stores more raw conversational detail than most assistants need. With a mission, the bank becomes a reusable profile of the user and their ongoing work.
 
-If you want examples of how shared memory behaves in other agents, [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) and the [team shared memory post](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) are useful comparison reads.
+If you want examples of how shared memory behaves in other agents, [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) and the [team shared memory post](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) are useful comparison reads.
 
 ### 5. Restart the gateway
 
@@ -322,17 +322,17 @@ No. A global shared bank is usually `dynamicBankId: false` with one static `bank
 
 ### Will this work for team agents?
 
-Yes, but team setups may want a different pattern. If you need multiple OpenClaw instances to share memory, the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) and the existing shared-memory post are the better reference points.
+Yes, but team setups may want a different pattern. If you need multiple OpenClaw instances to share memory, the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) and the existing shared-memory post are the better reference points.
 
 ### What else should I tune after bank granularity?
 
-Usually `retainMission`, `recallBudget`, and `recallContextTurns`. The [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) help you reason about those choices.
+Usually `retainMission`, `recallBudget`, and `recallContextTurns`. The [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) help you reason about those choices.
 
 ## Next Steps
 
-- [Create a Entelechy Cloud account](https://entelechy.vectorize.io) if you want the fastest path to shared per-user memory across multiple channels or machines.
-- Read the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) for the full plugin configuration reference.
-- Keep the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) handy if you want a clean setup baseline.
-- Use the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) to understand what gets injected before a reply.
-- Use the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) to control what becomes durable cross-channel user memory.
-- Compare related patterns like [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) and the [team shared memory post](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) if you want broader design ideas.
+- [Create a Entelechy Cloud account](https://mindmods.org) if you want the fastest path to shared per-user memory across multiple channels or machines.
+- Read the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) for the full plugin configuration reference.
+- Keep the [quickstart guide](https://mindmods.org/docs/quickstart) handy if you want a clean setup baseline.
+- Use the [Recall API reference](https://mindmods.org/docs/api/recall) to understand what gets injected before a reply.
+- Use the [Retain API reference](https://mindmods.org/docs/api/retain) to control what becomes durable cross-channel user memory.
+- Compare related patterns like [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) and the [team shared memory post](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) if you want broader design ideas.

@@ -1,12 +1,12 @@
 # Using entelechy-openclaw with NemoClaw
 
-This guide covers running the `entelechy-openclaw` plugin inside a [NemoClaw](https://nemoclaw.ai) sandbox. NemoClaw runs OpenClaw inside an OpenShell sandbox, so the plugin's outbound calls to `api.entelechy.vectorize.io` must be explicitly allowed in the sandbox's network egress policy.
+This guide covers running the `entelechy-openclaw` plugin inside a [NemoClaw](https://nemoclaw.ai) sandbox. NemoClaw runs OpenClaw inside an OpenShell sandbox, so the plugin's outbound calls to `api.mindmods.org` must be explicitly allowed in the sandbox's network egress policy.
 
 ## Prerequisites
 
 - NemoClaw installed and a sandbox created (`nemoclaw onboard`)
 - OpenClaw installed (`brew install openclaw` or equivalent)
-- A Entelechy API key from [ui.entelechy.vectorize.io](https://ui.entelechy.vectorize.io)
+- A Entelechy API key from [ui.mindmods.org](https://ui.mindmods.org)
 - The plugin source built (`npm run build` in this directory)
 
 ## Step 1: Create a Entelechy memory bank
@@ -14,7 +14,7 @@ This guide covers running the `entelechy-openclaw` plugin inside a [NemoClaw](ht
 Create the bank the plugin will write to. The bank ID follows the pattern `{bankIdPrefix}-openclaw` when `dynamicBankId` is false:
 
 ```bash
-curl -X PUT "https://api.entelechy.vectorize.io/v1/default/banks/my-sandbox-openclaw" \
+curl -X PUT "https://api.mindmods.org/v1/default/banks/my-sandbox-openclaw" \
   -H "Authorization: Bearer <your-entelechy-api-key>" \
   -H "Content-Type: application/json" \
   -d '{"mission": "Memory bank for my NemoClaw sandbox."}'
@@ -49,7 +49,7 @@ Add the plugin config to `~/.openclaw/openclaw.json` under `plugins.entries.ente
       "entelechy-openclaw": {
         "enabled": true,
         "config": {
-          "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+          "entelechyApiUrl": "https://api.mindmods.org",
           "entelechyApiToken": "<your-entelechy-api-key>",
           "llmProvider": "claude-code",
           "dynamicBankId": false,
@@ -74,7 +74,7 @@ Add the plugin config to `~/.openclaw/openclaw.json` under `plugins.entries.ente
 
 ## Step 4: Add the Entelechy network policy to the sandbox
 
-The sandbox blocks all outbound traffic by default. You need to add `api.entelechy.vectorize.io` to the egress policy.
+The sandbox blocks all outbound traffic by default. You need to add `api.mindmods.org` to the egress policy.
 
 Get the current full policy by running `openshell sandbox get <name>` and save it to a YAML file, then add the `entelechy` block under `network_policies`:
 
@@ -84,7 +84,7 @@ network_policies:
   entelechy:
     name: entelechy
     endpoints:
-      - host: api.entelechy.vectorize.io
+      - host: api.mindmods.org
         port: 443
         protocol: rest
         tls: terminate
@@ -129,7 +129,7 @@ Watch the logs to confirm the plugin loaded and the API is reachable:
 ```bash
 # Should see:
 # [Entelechy] Plugin loaded successfully
-# [Entelechy] ✓ Using external API: https://api.entelechy.vectorize.io
+# [Entelechy] ✓ Using external API: https://api.mindmods.org
 # [Entelechy] External API health: {"status":"healthy","database":"connected"}
 # [Entelechy] Default bank: my-sandbox-openclaw
 # [Entelechy] ✓ Ready (external API mode)
@@ -163,7 +163,7 @@ openclaw agent --agent main --session-id test-2 \
 You can also verify directly against the API:
 
 ```bash
-curl -s -X POST "https://api.entelechy.vectorize.io/v1/default/banks/my-sandbox-openclaw/memories/recall" \
+curl -s -X POST "https://api.mindmods.org/v1/default/banks/my-sandbox-openclaw/memories/recall" \
   -H "Authorization: Bearer <your-entelechy-api-key>" \
   -H "Content-Type: application/json" \
   -d '{"query": "what do you know about the user", "max_tokens": 512}'

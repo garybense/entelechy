@@ -14,7 +14,7 @@ If you are looking into **Hermes agent holographic memory**, the first thing to 
 
 That makes it interesting for a different reason than Entelechy. Holographic is appealing when you want a compact, local, algebraic memory layer with minimal dependencies. Entelechy is appealing when you want structured fact extraction, multi-strategy retrieval, and shared memory that can scale across sessions, tools, or teams. They are solving adjacent problems from very different design philosophies.
 
-This article explains what Hermes holographic memory is trying to do, how its architecture differs from Entelechy, where each approach is likely to be strong, and when developers should choose one over the other. If you want the broader memory context while you read, keep the [docs home](https://entelechy.vectorize.io/docs), [the quickstart guide](https://entelechy.vectorize.io/docs/quickstart), [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall), and [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain) nearby.
+This article explains what Hermes holographic memory is trying to do, how its architecture differs from Entelechy, where each approach is likely to be strong, and when developers should choose one over the other. If you want the broader memory context while you read, keep the [docs home](https://mindmods.org/docs), [the quickstart guide](https://mindmods.org/docs/quickstart), [Entelechy's recall API](https://mindmods.org/docs/api/recall), and [Entelechy's retain API](https://mindmods.org/docs/api/retain) nearby.
 
 <!-- truncate -->
 
@@ -85,7 +85,7 @@ In other words, Entelechy is built to answer questions like:
 - what happened around this entity or project?
 - what should several agents share?
 
-That is the model described in [the recall architecture guide](https://entelechy.vectorize.io/docs/developer/retrieval) and [the Hermes integration docs](https://entelechy.vectorize.io/docs/integrations/hermes).
+That is the model described in [the recall architecture guide](https://mindmods.org/docs/developer/retrieval) and [the Hermes integration docs](https://mindmods.org/docs/integrations/hermes).
 
 ## Side-by-side architecture comparison
 
@@ -164,7 +164,7 @@ memory:
   provider: entelechy
 ```
 
-For cloud-backed shared memory, you would also provide your Entelechy endpoint and credentials according to [the Hermes integration guide](https://entelechy.vectorize.io/docs/integrations/hermes).
+For cloud-backed shared memory, you would also provide your Entelechy endpoint and credentials according to [the Hermes integration guide](https://mindmods.org/docs/integrations/hermes).
 
 ## Performance characteristics
 
@@ -182,7 +182,7 @@ That is a strong profile for local responsiveness.
 
 ### Entelechy performance
 
-Entelechy's performance story is different. It is not trying to be the lightest local memory provider possible. It is trying to retrieve accurately under harder memory workloads, including large-scale benchmarks like [BEAM](https://entelechy.vectorize.io/blog/2026/04/02/beam-sota).
+Entelechy's performance story is different. It is not trying to be the lightest local memory provider possible. It is trying to retrieve accurately under harder memory workloads, including large-scale benchmarks like [BEAM](https://mindmods.org/blog/2026/04/02/beam-sota).
 
 So the tradeoff is not “which one is faster?” in a vacuum. It is “which one is optimized for the workload I actually have?”
 
@@ -219,9 +219,9 @@ But if your priority is richer agent memory, shared context, and retrieval that 
 
 ## Next steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want shared memory beyond one local Hermes setup
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- See the native Hermes path in [the Hermes integration docs](https://entelechy.vectorize.io/docs/integrations/hermes)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want shared memory beyond one local Hermes setup
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- See the native Hermes path in [the Hermes integration docs](https://mindmods.org/docs/integrations/hermes)

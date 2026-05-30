@@ -12,7 +12,7 @@ If you want **OpenClaw shared memory across agents**, the real question is not w
 
 That default is useful when each agent should keep a separate brain. It is the wrong layout when you deliberately want a support bot, an operations bot, and a personal assistant to share the same user context. In that case, the fix is simple: remove `agent` from the bank key, keep the user dimension, and make sure every agent points at the same Entelechy backend.
 
-This guide shows how to configure that shared setup, how to decide between `["provider", "user"]` and `["user"]`, how to keep shared memory clean with a focused retain mission, and how to test that one agent can actually reuse what another agent learned. Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), the [docs home](https://entelechy.vectorize.io/docs), and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open while you work.
+This guide shows how to configure that shared setup, how to decide between `["provider", "user"]` and `["user"]`, how to keep shared memory clean with a focused retain mission, and how to test that one agent can actually reuse what another agent learned. Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), the [docs home](https://mindmods.org/docs), and the [quickstart guide](https://mindmods.org/docs/quickstart) open while you work.
 
 <!-- truncate -->
 
@@ -41,7 +41,7 @@ npx --package @garybense/entelechy-openclaw entelechy-openclaw-setup
 openclaw gateway status
 ```
 
-It is also worth skimming the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall), the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain), and the [OpenClaw shared memory post](https://entelechy.vectorize.io/blog/openclaw-shared-memory). Those three references make the tradeoffs much clearer.
+It is also worth skimming the [Recall API reference](https://mindmods.org/docs/api/recall), the [Retain API reference](https://mindmods.org/docs/api/retain), and the [OpenClaw shared memory post](https://mindmods.org/blog/openclaw-shared-memory). Those three references make the tradeoffs much clearer.
 
 ## Step by step
 
@@ -129,7 +129,7 @@ print(f'Updated {path}')
 PY
 ```
 
-If you want the mental model behind this setup, the [team shared memory post](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) and [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) are useful comparisons.
+If you want the mental model behind this setup, the [team shared memory post](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) and [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) are useful comparisons.
 
 ### 5. Restart every agent and run a handoff test
 
@@ -202,8 +202,8 @@ Yes. This guide builds on the same idea. The earlier per-user guide focuses on c
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want one shared backend for every agent.
-- Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) open for the full plugin reference.
-- Review the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you still need to stand up Entelechy.
-- Use the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) when you tune retrieval and storage.
-- Compare the broader pattern in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents).
+- Start with [Entelechy Cloud](https://mindmods.org) if you want one shared backend for every agent.
+- Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) open for the full plugin reference.
+- Review the [quickstart guide](https://mindmods.org/docs/quickstart) if you still need to stand up Entelechy.
+- Use the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) when you tune retrieval and storage.
+- Compare the broader pattern in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents).

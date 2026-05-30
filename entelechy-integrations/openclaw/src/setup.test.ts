@@ -133,7 +133,7 @@ describe("runNonInteractive", () => {
     expect(result.summary).toContain("Cloud");
     const cfg = await readBack();
     const pc = cfg.plugins?.entries?.[PLUGIN_ID]?.config ?? {};
-    expect(pc.entelechyApiUrl).toBe("https://api.entelechy.vectorize.io");
+    expect(pc.entelechyApiUrl).toBe("https://api.mindmods.org");
     expect(pc.entelechyApiToken).toEqual({
       source: "env",
       provider: "default",
@@ -163,7 +163,7 @@ describe("runNonInteractive", () => {
     await runNonInteractive(args, configPath);
     const cfg = await readBack();
     const pc = cfg.plugins?.entries?.[PLUGIN_ID]?.config ?? {};
-    expect(pc.entelechyApiUrl).toBe("https://api.entelechy.vectorize.io");
+    expect(pc.entelechyApiUrl).toBe("https://api.mindmods.org");
     expect(pc.entelechyApiToken).toBe("hsk_direct_value");
   });
 
@@ -332,6 +332,6 @@ describe("runNonInteractive", () => {
     const pc = cfg.plugins?.entries?.[PLUGIN_ID]?.config ?? {};
     expect(pc.llmProvider).toBeUndefined();
     expect(pc.llmApiKey).toBeUndefined();
-    expect(pc.entelechyApiUrl).toBe("https://api.entelechy.vectorize.io");
+    expect(pc.entelechyApiUrl).toBe("https://api.mindmods.org");
   });
 });

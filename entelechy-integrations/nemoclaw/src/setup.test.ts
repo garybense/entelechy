@@ -23,7 +23,7 @@ vi.mock("fs/promises", () => ({
 
 const BASE_ARGS: CliArgs = {
   sandbox: "my-assistant",
-  apiUrl: "https://api.entelechy.vectorize.io",
+  apiUrl: "https://api.mindmods.org",
   apiToken: "hsk_test123",
   bankPrefix: "my-sandbox",
   skipPolicy: false,

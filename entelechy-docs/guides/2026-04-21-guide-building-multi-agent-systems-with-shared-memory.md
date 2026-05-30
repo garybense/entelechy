@@ -14,7 +14,7 @@ hide_table_of_contents: true
 
 That is why most multi-agent systems either over-share or under-share. In one direction, everything lands in one noisy pool and recall gets messy. In the other, each agent has its own silo and nothing compounds. The right answer is a deliberate shared agent context model, one built around bank boundaries, retention discipline, and retrieval that can handle cross-session work.
 
-This guide walks through the patterns that hold up in practice, including per-team memory, per-user isolation, project-scoped banks, and hybrid layouts where some knowledge is shared and some stays local. If you want the underlying mechanics while you read, keep the [docs home](https://entelechy.vectorize.io/docs), [the quickstart guide](https://entelechy.vectorize.io/docs/quickstart), [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain), and [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall) nearby.
+This guide walks through the patterns that hold up in practice, including per-team memory, per-user isolation, project-scoped banks, and hybrid layouts where some knowledge is shared and some stays local. If you want the underlying mechanics while you read, keep the [docs home](https://mindmods.org/docs), [the quickstart guide](https://mindmods.org/docs/quickstart), [Entelechy's retain API](https://mindmods.org/docs/api/retain), and [Entelechy's recall API](https://mindmods.org/docs/api/recall) nearby.
 
 <!-- truncate -->
 
@@ -45,7 +45,7 @@ Examples:
 
 In all of these cases, the value comes from compounding knowledge across sessions and roles.
 
-The shared-memory pattern is described from a user perspective in [One Memory for Every AI Tool I Use](https://entelechy.vectorize.io/blog/one-memory-for-every-ai-tool). This guide focuses on the architecture behind it.
+The shared-memory pattern is described from a user perspective in [One Memory for Every AI Tool I Use](https://mindmods.org/blog/one-memory-for-every-ai-tool). This guide focuses on the architecture behind it.
 
 ## The first design decision: what is the bank boundary?
 
@@ -180,7 +180,7 @@ One agent might search semantically. Another might ask for an exact term. Anothe
 - temporal retrieval
 - reranking over the merged result set
 
-That retrieval model is explained in [the recall architecture guide](https://entelechy.vectorize.io/docs/developer/retrieval).
+That retrieval model is explained in [the recall architecture guide](https://mindmods.org/docs/developer/retrieval).
 
 ## Real-world examples
 
@@ -249,9 +249,9 @@ It means the right agents can build on one another's work without polluting cont
 
 ## Next steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want shared memory without running your own infrastructure
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- See the user-facing pattern in [One Memory for Every AI Tool I Use](https://entelechy.vectorize.io/blog/one-memory-for-every-ai-tool)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want shared memory without running your own infrastructure
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- See the user-facing pattern in [One Memory for Every AI Tool I Use](https://mindmods.org/blog/one-memory-for-every-ai-tool)

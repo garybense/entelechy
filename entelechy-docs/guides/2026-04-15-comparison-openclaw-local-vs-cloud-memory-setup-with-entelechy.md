@@ -14,7 +14,7 @@ If you are deciding between **OpenClaw local vs cloud memory setup with Entelech
 
 This decision matters because it changes more than deployment. It affects startup behavior, reliability patterns, privacy boundaries, and whether one OpenClaw instance can share memory with another. A solo user on one laptop may prefer local mode because it is simple and keeps everything on device. A team running multiple OpenClaw gateways will usually prefer cloud mode because shared memory becomes straightforward.
 
-This comparison walks through what each mode does, how the setup differs, when local mode wins, when cloud mode wins, and how to switch later if your needs change. Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), the [docs home](https://entelechy.vectorize.io/docs), and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open if you want the full reference while you compare.
+This comparison walks through what each mode does, how the setup differs, when local mode wins, when cloud mode wins, and how to switch later if your needs change. Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), the [docs home](https://mindmods.org/docs), and the [quickstart guide](https://mindmods.org/docs/quickstart) open if you want the full reference while you compare.
 
 <!-- truncate -->
 
@@ -49,7 +49,7 @@ This is a strong fit when the machine running OpenClaw is also the machine that 
 
 ### Cloud mode
 
-In cloud mode, OpenClaw talks to a managed Entelechy endpoint at `https://api.entelechy.vectorize.io` using an API token. The local gateway no longer needs to host the memory service itself.
+In cloud mode, OpenClaw talks to a managed Entelechy endpoint at `https://api.mindmods.org` using an API token. The local gateway no longer needs to host the memory service itself.
 
 A typical cloud setup command looks like this:
 
@@ -150,7 +150,7 @@ A direct cloud configuration looks like this:
       "entelechy-openclaw": {
         "enabled": true,
         "config": {
-          "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+          "entelechyApiUrl": "https://api.mindmods.org",
           "entelechyApiToken": {
             "$ref": {
               "source": "env",
@@ -165,7 +165,7 @@ A direct cloud configuration looks like this:
 }
 ```
 
-If you want a more locked-down production setup, use a `SecretRef` from env, file, or exec rather than writing secrets inline. The [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) cover those patterns in more detail.
+If you want a more locked-down production setup, use a `SecretRef` from env, file, or exec rather than writing secrets inline. The [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) cover those patterns in more detail.
 
 ## How setup and operations feel different
 
@@ -185,7 +185,7 @@ In cloud mode, the critical credential is the Entelechy cloud token. You can sti
 
 This is where cloud mode usually wins decisively. If you want multiple OpenClaw instances to learn into the same bank, cloud mode is much simpler to reason about. The existing shared-memory OpenClaw pattern depends on a common external endpoint. That is why cloud mode pairs naturally with multi-instance memory.
 
-If that is your main goal, also read the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), the [team shared memory post](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents), and [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy). They make the multi-agent and multi-tool story clearer.
+If that is your main goal, also read the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), the [team shared memory post](https://mindmods.org/blog/team-shared-memory-ai-coding-agents), and [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy). They make the multi-agent and multi-tool story clearer.
 
 ## When local is better than cloud
 
@@ -239,9 +239,9 @@ The important thing in either direction is not to treat the switch like a purely
 
 ## Next steps
 
-- [Create a Entelechy Cloud account](https://entelechy.vectorize.io) if you want the fastest path to shared OpenClaw memory across instances.
-- Read the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) for the full plugin setup and config reference.
-- Keep the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) handy if you want a smaller end-to-end Entelechy refresher.
-- Use the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) to understand what each mode retrieves before it reaches OpenClaw.
-- Use the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) if you want to reason about what actually becomes memory.
-- Compare adjacent workflows like [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) and the [team shared memory post](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) if you are designing a broader multi-tool memory setup.
+- [Create a Entelechy Cloud account](https://mindmods.org) if you want the fastest path to shared OpenClaw memory across instances.
+- Read the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) for the full plugin setup and config reference.
+- Keep the [quickstart guide](https://mindmods.org/docs/quickstart) handy if you want a smaller end-to-end Entelechy refresher.
+- Use the [Recall API reference](https://mindmods.org/docs/api/recall) to understand what each mode retrieves before it reaches OpenClaw.
+- Use the [Retain API reference](https://mindmods.org/docs/api/retain) if you want to reason about what actually becomes memory.
+- Compare adjacent workflows like [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) and the [team shared memory post](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) if you are designing a broader multi-tool memory setup.

@@ -6,7 +6,7 @@ Provides `FunctionTool` instances that give [OpenAI Agents SDK](https://github.c
 
 ## Prerequisites
 
-- A running Entelechy instance ([self-hosted via Docker](https://github.com/garybense/entelechy#quick-start) or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup))
+- A running Entelechy instance ([self-hosted via Docker](https://github.com/garybense/entelechy#quick-start) or [Entelechy Cloud](https://ui.mindmods.org/signup))
 - Python 3.10+
 
 ## Installation
@@ -220,5 +220,5 @@ shared_tools = create_entelechy_tools(
 
 ## Documentation
 
-- [Integration docs](https://docs.entelechy.vectorize.io/docs/sdks/integrations/openai-agents)
-- [Entelechy API docs](https://docs.entelechy.vectorize.io)
+- [Integration docs](https://docs.mindmods.org/docs/sdks/integrations/openai-agents)
+- [Entelechy API docs](https://docs.mindmods.org)

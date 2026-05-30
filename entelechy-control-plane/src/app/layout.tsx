@@ -4,6 +4,7 @@ import { BankProvider } from "@/lib/bank-context";
 import { FeaturesProvider } from "@/lib/features-context";
 import { ThemeProvider } from "@/lib/theme-context";
 import { Toaster } from "@/components/ui/sonner";
+import { ClerkProvider } from '@clerk/nextjs'
 
 export const metadata: Metadata = {
   title: "Entelechy Control Plane",
@@ -19,15 +20,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="bg-background text-foreground">
-        <ThemeProvider>
-          <FeaturesProvider>
-            <BankProvider>{children}</BankProvider>
-          </FeaturesProvider>
-        </ThemeProvider>
-        <Toaster />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className="bg-background text-foreground">
+          <ThemeProvider>
+            <FeaturesProvider>
+              <BankProvider>{children}</BankProvider>
+            </FeaturesProvider>
+          </ThemeProvider>
+          <Toaster />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

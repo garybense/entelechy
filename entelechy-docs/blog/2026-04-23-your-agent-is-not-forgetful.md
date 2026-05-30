@@ -113,7 +113,7 @@ That requires synthesis. The system should be able to reason over accumulated me
 
 One bank for everything is not always the right answer.
 
-Some setups need one bank per project. Others need shared memory for a whole team. Others need strict per-user isolation. If memory is not scoped carefully, it either becomes noisy or crosses boundaries it should not cross. The [memory banks reference](https://entelechy.vectorize.io/developer/api/memory-banks) documents common scoping patterns for different architectures.
+Some setups need one bank per project. Others need shared memory for a whole team. Others need strict per-user isolation. If memory is not scoped carefully, it either becomes noisy or crosses boundaries it should not cross. The [memory banks reference](https://mindmods.org/developer/api/memory-banks) documents common scoping patterns for different architectures.
 
 That is the difference between a demo and a system you can rely on.
 
@@ -205,7 +205,7 @@ Without this loop, agents stay static. With it, agents improve measurably over t
 
 ## How Entelechy Fits
 
-[Entelechy](https://entelechy.vectorize.io) is a learning layer for agents, built around the core insight that memory should enable improvement, not just storage.
+[Entelechy](https://mindmods.org) is a learning layer for agents, built around the core insight that memory should enable improvement, not just storage.
 
 Instead of treating memory as a giant transcript store, Entelechy focuses on the mechanisms that make learning possible:
 
@@ -215,7 +215,7 @@ Instead of treating memory as a giant transcript store, Entelechy focuses on the
 - **Reflect** — agents and skills can query mental models to synthesize better responses
 - **Scope** learning across users, projects, teams, or channels so each context learns independently
 
-Entelechy integrates with your existing agent framework—LangGraph, CrewAI, Pydantic AI, Claude Code, and many others. See the [integration guides](https://entelechy.vectorize.io/sdks/integrations) to add agent memory to your stack.
+Entelechy integrates with your existing agent framework—LangGraph, CrewAI, Pydantic AI, Claude Code, and many others. See the [integration guides](https://mindmods.org/sdks/integrations) to add agent memory to your stack.
 
 That can sit behind one agent, or many.
 
@@ -225,7 +225,7 @@ A support assistant carries customer context forward. Patterns from interactions
 
 A multi-agent setup uses a shared learning bank so one instance benefits from what another already discovered, compressing the learning curve across the whole team.
 
-You can run it with [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) if you want the fastest path, or self-host it if data needs to stay in your own environment.
+You can run it with [Entelechy Cloud](https://ui.mindmods.org/signup) if you want the fastest path, or self-host it if data needs to stay in your own environment.
 
 ---
 
@@ -233,7 +233,7 @@ You can run it with [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) 
 
 Memory is not free, and it is not always necessary.
 
-If your workflow is mostly one-off prompts with no continuity, a memory layer may be unnecessary overhead. If the data is highly sensitive, you should think carefully about where memory is stored and whether self-hosting is the right choice. The [Entelechy quickstart](https://entelechy.vectorize.io/developer/api/quickstart) walks through self-hosted deployment options for teams with privacy requirements.
+If your workflow is mostly one-off prompts with no continuity, a memory layer may be unnecessary overhead. If the data is highly sensitive, you should think carefully about where memory is stored and whether self-hosting is the right choice. The [Entelechy quickstart](https://mindmods.org/developer/api/quickstart) walks through self-hosted deployment options for teams with privacy requirements.
 
 There are also alternatives, each with limits:
 
@@ -262,8 +262,8 @@ If you want an agent to improve with repeated use, it needs a learning system. O
 
 ## Next Steps
 
-- [Sign up for Entelechy Cloud](https://ui.entelechy.vectorize.io/signup), the fastest way to add agent memory with no infrastructure
-- Read the [quickstart](https://entelechy.vectorize.io/developer/api/quickstart) if you want to self-host
-- Explore the [memory banks reference](https://entelechy.vectorize.io/developer/api/memory-banks) for scoping patterns
-- Browse the [integration guides](https://entelechy.vectorize.io/sdks/integrations) to add memory to your existing agents
+- [Sign up for Entelechy Cloud](https://ui.mindmods.org/signup), the fastest way to add agent memory with no infrastructure
+- Read the [quickstart](https://mindmods.org/developer/api/quickstart) if you want to self-host
+- Explore the [memory banks reference](https://mindmods.org/developer/api/memory-banks) for scoping patterns
+- Browse the [integration guides](https://mindmods.org/sdks/integrations) to add memory to your existing agents
 - If you are deciding between retrieval and memory, start with both; use retrieval for reference material and memory for accumulated interaction history

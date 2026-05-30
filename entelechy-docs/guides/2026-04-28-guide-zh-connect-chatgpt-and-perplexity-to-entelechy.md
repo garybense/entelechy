@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![将 ChatGPT 和 Perplexity 连接到 Entelechy 内存](/img/guides/guide-connect-chatgpt-and-perplexity-to-entelechy.png)
 
-如果您想**将 ChatGPT 和 Perplexity 连接到 Entelechy**，这两个工具的连接路径现在已清晰记录。新的官方集成指南展示了相同的核心模式：添加远程 MCP 连接器、在浏览器中完成 OAuth、然后给模型明确的指令来保留和回忆有用的上下文。在设置时，请保持打开[ChatGPT 集成指南](https://entelechy.vectorize.io/sdks/integrations/chatgpt)、[Perplexity 集成指南](https://entelechy.vectorize.io/sdks/integrations/perplexity)、[MCP 服务器文档](https://entelechy.vectorize.io/sdks/developer/mcp-server)和[文档首页](https://entelechy.vectorize.io)。
+如果您想**将 ChatGPT 和 Perplexity 连接到 Entelechy**，这两个工具的连接路径现在已清晰记录。新的官方集成指南展示了相同的核心模式：添加远程 MCP 连接器、在浏览器中完成 OAuth、然后给模型明确的指令来保留和回忆有用的上下文。在设置时，请保持打开[ChatGPT 集成指南](https://mindmods.org/sdks/integrations/chatgpt)、[Perplexity 集成指南](https://mindmods.org/sdks/integrations/perplexity)、[MCP 服务器文档](https://mindmods.org/sdks/developer/mcp-server)和[文档首页](https://mindmods.org)。
 
 <!-- truncate -->
 
@@ -22,7 +22,7 @@ hide_table_of_contents: true
 
 ## 文档中的变化
 
-最大的改进不是新的传输方式，而是清晰度。Entelechy 现在为 [ChatGPT](https://entelechy.vectorize.io/sdks/integrations/chatgpt) 和 [Perplexity](https://entelechy.vectorize.io/sdks/integrations/perplexity) 提供专门的设置页面，其中包含实际的 MCP URL、OAuth 流程和示例自定义指令。
+最大的改进不是新的传输方式，而是清晰度。Entelechy 现在为 [ChatGPT](https://mindmods.org/sdks/integrations/chatgpt) 和 [Perplexity](https://mindmods.org/sdks/integrations/perplexity) 提供专门的设置页面，其中包含实际的 MCP URL、OAuth 流程和示例自定义指令。
 
 这很重要，因为如果连接器存在但模型从不调用它，这些集成就只完成了一半。新文档明确说明：首先连接连接器，然后教模型何时保留以及何时回忆。
 
@@ -31,7 +31,7 @@ hide_table_of_contents: true
 在 ChatGPT 中，转到**设置**，然后转到**应用和连接器**，然后创建一个指向以下地址的连接器：
 
 ```text
-https://api.entelechy.vectorize.io/mcp/default/
+https://api.mindmods.org/mcp/default/
 ```
 
 创建后，浏览器应该打开 Entelechy OAuth 批准流程。完成该步骤，然后添加自定义指令，告诉 ChatGPT 在每个响应后保留重要事实、决定和约束，并在回答前回忆相关的记忆。
@@ -53,7 +53,7 @@ Perplexity 在将当前网络搜索与您在早期研究会话中已经学到的
 1. **ChatGPT 和 Perplexity 的独立库**，这更简单并减少意外混合。
 2. **共享库**，当两个工具在同一项目上工作并应该建立在相同的研究、决定和约束之上时。
 
-如果您不确定，请从独立开始。一旦有具体原因，再转到共享设置。共享模式在 [MCP 服务器文档](https://entelechy.vectorize.io/sdks/developer/mcp-server) 和 [Perplexity 指南](https://entelechy.vectorize.io/sdks/integrations/perplexity)的后续工作流中有更直接的描述。
+如果您不确定，请从独立开始。一旦有具体原因，再转到共享设置。共享模式在 [MCP 服务器文档](https://mindmods.org/sdks/developer/mcp-server) 和 [Perplexity 指南](https://mindmods.org/sdks/integrations/perplexity)的后续工作流中有更直接的描述。
 
 ## 排除第一次连接的故障
 
@@ -82,8 +82,8 @@ Perplexity 在将当前网络搜索与您在早期研究会话中已经学到的
 
 ## 后续步骤
 
-- [Entelechy Cloud](https://entelechy.vectorize.io)
-- [ChatGPT 集成指南](https://entelechy.vectorize.io/sdks/integrations/chatgpt)
-- [Perplexity 集成指南](https://entelechy.vectorize.io/sdks/integrations/perplexity)
-- [MCP 服务器文档](https://entelechy.vectorize.io/sdks/developer/mcp-server)
-- [文档首页](https://entelechy.vectorize.io)
+- [Entelechy Cloud](https://mindmods.org)
+- [ChatGPT 集成指南](https://mindmods.org/sdks/integrations/chatgpt)
+- [Perplexity 集成指南](https://mindmods.org/sdks/integrations/perplexity)
+- [MCP 服务器文档](https://mindmods.org/sdks/developer/mcp-server)
+- [文档首页](https://mindmods.org)

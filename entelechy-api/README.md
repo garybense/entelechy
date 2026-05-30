@@ -125,12 +125,12 @@ This runs a stdio-based MCP server that can be used directly with MCP-compatible
 
 ## Documentation
 
-Full documentation: [https://entelechy.vectorize.io](https://entelechy.vectorize.io)
+Full documentation: [https://mindmods.org](https://mindmods.org)
 
-- [Installation Guide](https://entelechy.vectorize.io/developer/installation)
-- [Configuration Reference](https://entelechy.vectorize.io/developer/configuration)
-- [API Reference](https://entelechy.vectorize.io/api-reference)
-- [Python SDK](https://entelechy.vectorize.io/sdks/python)
+- [Installation Guide](https://mindmods.org/developer/installation)
+- [Configuration Reference](https://mindmods.org/developer/configuration)
+- [API Reference](https://mindmods.org/api-reference)
+- [Python SDK](https://mindmods.org/sdks/python)
 
 ## License
 

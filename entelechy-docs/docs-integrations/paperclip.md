@@ -6,7 +6,7 @@ description: "Add long-term memory to all Paperclip agents with Entelechy. Insta
 
 # Paperclip
 
-Persistent memory for [Paperclip AI](https://github.com/paperclipai/paperclip) agents using [Entelechy](https://entelechy.vectorize.io).
+Persistent memory for [Paperclip AI](https://github.com/paperclipai/paperclip) agents using [Entelechy](https://mindmods.org).
 
 Install the `@garybense/entelechy-paperclip` plugin once. Every agent in your Paperclip instance automatically gets long-term memory that persists across runs, companies, and restarts — no code changes required.
 
@@ -29,7 +29,7 @@ export ENTELECHY_API_LLM_API_KEY=your-openai-key
 entelechy-api
 ```
 
-Or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) — no self-hosting required.
+Or [Entelechy Cloud](https://ui.mindmods.org/signup) — no self-hosting required.
 
 ## How It Works
 

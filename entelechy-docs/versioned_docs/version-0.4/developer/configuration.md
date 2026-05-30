@@ -762,12 +762,12 @@ Local file-to-markdown conversion using [Microsoft's markitdown](https://github.
 
 #### Parser: iris
 
-Cloud-based extraction via [Vectorize Iris](https://docs.vectorize.io/build-deploy/extract-information/understanding-iris/). Higher quality extraction for complex documents, powered by a remote AI service.
+Cloud-based extraction via [Entelechy Iris](https://mindmods.org). Higher quality extraction for complex documents, powered by a remote AI service.
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `ENTELECHY_API_FILE_PARSER_IRIS_TOKEN` | Vectorize API token | — |
-| `ENTELECHY_API_FILE_PARSER_IRIS_ORG_ID` | Vectorize organization ID | — |
+| `ENTELECHY_API_FILE_PARSER_IRIS_TOKEN` | Entelechy API token | — |
+| `ENTELECHY_API_FILE_PARSER_IRIS_ORG_ID` | Entelechy organization ID | — |
 
 **Supported formats:** PDF, DOCX, DOC, PPTX, PPT, XLSX, XLS, images (JPG, JPEG, PNG, GIF, BMP, TIFF, WEBP), HTML, TXT, MD, CSV.
 

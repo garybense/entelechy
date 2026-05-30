@@ -21,7 +21,7 @@ ChatGPT's built-in memory helps with preferences, but knowledge from specific co
 
 ### 1. Create a Entelechy Cloud Account
 
-[Sign up free](https://ui.entelechy.vectorize.io/signup) for Entelechy Cloud.
+[Sign up free](https://ui.mindmods.org/signup) for Entelechy Cloud.
 
 ### 2. Add Entelechy as a Connector in ChatGPT
 
@@ -30,9 +30,9 @@ ChatGPT's built-in memory helps with preferences, but knowledge from specific co
 3. Click **Create connector**
 4. Fill in:
    - **Name:** `Entelechy` (or your preferred name)
-   - **URL:** `https://api.entelechy.vectorize.io/mcp/default/`
+   - **URL:** `https://api.mindmods.org/mcp/default/`
 5. Click **Create** — a browser window opens for Entelechy Cloud login
-6. Sign in to [Entelechy Cloud](https://ui.entelechy.vectorize.io) and approve access
+6. Sign in to [Entelechy Cloud](https://ui.mindmods.org) and approve access
 7. Return to ChatGPT; the connector is now active
 
 To use in a chat: click **+** in the message composer → **More** → select **Entelechy**
@@ -109,7 +109,7 @@ Later, when you ask ChatGPT *"How should we structure our database?"*, Entelechy
 
 Each connector accesses one memory bank. Simpler for most users.
 
-- **URL:** `https://api.entelechy.vectorize.io/mcp/YOUR_BANK_ID/`
+- **URL:** `https://api.mindmods.org/mcp/YOUR_BANK_ID/`
 - **Setup:** Just enter the URL in the Connector settings
 - **Best for:** Dedicated memory per tool (e.g., ChatGPT uses a `writing` bank)
 
@@ -117,7 +117,7 @@ Each connector accesses one memory bank. Simpler for most users.
 
 Both tools access multiple banks via bank_id parameter.
 
-- **URL:** `https://api.entelechy.vectorize.io/mcp`
+- **URL:** `https://api.mindmods.org/mcp`
 - **Setup:** Requires additional configuration in Entelechy Cloud
 - **Best for:** When ChatGPT and Perplexity collaborate on the same project
 

@@ -22,7 +22,7 @@ CLI_INSTALL_DIRS = [
     Path.home() / ".local" / "bin",  # Standard location from get-cli installer
     Path.home() / ".entelechy" / "bin",  # Alternative location
 ]
-CLI_INSTALLER_URL = "https://entelechy.vectorize.io/get-cli"
+CLI_INSTALLER_URL = "https://mindmods.org/get-cli"
 
 
 def get_daemon_port(profile: str | None = None) -> int:

@@ -1,6 +1,6 @@
 # entelechy-agentcore
 
-Persistent memory for [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html) agents using [Entelechy](https://entelechy.vectorize.io).
+Persistent memory for [Amazon Bedrock AgentCore Runtime](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/runtime-sessions.html) agents using [Entelechy](https://mindmods.org).
 
 AgentCore Runtime sessions are explicitly ephemeral — they terminate on inactivity and reprovision fresh environments. This package adds durable cross-session memory so agents remember users, decisions, and learned patterns across any number of Runtime sessions.
 
@@ -39,7 +39,7 @@ import os
 from entelechy_agentcore import EntelechyRuntimeAdapter, TurnContext, configure
 
 configure(
-    entelechy_api_url="https://api.entelechy.vectorize.io",
+    entelechy_api_url="https://api.mindmods.org",
     api_key=os.environ["ENTELECHY_API_KEY"],
 )
 
@@ -198,7 +198,7 @@ adapter = EntelechyRuntimeAdapter(bank_resolver=my_resolver)
 
 ## Deployment
 
-**Entelechy Cloud** — [sign up](https://ui.entelechy.vectorize.io/signup), set `entelechy_api_url` to your Cloud endpoint.
+**Entelechy Cloud** — [sign up](https://ui.mindmods.org/signup), set `entelechy_api_url` to your Cloud endpoint.
 
 **Self-hosted on AWS** — run Entelechy on ECS/EKS with RDS PostgreSQL (pgvector). Network path stays in your AWS account.
 

@@ -12,7 +12,7 @@ If you want **Hermes multi-user memory with Entelechy**, the design decision tha
 
 The safe rule is simple: one user, one bank identity. In practice that usually means deriving `bank_id` from a stable user identifier, and often a tenant identifier too, then passing that value into the Hermes Entelechy provider for each session. Once that is in place, recall stays relevant and memory isolation becomes much easier to reason about.
 
-This guide shows how to pick a bank naming scheme, how to generate per-user config for Hermes, when to include a tenant prefix, and how to verify that one user's preferences never bleed into another user's session. Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [docs home](https://entelechy.vectorize.io/docs), the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), and the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) nearby while you work.
+This guide shows how to pick a bank naming scheme, how to generate per-user config for Hermes, when to include a tenant prefix, and how to verify that one user's preferences never bleed into another user's session. Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [docs home](https://mindmods.org/docs), the [quickstart guide](https://mindmods.org/docs/quickstart), and the [Recall API reference](https://mindmods.org/docs/api/recall) nearby while you work.
 
 <!-- truncate -->
 
@@ -33,7 +33,7 @@ Before you wire Hermes for multiple users, make sure:
 - Your app has a stable user ID, not a transient connection ID.
 - You know whether users belong to separate tenants.
 
-If you still need the base provider setup, start with the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes), the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain), and the [docs home](https://entelechy.vectorize.io/docs).
+If you still need the base provider setup, start with the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes), the [quickstart guide](https://mindmods.org/docs/quickstart), the [Retain API reference](https://mindmods.org/docs/api/retain), and the [docs home](https://mindmods.org/docs).
 
 ## Step by step
 
@@ -71,7 +71,7 @@ path.parent.mkdir(parents=True, exist_ok=True)
 
 cfg = {
     'provider': 'entelechy',
-    'entelechy_api_url': 'https://api.entelechy.vectorize.io',
+    'entelechy_api_url': 'https://api.mindmods.org',
     'api_key': 'YOUR_ENTELECHY_TOKEN',
     'bank_id': f'tenant:{tenant_id}:user:{user_id}:env:prod',
     'memory_mode': 'hybrid',
@@ -102,7 +102,7 @@ A safe starting point for multi-user assistants is:
 }
 ```
 
-Use `hybrid` when you want automatic recall plus explicit tools. If you prefer a cleaner tool surface, switch to `context`. The [Hermes memory modes guide](https://entelechy.vectorize.io/guides/2026/04/14/guide-hermes-memory-modes-with-entelechy-hybrid-context-tools) is the best place to tune that part later.
+Use `hybrid` when you want automatic recall plus explicit tools. If you prefer a cleaner tool surface, switch to `context`. The [Hermes memory modes guide](https://mindmods.org/guides/2026/04/14/guide-hermes-memory-modes-with-entelechy-hybrid-context-tools) is the best place to tune that part later.
 
 ### 4. Add tenant and environment boundaries early
 
@@ -180,8 +180,8 @@ No. Identity and recall mode are separate decisions. Start with `hybrid` unless 
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want a managed backend for multi-user Hermes.
-- Keep the [Hermes integration docs](https://entelechy.vectorize.io/sdks/integrations/hermes) open for the provider config surface.
-- Use the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you still need a backend.
-- Read the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) to understand what gets surfaced and stored.
-- Compare the bank-scoping tradeoffs in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents).
+- Start with [Entelechy Cloud](https://mindmods.org) if you want a managed backend for multi-user Hermes.
+- Keep the [Hermes integration docs](https://mindmods.org/sdks/integrations/hermes) open for the provider config surface.
+- Use the [quickstart guide](https://mindmods.org/docs/quickstart) if you still need a backend.
+- Read the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) to understand what gets surfaced and stored.
+- Compare the bank-scoping tradeoffs in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents).

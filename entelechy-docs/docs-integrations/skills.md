@@ -30,7 +30,7 @@ The skill supports two deployment modes:
 ### Option 1: Interactive Installer (Recommended)
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash
+curl -fsSL https://mindmods.org/get-skill | bash
 ```
 
 The installer will:
@@ -43,20 +43,20 @@ The installer will:
 
 ```bash
 # Claude Code (interactive mode selection)
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --app claude
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --app claude
 
 # OpenCode
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --app opencode
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --app opencode
 
 # Codex CLI
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --app codex
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --app codex
 ```
 
 ### Install with Cloud Mode
 
 ```bash
 # Direct cloud setup (skips interactive prompts for mode)
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --app claude --mode cloud
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --app claude --mode cloud
 ```
 
 ### Option 2: Using add-skill
@@ -141,7 +141,7 @@ Entelechy Skill (SKILL.md)
 entelechy-cli
     │
     ▼
-Entelechy Cloud API (https://api.entelechy.vectorize.io)
+Entelechy Cloud API (https://api.mindmods.org)
     │
     ▼
 Shared Memory Bank (team-accessible)
@@ -163,11 +163,11 @@ uvx entelechy-embed configure
 
 ## Cloud Mode Setup
 
-Cloud mode connects to [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup), allowing teams to share memories about a codebase. When one team member learns something, everyone benefits.
+Cloud mode connects to [Entelechy Cloud](https://ui.mindmods.org/signup), allowing teams to share memories about a codebase. When one team member learns something, everyone benefits.
 
 ### Prerequisites
 
-1. A Entelechy Cloud account ([sign up](https://ui.entelechy.vectorize.io/signup))
+1. A Entelechy Cloud account ([sign up](https://ui.mindmods.org/signup))
 2. An API key from your team admin
 3. A bank ID for your project (e.g., `team-acme-frontend`)
 
@@ -176,14 +176,14 @@ Cloud mode connects to [Entelechy Cloud](https://ui.entelechy.vectorize.io/signu
 Run the installer with cloud mode:
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --mode cloud
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --mode cloud
 ```
 
 You'll be prompted for:
 
 | Setting | Description | Example |
 |---------|-------------|---------|
-| **Cloud API URL** | Entelechy Cloud endpoint | `https://api.entelechy.vectorize.io` |
+| **Cloud API URL** | Entelechy Cloud endpoint | `https://api.mindmods.org` |
 | **API Key** | Your authentication key | `hs_xxx...` |
 | **Bank ID** | Shared memory bank for your team | `team-acme-frontend` |
 
@@ -193,7 +193,7 @@ Cloud mode creates two files:
 
 **`~/.entelechy/config`** — API connection settings (TOML format):
 ```toml
-api_url = "https://api.entelechy.vectorize.io"
+api_url = "https://api.mindmods.org"
 api_key = "hs_xxx..."
 ```
 
@@ -256,7 +256,7 @@ If you work on multiple projects, you can have different skills installed for ea
 
 ```bash
 # Environment variable override (temporary)
-ENTELECHY_API_URL=https://api.entelechy.vectorize.io \
+ENTELECHY_API_URL=https://api.mindmods.org \
 ENTELECHY_API_KEY=hs_xxx \
 entelechy memory recall different-bank "query"
 ```
@@ -304,13 +304,13 @@ cat ~/.claude/skills/entelechy/SKILL.md | grep "memory retain"
 
 To change the bank ID, reinstall the skill:
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-skill | bash -s -- --mode cloud
+curl -fsSL https://mindmods.org/get-skill | bash -s -- --mode cloud
 ```
 
 **Network/firewall issues:**
 ```bash
 # Test connectivity to cloud API
-curl -I https://api.entelechy.vectorize.io/health
+curl -I https://api.mindmods.org/health
 ```
 
 ## Requirements
@@ -322,4 +322,4 @@ curl -I https://api.entelechy.vectorize.io/health
 ### Cloud Mode
 - Python 3.10+ (for `uvx`)
 - Entelechy Cloud API key
-- Network access to `https://api.entelechy.vectorize.io`
+- Network access to `https://api.mindmods.org`

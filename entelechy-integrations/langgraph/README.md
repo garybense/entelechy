@@ -9,7 +9,7 @@ Provides three integration patterns:
 
 ## Prerequisites
 
-- A running Entelechy instance ([self-hosted via Docker](https://github.com/garybense/entelechy#quick-start) or [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup))
+- A running Entelechy instance ([self-hosted via Docker](https://github.com/garybense/entelechy#quick-start) or [Entelechy Cloud](https://ui.mindmods.org/signup))
 - Python 3.10+
 
 ## Installation
@@ -122,7 +122,7 @@ All factory functions accept `client`, `entelechy_api_url`, and `api_key` to ove
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `entelechy_api_url` | Entelechy API URL | `https://api.entelechy.vectorize.io` |
+| `entelechy_api_url` | Entelechy API URL | `https://api.mindmods.org` |
 | `api_key` | API key (or `ENTELECHY_API_KEY` env var) | `None` |
 | `budget` | Recall budget: `low`, `mid`, `high` | `mid` |
 | `max_tokens` | Max tokens for recall results | `4096` |
@@ -139,6 +139,6 @@ All factory functions accept `client`, `entelechy_api_url`, and `api_key` to ove
 
 ## Documentation
 
-- [Integration docs](https://docs.entelechy.vectorize.io/docs/sdks/integrations/langgraph)
-- [Cookbook: ReAct agent with memory](https://docs.entelechy.vectorize.io/cookbook/recipes/langgraph-react-agent)
-- [Entelechy API docs](https://docs.entelechy.vectorize.io)
+- [Integration docs](https://docs.mindmods.org/docs/sdks/integrations/langgraph)
+- [Cookbook: ReAct agent with memory](https://docs.mindmods.org/cookbook/recipes/langgraph-react-agent)
+- [Entelechy API docs](https://docs.mindmods.org)

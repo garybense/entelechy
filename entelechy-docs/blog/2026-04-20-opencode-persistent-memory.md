@@ -20,7 +20,7 @@ OpenCode gives you a fast, terminal-native AI coding agent. But every session st
 - `@garybense/opencode-entelechy` adds persistent memory via three tools (retain, recall, reflect) and automatic hooks
 - Memories are injected into the system prompt on session start, so the agent has context before you say anything
 - Conversations are auto-captured on idle, and memories survive context window compaction
-- Works with [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) (zero setup) or self-hosted
+- Works with [Entelechy Cloud](https://ui.mindmods.org/signup) (zero setup) or self-hosted
 
 ---
 
@@ -96,10 +96,10 @@ npm install @garybense/opencode-entelechy
 
 **Option A: Entelechy Cloud** (zero setup)
 
-Sign up at [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup), generate an API token, and set two environment variables:
+Sign up at [Entelechy Cloud](https://ui.mindmods.org/signup), generate an API token, and set two environment variables:
 
 ```bash
-export ENTELECHY_API_URL="https://api.entelechy.vectorize.io"
+export ENTELECHY_API_URL="https://api.mindmods.org"
 export ENTELECHY_API_TOKEN="hsk_your_token"
 ```
 
@@ -245,7 +245,7 @@ The plugin is most valuable when you have ongoing project work where decisions, 
 
 ## Next Steps
 
-- **[Sign up for Entelechy Cloud](https://ui.entelechy.vectorize.io/signup)** — zero-config hosting, ready in seconds
+- **[Sign up for Entelechy Cloud](https://ui.mindmods.org/signup)** — zero-config hosting, ready in seconds
 - Install the plugin: `npm install @garybense/opencode-entelechy`
 - Read the [OpenCode integration reference](/sdks/integrations/opencode) for full configuration details
 - Try the [quickstart](/developer/api/quickstart) if you prefer self-hosting

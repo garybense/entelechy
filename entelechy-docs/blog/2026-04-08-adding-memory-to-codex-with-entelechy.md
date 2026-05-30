@@ -18,8 +18,8 @@ hide_table_of_contents: true
 - The Entelechy plugin hooks into Codex via three Python scripts with zero `pip install` required. One curl command gets you running.
 - Auto-recall queries your memory bank before every prompt and injects relevant facts as invisible context. Codex sees them; you don't have to repeat them.
 - Auto-retain fires at the end of every session, extracts facts from the transcript, and stores them for future recall.
-- For teams, point everyone's config at a shared Entelechy server with a fixed `bankId`. See [Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/2026/03/31/team-shared-memory-ai-coding-agents).
-- Entelechy Cloud stores your memory bank server-side — no local daemon, and memory follows you across machines. [Sign up free.](https://ui.entelechy.vectorize.io/signup)
+- For teams, point everyone's config at a shared Entelechy server with a fixed `bankId`. See [Shared Memory for AI Coding Agents](https://mindmods.org/blog/2026/03/31/team-shared-memory-ai-coding-agents).
+- Entelechy Cloud stores your memory bank server-side — no local daemon, and memory follows you across machines. [Sign up free.](https://ui.mindmods.org/signup)
 
 ## The Problem: Codex Has No Persistent Memory
 
@@ -57,7 +57,7 @@ Every session starts from nothing. Codex doesn't know which libraries your proje
 ## Installing
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-codex | bash
+curl -fsSL https://mindmods.org/get-codex | bash
 ```
 
 The installer guides you through choosing local or cloud mode and writes the hook scripts to `~/.entelechy/codex/`. It also enables `codex_hooks = true` in your `~/.codex/config.toml` automatically.
@@ -69,7 +69,7 @@ Start a new Codex session — memory is live immediately. The first few sessions
 To uninstall:
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-codex | bash -s -- --uninstall
+curl -fsSL https://mindmods.org/get-codex | bash -s -- --uninstall
 ```
 
 ## Entelechy Cloud (Recommended)
@@ -78,12 +78,12 @@ For most users, Entelechy Cloud is the easier option: no daemon to manage, memor
 
 ```json
 {
-  "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+  "entelechyApiUrl": "https://api.mindmods.org",
   "entelechyApiToken": "hsk_your_token"
 }
 ```
 
-Create an account and API key at [entelechy.vectorize.io](https://ui.entelechy.vectorize.io/signup). No daemon to manage — the cloud server handles extraction.
+Create an account and API key at [mindmods.org](https://ui.mindmods.org/signup). No daemon to manage — the cloud server handles extraction.
 
 ## What Gets Recalled
 
@@ -133,13 +133,13 @@ To configure team shared memory, set a fixed `bankId` in each developer's config
 
 ```json
 {
-  "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+  "entelechyApiUrl": "https://api.mindmods.org",
   "entelechyApiToken": "hsk_your_token",
   "bankId": "my-team-project"
 }
 ```
 
-See [Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/2026/03/31/team-shared-memory-ai-coding-agents) for a full team setup guide including bank seeding, per-project isolation, and onboarding patterns.
+See [Shared Memory for AI Coding Agents](https://mindmods.org/blog/2026/03/31/team-shared-memory-ai-coding-agents) for a full team setup guide including bank seeding, per-project isolation, and onboarding patterns.
 
 ## Key Configuration Options
 
@@ -203,8 +203,8 @@ A few things worth knowing before you commit.
 
 ## Next Steps
 
-- **Entelechy Cloud**: [ui.entelechy.vectorize.io](https://ui.entelechy.vectorize.io/signup)
-- **Install**: `curl -fsSL https://entelechy.vectorize.io/get-codex | bash`
+- **Entelechy Cloud**: [ui.mindmods.org](https://ui.mindmods.org/signup)
+- **Install**: `curl -fsSL https://mindmods.org/get-codex | bash`
 - **Config reference**: [Codex integration docs](/sdks/integrations/codex)
-- **Team memory**: [Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/2026/03/31/team-shared-memory-ai-coding-agents)
+- **Team memory**: [Shared Memory for AI Coding Agents](https://mindmods.org/blog/2026/03/31/team-shared-memory-ai-coding-agents)
 - **Cookbook**: [applications/codex-memory](https://github.com/garybense/entelechy-cookbook/tree/main/applications/codex-memory)

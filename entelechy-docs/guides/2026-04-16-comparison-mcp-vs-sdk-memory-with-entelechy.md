@@ -14,7 +14,7 @@ If you are deciding between **MCP vs SDK memory with Entelechy**, the real diffe
 
 Neither path is universally better. They solve different integration problems. MCP gives you a standardized protocol surface for compatible clients. SDK integration gives you tighter control over routing, prompting, and application behavior inside your own codebase.
 
-This comparison explains when each one fits, where each one becomes awkward, and which default to choose for common situations. Keep the [docs home](https://entelechy.vectorize.io/docs) and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open if you want the implementation details while you decide.
+This comparison explains when each one fits, where each one becomes awkward, and which default to choose for common situations. Keep the [docs home](https://mindmods.org/docs) and the [quickstart guide](https://mindmods.org/docs/quickstart) open if you want the implementation details while you decide.
 
 <!-- truncate -->
 
@@ -76,7 +76,7 @@ MCP is the better fit when:
 
 This is why MCP is attractive for desktop AI tools and multi-client environments. You configure the endpoint, authorize it, and memory tools show up.
 
-If you are exploring local deployment, the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) and [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall) are good follow-ups.
+If you are exploring local deployment, the [quickstart guide](https://mindmods.org/docs/quickstart) and [Entelechy's recall API](https://mindmods.org/docs/api/recall) are good follow-ups.
 
 ## When SDK integration is the better choice
 
@@ -89,7 +89,7 @@ SDK integration is the better fit when:
 
 This is usually the better path for product builders. The deeper your custom logic becomes, the more valuable the direct integration model gets.
 
-For storage and routing behavior, [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain) is worth reviewing.
+For storage and routing behavior, [Entelechy's retain API](https://mindmods.org/docs/api/retain) is worth reviewing.
 
 ## The key tradeoff
 
@@ -142,9 +142,9 @@ Start with MCP if the client already supports it. Start with SDK if you already 
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want the easiest managed backend
-- Read the [full Entelechy docs](https://entelechy.vectorize.io/docs)
-- Follow the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Compare team patterns in [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want the easiest managed backend
+- Read the [full Entelechy docs](https://mindmods.org/docs)
+- Follow the [quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Compare team patterns in [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents)

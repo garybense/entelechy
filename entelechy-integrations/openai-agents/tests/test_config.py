@@ -15,7 +15,7 @@ from entelechy_openai_agents.config import (
 
 class TestDefaults:
     def test_default_api_url(self):
-        assert DEFAULT_ENTELECHY_API_URL == "https://api.entelechy.vectorize.io"
+        assert DEFAULT_ENTELECHY_API_URL == "https://api.mindmods.org"
 
     def test_default_budget(self):
         assert DEFAULT_BUDGET == "mid"

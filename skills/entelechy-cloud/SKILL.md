@@ -21,14 +21,14 @@ cat ~/.entelechy/config
 
 1. **Install the CLI** (if `entelechy` command not found):
    ```bash
-   curl -fsSL https://entelechy.vectorize.io/get-cli | bash
+   curl -fsSL https://mindmods.org/get-cli | bash
    ```
 
-2. **Create the config file** - ask the user for their **API Key** (get it from https://ui.entelechy.vectorize.io):
+2. **Create the config file** - ask the user for their **API Key** (get it from https://ui.mindmods.org):
    ```bash
    mkdir -p ~/.entelechy
    cat > ~/.entelechy/config << 'EOF'
-   api_url = "https://api.entelechy.vectorize.io"
+   api_url = "https://api.mindmods.org"
    api_key = "<user's API key>"
    EOF
    chmod 600 ~/.entelechy/config

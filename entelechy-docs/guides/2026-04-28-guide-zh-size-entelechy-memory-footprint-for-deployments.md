@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![为实际部署调整 Entelechy 内存占用空间](/img/guides/guide-size-entelechy-memory-footprint-for-deployments.png)
 
-如果您正在尝试**为部署调整 Entelechy 的内存占用空间**，文档现在好得多，因为安装指南最终按组件列出了现实的 RAM 范围。这很有用，因为合适的盒子大小取决于一个简单的问题：您运行带有本地模型的完整映像，还是带有外部提供者的精简映像？在规划时，请保持打开 [安装指南](https://entelechy.vectorize.io/sdks/developer/installation)、[配置指南](https://entelechy.vectorize.io/sdks/developer/configuration)、[服务指南](https://entelechy.vectorize.io/sdks/developer/services) 和 [快速入门指南](https://entelechy.vectorize.io/sdks/developer/quickstart)。
+如果您正在尝试**为部署调整 Entelechy 的内存占用空间**，文档现在好得多，因为安装指南最终按组件列出了现实的 RAM 范围。这很有用，因为合适的盒子大小取决于一个简单的问题：您运行带有本地模型的完整映像，还是带有外部提供者的精简映像？在规划时，请保持打开 [安装指南](https://mindmods.org/sdks/developer/installation)、[配置指南](https://mindmods.org/sdks/developer/configuration)、[服务指南](https://mindmods.org/sdks/developer/services) 和 [快速入门指南](https://mindmods.org/sdks/developer/quickstart)。
 
 <!-- truncate -->
 
@@ -39,7 +39,7 @@ hide_table_of_contents: true
 道路上最大的分支是您是否想要本地嵌入和重新排列打包到 API 进程中。
 
 - 当您想要更简单的一体式部署并且可以负担额外的 RAM 时，选择**完整**。
-- 当您想要较小的主机并且乐意从 [配置指南](https://entelechy.vectorize.io/sdks/developer/configuration) 中连接外部提供者时，选择**精简**。
+- 当您想要较小的主机并且乐意从 [配置指南](https://mindmods.org/sdks/developer/configuration) 中连接外部提供者时，选择**精简**。
 
 这个决定通常比争论小 VM 家族更重要。完整映像购买便利性。精简映像购买了更小的占用空间。
 
@@ -66,8 +66,8 @@ hide_table_of_contents: true
 1. 确认您是在完整还是精简映像上。
 2. 检查 workers 是否与同一主机共享并加倍预期的模型占用空间。
 3. 验证 PostgreSQL 在同一盒子上没有被饿死。
-4. 查看 [配置指南](https://entelechy.vectorize.io/sdks/developer/configuration) 中的外部提供者设置。
-5. 根据 [服务指南](https://entelechy.vectorize.io/sdks/developer/services) 比较部署形状（如果您拆分 API 和 worker 角色）。
+4. 查看 [配置指南](https://mindmods.org/sdks/developer/configuration) 中的外部提供者设置。
+5. 根据 [服务指南](https://mindmods.org/sdks/developer/services) 比较部署形状（如果您拆分 API 和 worker 角色）。
 
 新文档不会删除调整工作，但它确实使第一个估计变得更加不含糊。
 
@@ -87,8 +87,8 @@ hide_table_of_contents: true
 
 ## 后续步骤
 
-- [Entelechy Cloud](https://entelechy.vectorize.io)
-- [安装指南](https://entelechy.vectorize.io/sdks/developer/installation)
-- [配置指南](https://entelechy.vectorize.io/sdks/developer/configuration)
-- [服务指南](https://entelechy.vectorize.io/sdks/developer/services)
-- [快速入门指南](https://entelechy.vectorize.io/sdks/developer/quickstart)
+- [Entelechy Cloud](https://mindmods.org)
+- [安装指南](https://mindmods.org/sdks/developer/installation)
+- [配置指南](https://mindmods.org/sdks/developer/configuration)
+- [服务指南](https://mindmods.org/sdks/developer/services)
+- [快速入门指南](https://mindmods.org/sdks/developer/quickstart)

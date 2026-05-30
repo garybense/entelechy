@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![在 Entelechy 的新列表视图中使用心理模型标签](/img/guides/guide-use-mental-model-tags-in-entelechy-list-view.png)
 
-如果您想**在 Entelechy 的新列表视图中使用心理模型标签**，重要的变化是控制平面现在将心理模型视为真正的工作文档。页面默认为分割窗格列表，标签建议现在来自实际的心理模型标签源，而不是让您手动记住标签。在调整工作流时，请保持打开 [心理模型 API 文档](https://entelechy.vectorize.io/sdks/api/mental-models)、[反射文档](https://entelechy.vectorize.io/sdks/api/reflect)、[观察文档](https://entelechy.vectorize.io/sdks/developer/observations) 和 [文档首页](https://entelechy.vectorize.io)。
+如果您想**在 Entelechy 的新列表视图中使用心理模型标签**，重要的变化是控制平面现在将心理模型视为真正的工作文档。页面默认为分割窗格列表，标签建议现在来自实际的心理模型标签源，而不是让您手动记住标签。在调整工作流时，请保持打开 [心理模型 API 文档](https://mindmods.org/sdks/api/mental-models)、[反射文档](https://mindmods.org/sdks/api/reflect)、[观察文档](https://mindmods.org/sdks/developer/observations) 和 [文档首页](https://mindmods.org)。
 
 <!-- truncate -->
 
@@ -40,7 +40,7 @@ curl "$BASE_URL/v1/default/banks/$BANK_ID/tags?source=mental_models"
 
 ## 记住心理模型标签真正做什么
 
-这是绊倒人们的部分。心理模型标签不仅仅是浏览标签。正如 [心理模型 API 文档](https://entelechy.vectorize.io/sdks/api/mental-models) 所解释的那样，标签缩小了模型在刷新期间可以读取哪些记忆，它们也影响 [反射](https://entelechy.vectorize.io/sdks/api/reflect) 期间哪些心理模型可见。
+这是绊倒人们的部分。心理模型标签不仅仅是浏览标签。正如 [心理模型 API 文档](https://mindmods.org/sdks/api/mental-models) 所解释的那样，标签缩小了模型在刷新期间可以读取哪些记忆，它们也影响 [反射](https://mindmods.org/sdks/api/reflect) 期间哪些心理模型可见。
 
 因此，如果您用 `user:alice` 标记心理模型，刷新将仅读取也带有该必需标签的记忆。当您想要范围模型时这很好，但这也意味着过度标记可以使模型看起来空或陈旧，如果基础记忆从未反向填充。
 
@@ -61,7 +61,7 @@ curl "$BASE_URL/v1/default/banks/$BANK_ID/tags?source=mental_models"
 - **您想要的标签芯片从不出现。** 通常没有心理模型携带该标签，即使普通记忆也是如此。
 - **反射似乎缺少模型。** 通常反射调用使用不与模型自己的标签重叠的标签。
 
-如果有疑问，请通过 [心理模型 API 文档](https://entelechy.vectorize.io/sdks/api/mental-models) 和 [观察指南](https://entelechy.vectorize.io/sdks/developer/observations) 退一步。大多数心理模型混淆实际上是标签范围混淆。
+如果有疑问，请通过 [心理模型 API 文档](https://mindmods.org/sdks/api/mental-models) 和 [观察指南](https://mindmods.org/sdks/developer/observations) 退一步。大多数心理模型混淆实际上是标签范围混淆。
 
 ## 常见问题
 
@@ -79,8 +79,8 @@ curl "$BASE_URL/v1/default/banks/$BANK_ID/tags?source=mental_models"
 
 ## 后续步骤
 
-- [Entelechy Cloud](https://entelechy.vectorize.io)
-- [心理模型 API 文档](https://entelechy.vectorize.io/sdks/api/mental-models)
-- [反射文档](https://entelechy.vectorize.io/sdks/api/reflect)
-- [观察指南](https://entelechy.vectorize.io/sdks/developer/observations)
-- [文档首页](https://entelechy.vectorize.io)
+- [Entelechy Cloud](https://mindmods.org)
+- [心理模型 API 文档](https://mindmods.org/sdks/api/mental-models)
+- [反射文档](https://mindmods.org/sdks/api/reflect)
+- [观察指南](https://mindmods.org/sdks/developer/observations)
+- [文档首页](https://mindmods.org)

@@ -16,12 +16,12 @@ Three Codex hooks keep memory in sync automatically:
 
 - **OpenAI Codex CLI** v0.116.0 or later (hooks support)
 - **Python 3.9+** (for hook scripts)
-- **Entelechy**: [Entelechy Cloud](https://entelechy.vectorize.io) or local `entelechy-embed`
+- **Entelechy**: [Entelechy Cloud](https://mindmods.org) or local `entelechy-embed`
 
 ## Installation
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-codex | bash
+curl -fsSL https://mindmods.org/get-codex | bash
 ```
 
 The installer:
@@ -32,7 +32,7 @@ The installer:
 ### Uninstall
 
 ```bash
-curl -fsSL https://entelechy.vectorize.io/get-codex | bash -s -- --uninstall
+curl -fsSL https://mindmods.org/get-codex | bash -s -- --uninstall
 ```
 
 ## Configuration
@@ -43,7 +43,7 @@ For personal overrides (stable across updates), create `~/.entelechy/codex.json`
 
 ```json
 {
-  "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+  "entelechyApiUrl": "https://api.mindmods.org",
   "entelechyApiToken": "your-api-key",
   "bankId": "my-codex-memory"
 }
@@ -53,7 +53,7 @@ For personal overrides (stable across updates), create `~/.entelechy/codex.json`
 
 ```json
 {
-  "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+  "entelechyApiUrl": "https://api.mindmods.org",
   "entelechyApiToken": "your-api-key"
 }
 ```
@@ -91,7 +91,7 @@ export ANTHROPIC_API_KEY=your-key
 All settings can also be set via environment variables:
 
 ```bash
-export ENTELECHY_API_URL=https://api.entelechy.vectorize.io
+export ENTELECHY_API_URL=https://api.mindmods.org
 export ENTELECHY_API_TOKEN=your-api-key
 export ENTELECHY_BANK_ID=my-project
 export ENTELECHY_DEBUG=true

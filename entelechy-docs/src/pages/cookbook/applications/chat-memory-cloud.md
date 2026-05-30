@@ -11,7 +11,7 @@ This is a complete, runnable application demonstrating Entelechy integration.
 :::
 
 
-A demo chat application with persistent per-user memory powered by [Entelechy Cloud](https://entelechy.vectorize.io). Supports OpenAI or Groq as the LLM provider. No local Entelechy server required.
+A demo chat application with persistent per-user memory powered by [Entelechy Cloud](https://mindmods.org). Supports OpenAI or Groq as the LLM provider. No local Entelechy server required.
 
 ## Features
 
@@ -25,7 +25,7 @@ A demo chat application with persistent per-user memory powered by [Entelechy Cl
 
 ### 1. Get API Keys
 
-- **Entelechy** — Sign up at https://entelechy.vectorize.io
+- **Entelechy** — Sign up at https://mindmods.org
 - **OpenAI** — https://platform.openai.com/api-keys
 - **Groq** (alternative) — Free at https://console.groq.com/home
 
@@ -44,7 +44,7 @@ OPENAI_API_KEY=sk-your-key-here
 GROQ_API_KEY=gsk_your-key-here
 
 # Entelechy Cloud
-ENTELECHY_API_URL=https://api.entelechy.vectorize.io
+ENTELECHY_API_URL=https://api.mindmods.org
 ENTELECHY_API_KEY=hsk_your-key-here
 ```
 
@@ -108,7 +108,7 @@ Each user gets their own isolated memory bank with:
    - "I prefer VS Code over other editors"
    - "I'm working on a React project"
 
-4. **Memory Verification**: Log in to the [Entelechy dashboard](https://entelechy.vectorize.io) to see stored memories
+4. **Memory Verification**: Log in to the [Entelechy dashboard](https://mindmods.org) to see stored memories
 
 ## Configuration
 
@@ -118,5 +118,5 @@ Each user gets their own isolated memory bank with:
 | `LLM_MODEL` | auto | Model override (defaults: `gpt-4o` / `qwen/qwen3-32b`) |
 | `OPENAI_API_KEY` | — | Required when using OpenAI |
 | `GROQ_API_KEY` | — | Required when using Groq |
-| `ENTELECHY_API_URL` | `https://api.entelechy.vectorize.io` | Entelechy API endpoint |
+| `ENTELECHY_API_URL` | `https://api.mindmods.org` | Entelechy API endpoint |
 | `ENTELECHY_API_KEY` | — | Your Entelechy API key |

@@ -6,7 +6,7 @@ description: "Add persistent memory to NemoClaw sandboxed agents with Entelechy.
 
 # NemoClaw
 
-Persistent memory for [NemoClaw](https://nemoclaw.ai) sandboxed agents using [Entelechy](https://entelechy.vectorize.io).
+Persistent memory for [NemoClaw](https://nemoclaw.ai) sandboxed agents using [Entelechy](https://mindmods.org).
 
 NemoClaw runs [OpenClaw](https://openclaw.ai) inside an OpenShell sandbox with controlled filesystem, process, and network egress policies. The `entelechy-nemoclaw` package automates adding Entelechy memory to a sandbox in one command — no code changes required.
 
@@ -17,12 +17,12 @@ NemoClaw runs [OpenClaw](https://openclaw.ai) inside an OpenShell sandbox with c
 ```bash
 npx @garybense/entelechy-nemoclaw setup \
   --sandbox my-assistant \
-  --api-url https://api.entelechy.vectorize.io \
+  --api-url https://api.mindmods.org \
   --api-token <your-api-key> \
   --bank-prefix my-sandbox
 ```
 
-Get an API key at [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup).
+Get an API key at [Entelechy Cloud](https://ui.mindmods.org/signup).
 
 You'll see output like:
 
@@ -51,7 +51,7 @@ You'll see output like:
 
 ### The sandbox problem
 
-OpenShell enforces strict network egress — every outbound endpoint must be explicitly permitted in the sandbox policy. By default, the Entelechy API (`api.entelechy.vectorize.io`) is not in that list.
+OpenShell enforces strict network egress — every outbound endpoint must be explicitly permitted in the sandbox policy. By default, the Entelechy API (`api.mindmods.org`) is not in that list.
 
 The `entelechy-openclaw` plugin supports **external API mode**, where it skips the local daemon entirely and makes direct HTTPS calls to Entelechy Cloud. This is the natural fit for sandboxed environments: the plugin becomes a thin HTTP client, and the only sandbox change needed is one egress rule.
 
@@ -109,7 +109,7 @@ openclaw plugins install @garybense/entelechy-openclaw
       "entelechy-openclaw": {
         "enabled": true,
         "config": {
-          "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+          "entelechyApiUrl": "https://api.mindmods.org",
           "entelechyApiToken": "<your-api-key>",
           "llmProvider": "claude-code",
           "dynamicBankId": false,
@@ -132,7 +132,7 @@ network_policies:
   entelechy:
     name: entelechy
     endpoints:
-      - host: api.entelechy.vectorize.io
+      - host: api.mindmods.org
         port: 443
         protocol: rest
         tls: terminate
@@ -182,7 +182,7 @@ On startup you should see:
 
 ```
 [Entelechy] Plugin loaded successfully
-[Entelechy] ✓ Using external API: https://api.entelechy.vectorize.io
+[Entelechy] ✓ Using external API: https://api.mindmods.org
 [Entelechy] External API health: {"status":"healthy","database":"connected"}
 [Entelechy] Default bank: my-sandbox-openclaw
 [Entelechy] ✓ Ready (external API mode)
@@ -228,7 +228,7 @@ openclaw plugins install @garybense/entelechy-openclaw
 
 ### Egress blocked
 
-If calls to `api.entelechy.vectorize.io` are being blocked, check the active sandbox policy:
+If calls to `api.mindmods.org` are being blocked, check the active sandbox policy:
 
 ```bash
 openshell sandbox get my-assistant

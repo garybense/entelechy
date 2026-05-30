@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![When Do AI Agents Need Memory?](/img/guides/guide-when-do-ai-agents-need-memory.png)
 
-If you are trying to understand **when do AI agents need memory**, start with the workflow instead of the buzzwords. Not every agent needs memory. The useful question is whether the task gets better when the system can carry facts, preferences, and prior outcomes forward. If the answer is yes, memory usually deserves serious design attention. If the answer is no, a simpler stateless or retrieval-first architecture may be enough. If you want the implementation details behind the ideas here, keep [the docs home](https://entelechy.vectorize.io/docs), [the quickstart guide](https://entelechy.vectorize.io/docs/quickstart), [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain), and [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall) nearby while you read.
+If you are trying to understand **when do AI agents need memory**, start with the workflow instead of the buzzwords. Not every agent needs memory. The useful question is whether the task gets better when the system can carry facts, preferences, and prior outcomes forward. If the answer is yes, memory usually deserves serious design attention. If the answer is no, a simpler stateless or retrieval-first architecture may be enough. If you want the implementation details behind the ideas here, keep [the docs home](https://mindmods.org/docs), [the quickstart guide](https://mindmods.org/docs/quickstart), [Entelechy's retain API](https://mindmods.org/docs/api/retain), and [Entelechy's recall API](https://mindmods.org/docs/api/recall) nearby while you read.
 
 <!-- truncate -->
 
@@ -25,7 +25,7 @@ If you are trying to understand **when do AI agents need memory**, start with th
 
 Many teams notice the problem before they have vocabulary for it. The agent feels capable during one session, then surprisingly fragile in the next. That usually means the system is relying on prompt state instead of durable memory. It is also why the distinction between temporary context and persistent memory matters so much when you move from demos to production workflows.
 
-A practical memory design gives the agent a way to reuse prior work without dragging the entire past into every prompt. That is the same reason builders reach for [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain) when they want to store durable signals and [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall) when they want the system to recover the right context later. The same pattern shows up in hands-on examples like [the Claude Code integration](https://entelechy.vectorize.io/docs/integrations/claude-code), [the OpenClaw integration](https://entelechy.vectorize.io/docs/integrations/openclaw), and [Adding Memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy).
+A practical memory design gives the agent a way to reuse prior work without dragging the entire past into every prompt. That is the same reason builders reach for [Entelechy's retain API](https://mindmods.org/docs/api/retain) when they want to store durable signals and [Entelechy's recall API](https://mindmods.org/docs/api/recall) when they want the system to recover the right context later. The same pattern shows up in hands-on examples like [the Claude Code integration](https://mindmods.org/docs/integrations/claude-code), [the OpenClaw integration](https://mindmods.org/docs/integrations/openclaw), and [Adding Memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy).
 
 ## What usually goes wrong
 
@@ -59,7 +59,7 @@ You can see the impact most clearly in workflows like:
 - customer support systems with long-lived relationships
 
 
-If you want concrete examples of shared memory across tools, [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) is a strong follow-up. If you want a code-focused example, [Claude Code persistent memory](https://entelechy.vectorize.io/blog/claude-code-persistent-memory) and [Adding Memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) show how memory changes everyday development workflows instead of just theory.
+If you want concrete examples of shared memory across tools, [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) is a strong follow-up. If you want a code-focused example, [Claude Code persistent memory](https://mindmods.org/blog/claude-code-persistent-memory) and [Adding Memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) show how memory changes everyday development workflows instead of just theory.
 
 ## How to evaluate this in your own stack
 
@@ -71,7 +71,7 @@ A simple evaluation frame works well:
 4. Test whether it comes back in the right later workflow.
 5. Check whether the recalled context is concise enough to help instead of distract.
 
-That is the same reason [the docs home](https://entelechy.vectorize.io/docs) and [the quickstart guide](https://entelechy.vectorize.io/docs/quickstart) matter. Good memory systems are easier to trust when the storage and recall model is clear enough to inspect.
+That is the same reason [the docs home](https://mindmods.org/docs) and [the quickstart guide](https://mindmods.org/docs/quickstart) matter. Good memory systems are easier to trust when the storage and recall model is clear enough to inspect.
 
 ## FAQ
 
@@ -89,9 +89,9 @@ Yes. Many good systems begin with a narrow set of durable signals.
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want the fastest path to a managed memory backend
-- Read [the docs home](https://entelechy.vectorize.io/docs)
-- Follow [the quickstart guide](https://entelechy.vectorize.io/docs/quickstart)
-- Review [Entelechy's retain API](https://entelechy.vectorize.io/docs/api/retain)
-- Review [Entelechy's recall API](https://entelechy.vectorize.io/docs/api/recall)
-- Explore [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents)
+- Start with [Entelechy Cloud](https://mindmods.org) if you want the fastest path to a managed memory backend
+- Read [the docs home](https://mindmods.org/docs)
+- Follow [the quickstart guide](https://mindmods.org/docs/quickstart)
+- Review [Entelechy's retain API](https://mindmods.org/docs/api/retain)
+- Review [Entelechy's recall API](https://mindmods.org/docs/api/recall)
+- Explore [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents)

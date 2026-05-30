@@ -10,7 +10,7 @@ hide_table_of_contents: true
 
 ![安全地减少 Entelechy 合并内存扇出](/img/guides/guide-reduce-entelechy-consolidation-memory-fan-out.png)
 
-如果您需要**减少 Entelechy 合并内存扇出**，最近的默认值是一个真正的改进。合并过去能够在内部回忆期间放大内存使用，特别是在大型库上，其中源事实补水和重新排列器行为可能会使 RSS 保持比预期更高。新默认值使该路径更加受限。在调整时，请保持打开 [配置指南](https://entelechy.vectorize.io/sdks/developer/configuration)、[观察指南](https://entelechy.vectorize.io/sdks/developer/observations)、[安装指南](https://entelechy.vectorize.io/sdks/developer/installation) 和 [文档首页](https://entelechy.vectorize.io)。
+如果您需要**减少 Entelechy 合并内存扇出**，最近的默认值是一个真正的改进。合并过去能够在内部回忆期间放大内存使用，特别是在大型库上，其中源事实补水和重新排列器行为可能会使 RSS 保持比预期更高。新默认值使该路径更加受限。在调整时，请保持打开 [配置指南](https://mindmods.org/sdks/developer/configuration)、[观察指南](https://mindmods.org/sdks/developer/observations)、[安装指南](https://mindmods.org/sdks/developer/installation) 和 [文档首页](https://mindmods.org)。
 
 <!-- truncate -->
 
@@ -44,7 +44,7 @@ export ENTELECHY_API_RERANKER_FLASHRANK_CPU_MEM_ARENA=false
 
 - 仅当低回忆明确缺少有用的相关观察时，才提高 `ENTELECHY_API_CONSOLIDATION_RECALL_BUDGET`。
 - 仅当 LLM 需要更多支持证据来进行稳定更新时，才提高 `ENTELECHY_API_CONSOLIDATION_SOURCE_FACTS_MAX_TOKENS`。
-- 如果您想在吞吐量与峰值内存压力之间进行权衡，请查看 [配置指南](https://entelechy.vectorize.io/sdks/developer/configuration) 中的 `ENTELECHY_API_CONSOLIDATION_MAX_MEMORIES_PER_ROUND` 和 `ENTELECHY_API_CONSOLIDATION_LLM_BATCH_SIZE`。
+- 如果您想在吞吐量与峰值内存压力之间进行权衡，请查看 [配置指南](https://mindmods.org/sdks/developer/configuration) 中的 `ENTELECHY_API_CONSOLIDATION_MAX_MEMORIES_PER_ROUND` 和 `ENTELECHY_API_CONSOLIDATION_LLM_BATCH_SIZE`。
 
 关键是默认情况下保持昂贵的路径狭窄，然后如果库实际需要，一次只扩大一个杠杆。
 
@@ -57,7 +57,7 @@ export ENTELECHY_API_RERANKER_FLASHRANK_CPU_MEM_ARENA=false
 - PostgreSQL 是否与相同的内存信封共享？
 - 当外部重新排列器会更好地适应时，您是否在使用本地重新排列？
 
-这就是为什么 [安装指南](https://entelechy.vectorize.io/sdks/developer/installation) 和 [服务指南](https://entelechy.vectorize.io/sdks/developer/services) 在这里仍然重要。合并扇出是一个贡献者，而不是整个足迹故事。
+这就是为什么 [安装指南](https://mindmods.org/sdks/developer/installation) 和 [服务指南](https://mindmods.org/sdks/developer/services) 在这里仍然重要。合并扇出是一个贡献者，而不是整个足迹故事。
 
 ## 一个简单的操作手册
 
@@ -87,8 +87,8 @@ export ENTELECHY_API_RERANKER_FLASHRANK_CPU_MEM_ARENA=false
 
 ## 后续步骤
 
-- [Entelechy Cloud](https://entelechy.vectorize.io)
-- [配置指南](https://entelechy.vectorize.io/sdks/developer/configuration)
-- [观察指南](https://entelechy.vectorize.io/sdks/developer/observations)
-- [安装指南](https://entelechy.vectorize.io/sdks/developer/installation)
-- [文档首页](https://entelechy.vectorize.io)
+- [Entelechy Cloud](https://mindmods.org)
+- [配置指南](https://mindmods.org/sdks/developer/configuration)
+- [观察指南](https://mindmods.org/sdks/developer/observations)
+- [安装指南](https://mindmods.org/sdks/developer/installation)
+- [文档首页](https://mindmods.org)

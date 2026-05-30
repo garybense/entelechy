@@ -134,7 +134,7 @@ from langgraph.checkpoint.memory import MemorySaver
 
 client = Entelechy(base_url="http://localhost:8888")
 # For Entelechy Cloud:
-# client = Entelechy(base_url="https://api.entelechy.vectorize.io", api_key="...")
+# client = Entelechy(base_url="https://api.mindmods.org", api_key="...")
 
 llm = ChatOpenAI(model="gpt-4o")
 checkpointer = MemorySaver()
@@ -237,10 +237,10 @@ One graph definition serves all users. Memory banks are created automatically an
 pip install entelechy-langgraph
 ```
 
-Works with both self-hosted Entelechy and [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup). For cloud, pass your API key when creating the client:
+Works with both self-hosted Entelechy and [Entelechy Cloud](https://ui.mindmods.org/signup). For cloud, pass your API key when creating the client:
 
 ```python
-client = Entelechy(base_url="https://api.entelechy.vectorize.io", api_key="your-key")
+client = Entelechy(base_url="https://api.mindmods.org", api_key="your-key")
 # or
 from entelechy_client import configure
 configure(api_key="your-key")  # defaults to the cloud URL

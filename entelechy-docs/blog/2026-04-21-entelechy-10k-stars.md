@@ -72,7 +72,7 @@ The result: "After a week, you stop noticing the things you don't have to say an
 
 This pattern matters because developers use multiple AI tools. Without unified agent memory, you're context-switching and re-explaining yourself constantly. With Entelechy agent memory as the foundation, one bank serves all tools.
 
-[Read the full story: "One Memory for Every AI Tool I Use"](https://entelechy.vectorize.io/blog/2026/04/07/one-memory-for-every-ai-tool)
+[Read the full story: "One Memory for Every AI Tool I Use"](https://mindmods.org/blog/2026/04/07/one-memory-for-every-ai-tool)
 
 **2. AI Coding Agents That Learn Your Codebase**
 
@@ -82,7 +82,7 @@ Importantly, the quality of responses improved measurably over time. After 2-3 w
 
 This is the core promise of agent memory: behavior improves with continued use, just like working with a senior engineer who knows your codebase.
 
-[Read the story: "OpenClaude: Long-Term Memory for Claude Code Agents"](https://entelechy.vectorize.io/blog/2026/03/23/claude-code-telegram)
+[Read the story: "OpenClaude: Long-Term Memory for Claude Code Agents"](https://mindmods.org/blog/2026/03/23/claude-code-telegram)
 
 **3. Financial AI That Respects Privacy**
 
@@ -92,7 +92,7 @@ The result: "Memory accumulation over months rather than starting from scratch, 
 
 For fintech specifically, this matters because financial advisors work best with institutional memory. Entelechy agent memory, self-hosted on the company's infrastructure, solved both the learning problem and the compliance problem.
 
-[Read the case study: "How We Built Multi-User AI Memory into a Financial Product"](https://entelechy.vectorize.io/blog/2026/04/13/entelechy-financial-ai-memory-customer-story)
+[Read the case study: "How We Built Multi-User AI Memory into a Financial Product"](https://mindmods.org/blog/2026/04/13/entelechy-financial-ai-memory-customer-story)
 
 One team shared their evaluation process in Slack:
 
@@ -184,7 +184,7 @@ For production, use Entelechy Cloud. You get:
 - Built-in monitoring and alerts
 - Usage-based pricing
 
-[Sign up for Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) and have agent memory running in production within an hour.
+[Sign up for Entelechy Cloud](https://ui.mindmods.org/signup) and have agent memory running in production within an hour.
 
 **Path 3: Self-Hosted Infrastructure**
 
@@ -224,7 +224,7 @@ If you're building an agent system and memory matters:
 
 - **Star [the repo](https://github.com/garybense/entelechy)** (totally optional, but hey—it got us here)
 - **Try it locally** — `docker run -p 8000:8000 vectorize/entelechy` (that's it)
-- **Try Entelechy Cloud** — [managed deployment, scaling handled, usage-based pricing](https://ui.entelechy.vectorize.io/signup)
+- **Try Entelechy Cloud** — [managed deployment, scaling handled, usage-based pricing](https://ui.mindmods.org/signup)
 - **Join the conversation** — [GitHub Discussions](https://github.com/garybense/entelechy/discussions) or [Slack](https://entelechy-space.slack.com)
 
 Thanks for 10k stars. More importantly, thanks for building with us.

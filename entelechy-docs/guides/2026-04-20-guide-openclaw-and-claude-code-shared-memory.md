@@ -12,7 +12,7 @@ If you want **OpenClaw and Claude Code shared memory**, the trick is not install
 
 This setup is useful when one workflow spans both tools. You might discuss product requirements with an OpenClaw assistant, switch to Claude Code to implement them, then return to OpenClaw for status updates. Without shared memory, each tool starts from zero. With a shared bank, they can reuse the same project facts, preferences, and working context.
 
-This guide shows the safest way to wire that up, when to use a fixed shared `bankId`, how to keep the bank narrow enough to stay useful, and how to test that context really moves from one tool to the other. Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), the [Claude Code post](https://entelechy.vectorize.io/blog/claude-code-persistent-memory), and the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) open while you configure it.
+This guide shows the safest way to wire that up, when to use a fixed shared `bankId`, how to keep the bank narrow enough to stay useful, and how to test that context really moves from one tool to the other. Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), the [Claude Code post](https://mindmods.org/blog/claude-code-persistent-memory), and the [quickstart guide](https://mindmods.org/docs/quickstart) open while you configure it.
 
 <!-- truncate -->
 
@@ -33,7 +33,7 @@ Before you share memory between tools, make sure:
 - Claude Code has the Entelechy plugin installed.
 - You understand which project or team should own the shared bank.
 
-If you still need the base setup, start with the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart), the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw), the [docs home](https://entelechy.vectorize.io/docs), and the [Retain API reference](https://entelechy.vectorize.io/docs/api/retain).
+If you still need the base setup, start with the [quickstart guide](https://mindmods.org/docs/quickstart), the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw), the [docs home](https://mindmods.org/docs), and the [Retain API reference](https://mindmods.org/docs/api/retain).
 
 ## Step by step
 
@@ -81,7 +81,7 @@ In the Claude Code Entelechy plugin config, use the same `bankId` and the same b
 
 ```json
 {
-  "entelechyApiUrl": "https://api.entelechy.vectorize.io",
+  "entelechyApiUrl": "https://api.mindmods.org",
   "entelechyApiToken": "YOUR_TOKEN",
   "bankId": "team-product-alpha",
   "retainMission": "Extract durable project decisions, coding conventions, important constraints, and user preferences that should help across chat and coding sessions."
@@ -106,7 +106,7 @@ They should avoid storing:
 - duplicate logs
 - one-off operational noise
 
-This is where the [team shared memory post](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) and [Adding memory to Codex with Entelechy](https://entelechy.vectorize.io/blog/adding-memory-to-codex-with-entelechy) are helpful, because they show what a useful shared bank looks like in practice.
+This is where the [team shared memory post](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) and [Adding memory to Codex with Entelechy](https://mindmods.org/blog/adding-memory-to-codex-with-entelechy) are helpful, because they show what a useful shared bank looks like in practice.
 
 ### 5. Test both directions
 
@@ -177,8 +177,8 @@ Yes, when the workflow is active and ongoing. Manual notes still matter, but sha
 
 ## Next Steps
 
-- Start with [Entelechy Cloud](https://entelechy.vectorize.io) if you want one backend shared between chat and coding tools.
-- Keep the [OpenClaw integration docs](https://entelechy.vectorize.io/docs/integrations/openclaw) and the [Claude Code persistent memory post](https://entelechy.vectorize.io/blog/claude-code-persistent-memory) open while you configure both sides.
-- Use the [quickstart guide](https://entelechy.vectorize.io/docs/quickstart) if you still need a Entelechy server.
-- Review the [Recall API reference](https://entelechy.vectorize.io/docs/api/recall) and [Retain API reference](https://entelechy.vectorize.io/docs/api/retain) to tune how much context moves between tools.
-- Read [Team Shared Memory for AI Coding Agents](https://entelechy.vectorize.io/blog/team-shared-memory-ai-coding-agents) if you want to expand the pattern to a whole team.
+- Start with [Entelechy Cloud](https://mindmods.org) if you want one backend shared between chat and coding tools.
+- Keep the [OpenClaw integration docs](https://mindmods.org/docs/integrations/openclaw) and the [Claude Code persistent memory post](https://mindmods.org/blog/claude-code-persistent-memory) open while you configure both sides.
+- Use the [quickstart guide](https://mindmods.org/docs/quickstart) if you still need a Entelechy server.
+- Review the [Recall API reference](https://mindmods.org/docs/api/recall) and [Retain API reference](https://mindmods.org/docs/api/retain) to tune how much context moves between tools.
+- Read [Team Shared Memory for AI Coding Agents](https://mindmods.org/blog/team-shared-memory-ai-coding-agents) if you want to expand the pattern to a whole team.

@@ -20,7 +20,7 @@ OpenAI's Agents SDK gives you a clean abstraction for building tool-using agents
 - `entelechy-openai-agents` provides three `FunctionTool` instances for `Agent`: `entelechy_retain`, `entelechy_recall`, `entelechy_reflect`
 - Or use `memory_instructions()` to auto-inject relevant memories into the system prompt on every run — no explicit recall tool calls needed
 - One pip install, pass `tools=[...]` to your agent, done
-- Works with [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) or self-hosted
+- Works with [Entelechy Cloud](https://ui.mindmods.org/signup) or self-hosted
 
 ---
 
@@ -69,7 +69,7 @@ entelechy-api
 
 Runs locally at `http://localhost:8888` with embedded Postgres, embeddings, and reranking. See the [self-hosting quickstart](/developer/api/quickstart) for full setup instructions.
 
-Or skip self-hosting entirely — [Entelechy Cloud](https://ui.entelechy.vectorize.io/signup) is ready in seconds with no infrastructure to manage.
+Or skip self-hosting entirely — [Entelechy Cloud](https://ui.mindmods.org/signup) is ready in seconds with no infrastructure to manage.
 
 ## Step 2: Install the integration
 
@@ -273,7 +273,7 @@ Same `bank_id` means shared memory. The triage agent gets the user's full contex
 ## Next Steps
 
 - **Try it locally:** `pip install entelechy-all entelechy-openai-agents openai-agents` and run the example above
-- **Use Entelechy Cloud:** Skip self-hosting with a [free account](https://ui.entelechy.vectorize.io/signup)
+- **Use Entelechy Cloud:** Skip self-hosting with a [free account](https://ui.mindmods.org/signup)
 - **Quickstart:** Get a Entelechy server running in minutes with the [developer quickstart](/developer/api/quickstart)
 - **Explore the cookbook:** [Memory patterns across agent frameworks](/cookbook)
 - **Other integrations:** [AutoGen](/sdks/integrations/autogen), [LlamaIndex](/sdks/integrations/llamaindex), [LangGraph](/sdks/integrations/langgraph), [Pydantic AI](/sdks/integrations/pydantic-ai), [CrewAI](/sdks/integrations/crewai)

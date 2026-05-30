@@ -18,7 +18,7 @@ Every team that uses long-term memory eventually runs into the same problem: the
 
 - Entelechy 0.5.0 adds a *Bank Templates Hub* for reusable memory bank setup.
 - A template is a JSON manifest that captures bank config, mental models, and directives.
-- You can browse starter templates at [entelechy.vectorize.io/templates](https://entelechy.vectorize.io/templates), then import them through the API or the Control Plane.
+- You can browse starter templates at [mindmods.org/templates](https://mindmods.org/templates), then import them through the API or the Control Plane.
 - You can also export an existing bank and reuse that setup elsewhere.
 - The important caveat: templates capture *configuration*, not the bank's stored memories.
 
@@ -66,7 +66,7 @@ The new Templates Hub adds a discoverable front end to that workflow. Instead of
 
 ### 1. Browse the starter templates
 
-The Templates Hub lives at [entelechy.vectorize.io/templates](https://entelechy.vectorize.io/templates).
+The Templates Hub lives at [mindmods.org/templates](https://mindmods.org/templates).
 
 In 0.5.0, the gallery ships with three starter templates:
 
@@ -302,8 +302,8 @@ For teams building agents seriously, that is the difference between "we have one
 
 ## Next steps
 
-- **Use Entelechy Cloud:** Skip self-hosting with a [free account](https://ui.entelechy.vectorize.io/signup)
-- **Browse the starter gallery:** [entelechy.vectorize.io/templates](https://entelechy.vectorize.io/templates)
+- **Use Entelechy Cloud:** Skip self-hosting with a [free account](https://ui.mindmods.org/signup)
+- **Browse the starter gallery:** [mindmods.org/templates](https://mindmods.org/templates)
 - **Read the API docs:** [Bank templates reference](/developer/api/bank-templates)
 - **See what else is in 0.5.0:** [What's new in Entelechy 0.5.0](/blog/2026/04/07/version-0-5-0)
 - **Explore framework integrations:** [Agno](/sdks/integrations/agno), [AutoGen](/sdks/integrations/autogen), [LangGraph](/sdks/integrations/langgraph), [Pydantic AI](/sdks/integrations/pydantic-ai), [CrewAI](/sdks/integrations/crewai)

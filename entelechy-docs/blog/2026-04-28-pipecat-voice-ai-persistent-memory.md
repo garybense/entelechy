@@ -40,7 +40,7 @@ Real voice agent memory is different:
 - Retrieving relevant context from days, weeks, or months of past conversations
 - Synthesizing coherent answers from scattered memory across multiple calls
 
-That's what [Entelechy](https://entelechy.vectorize.io/) provides. And with `entelechy-pipecat`, you get this without rebuilding your pipeline.
+That's what [Entelechy](https://mindmods.org/) provides. And with `entelechy-pipecat`, you get this without rebuilding your pipeline.
 
 ---
 
@@ -94,7 +94,7 @@ Pick either **Entelechy Cloud** (recommended, no self-hosting) or **Local** (run
 
 #### Option 2a: Entelechy Cloud (Recommended)
 
-[Sign up free](https://ui.entelechy.vectorize.io/signup) for Entelechy Cloud — managed infrastructure, no daemon to run, memory syncs across your devices.
+[Sign up free](https://ui.mindmods.org/signup) for Entelechy Cloud — managed infrastructure, no daemon to run, memory syncs across your devices.
 
 #### Option 2b: Local Entelechy
 
@@ -120,7 +120,7 @@ from entelechy_pipecat import EntelechyMemoryService
 
 memory = EntelechyMemoryService(
     bank_id="user-123",
-    entelechy_api_url="https://api.entelechy.vectorize.io",
+    entelechy_api_url="https://api.mindmods.org",
     api_key="hsk_your_token_here",
 )
 
@@ -237,7 +237,7 @@ from entelechy_pipecat import EntelechyMemoryService
 customer_id = "customer-abc-123"
 memory = EntelechyMemoryService(
     bank_id=customer_id,
-    entelechy_api_url="https://api.entelechy.vectorize.io",
+    entelechy_api_url="https://api.mindmods.org",
     api_key=os.getenv("ENTELECHY_API_KEY"),
     recall_budget="mid",
 )
@@ -309,7 +309,7 @@ If a single pipeline handles multiple users (e.g., a shared bot), use the user I
 user_id = extract_user_from_request()
 memory = EntelechyMemoryService(
     bank_id=f"user-{user_id}",
-    entelechy_api_url="https://api.entelechy.vectorize.io",
+    entelechy_api_url="https://api.mindmods.org",
     api_key=os.getenv("ENTELECHY_API_KEY"),
 )
 ```
@@ -369,7 +369,7 @@ If you need to delete all memories for a user (GDPR, user request), use the Ente
 
 ```bash
 # Via API
-curl -X DELETE https://api.entelechy.vectorize.io/banks/user-123 \
+curl -X DELETE https://api.mindmods.org/banks/user-123 \
   -H "Authorization: Bearer hsk_..."
 ```
 
@@ -419,7 +419,7 @@ For Python developers building Pipecat voice agents that need persistent memory,
 ## Next Steps
 
 - **Try it locally**: `pip install entelechy-all entelechy-pipecat` and test with the interactive chat example
-- **Use Entelechy Cloud**: Skip self-hosting with a [free account](https://ui.entelechy.vectorize.io/signup)
+- **Use Entelechy Cloud**: Skip self-hosting with a [free account](https://ui.mindmods.org/signup)
 - **Run the basic example**: `python examples/basic_pipeline.py` to see the full voice pipeline with memory
 - **Test interactive recall**: `python examples/interactive_chat.py --bank demo-user` to see recall in action
 - **Configure recall budget**: Tune "low", "mid", or "high" based on your latency requirements

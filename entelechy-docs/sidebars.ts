@@ -325,7 +325,7 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'link',
-          href: 'https://ui.entelechy.vectorize.io/signup',
+          href: 'https://ui.mindmods.org/signup',
           label: 'Cloud',
           customProps: { icon: 'lu-cloud', iconAfter: 'lu-arrow-up-right' },
         },
@@ -478,13 +478,13 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'link',
-          href: 'https://benchmarks.entelechy.vectorize.io/',
+          href: 'https://benchmarks.mindmods.org/',
           label: 'Benchmarks',
           customProps: { icon: 'lu-chart-bar', iconAfter: 'lu-arrow-up-right' },
         },
         {
           type: 'link',
-          href: 'https://benchmarks.entelechy.vectorize.io/',
+          href: 'https://benchmarks.mindmods.org/',
           label: 'Which Model Should I Use?',
           customProps: { icon: 'lu-cpu', iconAfter: 'lu-arrow-up-right' },
         },
