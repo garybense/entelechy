@@ -46,7 +46,7 @@ jobs:
   perf-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ inputs.ref || github.ref }}
 
@@ -135,7 +135,7 @@ jobs:
       ENTELECHY_API_ANSWER_LLM_PROVIDER: vertexai
       ENTELECHY_API_ANSWER_LLM_MODEL: google/gemini-2.5-flash
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ inputs.ref || github.ref }}
 
