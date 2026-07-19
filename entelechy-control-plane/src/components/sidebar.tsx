@@ -20,6 +20,7 @@ import {
   Save, // New icon for Outcome Writeback
   BrainCircuit, // New icon for Mental Models
   Eye, // New icon for Observations
+  MessageSquare, // New icon for Chat Simulator
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -37,7 +38,8 @@ type NavItem =
   | "entities"
   | "mental-models"
   | "observations"
-  | "bank-config";
+  | "bank-config"
+  | "chat-simulator";
 
 interface SidebarProps {
   currentTab: NavItem;
@@ -45,13 +47,13 @@ interface SidebarProps {
 }
 
 export function Sidebar({ currentTab, onTabChange }: SidebarProps) {
+  const [collapsed, setCollapsed] = useState(false);
   const { currentBank } = useBank();
   const { features } = useFeatures();
   const [isCollapsed, setIsCollapsed] = useState(true);
 
-  if (!currentBank) {
-    return null;
-  }
+  // If no bank is selected, don't render the sidebar
+  if (!currentBank) return null;
 
   const navItems = [
     { id: "mwpmc-overview" as NavItem, label: "MWPMC Overview", icon: LayoutDashboard },
@@ -59,7 +61,9 @@ export function Sidebar({ currentTab, onTabChange }: SidebarProps) {
     { id: "policy-synthesis" as NavItem, label: "Policy Synthesis (Stage B)", icon: Atom },
     { id: "policy-control" as NavItem, label: "Policy Control & Inertia", icon: GitBranch },
     { id: "outcome-writeback" as NavItem, label: "Outcome Writeback", icon: Save },
+    { id: "chat-simulator" as NavItem, label: "Chat Simulator", icon: MessageSquare },
     { id: "memories" as NavItem, label: "Memories", icon: Database },
+
     { id: "recall" as NavItem, label: "Recall", icon: Search },
     { id: "reflect" as NavItem, label: "Reflect", icon: Sparkles },
     { id: "documents" as NavItem, label: "Documents", icon: FileText },

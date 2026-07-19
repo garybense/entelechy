@@ -4,7 +4,7 @@
 # LLM Configuration (Required)
 # Supported providers: openai, groq, ollama, gemini, anthropic, lmstudio, vertexai, minimax, deepseek, volcano
 ENTELECHY_API_LLM_PROVIDER=gemini
-ENTELECHY_API_LLM_API_KEY="AIzaSyA3EZZK0-p9Ex2gXMz8roeVGEtf-_toETg"
+ENTELECHY_API_LLM_API_KEY=your-gemini-api-key
 ENTELECHY_API_LLM_MODEL=gemini-flash-latest
 ENTELECHY_API_LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta
 

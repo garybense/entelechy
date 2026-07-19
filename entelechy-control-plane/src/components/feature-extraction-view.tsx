@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Beaker, Database, Hash, BarChart3, Activity } from "lucide-react";
 
@@ -20,7 +20,8 @@ export default function FeatureExtractionView() {
             Feature Extraction (Stage A)
           </h1>
           <p className="text-muted-foreground">
-            Extracts metrics and structural features from the raw memory graph. This stage distills meaning into quantifiable parameters (Vector F).
+            Extracts metrics and structural features from the raw memory graph. This stage distills
+            meaning into quantifiable parameters (Vector F).
           </p>
         </div>
       </div>
@@ -46,7 +47,9 @@ export default function FeatureExtractionView() {
             <Database className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">{vectorF.semantic_diversity.toFixed(2)}</div>
+            <div className="text-2xl font-bold text-primary">
+              {vectorF.semantic_diversity.toFixed(2)}
+            </div>
             <p className="text-xs text-muted-foreground mt-1">
               Breadth of topics in current context.
             </p>
@@ -59,7 +62,9 @@ export default function FeatureExtractionView() {
             <Hash className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">{vectorF.structural_rigor.toFixed(2)}</div>
+            <div className="text-2xl font-bold text-primary">
+              {vectorF.structural_rigor.toFixed(2)}
+            </div>
             <p className="text-xs text-muted-foreground mt-1">
               Adherence to defined memory schemas.
             </p>
@@ -72,10 +77,10 @@ export default function FeatureExtractionView() {
             <BarChart3 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">{vectorF.temporal_density.toFixed(2)}</div>
-            <p className="text-xs text-muted-foreground mt-1">
-              Frequency of recent interactions.
-            </p>
+            <div className="text-2xl font-bold text-primary">
+              {vectorF.temporal_density.toFixed(2)}
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">Frequency of recent interactions.</p>
           </CardContent>
         </Card>
       </div>
@@ -83,11 +88,14 @@ export default function FeatureExtractionView() {
       <Card>
         <CardHeader>
           <CardTitle>Vector F (Feature Vector)</CardTitle>
-          <CardDescription>The raw numerical representation extracted from the input subgraph.</CardDescription>
+          <CardDescription>
+            The raw numerical representation extracted from the input subgraph.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="bg-muted p-4 rounded-md font-mono text-sm overflow-x-auto text-primary">
-            [ {vectorF.avg_affect}, {vectorF.semantic_diversity}, {vectorF.structural_rigor}, {vectorF.temporal_density} ]
+            [ {vectorF.avg_affect}, {vectorF.semantic_diversity}, {vectorF.structural_rigor},{" "}
+            {vectorF.temporal_density} ]
           </div>
         </CardContent>
       </Card>

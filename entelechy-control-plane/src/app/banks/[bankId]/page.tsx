@@ -66,7 +66,7 @@ type NavItem =
   | "bank-config"
   | "chat-simulator";
 
-  type DataSubTab = "world" | "experience" | "observations" | "mental-models";
+type DataSubTab = "world" | "experience" | "observations" | "mental-models";
 type BankConfigTab = "general" | "configuration" | "webhooks" | "audit-logs";
 
 export default function BankPage() {
@@ -195,19 +195,14 @@ export default function BankPage() {
           <div className="p-6">
             {/* MWPMC Overview */}
             {view === "mwpmc-overview" && <MwpmcOverviewView />}
-
             {/* Feature Extraction (Stage A) */}
             {view === "feature-extraction" && <FeatureExtractionView />}
-
             {/* Policy Synthesis (Stage B) */}
             {view === "policy-synthesis" && <PolicySynthesisView />}
-
             {/* Policy Control & Inertia */}
             {view === "policy-control" && <PolicyControlView />}
-
             {/* Outcome Writeback */}
             {view === "outcome-writeback" && <OutcomeWritebackView />}
-
             {/* Memories Tab (renamed from Data) */}
             {view === "memories" && (
               <div>
@@ -347,7 +342,6 @@ export default function BankPage() {
                 </div>
               </div>
             )}
-
             {/* Recall Tab */}\
             {view === "recall" && (
               <div>
@@ -358,7 +352,6 @@ export default function BankPage() {
                 <SearchDebugView />
               </div>
             )}
-
             {/* Reflect Tab */}\
             {view === "reflect" && (
               <div>
@@ -370,7 +363,6 @@ export default function BankPage() {
                 <ThinkView />
               </div>
             )}
-
             {/* Documents Tab */}\
             {view === "documents" && (
               <div>
@@ -381,7 +373,6 @@ export default function BankPage() {
                 <DocumentsView />
               </div>
             )}
-
             {/* Entities Tab */}\
             {view === "entities" && (
               <div>
@@ -392,19 +383,17 @@ export default function BankPage() {
                 <EntitiesView />
               </div>
             )}
-
             {/* Mental Models Tab */}\
             {view === "mental-models" && (
               <div>
                 <h1 className="text-3xl font-bold mb-2 text-foreground">Mental Models</h1>
                 <p className="text-muted-foreground mb-6">
-                  User-curated summaries generated from queries — reusable knowledge snapshots
-                  that can be refreshed as memories evolve.
+                  User-curated summaries generated from queries — reusable knowledge snapshots that
+                  can be refreshed as memories evolve.
                 </p>
                 <MentalModelsView />
               </div>
             )}
-
             {/* Observations Tab */}
             {view === "observations" && (
               <div>
@@ -448,14 +437,12 @@ export default function BankPage() {
                 )}
               </div>
             )}
-
             {/* Chat Simulator Tab */}
             {view === "chat-simulator" && (
               <div>
                 <ChatSimulatorView />
               </div>
             )}
-
             {/* Bank Configuration Tab (renamed from Profile) */}
             {view === "bank-config" && (
               <div>

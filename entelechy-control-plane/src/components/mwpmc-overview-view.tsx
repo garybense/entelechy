@@ -1,6 +1,13 @@
-import React from 'react';
+import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { LayoutDashboard, BrainCircuit, Activity, Settings, GitBranch, ArrowRight } from "lucide-react";
+import {
+  LayoutDashboard,
+  BrainCircuit,
+  Activity,
+  Settings,
+  GitBranch,
+  ArrowRight,
+} from "lucide-react";
 import { useBank } from "@/lib/bank-context";
 
 export default function MwpmcOverviewView() {
@@ -15,7 +22,8 @@ export default function MwpmcOverviewView() {
             MWPMC Dashboard
           </h1>
           <p className="text-muted-foreground">
-            System overview of the Memory-Weighted Policy Modulation Controller for bank: <span className="font-mono text-primary">{currentBank}</span>
+            System overview of the Memory-Weighted Policy Modulation Controller for bank:{" "}
+            <span className="font-mono text-primary">{currentBank}</span>
           </p>
         </div>
       </div>
@@ -50,7 +58,9 @@ export default function MwpmcOverviewView() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-foreground">0.05</div>
-            <p className="text-xs text-muted-foreground mt-1">Well within $\epsilon$-limit (0.15)</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Well within $\epsilon$-limit (0.15)
+            </p>
           </CardContent>
         </Card>
 
@@ -78,7 +88,7 @@ export default function MwpmcOverviewView() {
               <span className="text-sm font-medium">Feature Extraction</span>
               <span className="text-xs text-muted-foreground mt-1">Computes Vector F</span>
             </div>
-            
+
             <ArrowRight className="hidden md:block text-muted-foreground" />
 
             <div className="flex flex-col items-center p-4 border rounded-lg bg-card shadow-sm flex-1 text-center">
@@ -92,10 +102,12 @@ export default function MwpmcOverviewView() {
             <div className="flex flex-col items-center p-4 border rounded-lg bg-card shadow-sm flex-1 text-center">
               <span className="font-bold text-lg text-primary mb-2">Control</span>
               <span className="text-sm font-medium">Inertia Check</span>
-              <span className="text-xs text-muted-foreground mt-1">Enforces $\epsilon$-boundaries</span>
+              <span className="text-xs text-muted-foreground mt-1">
+                Enforces $\epsilon$-boundaries
+              </span>
             </div>
 
-             <ArrowRight className="hidden md:block text-muted-foreground" />
+            <ArrowRight className="hidden md:block text-muted-foreground" />
 
             <div className="flex flex-col items-center p-4 border rounded-lg bg-card shadow-sm flex-1 text-center">
               <span className="font-bold text-lg text-primary mb-2">Outcome</span>

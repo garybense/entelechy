@@ -39,6 +39,8 @@
   },
   "dependencies": {
     "@garybense/entelechy-client": "^0.5.6",
+    "@google/gemini-cli": "^0.44.0",
+    "antigravity": "^0.0.0",
     "tsup": "^8.5.1"
   }
 }
