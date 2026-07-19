@@ -688,14 +688,16 @@ class MCPMiddleware:
             accept_header = self._get_header(scope, "Accept") or ""
             is_sse_accept = "text/event-stream" in accept_header
             print(f"MCPMiddleware is_sse_accept: {is_sse_accept}, accept: {accept_header}")
-            
+
             # Determine if this is a bank-scoped SSE/message endpoint path (e.g., /mcp/my-bank/sse).
             # We split the stripped path (which starts with a slash) to inspect the parts.
             stripped_path = path[len(self.prefix) :] or "/"
             path_parts = [p for p in stripped_path.split("/") if p]
             is_endpoint_path = len(path_parts) > 1 and path_parts[-1] in ("sse", "messages")
-            print(f"MCPMiddleware is_endpoint_path: {is_endpoint_path}, stripped_path: {stripped_path}, path_parts: {path_parts}")
-            
+            print(
+                f"MCPMiddleware is_endpoint_path: {is_endpoint_path}, stripped_path: {stripped_path}, path_parts: {path_parts}"
+            )
+
             if not (is_sse_accept or is_endpoint_path):
                 session_id = self._get_header(scope, "Mcp-Session-Id")
                 print(f"MCPMiddleware session_id: {session_id}")
@@ -868,15 +870,15 @@ class MCPMiddleware:
             "version": ENTELECHY_VERSION,
             "description": "To get started and understand available tools:",
             "actions": {
-                "get_onboarding_info": "POST /mcp with {\"name\": \"start_here\"}",
-                "list_available_banks": "POST /mcp with {\"name\": \"list_banks\"}",
+                "get_onboarding_info": 'POST /mcp with {"name": "start_here"}',
+                "list_available_banks": 'POST /mcp with {"name": "list_banks"}',
                 "access_specific_bank": "Use /mcp/{bank_id}/ for bank-scoped tools (e.g., /mcp/newdev/)",
                 "authenticate": "Include Authorization: Bearer <token> header for authenticated access (if required)",
             },
             "links": {
-                "documentation": "https://mindmods.org/docs/developer/mcp-server", 
+                "documentation": "https://mindmods.org/docs/developer/mcp-server",
                 "github": "https://github.com/garybense/entelechy",
-            }
+            },
         }
         body = json.dumps(welcome_payload).encode()
         await send(

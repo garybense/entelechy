@@ -30,82 +30,155 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class PolicyParams(BaseModel):
     """Structured inference-time control state — the output of MWPM.
 
     Each field is a behavioral weighting parameter derived from memory
-    frequency, recency, and semantic clustering. Applied at LLM call sites,
-    retrieval budget allocation, and tool selection.
+    frequency, recency, and semantic clustering. Applied at LLM call sites
+    via the SVT-CP vFinal System Control Vector injection.
     """
 
-    reasoning_depth: int = Field(
-        default=3,
-        ge=1,
-        le=5,
-        description="Chain-of-thought depth budget. 1 = terse direct answer, 5 = full deliberation.",
-    )
-    verbosity_target: int = Field(
-        default=3,
-        ge=1,
-        le=5,
-        description="Response token target band. 1 = minimal, 5 = expansive.",
-    )
-    uncertainty_threshold: float = Field(
+    verbosity: float = Field(
         default=0.5,
         ge=0.0,
         le=1.0,
-        description="Confidence floor below which the model should hedge or refuse.",
+        description="Response verbosity scale [0, 1].",
     )
-    tool_bias: dict[str, float] = Field(
-        default_factory=dict,
-        description="Multiplier per tool name applied to selection score. >1 favors, <1 disfavors.",
-    )
-    goal_priority: list[str] = Field(
-        default_factory=list,
-        description="Ordered tag list. Earlier entries take precedence in goal conflicts.",
-    )
-    temperature_modifier: float = Field(
-        default=0.0,
-        ge=-1.0,
+    abstraction: float = Field(
+        default=0.5,
+        ge=0.0,
         le=1.0,
-        description="Delta applied to base sampling temperature.",
+        description="Concept abstraction level [0, 1].",
+    )
+    creativity: float = Field(
+        default=0.5,
+        ge=0.0,
+        le=1.0,
+        description="Generative creativity vs determinism [0, 1].",
+    )
+    empathy: float = Field(
+        default=0.5,
+        ge=0.0,
+        le=1.0,
+        description="Emotional engagement level [0, 1].",
+    )
+    rigor: float = Field(
+        default=0.5,
+        ge=0.0,
+        le=1.0,
+        description="Logical strictness and step-by-step enforcement [0, 1].",
+    )
+    tool_use_probability: float = Field(
+        default=0.5,
+        ge=0.0,
+        le=1.0,
+        description="Probability of selecting an external tool over internal generation [0, 1].",
     )
     rationale: str = Field(
         default="",
         description="One-line explanation of why these params — audit + patent evidence.",
     )
 
+    # Legacy fields (backwards compatibility)
+    verbosity_target: int = Field(
+        default=3,
+        description="Old verbosity target [1, 5], mapped to verbosity.",
+    )
+    temperature_modifier: float = Field(
+        default=0.0,
+        description="Old temperature modifier, mapped to creativity.",
+    )
+    reasoning_depth: int = Field(
+        default=3,
+        description="Old reasoning depth [1, 5], mapped to rigor.",
+    )
+    tool_bias: dict[str, float] = Field(
+        default_factory=dict,
+        description="Old tool bias dict.",
+    )
+    uncertainty_threshold: float = Field(
+        default=0.0,
+        description="Old uncertainty threshold.",
+    )
+
+    @model_validator(mode="before")
+    @classmethod
+    def pre_validate(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+
+        # Map legacy fields to new float scalars if legacy fields are provided
+        if "verbosity_target" in data and "verbosity" not in data:
+            vt = data["verbosity_target"]
+            data["verbosity"] = max(0.0, min(1.0, (vt - 1) / 4.0))
+
+        if "temperature_modifier" in data and "creativity" not in data:
+            tm = data["temperature_modifier"]
+            data["creativity"] = max(0.0, min(1.0, tm + 0.5))
+
+        if "reasoning_depth" in data and "rigor" not in data:
+            rd = data["reasoning_depth"]
+            data["rigor"] = max(0.0, min(1.0, (rd - 1) / 4.0))
+
+        # Map new fields back to legacy fields if new ones are provided
+        if "verbosity" in data and "verbosity_target" not in data:
+            v = data["verbosity"]
+            data["verbosity_target"] = int(round(v * 4 + 1))
+
+        if "creativity" in data and "temperature_modifier" not in data:
+            c = data["creativity"]
+            data["temperature_modifier"] = c - 0.5
+
+        if "rigor" in data and "reasoning_depth" not in data:
+            r = data["rigor"]
+            data["reasoning_depth"] = int(round(r * 4 + 1))
+
+        return data
+
+    @model_validator(mode="after")
+    def post_validate(self) -> "PolicyParams":
+        # Ensure consistency across both fields after construction/update
+        self.verbosity_target = int(round(self.verbosity * 4 + 1))
+        self.temperature_modifier = self.creativity - 0.5
+        self.reasoning_depth = int(round(self.rigor * 4 + 1))
+        return self
+
     class Config:
         from_attributes = True
 
     def merge(self, other: "PolicyParams") -> "PolicyParams":
-        """Compose two PolicyParams. `other` wins on scalar overrides; dict and
-        list fields are merged additively / by union."""
-        merged_tool_bias = dict(self.tool_bias)
-        for tool, weight in other.tool_bias.items():
-            merged_tool_bias[tool] = merged_tool_bias.get(tool, 1.0) * weight
-
-        # goal_priority: append unique entries from other in order, preserving precedence
-        merged_priority = list(self.goal_priority)
-        for tag in other.goal_priority:
-            if tag not in merged_priority:
-                merged_priority.append(tag)
-
+        """Compose two PolicyParams. `other` wins on scalar overrides."""
         rationale = self.rationale
         if other.rationale:
             rationale = f"{rationale}; {other.rationale}" if rationale else other.rationale
 
         return PolicyParams(
-            reasoning_depth=other.reasoning_depth,
-            verbosity_target=other.verbosity_target,
-            uncertainty_threshold=other.uncertainty_threshold,
-            tool_bias=merged_tool_bias,
-            goal_priority=merged_priority,
-            temperature_modifier=self.temperature_modifier + other.temperature_modifier,
+            verbosity=other.verbosity,
+            abstraction=other.abstraction,
+            creativity=other.creativity,
+            empathy=other.empathy,
+            rigor=other.rigor,
+            tool_use_probability=other.tool_use_probability,
             rationale=rationale,
+            tool_bias=other.tool_bias if other.tool_bias else self.tool_bias,
+            uncertainty_threshold=other.uncertainty_threshold
+            if other.uncertainty_threshold != 0.0
+            else self.uncertainty_threshold,
+        )
+
+    def to_system_control_vector(self) -> str:
+        """Render the policy as the SVT-CP vFinal prompt injection block."""
+        return (
+            "SYSTEM CONTROL VECTOR:\n"
+            f"- verbosity: {self.verbosity:.2f}\n"
+            f"- abstraction: {self.abstraction:.2f}\n"
+            f"- empathy: {self.empathy:.2f}\n"
+            f"- rigor: {self.rigor:.2f}\n"
+            f"- creativity: {self.creativity:.2f}\n"
+            f"- tool_use: {self.tool_use_probability:.2f}"
         )
 
     def with_rationale(self, rationale: str) -> "PolicyParams":
@@ -169,36 +242,19 @@ def _interpolate_params(left: PolicyParams, right: PolicyParams, fraction: float
     """Linear interpolation between two PolicyParams at `fraction` ∈ [0, 1]."""
     f = max(0.0, min(1.0, fraction))
 
-    def lerp_int(a: int, b: int) -> int:
-        return int(round(a + (b - a) * f))
-
     def lerp_float(a: float, b: float) -> float:
         return a + (b - a) * f
 
-    # Tool bias: keys union; weights linearly interpolated, missing keys assumed 1.0
-    keys = set(left.tool_bias) | set(right.tool_bias)
-    tool_bias = {k: lerp_float(left.tool_bias.get(k, 1.0), right.tool_bias.get(k, 1.0)) for k in keys}
-
-    # Goal priority: blend by taking left near f=0 and right near f=1
-    if f < 0.5:
-        goal_priority = list(left.goal_priority)
-        for tag in right.goal_priority:
-            if tag not in goal_priority:
-                goal_priority.append(tag)
-    else:
-        goal_priority = list(right.goal_priority)
-        for tag in left.goal_priority:
-            if tag not in goal_priority:
-                goal_priority.append(tag)
-
     return PolicyParams(
-        reasoning_depth=lerp_int(left.reasoning_depth, right.reasoning_depth),
-        verbosity_target=lerp_int(left.verbosity_target, right.verbosity_target),
-        uncertainty_threshold=lerp_float(left.uncertainty_threshold, right.uncertainty_threshold),
-        tool_bias=tool_bias,
-        goal_priority=goal_priority,
-        temperature_modifier=lerp_float(left.temperature_modifier, right.temperature_modifier),
+        verbosity=lerp_float(left.verbosity, right.verbosity),
+        abstraction=lerp_float(left.abstraction, right.abstraction),
+        creativity=lerp_float(left.creativity, right.creativity),
+        empathy=lerp_float(left.empathy, right.empathy),
+        rigor=lerp_float(left.rigor, right.rigor),
+        tool_use_probability=lerp_float(left.tool_use_probability, right.tool_use_probability),
         rationale=left.rationale if f < 0.5 else right.rationale,
+        tool_bias=left.tool_bias if f < 0.5 else right.tool_bias,
+        uncertainty_threshold=lerp_float(left.uncertainty_threshold, right.uncertainty_threshold),
     )
 
 
@@ -206,7 +262,7 @@ def _interpolate_params(left: PolicyParams, right: PolicyParams, fraction: float
 class MemoryStats:
     """Statistics over a recall result — input to the MWPM modulator.
 
-    All fields are derived from recall outputs; no separate query is required.
+    Represents Vector F in the SVT-CP vFinal specification.
     """
 
     total_memories: int = 0
@@ -216,6 +272,12 @@ class MemoryStats:
     mean_age_seconds: float = 0.0
     fact_type_counts: dict[str, int] = field(default_factory=dict)
     signal_density: float = 0.0  # mean rerank score, 0..1
+
+    # SVT-CP Vector F extensions
+    avg_affect: float = 0.0
+    success_rate: float = 0.0
+    semantic_diversity: float = 0.0
+    user_stability: float = 0.0
 
     def top_tags(self, n: int = 5) -> list[str]:
         """Return the top-N tags by recency-weighted frequency."""

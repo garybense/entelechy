@@ -325,6 +325,7 @@ async def run_reflect_agent(
     include_recall: bool = True,
     budget: str | None = None,
     max_context_tokens: int = 100_000,
+    injected_policy: str | None = None,
 ) -> ReflectAgentResult:
     """
     Execute the reflect agent loop using native tool calling.

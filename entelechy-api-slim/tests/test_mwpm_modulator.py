@@ -1,5 +1,6 @@
 """Unit tests for entelechy_api.engine.mwpm.modulator.modulate_policy."""
 
+import math
 from datetime import datetime, timezone
 
 from entelechy_api.engine.mwpm import MemoryStats, PolicyParams
@@ -30,123 +31,78 @@ def test_modulate_neutral_inputs_yields_baseline_with_rationale():
     sv = _make_state_vector()
     stats = MemoryStats()
     p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.reasoning_depth == 3
-    assert p.verbosity_target == 3
-    assert p.rationale == "neutral baseline"
+    assert p.verbosity == 0.5
+    assert p.abstraction == 0.5
+    assert p.creativity == 0.5
+    assert p.empathy == 0.5
+    assert p.rigor == 0.5
+    assert p.tool_use_probability == 0.5
+    assert "Neutral mathematical baseline" in p.rationale
 
 
-def test_modulate_high_signal_density_increases_depth():
+def test_modulate_positive_affect_increases_empathy_and_verbosity():
     sv = _make_state_vector()
-    stats = MemoryStats(total_memories=10, signal_density=0.85)
+    stats = MemoryStats(avg_affect=0.8)
     p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.reasoning_depth >= 4
-    assert "signal_density" in p.rationale
+    assert p.empathy > 0.5
+    assert p.verbosity > 0.5
+    assert p.rigor == 0.5
+    assert "avg_affect" in p.rationale
 
 
-def test_modulate_high_drift_increases_depth_and_uncertainty():
-    sv = _make_state_vector(drift_signal=0.7)
-    stats = MemoryStats()
-    p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.reasoning_depth >= 4
-    assert p.uncertainty_threshold > 0.5
-    assert "drift" in p.rationale
-
-
-def test_modulate_skeptical_posture_increases_depth():
-    sv = _make_state_vector(posture_vector={"skeptical": 0.8, "precise": 0.6})
-    stats = MemoryStats()
-    p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.reasoning_depth >= 4
-
-
-def test_modulate_intuitive_posture_decreases_depth():
-    sv = _make_state_vector(posture_vector={"intuitive": 0.9, "rapid": 0.7})
-    stats = MemoryStats()
-    p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.reasoning_depth <= 2
-
-
-def test_modulate_density_aesthetic_decreases_verbosity():
-    sv = _make_state_vector(aesthetic_vector={"density": 0.9, "compressed": 0.7})
-    stats = MemoryStats()
-    p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.verbosity_target <= 2
-
-
-def test_modulate_expansive_aesthetic_increases_verbosity():
-    sv = _make_state_vector(aesthetic_vector={"verbose": 0.8, "narrative": 0.6})
-    stats = MemoryStats()
-    p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.verbosity_target >= 4
-
-
-def test_modulate_verify_covenant_raises_uncertainty_floor():
-    sv = _make_state_vector(covenant_active=["verify before claiming", "no half measures"])
-    stats = MemoryStats()
-    p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.uncertainty_threshold > 0.5
-    assert "verification" in p.rationale or "verify" in p.rationale.lower()
-
-
-def test_modulate_explore_covenant_lowers_uncertainty_floor():
-    sv = _make_state_vector(covenant_active=["explore freely", "speculate often"])
-    stats = MemoryStats()
-    p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.uncertainty_threshold < 0.5
-
-
-def test_modulate_top_tags_propagate_into_goal_priority_and_tool_bias():
+def test_modulate_negative_affect_increases_rigor():
     sv = _make_state_vector()
-    stats = MemoryStats(
-        total_memories=4,
-        tag_recency_weighted={"metacog:felt-sense": 5.0, "metacog:naming": 3.0},
-        tag_frequency={"metacog:felt-sense": 4, "metacog:naming": 3},
-    )
+    stats = MemoryStats(avg_affect=-0.6)
     p = modulate_policy(state_vector=sv, memory_stats=stats)
-    # tags landed in goal_priority
-    assert "metacog:felt-sense" in p.goal_priority
-    # tag_to_tool_hint mapped tags onto tool names
-    assert "feel" in p.tool_bias
-    assert "name" in p.tool_bias
-    assert p.tool_bias["feel"] > 1.0
+    assert p.empathy == 0.5
+    assert p.verbosity == 0.5
+    assert p.rigor > 0.5
+    assert "avg_affect" in p.rationale
 
 
-def test_modulate_active_focus_lands_in_goal_priority():
-    sv = _make_state_vector(active_focus=["build srl", "ship phase b"])
-    stats = MemoryStats()
+def test_modulate_low_success_rate_increases_creativity_and_tool_use():
+    sv = _make_state_vector()
+    stats = MemoryStats(total_memories=10, success_rate=0.2)
     p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert "build srl" in p.goal_priority
-    assert "ship phase b" in p.goal_priority
+    assert p.creativity > 0.5
+    assert p.tool_use_probability > 0.5
+    assert "success_rate" in p.rationale
 
 
-def test_modulate_transient_modifiers_shift_temperature():
-    sv = _make_state_vector(transient_modifiers={"caffeine": 0.6})
-    stats = MemoryStats()
+def test_modulate_high_semantic_diversity_increases_abstraction():
+    sv = _make_state_vector()
+    stats = MemoryStats(semantic_diversity=0.8)
     p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.temperature_modifier > 0.0
-    assert "transient" in p.rationale
+    assert p.abstraction > 0.5
+    assert "semantic_diversity" in p.rationale
 
 
-def test_modulate_negative_transient_modifiers_lower_temperature():
-    sv = _make_state_vector(transient_modifiers={"sedative": -0.8})
-    stats = MemoryStats()
+def test_modulate_high_user_stability_increases_rigor_decreases_creativity():
+    sv = _make_state_vector()
+    stats = MemoryStats(user_stability=0.9)
     p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert p.temperature_modifier < 0.0
+    assert p.rigor > 0.5
+    assert p.creativity < 0.5
+    assert "user_stability" in p.rationale
 
 
-def test_modulate_persona_lens_recorded_in_rationale():
-    sv = _make_state_vector(persona_lens="research_mentor")
-    stats = MemoryStats()
-    p = modulate_policy(state_vector=sv, memory_stats=stats)
-    assert "research_mentor" in p.rationale
+def test_policy_inertia_clamps_extreme_changes():
+    sv = _make_state_vector()
+    stats = MemoryStats(avg_affect=1.0) # Should try to push empathy to 0.5 + 0.2 = 0.7
+    
+    previous = PolicyParams(empathy=0.2) # Inertia delta is 0.5. Limit is 0.15
+    p = modulate_policy(state_vector=sv, memory_stats=stats, previous_policy=previous, inertia_epsilon=0.15)
+    
+    # 0.2 + 0.15 limit = 0.35
+    assert math.isclose(p.empathy, 0.35, abs_tol=1e-6)
+    assert "inertia" in p.rationale.lower()
 
 
 def test_modulate_respects_custom_baseline():
     sv = _make_state_vector()
     stats = MemoryStats()
-    base = PolicyParams(reasoning_depth=4, tool_bias={"recall": 1.5})
+    base = PolicyParams(rigor=0.8)
     p = modulate_policy(state_vector=sv, memory_stats=stats, base=base)
     # baseline depth carries through
-    assert p.reasoning_depth == 4
-    # baseline tool bias preserved
-    assert p.tool_bias["recall"] == 1.5
+    assert p.rigor == 0.8
+    assert p.verbosity == 0.5

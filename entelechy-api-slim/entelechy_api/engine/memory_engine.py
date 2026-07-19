@@ -6082,6 +6082,9 @@ class MemoryEngine(MemoryEngineInterface):
                         include_recall=include_recall,
                         budget=effective_budget,
                         max_context_tokens=max_context_tokens,
+                        injected_policy=self._get_injected_policy_sync(bank_id)
+                        if hasattr(self, "_get_injected_policy_sync")
+                        else None,
                     ),
                     timeout=wall_timeout,
                 )
