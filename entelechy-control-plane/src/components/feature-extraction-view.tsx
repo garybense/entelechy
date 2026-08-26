@@ -17,9 +17,10 @@ export default function FeatureExtractionView() {
   useEffect(() => {
     let active = true;
     async function loadStats() {
+      if (!currentBank) return;
       setLoading(true);
       try {
-        const res = await client.getMwpmcStats(currentBank);
+        const res = await client.getMwpmcStats(currentBank || 'default');
         if (active && res && res.vectorF) {
           setData(res.vectorF);
         }

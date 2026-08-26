@@ -20,9 +20,10 @@ export default function OutcomeWritebackView() {
   useEffect(() => {
     let active = true;
     async function loadStats() {
+      if (!currentBank) return;
       setLoading(true);
       try {
-        const res = await client.getMwpmcStats(currentBank);
+        const res = await client.getMwpmcStats(currentBank || 'default');
         if (active && res && res.writebacks) {
           setWritebacks(res.writebacks);
         }

@@ -21,8 +21,9 @@ export default function MwpmcOverviewView() {
   useEffect(() => {
     let active = true;
     async function loadStats() {
+      if (!currentBank) return;
       try {
-        const res = await client.getMwpmcStats(currentBank);
+        const res = await client.getMwpmcStats(currentBank || 'default');
         if (active && res) {
           setMwpmcData(res);
         }
