@@ -66,6 +66,14 @@ Add to `~/.claude_desktop_config.json`:
 
 ### Direct HTTP Request
 
+Connecting to the base `/mcp` endpoint without a tool payload will return a structured JSON onboarding message:
+
+```bash
+curl http://localhost:8888/mcp
+```
+*Returns a welcome payload detailing the canonical 8-step cycle and how to use `start_here`.*
+
+To execute a tool:
 ```bash
 curl -X POST http://localhost:8888/mcp \
   -H "Authorization: Bearer your-secret-key" \
@@ -74,6 +82,7 @@ curl -X POST http://localhost:8888/mcp \
   -H "Accept: application/json, text/event-stream" \
   -d '{"jsonrpc": "2.0", "method": "tools/list", "id": 1}'
 ```
+
 
 If the key is missing or invalid, requests will receive a `401 Unauthorized` response.
 

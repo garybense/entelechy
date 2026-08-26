@@ -394,7 +394,33 @@ class LLMProvider:
 
             config = get_config()
 
+            service_account_key = config.llm_vertexai_service_account_key
+
+            # Load explicit service account credentials if provided
+            if service_account_key and Path(service_account_key).is_file():
+                if not VERTEXAI_AVAILABLE:
+                    raise ValueError(
+                        "Vertex AI service account auth requires 'google-auth' package. "
+                        "Install with: pip install google-auth"
+                    )
+                try:
+                    vertexai_credentials = service_account.Credentials.from_service_account_file(
+                        service_account_key,
+                        scopes=["https://www.googleapis.com/auth/cloud-platform"],
+                    )
+                    logger.info(f"Vertex AI: Using service account key: {service_account_key}")
+                except Exception as e:
+                    logger.warning(f"Failed to load service account key file {service_account_key}: {e}")
+
             vertexai_project_id = config.llm_vertexai_project_id
+            if not vertexai_project_id and service_account_key and Path(service_account_key).is_file():
+                try:
+                    with open(service_account_key, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                        vertexai_project_id = data.get("project_id")
+                except Exception:
+                    pass
+
             if not vertexai_project_id:
                 raise ValueError(
                     "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID is required for Vertex AI provider. "
@@ -402,20 +428,6 @@ class LLMProvider:
                 )
 
             vertexai_region = config.llm_vertexai_region or "us-central1"
-            service_account_key = config.llm_vertexai_service_account_key
-
-            # Load explicit service account credentials if provided
-            if service_account_key:
-                if not VERTEXAI_AVAILABLE:
-                    raise ValueError(
-                        "Vertex AI service account auth requires 'google-auth' package. "
-                        "Install with: pip install google-auth"
-                    )
-                vertexai_credentials = service_account.Credentials.from_service_account_file(
-                    service_account_key,
-                    scopes=["https://www.googleapis.com/auth/cloud-platform"],
-                )
-                logger.info(f"Vertex AI: Using service account key: {service_account_key}")
 
             # Strip google/ prefix from model name — native SDK uses bare names
             if self.model.startswith("google/"):

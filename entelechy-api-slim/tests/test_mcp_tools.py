@@ -345,7 +345,7 @@ class TestMentalModelToolRegistration:
         assert "delete_bank" in tools
         assert "clear_memories" in tools
         assert "sync_retain" in tools
-        assert len(tools) == 29
+        assert len(tools) == 33
 
 
 @pytest.fixture
