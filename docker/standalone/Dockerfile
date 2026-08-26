@@ -77,8 +77,8 @@ COPY package.json package-lock.json ./
 COPY entelechy-clients/typescript/ ./entelechy-clients/typescript/
 
 # Install and build SDK using workspace (--ignore-scripts skips git hooks setup)
-RUN npm ci --ignore-scripts -w @vectorize-io/entelechy-client
-RUN npm run build -w @vectorize-io/entelechy-client
+RUN npm ci --ignore-scripts -w @garybense/entelechy-client
+RUN npm run build -w @garybense/entelechy-client
 
 # =============================================================================
 # Stage: Control Plane Builder
@@ -107,7 +107,7 @@ COPY entelechy-control-plane/ ./
 RUN rm -f package-lock.json && sed -i '/"@vectorize-io\/entelechy-client":/d' package.json
 
 # Copy built SDK directly into node_modules (more reliable than npm link in Docker)
-COPY --from=sdk-builder /app/entelechy-clients/typescript ./node_modules/@vectorize-io/entelechy-client
+COPY --from=sdk-builder /app/entelechy-clients/typescript ./node_modules/@garybense/entelechy-client
 
 # Accept base path as build argument for reverse proxy deployments
 # Usage: docker build --build-arg NEXT_PUBLIC_BASE_PATH=/entelechy ...

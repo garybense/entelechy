@@ -59,7 +59,7 @@ export default function PolicyControlView() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-muted-foreground" />
-              Current Drift ($||P_t - P_{t-1}||$)
+              Current Drift ($||P_t - P_{"t-1"}||$)
             </CardTitle>
             <CardDescription>
               Measured change between previous and proposed policy vectors.
