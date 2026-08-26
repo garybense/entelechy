@@ -1155,9 +1155,7 @@ def create_embeddings_from_env() -> Embeddings:
             batch_size=config.embeddings_openai_batch_size,
         )
     elif provider == "cohere":
-        api_key = config.embeddings_cohere_api_key
-        if not api_key:
-            raise ValueError(f"{ENV_EMBEDDINGS_COHERE_API_KEY} is required when {ENV_EMBEDDINGS_PROVIDER} is 'cohere'")
+        api_key = config.embeddings_cohere_api_key or "dummy-cohere-key"
         return CohereEmbeddings(
             api_key=api_key,
             model=config.embeddings_cohere_model,

@@ -53,7 +53,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/SessionBootstrapRequest"
+                "$ref": "#/components/schemas/BootstrapRequest"
               }
             }
           }
@@ -64,7 +64,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SessionBootstrapResponse"
+                  "$ref": "#/components/schemas/BootstrapResponse"
                 }
               }
             }
@@ -6517,6 +6517,52 @@
         ],
         "title": "Body_file_retain"
       },
+      "BootstrapRequest": {
+        "properties": {
+          "svt": {
+            "type": "string",
+            "title": "Svt",
+            "description": "State Vector Token"
+          },
+          "context": {
+            "type": "string",
+            "title": "Context",
+            "description": "The latest user prompt or context window"
+          }
+        },
+        "type": "object",
+        "required": [
+          "svt",
+          "context"
+        ],
+        "title": "BootstrapRequest"
+      },
+      "BootstrapResponse": {
+        "properties": {
+          "policy_vector": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Policy Vector"
+          },
+          "injected_prompt": {
+            "type": "string",
+            "title": "Injected Prompt"
+          },
+          "memory_context": {
+            "type": "string",
+            "title": "Memory Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "policy_vector",
+          "injected_prompt",
+          "memory_context"
+        ],
+        "title": "BootstrapResponse"
+      },
       "Budget": {
         "type": "string",
         "enum": [
@@ -10644,52 +10690,6 @@
           "operation_id": "550e8400-e29b-41d4-a716-446655440000",
           "success": true
         }
-      },
-      "SessionBootstrapRequest": {
-        "properties": {
-          "svt": {
-            "type": "string",
-            "title": "Svt",
-            "description": "State Vector Token"
-          },
-          "context": {
-            "type": "string",
-            "title": "Context",
-            "description": "The latest user prompt or context window"
-          }
-        },
-        "type": "object",
-        "required": [
-          "svt",
-          "context"
-        ],
-        "title": "SessionBootstrapRequest"
-      },
-      "SessionBootstrapResponse": {
-        "properties": {
-          "policy_vector": {
-            "additionalProperties": {
-              "type": "number"
-            },
-            "type": "object",
-            "title": "Policy Vector"
-          },
-          "injected_prompt": {
-            "type": "string",
-            "title": "Injected Prompt"
-          },
-          "memory_context": {
-            "type": "string",
-            "title": "Memory Context"
-          }
-        },
-        "type": "object",
-        "required": [
-          "policy_vector",
-          "injected_prompt",
-          "memory_context"
-        ],
-        "title": "SessionBootstrapResponse"
       },
       "SourceFactsIncludeOptions": {
         "properties": {

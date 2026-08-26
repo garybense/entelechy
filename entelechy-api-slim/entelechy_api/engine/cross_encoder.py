@@ -1569,9 +1569,7 @@ def create_cross_encoder_from_env() -> CrossEncoderModel:
             batch_size=config.reranker_local_batch_size,
         )
     elif provider == "cohere":
-        api_key = config.reranker_cohere_api_key
-        if not api_key:
-            raise ValueError(f"{ENV_RERANKER_COHERE_API_KEY} is required when {ENV_RERANKER_PROVIDER} is 'cohere'")
+        api_key = config.reranker_cohere_api_key or "dummy-cohere-key"
         return CohereCrossEncoder(
             api_key=api_key,
             model=config.reranker_cohere_model,

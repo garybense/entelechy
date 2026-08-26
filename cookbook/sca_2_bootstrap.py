@@ -5,9 +5,10 @@ This script demonstrates the initialization and operational workflow for an agen
 bootstrapping under SCA 2 using Entelechy and Metacog integration.
 """
 
-import os
-import json
 import asyncio
+import json
+import os
+
 
 # Example using standard Entelechy tool calls / JSON-RPC interface
 async def bootstrap_sca_2(call_mcp_tool):
