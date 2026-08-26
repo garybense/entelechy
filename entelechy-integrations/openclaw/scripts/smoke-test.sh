@@ -6,7 +6,7 @@
 #   1. The plugin tarball installs cleanly via `openclaw plugins install`
 #      WITHOUT --dangerously-force-unsafe-install (install scanner reports
 #      zero findings).
-#   2. Workspace deps (@vectorize-io/entelechy-all, entelechy-client) resolve
+#   2. Workspace deps (@garybense/entelechy-all, entelechy-client) resolve
 #      from the npm registry into the extracted extension's node_modules.
 #   3. The non-interactive `entelechy-openclaw-setup` wizard writes a valid
 #      openclaw.json plugin config for each of the three modes.
@@ -205,11 +205,11 @@ main() {
   log "✓ scanner-clean install succeeded"
 
   # Confirm deps resolved from npm.
-  if [[ ! -d "$EXT_DIR/node_modules/@vectorize-io/entelechy-all" ]]; then
-    fail "expected @vectorize-io/entelechy-all in installed extension"
+  if [[ ! -d "$EXT_DIR/node_modules/@garybense/entelechy-all" ]]; then
+    fail "expected @garybense/entelechy-all in installed extension"
   fi
-  if [[ ! -d "$EXT_DIR/node_modules/@vectorize-io/entelechy-client" ]]; then
-    fail "expected @vectorize-io/entelechy-client in installed extension"
+  if [[ ! -d "$EXT_DIR/node_modules/@garybense/entelechy-client" ]]; then
+    fail "expected @garybense/entelechy-client in installed extension"
   fi
   log "✓ workspace deps resolved from registry"
 
