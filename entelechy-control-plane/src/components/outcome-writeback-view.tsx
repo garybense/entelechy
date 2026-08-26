@@ -1,11 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Save, History, ActivitySquare, CheckCircle } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useBank } from "@/lib/bank-context";
+import { client } from "@/lib/api";
 
 export default function OutcomeWritebackView() {
-  // Placeholder data for recent writebacks
-  const recentWritebacks = [
+  const { currentBank } = useBank();
+  const [writebacks, setWritebacks] = useState<Array<{
+    id: string;
+    timestamp: string;
+    action: string;
+    outcome: string;
+    vectorF: string;
+    vectorP: string;
+  }>>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    async function loadStats() {
+      setLoading(true);
+      try {
+        const res = await client.getMwpmcStats(currentBank);
+        if (active && res && res.writebacks) {
+          setWritebacks(res.writebacks);
+        }
+      } catch (e) {
+        console.error("Failed to load MWPMC stats", e);
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+    loadStats();
+    return () => { active = false; };
+  }, [currentBank]);
+
+  const recentWritebacks = writebacks.length > 0 ? writebacks : [
     {
       id: "wb-001",
       timestamp: "2026-05-29T10:15:00Z",
@@ -22,14 +53,6 @@ export default function OutcomeWritebackView() {
       vectorF: "[0.15, 0.42, 0.96, 0.85]",
       vectorP: "[0.22, 0.84, 0.18, 0.12, 0.96, 0.88]",
     },
-    {
-      id: "wb-003",
-      timestamp: "2026-05-29T10:25:00Z",
-      action: "Policy Injection",
-      outcome: "Rejected (Drift)",
-      vectorF: "[0.85, 0.92, 0.16, 0.15]",
-      vectorP: "[0.92, 0.14, 0.88, 0.92, 0.16, 0.18]",
-    },
   ];
 
   return (
@@ -41,8 +64,8 @@ export default function OutcomeWritebackView() {
             Outcome Writeback
           </h1>
           <p className="text-muted-foreground">
-            Logs the results of policy execution back into the memory graph as Experiences, closing
-            the SVT-CP loop.
+            Logs results of policy execution back into memory graph as Experiences for bank:{" "}
+            <span className="font-mono text-primary">{currentBank}</span>.
           </p>
         </div>
       </div>
@@ -59,7 +82,7 @@ export default function OutcomeWritebackView() {
             <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
             <h3 className="text-xl font-bold text-foreground">Loop Closed</h3>
             <p className="text-sm text-muted-foreground text-center mt-2">
-              The latest interaction outcome has been successfully written to the memory bank.
+              Interaction outcome written to bank: <span className="font-mono text-primary">{currentBank}</span>.
             </p>
           </CardContent>
         </Card>

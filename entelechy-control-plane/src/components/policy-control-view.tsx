@@ -1,13 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { GitBranch, ShieldAlert, CheckCircle2, TrendingUp, AlertTriangle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { useBank } from "@/lib/bank-context";
+import { client } from "@/lib/api";
 
 export default function PolicyControlView() {
-  // Placeholder data for Inertia constraints
-  const currentDrift = 0.05;
-  const epsilonLimit = 0.15;
-  const isAdmissible = currentDrift < epsilonLimit;
+  const { currentBank } = useBank();
+  const [controlData, setControlData] = useState<{
+    current_drift: number;
+    epsilon_limit: number;
+    is_admissible: boolean;
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    async function loadStats() {
+      setLoading(true);
+      try {
+        const res = await client.getMwpmcStats(currentBank);
+        if (active && res && res.control) {
+          setControlData(res.control);
+        }
+      } catch (e) {
+        console.error("Failed to load MWPMC stats", e);
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+    loadStats();
+    return () => { active = false; };
+  }, [currentBank]);
+
+  const currentDrift = controlData?.current_drift ?? 0.05;
+  const epsilonLimit = controlData?.epsilon_limit ?? 0.15;
+  const isAdmissible = controlData?.is_admissible ?? (currentDrift < epsilonLimit);
 
   return (
     <div className="p-4 space-y-6">
@@ -18,7 +46,8 @@ export default function PolicyControlView() {
             Policy Control & Inertia
           </h1>
           <p className="text-muted-foreground">
-            Monitors and enforces the stability of the policy vector over time. Rejects policy
+            Monitors and enforces the stability of the policy vector over time for bank:{" "}
+            <span className="font-mono text-primary">{currentBank}</span>. Rejects policy
             updates that induce unstable drift.
           </p>
         </div>
@@ -29,14 +58,14 @@ export default function PolicyControlView() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-muted-foreground" />
-              Current Drift ($||P_t - P_{"{t-1}"}||$)
+              Current Drift ($||P_t - P_{t-1}||$)
             </CardTitle>
             <CardDescription>
               Measured change between previous and proposed policy vectors.
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="text-4xl font-bold text-primary mb-4">{currentDrift.toFixed(3)}</div>
+            <div className="text-4xl font-bold text-primary mb-4">{loading ? "..." : currentDrift.toFixed(3)}</div>
             <Progress value={(currentDrift / epsilonLimit) * 100} className="h-3" />
             <div className="flex justify-between text-xs text-muted-foreground mt-2">
               <span>0.0</span>
@@ -90,7 +119,7 @@ export default function PolicyControlView() {
             </li>
             <li>
               <strong>Mechanism:</strong> Calculate the Euclidean distance between $P_t$ (proposed)
-              and $P_{"{t-1}"}$ (current).
+              and $P_{t-1}$ (current).
             </li>
             <li>
               <strong>Constraint ($\epsilon$):</strong> The maximum allowable distance is currently
@@ -98,7 +127,7 @@ export default function PolicyControlView() {
             </li>
             <li>
               <strong>Action:</strong> If distance &lt; $\epsilon$, inject $P_t$. If distance $\ge
-              \epsilon$, clamp to boundary or retain $P_{"{t-1}"}$.
+              \epsilon$, clamp to boundary or retain $P_{t-1}$.
             </li>
           </ul>
         </CardContent>

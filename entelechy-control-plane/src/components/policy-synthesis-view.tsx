@@ -1,11 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Atom, MessageSquare, Lightbulb, Puzzle, Scale, Wrench } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { useBank } from "@/lib/bank-context";
+import { client } from "@/lib/api";
 
 export default function PolicySynthesisView() {
-  // Placeholder data for Vector P
-  const vectorP = {
+  const { currentBank } = useBank();
+  const [data, setData] = useState<{
+    verbosity: number;
+    abstraction: number;
+    creativity: number;
+    empathy: number;
+    rigor: number;
+    tool_use_prob: number;
+    rationale?: string;
+  } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    async function loadStats() {
+      setLoading(true);
+      try {
+        const res = await client.getMwpmcStats(currentBank);
+        if (active && res && res.vectorP) {
+          setData(res.vectorP);
+        }
+      } catch (e) {
+        console.error("Failed to load MWPMC stats", e);
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+    loadStats();
+    return () => { active = false; };
+  }, [currentBank]);
+
+  const vectorP = data || {
     verbosity: 0.2,
     abstraction: 0.85,
     creativity: 0.2,
@@ -23,8 +55,8 @@ export default function PolicySynthesisView() {
             Policy Synthesis (Stage B)
           </h1>
           <p className="text-muted-foreground">
-            Translates the feature metrics (Vector F) into operational directives (Policy Vector P)
-            that strictly govern agent behavior.
+            Translates feature metrics (Vector F) into operational directives (Policy Vector P) for bank:{" "}
+            <span className="font-mono text-primary">{currentBank}</span>.
           </p>
         </div>
       </div>
@@ -45,7 +77,7 @@ export default function PolicySynthesisView() {
                   <MessageSquare className="w-4 h-4 text-muted-foreground" />
                   Verbosity
                 </span>
-                <span className="font-mono">{vectorP.verbosity.toFixed(2)}</span>
+                <span className="font-mono">{loading ? "..." : vectorP.verbosity.toFixed(2)}</span>
               </div>
               <Progress value={vectorP.verbosity * 100} className="h-2" />
               <p className="text-xs text-muted-foreground">
@@ -59,7 +91,7 @@ export default function PolicySynthesisView() {
                   <Lightbulb className="w-4 h-4 text-muted-foreground" />
                   Abstraction
                 </span>
-                <span className="font-mono">{vectorP.abstraction.toFixed(2)}</span>
+                <span className="font-mono">{loading ? "..." : vectorP.abstraction.toFixed(2)}</span>
               </div>
               <Progress value={vectorP.abstraction * 100} className="h-2" />
               <p className="text-xs text-muted-foreground">
@@ -73,7 +105,7 @@ export default function PolicySynthesisView() {
                   <Puzzle className="w-4 h-4 text-muted-foreground" />
                   Creativity (Temperature)
                 </span>
-                <span className="font-mono">{vectorP.creativity.toFixed(2)}</span>
+                <span className="font-mono">{loading ? "..." : vectorP.creativity.toFixed(2)}</span>
               </div>
               <Progress value={vectorP.creativity * 100} className="h-2" />
               <p className="text-xs text-muted-foreground">
@@ -87,7 +119,7 @@ export default function PolicySynthesisView() {
                   <Scale className="w-4 h-4 text-muted-foreground" />
                   Rigor
                 </span>
-                <span className="font-mono">{vectorP.rigor.toFixed(2)}</span>
+                <span className="font-mono">{loading ? "..." : vectorP.rigor.toFixed(2)}</span>
               </div>
               <Progress value={vectorP.rigor * 100} className="h-2" />
               <p className="text-xs text-muted-foreground">
@@ -101,7 +133,7 @@ export default function PolicySynthesisView() {
                   <Wrench className="w-4 h-4 text-muted-foreground" />
                   Tool Use Probability
                 </span>
-                <span className="font-mono">{vectorP.tool_use_prob.toFixed(2)}</span>
+                <span className="font-mono">{loading ? "..." : vectorP.tool_use_prob.toFixed(2)}</span>
               </div>
               <Progress value={vectorP.tool_use_prob * 100} className="h-2" />
               <p className="text-xs text-muted-foreground">

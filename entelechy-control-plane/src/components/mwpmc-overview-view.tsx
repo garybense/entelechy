@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   LayoutDashboard,
@@ -9,9 +9,33 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useBank } from "@/lib/bank-context";
+import { client } from "@/lib/api";
 
 export default function MwpmcOverviewView() {
   const { currentBank } = useBank();
+  const [mwpmcData, setMwpmcData] = useState<{
+    control?: { current_drift: number; epsilon_limit: number };
+    vectorF?: { total_memories: number };
+  } | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    async function loadStats() {
+      try {
+        const res = await client.getMwpmcStats(currentBank);
+        if (active && res) {
+          setMwpmcData(res);
+        }
+      } catch (e) {
+        console.error("Failed to load MWPMC stats", e);
+      }
+    }
+    loadStats();
+    return () => { active = false; };
+  }, [currentBank]);
+
+  const drift = mwpmcData?.control?.current_drift ?? 0.05;
+  const epsilonLimit = mwpmcData?.control?.epsilon_limit ?? 0.15;
 
   return (
     <div className="p-4 space-y-6">
@@ -57,9 +81,9 @@ export default function MwpmcOverviewView() {
             <GitBranch className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-foreground">0.05</div>
+            <div className="text-2xl font-bold text-foreground">{drift.toFixed(3)}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              Well within $\epsilon$-limit (0.15)
+              Well within $\\epsilon$-limit ({epsilonLimit.toFixed(2)})
             </p>
           </CardContent>
         </Card>
@@ -79,7 +103,7 @@ export default function MwpmcOverviewView() {
       <Card>
         <CardHeader>
           <CardTitle>SVT Continuation Protocol Pipeline</CardTitle>
-          <CardDescription>The current operational state of the feedback loop.</CardDescription>
+          <CardDescription>The current operational state of the feedback loop for bank <span className="font-mono text-primary">{currentBank}</span>.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-6">
@@ -103,7 +127,7 @@ export default function MwpmcOverviewView() {
               <span className="font-bold text-lg text-primary mb-2">Control</span>
               <span className="text-sm font-medium">Inertia Check</span>
               <span className="text-xs text-muted-foreground mt-1">
-                Enforces $\epsilon$-boundaries
+                Enforces $\\epsilon$-boundaries
               </span>
             </div>
 

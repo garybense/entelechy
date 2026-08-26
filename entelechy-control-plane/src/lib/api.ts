@@ -308,6 +308,41 @@ export class ControlPlaneClient {
     return this.fetchApi(bankStatsApi(bankId));
   }
 
+  async getMwpmcStats(bankId: string) {
+    return this.fetchApi<{
+      bank_id: string;
+      vectorF: {
+        avg_affect: number;
+        semantic_diversity: number;
+        structural_rigor: number;
+        temporal_density: number;
+        total_memories: number;
+      };
+      vectorP: {
+        verbosity: number;
+        abstraction: number;
+        creativity: number;
+        empathy: number;
+        rigor: number;
+        tool_use_prob: number;
+        rationale: string;
+      };
+      control: {
+        current_drift: number;
+        epsilon_limit: number;
+        is_admissible: boolean;
+      };
+      writebacks: Array<{
+        id: string;
+        timestamp: string;
+        action: string;
+        outcome: string;
+        vectorF: string;
+        vectorP: string;
+      }>;
+    }>(`/v1/default/banks/${encodeURIComponent(bankId)}/mwpmc`);
+  }
+
   async getMemoriesTimeseries(bankId: string, period: string) {
     return this.fetchApi<{
       bank_id: string;

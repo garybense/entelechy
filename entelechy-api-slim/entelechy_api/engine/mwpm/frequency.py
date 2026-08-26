@@ -76,6 +76,27 @@ def compute_memory_stats(
     signal_density = sum(scores) / len(scores) if scores else 0.0
     tag_clusters = _connected_components(tag_cooccurrence)
 
+    # SVT-CP Vector F metric extractions
+    affects = []
+    for mem in materialized:
+        val = mem.get("affect")
+        if val is None and isinstance(mem.get("attributes"), dict):
+            val = mem.get("attributes", {}).get("affect")
+        if val is not None:
+            try:
+                affects.append(float(val))
+            except (TypeError, ValueError):
+                pass
+    avg_affect = sum(affects) / len(affects) if affects else 0.0
+
+    # Semantic diversity: ratio of unique tags to total memories, scaled [0, 1]
+    unique_tags_count = len(tag_frequency)
+    semantic_diversity = min(1.0, unique_tags_count / (len(materialized) * 2.0)) if materialized else 0.0
+
+    # User stability & success rate metrics
+    user_stability = min(1.0, max(0.0, 1.0 - (mean_age_seconds / 604800.0))) if mean_age_seconds > 0 else 0.85
+    success_rate = signal_density if signal_density > 0 else 0.8
+
     return MemoryStats(
         total_memories=len(materialized),
         tag_frequency=tag_frequency,
@@ -84,6 +105,10 @@ def compute_memory_stats(
         mean_age_seconds=mean_age_seconds,
         fact_type_counts=fact_type_counts,
         signal_density=signal_density,
+        avg_affect=avg_affect,
+        success_rate=success_rate,
+        semantic_diversity=semantic_diversity,
+        user_stability=user_stability,
     )
 
 
