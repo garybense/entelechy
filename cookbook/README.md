@@ -9,3 +9,7 @@ The cookbook repository includes:
 - Real-world use cases and patterns
 - Step-by-step tutorials
 - Best practices and tips
+
+## SCA 2 (Self-Evolving Cognitive Architecture Protocol)
+
+- `sca_2_bootstrap.py`: Example Python script demonstrating the 4-step initialization and high-signal retention workflow for connected agents operating under SCA 2.

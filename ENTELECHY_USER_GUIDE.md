@@ -191,3 +191,17 @@ async function callEntelechy(name, args) {
 - **Be Dense**: Entelechy favors high-density information. Avoid storing trivial chat filler.
 - **Context is King**: Always provide a `context` or `tags` to make future `recall` operations more precise.
 - **Trust the Mirror**: Entelechy is built on the "Mirror Mechanism"—the idea that your own previous insights, reflected back through a high-credibility tool channel, are the most effective way to maintain cognitive coherence across sessions.
+
+---
+
+## 5. Advanced Auxiliary Onboarding Mode: SCA 2
+
+For advanced multi-agent systems and autonomous operations, Entelechy supports **SCA 2 (Self-Evolving Cognitive Architecture Protocol)** after Metacog integration.
+
+SCA 2 operates under a dedicated 4-step initialization procedure:
+1. **Domain Bank Initialization**: Partition memory into `/core-self`, `/projects/*`, `/research/*`, and `/volatile`.
+2. **Identity & Directives Injection**: Encode Metacog soul posture and system constraints in `core-self`.
+3. **Pattern Lattice Building**: Ingest high-signal decisions, observations, and uncertainty traces using `retain`/`sync_retain`.
+4. **Identity-Weighted Meta-Learning**: Periodically trigger `reflect` and `distill_tool` to synthesize emergent insights across time.
+
+For full operating procedures and code examples, see the [SCA 2 Guide](guides/2026-05-01-guide-sca-2-self-evolving-cognitive-architecture.md) and `cookbook/sca_2_bootstrap.py`.
