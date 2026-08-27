@@ -2533,16 +2533,6 @@ def _make_audited_http(audit_logger_getter: Callable[[], AuditLogger | None]):
     return audited
 
 
-
-class SessionBootstrapRequest(BaseModel):
-    svt: str = Field(description="State Vector Token")
-    context: str = Field(description="The latest user prompt or context window")
-
-class SessionBootstrapResponse(BaseModel):
-    policy_vector: dict[str, float]
-    injected_prompt: str
-    memory_context: str
-
 def create_app(
     memory: MemoryEngine,
     initialize_memory: bool = True,
@@ -2883,18 +2873,25 @@ def _register_routes(app: FastAPI):
 
     # Global exception handler for authentication errors
 
+    class BootstrapRequest(BaseModel):
+        svt: str = Field(description="State Vector Token")
+        context: str = Field(description="The latest user prompt or context window")
 
+    class BootstrapResponse(BaseModel):
+        policy_vector: dict[str, float]
+        injected_prompt: str
+        memory_context: str
 
     @app.post(
         "/v1/default/banks/{bank_id}/sessions/bootstrap",
-        response_model=SessionBootstrapResponse,
+        response_model=BootstrapResponse,
         summary="SVT-CP vFinal Session Bootstrap",
         description="Bootstrap a session across models using the strict mathematical MWPMC.",
         tags=["Sessions"],
     )
     async def api_bootstrap_session(
         bank_id: str,
-        request: SessionBootstrapRequest,
+        request: BootstrapRequest,
         request_context: RequestContext = Depends(get_request_context),
     ):
         try:
@@ -2944,18 +2941,25 @@ def _register_routes(app: FastAPI):
             logger.error(f"Error in bootstrap: {traceback.format_exc()}")
             raise HTTPException(status_code=500, detail=str(e))
 
+    class BootstrapRequest(BaseModel):
+        svt: str = Field(description="State Vector Token (e.g., CST-alpha...)")
+        context: str = Field(description="The latest user prompt or context window")
 
+    class BootstrapResponse(BaseModel):
+        policy_vector: dict[str, float]
+        injected_prompt: str
+        memory_context: str
 
     @app.post(
         "/v1/default/banks/{bank_id}/sessions/bootstrap",
-        response_model=SessionBootstrapResponse,
+        response_model=BootstrapResponse,
         summary="SVT-CP vFinal Session Bootstrap",
         description="Bootstrap a session across models using the strict mathematical MWPMC.",
         tags=["Sessions"],
     )
     async def api_bootstrap_session(
         bank_id: str,
-        request: SessionBootstrapRequest,
+        request: BootstrapRequest,
         request_context: RequestContext = Depends(get_request_context),
     ):
         try:
