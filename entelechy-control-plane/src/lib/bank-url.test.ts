@@ -1,11 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  bankRoute,
-  bankApi,
-  bankStatsApi,
-  memoryApi,
-  documentApi,
-} from "./bank-url";
+import { bankRoute, bankApi, bankStatsApi, memoryApi, documentApi } from "./bank-url";
 
 describe("bank-url helper functions", () => {
   describe("bankRoute", () => {
@@ -23,9 +17,7 @@ describe("bank-url helper functions", () => {
         "/banks/agent-1%3A%3Achannel-2%3A%3Auser-3"
       );
       // slashes, spaces, and percent signs
-      expect(bankRoute("foo/bar baz%1")).toBe(
-        "/banks/foo%2Fbar%20baz%251"
-      );
+      expect(bankRoute("foo/bar baz%1")).toBe("/banks/foo%2Fbar%20baz%251");
     });
   });
 
@@ -39,9 +31,7 @@ describe("bank-url helper functions", () => {
     });
 
     it("percent-encodes special characters in bankId", () => {
-      expect(bankApi("user/123::bank")).toBe(
-        "/api/banks/user%2F123%3A%3Abank"
-      );
+      expect(bankApi("user/123::bank")).toBe("/api/banks/user%2F123%3A%3Abank");
     });
   });
 
@@ -51,23 +41,17 @@ describe("bank-url helper functions", () => {
     });
 
     it("formats bank stats proxy API path with suffix", () => {
-      expect(bankStatsApi("bank-id", "?time=24h")).toBe(
-        "/api/stats/bank-id?time=24h"
-      );
+      expect(bankStatsApi("bank-id", "?time=24h")).toBe("/api/stats/bank-id?time=24h");
     });
 
     it("percent-encodes special characters in bankId", () => {
-      expect(bankStatsApi("complex:bank/id")).toBe(
-        "/api/stats/complex%3Abank%2Fid"
-      );
+      expect(bankStatsApi("complex:bank/id")).toBe("/api/stats/complex%3Abank%2Fid");
     });
   });
 
   describe("memoryApi", () => {
     it("formats memory endpoint with bank_id query string parameter when suffix has no query string", () => {
-      expect(memoryApi("mem-1", "bank-1")).toBe(
-        "/api/memories/mem-1?bank_id=bank-1"
-      );
+      expect(memoryApi("mem-1", "bank-1")).toBe("/api/memories/mem-1?bank_id=bank-1");
     });
 
     it("appends bank_id with '&' when suffix already includes a query string '?'", () => {
@@ -91,9 +75,7 @@ describe("bank-url helper functions", () => {
 
   describe("documentApi", () => {
     it("formats document endpoint with bank_id query string parameter", () => {
-      expect(documentApi("doc-123", "bank-456")).toBe(
-        "/api/documents/doc-123?bank_id=bank-456"
-      );
+      expect(documentApi("doc-123", "bank-456")).toBe("/api/documents/doc-123?bank_id=bank-456");
     });
 
     it("percent-encodes both documentId and bankId", () => {
