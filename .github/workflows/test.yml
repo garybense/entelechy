@@ -61,7 +61,7 @@ jobs:
       # Fork PRs via pull_request event do NOT have access to secrets.
       has_secrets: ${{ github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository }}
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         # For pull_request_review, checkout the PR head (not the base branch)
         ref: ${{ github.event_name == 'pull_request_review' && github.event.pull_request.head.sha || '' }}
@@ -172,7 +172,7 @@ jobs:
       needs.detect-changes.outputs.ci == 'true')
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -192,7 +192,7 @@ jobs:
         python-version: ['3.11', '3.12', '3.13', '3.14']
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -220,7 +220,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -247,7 +247,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -279,7 +279,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -335,7 +335,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -391,7 +391,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -417,7 +417,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -443,7 +443,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -474,7 +474,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -506,7 +506,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -537,7 +537,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -570,7 +570,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -603,7 +603,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -634,7 +634,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -665,7 +665,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -696,7 +696,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -735,7 +735,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -795,7 +795,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -830,7 +830,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -956,7 +956,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1009,7 +1009,7 @@ jobs:
               PRELOAD_ML_MODELS=false
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1090,7 +1090,7 @@ jobs:
       # Prefer CPU-only PyTorch in CI (but keep PyPI for everything else)
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1185,7 +1185,7 @@ jobs:
           --health-start-period 120s
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1292,7 +1292,7 @@ jobs:
       # Prefer CPU-only PyTorch in CI (but keep PyPI for everything else)
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1408,7 +1408,7 @@ jobs:
       # Prefer CPU-only PyTorch in CI (but keep PyPI for everything else)
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1528,7 +1528,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1647,7 +1647,7 @@ jobs:
     runs-on: ubuntu-24.04-arm
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1688,7 +1688,7 @@ jobs:
       # Prefer CPU-only PyTorch in CI (but keep PyPI for everything else)
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1808,7 +1808,7 @@ jobs:
       # Prefer CPU-only PyTorch in CI (but keep PyPI for everything else)
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -1927,7 +1927,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2062,7 +2062,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2165,7 +2165,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2202,7 +2202,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2239,7 +2239,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2276,7 +2276,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2313,7 +2313,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2350,7 +2350,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2387,7 +2387,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2424,7 +2424,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2469,7 +2469,7 @@ jobs:
       ENTELECHY_API_COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2541,7 +2541,7 @@ jobs:
       # Prefer CPU-only PyTorch in CI
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2621,7 +2621,7 @@ jobs:
       ENTELECHY_EMBED_DAEMON_STARTUP_TIMEOUT: "360"
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2799,7 +2799,7 @@ jobs:
       # Prefer CPU-only PyTorch in CI
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -2894,7 +2894,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -3041,7 +3041,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
         fetch-depth: 0  # Full history needed for git clone of tags
@@ -3118,7 +3118,7 @@ jobs:
     if: github.event_name != 'pull_request_review'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
@@ -3203,7 +3203,7 @@ jobs:
       needs.detect-changes.outputs.ci == 'true')
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
         fetch-depth: 0  # Fetch full git history to access base branch
@@ -3257,7 +3257,7 @@ jobs:
       needs.detect-changes.outputs.ci == 'true')
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
