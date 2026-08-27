@@ -275,77 +275,51 @@ class OracleOps(DataAccessOps):
         # Fetch up to half_limit in each direction, then combine and keep the
         # half_limit closest overall via ROW_NUMBER — matching the PG behavior.
         rows: list[ResultRow] = []
-        # 1. Normalize unit IDs and prepare target parameter tuples
-        targets_info = []
         for uid, edate, ftype in zip(lateral_unit_ids, lateral_event_dates, lateral_fact_types):
             uid_str = str(uid) if not isinstance(uid, str) else uid
-            targets_info.append((uid_str, edate, ftype))
-
-        # 2. Build parameterized CTE of input targets using DUAL UNION ALL
-        cte_clauses = []
-        bind_values = []
-        bind_idx = 1
-
-        for uid_str, edate, ftype in targets_info:
-            cte_clauses.append(
-                f"SELECT :{bind_idx} AS target_uid, TIMESTAMP '{edate}' AS target_edate, :{bind_idx + 1} AS target_ftype FROM DUAL"
+            unit_rows = await conn.fetch(
+                f"""
+                SELECT from_id, id, event_date, time_diff_hours FROM (
+                    SELECT combined.*, ROW_NUMBER() OVER (ORDER BY combined.time_diff_hours) AS rn
+                    FROM (
+                        SELECT * FROM (
+                            SELECT $1 AS from_id, mu.id, mu.event_date,
+                                   ABS(EXTRACT(DAY FROM (mu.event_date - $2)) * 24
+                                       + EXTRACT(HOUR FROM (mu.event_date - $2))) AS time_diff_hours
+                            FROM {mu_table} mu
+                            WHERE mu.bank_id = $4
+                              AND mu.fact_type = $3
+                              AND mu.event_date <= $2
+                              AND mu.id != $6
+                            ORDER BY mu.event_date DESC
+                            FETCH FIRST $5 ROWS ONLY
+                        ) bwd
+                        UNION ALL
+                        SELECT * FROM (
+                            SELECT $1 AS from_id, mu.id, mu.event_date,
+                                   ABS(EXTRACT(DAY FROM (mu.event_date - $2)) * 24
+                                       + EXTRACT(HOUR FROM (mu.event_date - $2))) AS time_diff_hours
+                            FROM {mu_table} mu
+                            WHERE mu.bank_id = $4
+                              AND mu.fact_type = $3
+                              AND mu.event_date > $2
+                              AND mu.id != $6
+                            ORDER BY mu.event_date ASC
+                            FETCH FIRST $5 ROWS ONLY
+                        ) fwd
+                    ) combined
+                ) ranked
+                WHERE rn <= $5
+                """,
+                uid_str,
+                edate,
+                ftype,
+                bank_id,
+                half_limit,
+                uid,
             )
-            bind_values.extend([uid_str, ftype])
-            bind_idx += 2
-
-        targets_cte = " UNION ALL ".join(cte_clauses)
-
-        query = f"""
-        WITH targets AS (
-            {targets_cte}
-        ),
-        matched_events AS (
-            SELECT
-                t.target_uid,
-                e.from_id,
-                e.id,
-                e.event_date,
-                ABS(EXTRACT(DAY FROM (e.event_date - t.target_edate)) * 24 + EXTRACT(HOUR FROM (e.event_date - t.target_edate))) AS time_diff_hours,
-                ROW_NUMBER() OVER (
-                    PARTITION BY t.target_uid
-                    ORDER BY ABS(EXTRACT(DAY FROM (e.event_date - t.target_edate)) * 24 + EXTRACT(HOUR FROM (e.event_date - t.target_edate))) ASC
-                ) AS rn
-            FROM targets t
-            JOIN events e
-              ON e.unit_id = t.target_uid
-             AND e.fact_type = t.target_ftype
-            WHERE ABS(EXTRACT(DAY FROM (e.event_date - t.target_edate)) * 24 + EXTRACT(HOUR FROM (e.event_date - t.target_edate))) <= :{bind_idx}
-        )
-        SELECT target_uid, from_id, id, event_date, time_diff_hours
-        FROM matched_events
-        WHERE rn <= :{bind_idx + 1}
-        ORDER BY target_uid, rn
-        """
-
-        bind_values.extend([max_time_diff_hours, k])
-
-        # 3. Single DB roundtrip execution
-        rows = await conn.fetch(query, *bind_values)
-
-        # 4. Group rows by target_uid and maintain original input order
-        rows_by_uid = {}
-        for r in rows:
-            uid = r["target_uid"]
-            if uid not in rows_by_uid:
-                rows_by_uid[uid] = []
-            rows_by_uid[uid].append({
-                "from_id": r["from_id"],
-                "id": r["id"],
-                "event_date": r["event_date"],
-                "time_diff_hours": r["time_diff_hours"]
-            })
-
-        results = []
-        for uid_str, _, _ in targets_info:
-            unit_rows = rows_by_uid.get(uid_str, [])
-            results.append((uid_str, unit_rows))
-
-        return results
+            rows.extend(unit_rows)
+        return rows
 
     def build_entity_expansion_cte(
         self,

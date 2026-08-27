@@ -1075,7 +1075,6 @@ export function DataView({
                                   onClick={() => setCurrentPage(1)}
                                   disabled={currentPage === 1}
                                   className="h-7 w-7 p-0"
-                                  aria-label="Go to first page"
                                 >
                                   <ChevronsLeft className="h-3 w-3" />
                                 </Button>
@@ -1085,7 +1084,6 @@ export function DataView({
                                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                                   disabled={currentPage === 1}
                                   className="h-7 w-7 p-0"
-                                  aria-label="Go to previous page"
                                 >
                                   <ChevronLeft className="h-3 w-3" />
                                 </Button>
@@ -1098,7 +1096,6 @@ export function DataView({
                                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                                   disabled={currentPage === totalPages}
                                   className="h-7 w-7 p-0"
-                                  aria-label="Go to next page"
                                 >
                                   <ChevronRight className="h-3 w-3" />
                                 </Button>
@@ -1108,7 +1105,6 @@ export function DataView({
                                   onClick={() => setCurrentPage(totalPages)}
                                   disabled={currentPage === totalPages}
                                   className="h-7 w-7 p-0"
-                                  aria-label="Go to last page"
                                 >
                                   <ChevronsRight className="h-3 w-3" />
                                 </Button>
@@ -1380,7 +1376,6 @@ function TimelineView({
                 disabled={timelineGroups.length <= 1}
                 className="h-7 w-7 p-0"
                 title="First"
-                aria-label="Go to first group"
               >
                 <ChevronsLeft className="h-3 w-3" />
               </Button>
@@ -1391,7 +1386,6 @@ function TimelineView({
                 disabled={currentIndex === 0}
                 className="h-7 w-7 p-0"
                 title="Previous"
-                aria-label="Go to previous group"
               >
                 <ChevronLeft className="h-3 w-3" />
               </Button>
@@ -1405,7 +1399,6 @@ function TimelineView({
                 disabled={currentIndex >= timelineGroups.length - 1}
                 className="h-7 w-7 p-0"
                 title="Next"
-                aria-label="Go to next group"
               >
                 <ChevronRight className="h-3 w-3" />
               </Button>
@@ -1416,7 +1409,6 @@ function TimelineView({
                 disabled={timelineGroups.length <= 1}
                 className="h-7 w-7 p-0"
                 title="Last"
-                aria-label="Go to last group"
               >
                 <ChevronsRight className="h-3 w-3" />
               </Button>

@@ -433,7 +433,6 @@ export function MentalModelsView() {
                       onClick={() => setCurrentPage(1)}
                       disabled={currentPage === 1}
                       className="h-7 w-7 p-0"
-                      aria-label="Go to first page"
                     >
                       <ChevronsLeft className="h-3 w-3" />
                     </Button>
@@ -443,7 +442,6 @@ export function MentalModelsView() {
                       onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                       disabled={currentPage === 1}
                       className="h-7 w-7 p-0"
-                      aria-label="Go to previous page"
                     >
                       <ChevronLeft className="h-3 w-3" />
                     </Button>
@@ -456,7 +454,6 @@ export function MentalModelsView() {
                       onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                       disabled={currentPage === totalPages}
                       className="h-7 w-7 p-0"
-                      aria-label="Go to next page"
                     >
                       <ChevronRight className="h-3 w-3" />
                     </Button>
@@ -466,7 +463,6 @@ export function MentalModelsView() {
                       onClick={() => setCurrentPage(totalPages)}
                       disabled={currentPage === totalPages}
                       className="h-7 w-7 p-0"
-                      aria-label="Go to last page"
                     >
                       <ChevronsRight className="h-3 w-3" />
                     </Button>
