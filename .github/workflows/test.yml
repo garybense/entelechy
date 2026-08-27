@@ -848,7 +848,7 @@ jobs:
       uses: dtolnay/rust-toolchain@stable
 
     - name: Cache cargo
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: |
           ~/.cargo/registry
@@ -891,7 +891,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -1124,7 +1124,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -1248,7 +1248,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -1334,7 +1334,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -1455,7 +1455,7 @@ jobs:
       run: npm run build
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -1582,7 +1582,7 @@ jobs:
       run: npm run build
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -1657,7 +1657,7 @@ jobs:
         targets: aarch64-unknown-linux-gnu
 
     - name: Cache cargo
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: |
           ~/.cargo/registry
@@ -1717,7 +1717,7 @@ jobs:
       uses: dtolnay/rust-toolchain@stable
 
     - name: Cache cargo
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: |
           ~/.cargo/registry
@@ -1734,7 +1734,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -1848,7 +1848,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -1970,7 +1970,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -2100,7 +2100,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -2575,7 +2575,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-embed-${{ hashFiles('entelechy-embed/pyproject.toml') }}
@@ -2656,7 +2656,7 @@ jobs:
       run: uv sync --frozen --all-extras --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-embed-${{ hashFiles('entelechy-embed/pyproject.toml') }}
@@ -2677,7 +2677,7 @@ jobs:
       uses: dtolnay/rust-toolchain@stable
 
     - name: Cache cargo build
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: |
           ~/.cargo/registry
@@ -2855,7 +2855,7 @@ jobs:
       run: uv sync --frozen --extra test --index-strategy unsafe-best-match
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-all-${{ hashFiles('entelechy-all/pyproject.toml') }}
@@ -2914,7 +2914,7 @@ jobs:
 
     - name: Cache cargo
       if: matrix.language == 'cli'
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: |
           ~/.cargo/registry
@@ -2966,7 +2966,7 @@ jobs:
         npm run build --workspace=entelechy-clients/typescript
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -3071,7 +3071,7 @@ jobs:
         python-version-file: ".python-version"
 
     - name: Cache HuggingFace models
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: ~/.cache/huggingface
         key: ${{ runner.os }}-huggingface-${{ hashFiles('entelechy-api-slim/pyproject.toml') }}
@@ -3143,7 +3143,7 @@ jobs:
       uses: dtolnay/rust-toolchain@stable
 
     - name: Cache cargo
-      uses: actions/cache@v5
+      uses: actions/cache@v6
       with:
         path: |
           ~/.cargo/registry
