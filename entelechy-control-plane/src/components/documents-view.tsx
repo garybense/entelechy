@@ -719,6 +719,7 @@ export function DocumentsView() {
                     onClick={() => handlePageChange(1)}
                     disabled={currentPage === 1 || loading}
                     className="h-7 w-7 p-0"
+                    aria-label="Go to first page"
                   >
                     <ChevronsLeft className="h-3 w-3" />
                   </Button>
@@ -728,6 +729,7 @@ export function DocumentsView() {
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1 || loading}
                     className="h-7 w-7 p-0"
+                    aria-label="Go to previous page"
                   >
                     <ChevronLeft className="h-3 w-3" />
                   </Button>
@@ -740,6 +742,7 @@ export function DocumentsView() {
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages || loading}
                     className="h-7 w-7 p-0"
+                    aria-label="Go to next page"
                   >
                     <ChevronRight className="h-3 w-3" />
                   </Button>
@@ -749,6 +752,7 @@ export function DocumentsView() {
                     onClick={() => handlePageChange(totalPages)}
                     disabled={currentPage === totalPages || loading}
                     className="h-7 w-7 p-0"
+                    aria-label="Go to last page"
                   >
                     <ChevronsRight className="h-3 w-3" />
                   </Button>
