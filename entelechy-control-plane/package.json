@@ -17,7 +17,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepublishOnly": "npm run build",
-    "test": "vitest run"
+    "test": "vitest run",
+    "prebuild": "cd .. && npm install && npm run build --workspace=entelechy-clients/typescript"
   },
   "keywords": [
     "entelechy",
