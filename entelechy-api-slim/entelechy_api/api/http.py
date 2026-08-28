@@ -2903,10 +2903,14 @@ def _register_routes(app: FastAPI):
             from entelechy_api.engine.mwpm.modulator import modulate_policy
 
             # Map recall items to F vector (stubbed deterministic map for MVP)
-            raw_items = recall_res.get("items", []) if isinstance(recall_res, dict) else getattr(recall_res, "items", [])
-            mem_dicts = [m.model_dump() if hasattr(m, 'model_dump') else dict(m) for m in raw_items]
-            from entelechy_api.engine.mwpm.frequency import compute_memory_stats
+            raw_items = (
+                recall_res.get("items", []) if isinstance(recall_res, dict) else getattr(recall_res, "items", [])
+            )
+            mem_dicts = [m.model_dump() if hasattr(m, "model_dump") else dict(m) for m in raw_items]
             import time
+
+            from entelechy_api.engine.mwpm.frequency import compute_memory_stats
+
             stats = compute_memory_stats(mem_dicts, now_epoch=time.time())
 
             # 3. Policy Synthesis Vector P
@@ -3536,7 +3540,9 @@ def _register_routes(app: FastAPI):
         request_context: RequestContext = Depends(get_request_context),
     ):
         try:
-            import time, hashlib
+            import hashlib
+            import time
+
             from entelechy_api.engine.mwpm import MemoryStats
             from entelechy_api.engine.mwpm.frequency import compute_memory_stats
             from entelechy_api.engine.mwpm.modulator import modulate_policy
@@ -3544,8 +3550,14 @@ def _register_routes(app: FastAPI):
 
             # Fetch recent memories or bank stats to extract F
             try:
-                list_res = await app.state.memory.list_memory_units_async(bank_id=bank_id, limit=50, request_context=request_context)
-                units = list_res.items if hasattr(list_res, "items") else (list_res.get("items", []) if isinstance(list_res, dict) else [])
+                list_res = await app.state.memory.list_memory_units_async(
+                    bank_id=bank_id, limit=50, request_context=request_context
+                )
+                units = (
+                    list_res.items
+                    if hasattr(list_res, "items")
+                    else (list_res.get("items", []) if isinstance(list_res, dict) else [])
+                )
                 memories = [u.model_dump() if hasattr(u, "model_dump") else dict(u) for u in units]
             except Exception:
                 memories = []
@@ -3576,7 +3588,7 @@ def _register_routes(app: FastAPI):
                 "semantic_diversity": semantic_diversity,
                 "structural_rigor": structural_rigor,
                 "temporal_density": temporal_density,
-                "total_memories": total_memories
+                "total_memories": total_memories,
             }
 
             sv = StateVector(
@@ -3600,7 +3612,7 @@ def _register_routes(app: FastAPI):
                 "empathy": round(policy.empathy, 3),
                 "rigor": round(policy.rigor, 3),
                 "tool_use_prob": round(policy.tool_use_probability, 3),
-                "rationale": policy.rationale
+                "rationale": policy.rationale,
             }
 
             drift = round(0.02 + (seed_val * 0.08), 4)
@@ -3621,9 +3633,9 @@ def _register_routes(app: FastAPI):
                     "timestamp": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat(),
                     "action": "Policy Injection",
                     "outcome": "Success",
-                    "vectorF": f"[{round(vectorF['avg_affect']*0.9, 2)}, {round(vectorF['semantic_diversity']*1.05, 2)}, {vectorF['structural_rigor']}, {vectorF['temporal_density']}]",
-                    "vectorP": f"[{round(vectorP['verbosity']*0.95, 2)}, {vectorP['abstraction']}, {vectorP['creativity']}, {vectorP['empathy']}, {vectorP['rigor']}, {vectorP['tool_use_prob']}]",
-                }
+                    "vectorF": f"[{round(float(vectorF['avg_affect']) * 0.9, 2)}, {round(float(vectorF['semantic_diversity']) * 1.05, 2)}, {vectorF['structural_rigor']}, {vectorF['temporal_density']}]",
+                    "vectorP": f"[{round(float(vectorP['verbosity']) * 0.95, 2)}, {vectorP['abstraction']}, {vectorP['creativity']}, {vectorP['empathy']}, {vectorP['rigor']}, {vectorP['tool_use_prob']}]",
+                },
             ]
 
             return {
@@ -3633,12 +3645,13 @@ def _register_routes(app: FastAPI):
                 "control": {
                     "current_drift": drift,
                     "epsilon_limit": epsilon_limit,
-                    "is_admissible": drift < epsilon_limit
+                    "is_admissible": drift < epsilon_limit,
                 },
-                "writebacks": writebacks
+                "writebacks": writebacks,
             }
         except Exception as e:
             import traceback
+
             logger.error(f"Error in /v1/default/banks/{bank_id}/mwpmc: {traceback.format_exc()}")
             raise HTTPException(status_code=500, detail=str(e))
 

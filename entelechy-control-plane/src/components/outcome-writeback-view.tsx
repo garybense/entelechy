@@ -7,14 +7,16 @@ import { client } from "@/lib/api";
 
 export default function OutcomeWritebackView() {
   const { currentBank } = useBank();
-  const [writebacks, setWritebacks] = useState<Array<{
-    id: string;
-    timestamp: string;
-    action: string;
-    outcome: string;
-    vectorF: string;
-    vectorP: string;
-  }>>([]);
+  const [writebacks, setWritebacks] = useState<
+    Array<{
+      id: string;
+      timestamp: string;
+      action: string;
+      outcome: string;
+      vectorF: string;
+      vectorP: string;
+    }>
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export default function OutcomeWritebackView() {
       if (!currentBank) return;
       setLoading(true);
       try {
-        const res = await client.getMwpmcStats(currentBank || 'default');
+        const res = await client.getMwpmcStats(currentBank || "default");
         if (active && res && res.writebacks) {
           setWritebacks(res.writebacks);
         }
@@ -34,27 +36,32 @@ export default function OutcomeWritebackView() {
       }
     }
     loadStats();
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [currentBank]);
 
-  const recentWritebacks = writebacks.length > 0 ? writebacks : [
-    {
-      id: "wb-001",
-      timestamp: "2026-05-29T10:15:00Z",
-      action: "SVT-CP Complete",
-      outcome: "Success",
-      vectorF: "[0.12, 0.45, 0.95, 0.88]",
-      vectorP: "[0.20, 0.85, 0.20, 0.10, 0.95, 0.90]",
-    },
-    {
-      id: "wb-002",
-      timestamp: "2026-05-29T10:20:00Z",
-      action: "Policy Injection",
-      outcome: "Success",
-      vectorF: "[0.15, 0.42, 0.96, 0.85]",
-      vectorP: "[0.22, 0.84, 0.18, 0.12, 0.96, 0.88]",
-    },
-  ];
+  const recentWritebacks =
+    writebacks.length > 0
+      ? writebacks
+      : [
+          {
+            id: "wb-001",
+            timestamp: "2026-05-29T10:15:00Z",
+            action: "SVT-CP Complete",
+            outcome: "Success",
+            vectorF: "[0.12, 0.45, 0.95, 0.88]",
+            vectorP: "[0.20, 0.85, 0.20, 0.10, 0.95, 0.90]",
+          },
+          {
+            id: "wb-002",
+            timestamp: "2026-05-29T10:20:00Z",
+            action: "Policy Injection",
+            outcome: "Success",
+            vectorF: "[0.15, 0.42, 0.96, 0.85]",
+            vectorP: "[0.22, 0.84, 0.18, 0.12, 0.96, 0.88]",
+          },
+        ];
 
   return (
     <div className="p-4 space-y-6">
@@ -83,7 +90,8 @@ export default function OutcomeWritebackView() {
             <CheckCircle className="w-16 h-16 text-green-500 mb-4" />
             <h3 className="text-xl font-bold text-foreground">Loop Closed</h3>
             <p className="text-sm text-muted-foreground text-center mt-2">
-              Interaction outcome written to bank: <span className="font-mono text-primary">{currentBank}</span>.
+              Interaction outcome written to bank:{" "}
+              <span className="font-mono text-primary">{currentBank}</span>.
             </p>
           </CardContent>
         </Card>

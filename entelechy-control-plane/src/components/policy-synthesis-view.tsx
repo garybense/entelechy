@@ -24,7 +24,7 @@ export default function PolicySynthesisView() {
       if (!currentBank) return;
       setLoading(true);
       try {
-        const res = await client.getMwpmcStats(currentBank || 'default');
+        const res = await client.getMwpmcStats(currentBank || "default");
         if (active && res && res.vectorP) {
           setData(res.vectorP);
         }
@@ -35,7 +35,9 @@ export default function PolicySynthesisView() {
       }
     }
     loadStats();
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [currentBank]);
 
   const vectorP = data || {
@@ -56,8 +58,8 @@ export default function PolicySynthesisView() {
             Policy Synthesis (Stage B)
           </h1>
           <p className="text-muted-foreground">
-            Translates feature metrics (Vector F) into operational directives (Policy Vector P) for bank:{" "}
-            <span className="font-mono text-primary">{currentBank}</span>.
+            Translates feature metrics (Vector F) into operational directives (Policy Vector P) for
+            bank: <span className="font-mono text-primary">{currentBank}</span>.
           </p>
         </div>
       </div>
@@ -92,7 +94,9 @@ export default function PolicySynthesisView() {
                   <Lightbulb className="w-4 h-4 text-muted-foreground" />
                   Abstraction
                 </span>
-                <span className="font-mono">{loading ? "..." : vectorP.abstraction.toFixed(2)}</span>
+                <span className="font-mono">
+                  {loading ? "..." : vectorP.abstraction.toFixed(2)}
+                </span>
               </div>
               <Progress value={vectorP.abstraction * 100} className="h-2" />
               <p className="text-xs text-muted-foreground">
@@ -134,7 +138,9 @@ export default function PolicySynthesisView() {
                   <Wrench className="w-4 h-4 text-muted-foreground" />
                   Tool Use Probability
                 </span>
-                <span className="font-mono">{loading ? "..." : vectorP.tool_use_prob.toFixed(2)}</span>
+                <span className="font-mono">
+                  {loading ? "..." : vectorP.tool_use_prob.toFixed(2)}
+                </span>
               </div>
               <Progress value={vectorP.tool_use_prob * 100} className="h-2" />
               <p className="text-xs text-muted-foreground">

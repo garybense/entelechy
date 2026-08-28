@@ -20,7 +20,7 @@ export default function FeatureExtractionView() {
       if (!currentBank) return;
       setLoading(true);
       try {
-        const res = await client.getMwpmcStats(currentBank || 'default');
+        const res = await client.getMwpmcStats(currentBank || "default");
         if (active && res && res.vectorF) {
           setData(res.vectorF);
         }
@@ -31,7 +31,9 @@ export default function FeatureExtractionView() {
       }
     }
     loadStats();
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [currentBank]);
 
   const vectorF = data || {
@@ -65,7 +67,9 @@ export default function FeatureExtractionView() {
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-primary">{loading ? "..." : vectorF.avg_affect.toFixed(2)}</div>
+            <div className="text-2xl font-bold text-primary">
+              {loading ? "..." : vectorF.avg_affect.toFixed(2)}
+            </div>
             <p className="text-xs text-muted-foreground mt-1">
               Emotional valence of recent memories.
             </p>

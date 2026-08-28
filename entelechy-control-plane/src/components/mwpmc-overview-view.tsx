@@ -23,7 +23,7 @@ export default function MwpmcOverviewView() {
     async function loadStats() {
       if (!currentBank) return;
       try {
-        const res = await client.getMwpmcStats(currentBank || 'default');
+        const res = await client.getMwpmcStats(currentBank || "default");
         if (active && res) {
           setMwpmcData(res);
         }
@@ -32,7 +32,9 @@ export default function MwpmcOverviewView() {
       }
     }
     loadStats();
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [currentBank]);
 
   const drift = mwpmcData?.control?.current_drift ?? 0.05;
@@ -104,7 +106,10 @@ export default function MwpmcOverviewView() {
       <Card>
         <CardHeader>
           <CardTitle>SVT Continuation Protocol Pipeline</CardTitle>
-          <CardDescription>The current operational state of the feedback loop for bank <span className="font-mono text-primary">{currentBank}</span>.</CardDescription>
+          <CardDescription>
+            The current operational state of the feedback loop for bank{" "}
+            <span className="font-mono text-primary">{currentBank}</span>.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 py-6">
