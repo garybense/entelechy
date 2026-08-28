@@ -56,7 +56,8 @@ const PRESET_SCENARIOS: ScriptScenario[] = [
   {
     id: "policy-learning",
     title: "Scenario A: Policy & Preference Evolution",
-    description: "Observes how repeated preferences evolve background observations and graph state.",
+    description:
+      "Observes how repeated preferences evolve background observations and graph state.",
     prompts: [
       "Hello, I prefer technical explanations focusing on architectural trade-offs.",
       "Can you remind me of my preferred communication style for new project reviews?",
@@ -315,7 +316,8 @@ export default function ChatSimulatorView() {
     setSelectedTurnId(null);
   };
 
-  const selectedTurn = messages.find((m) => m.id === selectedTurnId) || messages[messages.length - 1];
+  const selectedTurn =
+    messages.find((m) => m.id === selectedTurnId) || messages[messages.length - 1];
 
   return (
     <div className="space-y-4">
@@ -328,10 +330,16 @@ export default function ChatSimulatorView() {
               Zero-Intervention Chat Simulator
             </h1>
             <p className="text-xs text-muted-foreground">
-              Simulate SVT-CP zero-intervention turns, monitor /bootstrap injections, watch orchestrator routing, and observe /retain_async background evolution.
+              Simulate SVT-CP zero-intervention turns, monitor /bootstrap injections, watch
+              orchestrator routing, and observe /retain_async background evolution.
             </p>
           </div>
-          <Button variant="outline" size="sm" onClick={handleClearHistory} disabled={isLoading || isScriptRunning}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleClearHistory}
+            disabled={isLoading || isScriptRunning}
+          >
             <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
             Clear
           </Button>
@@ -353,7 +361,9 @@ export default function ChatSimulatorView() {
           </CardHeader>
           <CardContent className="p-3 flex-1 flex flex-col gap-3 overflow-y-auto">
             <div className="space-y-2">
-              <label className="text-[11px] font-medium text-muted-foreground">Select Preset Scenario</label>
+              <label className="text-[11px] font-medium text-muted-foreground">
+                Select Preset Scenario
+              </label>
               <div className="space-y-1.5">
                 {PRESET_SCENARIOS.map((scen) => (
                   <button
@@ -367,7 +377,9 @@ export default function ChatSimulatorView() {
                     }`}
                   >
                     <div className="font-semibold">{scen.title}</div>
-                    <p className="text-[10px] text-muted-foreground line-clamp-2 mt-0.5">{scen.description}</p>
+                    <p className="text-[10px] text-muted-foreground line-clamp-2 mt-0.5">
+                      {scen.description}
+                    </p>
                   </button>
                 ))}
               </div>
@@ -412,7 +424,8 @@ export default function ChatSimulatorView() {
                   <Bot className="w-10 h-10 mb-2 opacity-40" />
                   <p className="text-xs font-medium">Ready for Zero-Intervention Chat</p>
                   <p className="text-[11px] max-w-xs mt-1">
-                    Send a prompt or execute an automated multi-turn scenario to observe real-time SVT-CP pipeline stages.
+                    Send a prompt or execute an automated multi-turn scenario to observe real-time
+                    SVT-CP pipeline stages.
                   </p>
                 </div>
               ) : (
@@ -435,12 +448,14 @@ export default function ChatSimulatorView() {
                           m.role === "user"
                             ? "bg-primary text-primary-foreground border-primary"
                             : selectedTurnId === m.id
-                            ? "bg-muted border-primary/50 ring-1 ring-primary/20"
-                            : "bg-muted/40 border-border/50 hover:border-border"
+                              ? "bg-muted border-primary/50 ring-1 ring-primary/20"
+                              : "bg-muted/40 border-border/50 hover:border-border"
                         }`}
                       >
                         <p className="whitespace-pre-wrap">{m.content}</p>
-                        <div className="mt-1 text-[9px] opacity-60 text-right font-mono">{m.timestamp}</div>
+                        <div className="mt-1 text-[9px] opacity-60 text-right font-mono">
+                          {m.timestamp}
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -450,7 +465,9 @@ export default function ChatSimulatorView() {
                         <Cpu className="w-3.5 h-3.5 text-primary animate-pulse" />
                       </div>
                       <div className="rounded-lg px-3 py-2 bg-muted/40 border border-border/50 text-xs flex items-center gap-1">
-                        <span className="text-muted-foreground text-[11px]">SVT-CP Pipeline processing...</span>
+                        <span className="text-muted-foreground text-[11px]">
+                          SVT-CP Pipeline processing...
+                        </span>
                       </div>
                     </div>
                   )}
@@ -468,7 +485,12 @@ export default function ChatSimulatorView() {
                 className="text-xs h-8 flex-1"
                 disabled={isLoading || isScriptRunning}
               />
-              <Button type="submit" size="sm" className="h-8 px-3" disabled={isLoading || isScriptRunning || !input.trim()}>
+              <Button
+                type="submit"
+                size="sm"
+                className="h-8 px-3"
+                disabled={isLoading || isScriptRunning || !input.trim()}
+              >
                 <Send className="w-3.5 h-3.5" />
               </Button>
             </form>
@@ -526,7 +548,9 @@ export default function ChatSimulatorView() {
               <div className="flex flex-col items-center justify-center h-full text-muted-foreground/50 text-center pt-16">
                 <Info className="w-8 h-8 mb-2 opacity-30" />
                 <p className="text-xs">No stage payload selected</p>
-                <p className="text-[10px] mt-0.5">Click on any message turn to view detailed pipeline stage metadata and payloads.</p>
+                <p className="text-[10px] mt-0.5">
+                  Click on any message turn to view detailed pipeline stage metadata and payloads.
+                </p>
               </div>
             )}
           </CardContent>

@@ -1,6 +1,17 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle2, Clock, AlertCircle, Loader2, ArrowRight, Code2, Cpu, Database, Network, Sparkles } from "lucide-react";
+import {
+  CheckCircle2,
+  Clock,
+  AlertCircle,
+  Loader2,
+  ArrowRight,
+  Code2,
+  Cpu,
+  Database,
+  Network,
+  Sparkles,
+} from "lucide-react";
 
 export type StageStatus = "idle" | "running" | "completed" | "failed";
 
@@ -89,10 +100,10 @@ export function SvtPipelineVisualizer({ stages, activeStageId }: SvtPipelineVisu
                   isActive
                     ? "border-primary bg-primary/5 shadow-sm ring-1 ring-primary/30"
                     : stage.status === "completed"
-                    ? "border-emerald-500/30 bg-emerald-500/5"
-                    : stage.status === "failed"
-                    ? "border-red-500/30 bg-red-500/5"
-                    : "border-border/60 bg-muted/20"
+                      ? "border-emerald-500/30 bg-emerald-500/5"
+                      : stage.status === "failed"
+                        ? "border-red-500/30 bg-red-500/5"
+                        : "border-border/60 bg-muted/20"
                 }`}
               >
                 <div>

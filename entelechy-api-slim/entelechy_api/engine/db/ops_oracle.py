@@ -13,7 +13,7 @@ from uuid import UUID
 
 from .base import DatabaseConnection
 from .ops import DataAccessOps, TagListingParts
-from .result import DictResultRow as ResultRow
+from .result import ResultRow
 
 
 class OracleOps(DataAccessOps):
@@ -300,19 +300,19 @@ class OracleOps(DataAccessOps):
             {targets_cte}
         ),
         matched_events AS (
-            SELECT 
+            SELECT
                 t.target_uid,
                 e.from_id,
                 e.id,
                 e.event_date,
                 ABS(EXTRACT(DAY FROM (e.event_date - t.target_edate)) * 24 + EXTRACT(HOUR FROM (e.event_date - t.target_edate))) AS time_diff_hours,
                 ROW_NUMBER() OVER (
-                    PARTITION BY t.target_uid 
+                    PARTITION BY t.target_uid
                     ORDER BY ABS(EXTRACT(DAY FROM (e.event_date - t.target_edate)) * 24 + EXTRACT(HOUR FROM (e.event_date - t.target_edate))) ASC
                 ) AS rn
             FROM targets t
-            JOIN events e 
-              ON e.unit_id = t.target_uid 
+            JOIN events e
+              ON e.unit_id = t.target_uid
              AND e.fact_type = t.target_ftype
             WHERE ABS(EXTRACT(DAY FROM (e.event_date - t.target_edate)) * 24 + EXTRACT(HOUR FROM (e.event_date - t.target_edate))) <= :{bind_idx}
         )
@@ -333,12 +333,14 @@ class OracleOps(DataAccessOps):
             uid = r["target_uid"]
             if uid not in rows_by_uid:
                 rows_by_uid[uid] = []
-            rows_by_uid[uid].append({
-                "from_id": r["from_id"],
-                "id": r["id"],
-                "event_date": r["event_date"],
-                "time_diff_hours": r["time_diff_hours"]
-            })
+            rows_by_uid[uid].append(
+                {
+                    "from_id": r["from_id"],
+                    "id": r["id"],
+                    "event_date": r["event_date"],
+                    "time_diff_hours": r["time_diff_hours"],
+                }
+            )
 
         results = []
         for uid_str, _, _ in targets_info:

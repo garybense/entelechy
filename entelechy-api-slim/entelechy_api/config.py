@@ -1592,7 +1592,7 @@ class EntelechyConfig:
             or os.getenv(ENV_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY),
             # Server
             host=os.getenv(ENV_HOST, DEFAULT_HOST),
-            port=int(os.getenv(ENV_PORT, DEFAULT_PORT)),
+            port=int(os.getenv(ENV_PORT) or os.getenv("PORT") or DEFAULT_PORT),
             base_path=os.getenv(ENV_BASE_PATH, DEFAULT_BASE_PATH),
             log_level=os.getenv(ENV_LOG_LEVEL, DEFAULT_LOG_LEVEL),
             log_format=os.getenv(ENV_LOG_FORMAT, DEFAULT_LOG_FORMAT).lower(),
