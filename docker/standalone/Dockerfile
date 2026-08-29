@@ -77,8 +77,8 @@ COPY package.json package-lock.json ./
 COPY entelechy-clients/typescript/ ./entelechy-clients/typescript/
 
 # Install and build SDK using workspace (--ignore-scripts skips git hooks setup)
-RUN npm ci --ignore-scripts -w @garybense/entelechy-client
-RUN npm run build -w @garybense/entelechy-client
+RUN npm ci --ignore-scripts -w @vectorize-io/entelechy-client
+RUN npm run build -w @vectorize-io/entelechy-client
 
 # =============================================================================
 # Stage: Control Plane Builder
@@ -97,17 +97,17 @@ WORKDIR /app/memory-poc/entelechy-control-plane
 # correct platform-specific native bindings for lightningcss/tailwindcss
 COPY entelechy-control-plane/package.json ./
 # Remove the file: dependency on SDK (we'll copy it directly later)
-RUN sed -i '/"@garybense\/entelechy-client":/d' package.json
+RUN sed -i '/"@vectorize-io\/entelechy-client":/d' package.json
 RUN npm install
 
 # Copy Control Plane source (excluding node_modules via .dockerignore)
 COPY entelechy-control-plane/ ./
 # Remove package-lock.json to avoid conflicts with installed native bindings
 # Also remove the file: dependency from package.json (restored by COPY above)
-RUN rm -f package-lock.json && sed -i '/"@garybense\/entelechy-client":/d' package.json
+RUN rm -f package-lock.json && sed -i '/"@vectorize-io\/entelechy-client":/d' package.json
 
 # Copy built SDK directly into node_modules (more reliable than npm link in Docker)
-COPY --from=sdk-builder /app/entelechy-clients/typescript ./node_modules/@garybense/entelechy-client
+COPY --from=sdk-builder /app/entelechy-clients/typescript ./node_modules/@vectorize-io/entelechy-client
 
 # Accept base path as build argument for reverse proxy deployments
 # Usage: docker build --build-arg NEXT_PUBLIC_BASE_PATH=/entelechy ...

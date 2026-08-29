@@ -8,10 +8,10 @@
 # release-integration.yml`, which runs `npm ci && npm run build` inside the
 # integration directory. If the lockfile points at a workspace path whose
 # `dist/` is gitignored and not pre-built in the release runner, tsc fails
-# with `Cannot find module '@garybense/...'`.
+# with `Cannot find module '@vectorize-io/...'`.
 #
 # This bit us once on integrations/openclaw/v0.6.0 — the lockfile had
-# @garybense/entelechy-client resolved to ../../entelechy-clients/typescript
+# @vectorize-io/entelechy-client resolved to ../../entelechy-clients/typescript
 # because `npm install` was originally run from the monorepo root, where npm
 # silently preferred the workspace even though openclaw isn't itself listed
 # in the root `workspaces` array. The test CI job masked it (it pre-builds
@@ -109,7 +109,7 @@ How to fix a flagged lockfile: from inside the integration directory,
     npm install
 
 Do not run `npm install` from the monorepo root for these integrations
-— it silently resolves `@garybense/...` names to the workspace copy
+— it silently resolves `@vectorize-io/...` names to the workspace copy
 even when the package.json declares a registry version range.
 EOF
   exit 1
