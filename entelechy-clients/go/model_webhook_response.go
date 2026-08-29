@@ -24,6 +24,7 @@ type WebhookResponse struct {
 	Id string `json:"id"`
 	BankId NullableString `json:"bank_id"`
 	Url string `json:"url"`
+	// Signing secret (redacted in responses)
 	Secret NullableString `json:"secret,omitempty"`
 	EventTypes []string `json:"event_types"`
 	Enabled bool `json:"enabled"`

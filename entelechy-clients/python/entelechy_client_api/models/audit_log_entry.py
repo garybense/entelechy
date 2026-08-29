@@ -17,10 +17,11 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class AuditLogEntry(BaseModel):
     """
@@ -32,14 +33,15 @@ class AuditLogEntry(BaseModel):
     bank_id: Optional[StrictStr]
     started_at: Optional[StrictStr]
     ended_at: Optional[StrictStr]
-    duration_ms: Optional[StrictInt] = None
+    duration_ms: Optional[StrictInt] = Field(default=None, description="Server-computed duration in milliseconds (started_at → ended_at). Null if not yet completed.")
     request: Optional[Dict[str, Any]]
     response: Optional[Dict[str, Any]]
     metadata: Dict[str, Any]
     __properties: ClassVar[List[str]] = ["id", "action", "transport", "bank_id", "started_at", "ended_at", "duration_ms", "request", "response", "metadata"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -51,8 +53,7 @@ class AuditLogEntry(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

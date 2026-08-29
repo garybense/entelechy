@@ -19,8 +19,11 @@ var _ MappedNullable = &IncludeOptions{}
 
 // IncludeOptions Options for including additional data in recall results.
 type IncludeOptions struct {
+	// Include entity observations. Set to null to disable entity inclusion.
 	Entities NullableEntityIncludeOptions `json:"entities,omitempty"`
+	// Include raw chunks. Set to {} to enable, null to disable (default: disabled).
 	Chunks NullableChunkIncludeOptions `json:"chunks,omitempty"`
+	// Include source facts for observation-type results. Set to {} to enable, null to disable (default: disabled).
 	SourceFacts NullableSourceFactsIncludeOptions `json:"source_facts,omitempty"`
 }
 
