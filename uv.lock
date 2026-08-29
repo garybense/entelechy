@@ -975,11 +975,24 @@ name = "entelechy-api"
 version = "0.5.6"
 source = { editable = "entelechy-api" }
 dependencies = [
+    { name = "entelechy-api-slim" },
+]
+
+[package.optional-dependencies]
+all = [
     { name = "entelechy-api-slim", extra = ["all"] },
+]
+local-ml = [
+    { name = "entelechy-api-slim", extra = ["local-ml"] },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "entelechy-api-slim", extras = ["all"], editable = "entelechy-api-slim" }]
+requires-dist = [
+    { name = "entelechy-api-slim", editable = "entelechy-api-slim" },
+    { name = "entelechy-api-slim", extras = ["all"], marker = "extra == 'all'", editable = "entelechy-api-slim" },
+    { name = "entelechy-api-slim", extras = ["local-ml"], marker = "extra == 'local-ml'", editable = "entelechy-api-slim" },
+]
+provides-extras = ["all", "local-ml"]
 
 [[package]]
 name = "entelechy-api-slim"
