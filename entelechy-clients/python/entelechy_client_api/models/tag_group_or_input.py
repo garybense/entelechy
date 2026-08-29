@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class TagGroupOrInput(BaseModel):
     """
@@ -30,7 +31,8 @@ class TagGroupOrInput(BaseModel):
     __properties: ClassVar[List[str]] = ["or"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -42,8 +44,7 @@ class TagGroupOrInput(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -72,8 +73,7 @@ class TagGroupOrInput(BaseModel):
         _items = []
         if self.var_or:
             for _item_var_or in self.var_or:
-                if _item_var_or:
-                    _items.append(_item_var_or.to_dict())
+                _items.append(_item_var_or.to_dict() if _item_var_or is not None else None)
             _dict['or'] = _items
         return _dict
 

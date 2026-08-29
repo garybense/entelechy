@@ -19,10 +19,15 @@ var _ MappedNullable = &UpdateDirectiveRequest{}
 
 // UpdateDirectiveRequest Request model for updating a directive.
 type UpdateDirectiveRequest struct {
+	// New name
 	Name NullableString `json:"name,omitempty"`
+	// New content
 	Content NullableString `json:"content,omitempty"`
+	// New priority
 	Priority NullableInt32 `json:"priority,omitempty"`
+	// New active status
 	IsActive NullableBool `json:"is_active,omitempty"`
+	// New tags
 	Tags []string `json:"tags,omitempty"`
 }
 

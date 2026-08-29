@@ -25,11 +25,16 @@ type MemoryItem struct {
 	Timestamp NullableTimestamp `json:"timestamp,omitempty"`
 	Context NullableString `json:"context,omitempty"`
 	Metadata map[string]string `json:"metadata,omitempty"`
+	// Optional document ID for this memory item.
 	DocumentId NullableString `json:"document_id,omitempty"`
+	// Optional entities to combine with auto-extracted entities.
 	Entities []EntityInput `json:"entities,omitempty"`
+	// Optional tags for visibility scoping. Memories with tags can be filtered during recall.
 	Tags []string `json:"tags,omitempty"`
 	ObservationScopes NullableObservationScopes `json:"observation_scopes,omitempty"`
+	// Named retain strategy for this item. Overrides the bank's default strategy for this item only. Strategies are defined in the bank config under 'retain_strategies'.
 	Strategy NullableString `json:"strategy,omitempty"`
+	// How to handle an existing document with the same document_id. 'replace' (default) deletes old data and reprocesses from scratch. 'append' concatenates new content to the existing document text and reprocesses.
 	UpdateMode NullableString `json:"update_mode,omitempty"`
 }
 

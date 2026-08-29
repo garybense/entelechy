@@ -28,7 +28,9 @@ type OperationResponse struct {
 	CreatedAt string `json:"created_at"`
 	Status string `json:"status"`
 	ErrorMessage NullableString `json:"error_message"`
+	// Number of times this operation has been retried after failure.
 	RetryCount NullableInt32 `json:"retry_count,omitempty"`
+	// When the worker will next attempt this operation. For a pending operation, a value in the future indicates the task is waiting rather than available for immediate pickup — for example, an extension may have raised DeferOperation to park the task until some backpressure window opens. Always null for completed tasks.
 	NextRetryAt NullableString `json:"next_retry_at,omitempty"`
 }
 

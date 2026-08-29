@@ -23,6 +23,7 @@ from entelechy_client_api.models.reflect_llm_call import ReflectLLMCall
 from entelechy_client_api.models.reflect_tool_call import ReflectToolCall
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ReflectTrace(BaseModel):
     """
@@ -33,7 +34,8 @@ class ReflectTrace(BaseModel):
     __properties: ClassVar[List[str]] = ["tool_calls", "llm_calls"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class ReflectTrace(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -75,15 +76,13 @@ class ReflectTrace(BaseModel):
         _items = []
         if self.tool_calls:
             for _item_tool_calls in self.tool_calls:
-                if _item_tool_calls:
-                    _items.append(_item_tool_calls.to_dict())
+                _items.append(_item_tool_calls.to_dict() if _item_tool_calls is not None else None)
             _dict['tool_calls'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in llm_calls (list)
         _items = []
         if self.llm_calls:
             for _item_llm_calls in self.llm_calls:
-                if _item_llm_calls:
-                    _items.append(_item_llm_calls.to_dict())
+                _items.append(_item_llm_calls.to_dict() if _item_llm_calls is not None else None)
             _dict['llm_calls'] = _items
         return _dict
 
