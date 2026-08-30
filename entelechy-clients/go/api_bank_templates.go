@@ -310,6 +310,7 @@ func (a *BankTemplatesAPIService) ImportBankTemplateExecute(r ApiImportBankTempl
 		parameterAddToHeaderOrQuery(localVarQueryParams, "dry_run", r.dryRun, "form", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dry_run", defaultValue, "form", "")
 		r.dryRun = &defaultValue
 	}
 	// to determine the Content-Type header

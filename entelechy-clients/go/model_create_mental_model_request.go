@@ -21,6 +21,7 @@ var _ MappedNullable = &CreateMentalModelRequest{}
 
 // CreateMentalModelRequest Request model for creating a mental model.
 type CreateMentalModelRequest struct {
+	// Optional custom ID for the mental model (alphanumeric lowercase with hyphens)
 	Id NullableString `json:"id,omitempty"`
 	// Human-readable name for the mental model
 	Name string `json:"name"`
@@ -46,6 +47,8 @@ func NewCreateMentalModelRequest(name string, sourceQuery string) *CreateMentalM
 	this.SourceQuery = sourceQuery
 	var maxTokens int32 = 2048
 	this.MaxTokens = &maxTokens
+	var trigger MentalModelTriggerInput = {}
+	this.Trigger = &trigger
 	return &this
 }
 
@@ -56,6 +59,8 @@ func NewCreateMentalModelRequestWithDefaults() *CreateMentalModelRequest {
 	this := CreateMentalModelRequest{}
 	var maxTokens int32 = 2048
 	this.MaxTokens = &maxTokens
+	var trigger MentalModelTriggerInput = {}
+	this.Trigger = &trigger
 	return &this
 }
 

@@ -46,9 +46,9 @@
   },
   "dependencies": {
     "@clack/prompts": "^1.2.0",
-    "@garybense/entelechy-agent-sdk": "^0.1.0",
-    "@garybense/entelechy-all": "^0.1.0",
-    "@garybense/entelechy-client": "^0.5.0"
+    "@garybense/entelechy-agent-sdk": "file:../../entelechy-tools/entelechy-agent-sdk",
+    "@garybense/entelechy-all": "file:../../entelechy-all-npm",
+    "@garybense/entelechy-client": "file:../../entelechy-clients/typescript"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

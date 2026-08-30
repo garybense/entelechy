@@ -24,6 +24,7 @@ type RetainRequest struct {
 	Items []MemoryItem `json:"items"`
 	// If true, process asynchronously in background. If false, wait for completion (default: false)
 	Async *bool `json:"async,omitempty"`
+	// Deprecated. Use item-level tags instead.
 	DocumentTags []string `json:"document_tags,omitempty"`
 }
 
