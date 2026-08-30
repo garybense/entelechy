@@ -22,46 +22,48 @@ from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class BankTemplateConfig(BaseModel):
     """
     Bank configuration fields within a template manifest.  Only includes configurable (per-bank) fields. Credential fields (API keys, base URLs) are intentionally excluded for security.
     """ # noqa: E501
-    reflect_mission: Optional[StrictStr] = None
-    retain_mission: Optional[StrictStr] = None
-    retain_extraction_mode: Optional[StrictStr] = None
-    retain_custom_instructions: Optional[StrictStr] = None
-    retain_chunk_size: Optional[StrictInt] = None
-    enable_observations: Optional[StrictBool] = None
-    observations_mission: Optional[StrictStr] = None
-    disposition_skepticism: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = None
-    disposition_literalism: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = None
-    disposition_empathy: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = None
-    entity_labels: Optional[List[Dict[str, Any]]] = None
-    entities_allow_free_form: Optional[StrictBool] = None
-    retain_default_strategy: Optional[StrictStr] = None
-    retain_strategies: Optional[Dict[str, Any]] = None
-    retain_chunk_batch_size: Optional[StrictInt] = None
-    mcp_enabled_tools: Optional[List[StrictStr]] = None
-    consolidation_llm_batch_size: Optional[StrictInt] = None
-    consolidation_source_facts_max_tokens: Optional[StrictInt] = None
-    consolidation_source_facts_max_tokens_per_observation: Optional[StrictInt] = None
-    max_observations_per_scope: Optional[StrictInt] = None
-    reflect_source_facts_max_tokens: Optional[StrictInt] = None
-    llm_gemini_safety_settings: Optional[List[Any]] = None
-    recall_budget_function: Optional[StrictStr] = None
-    recall_budget_fixed_low: Optional[StrictInt] = None
-    recall_budget_fixed_mid: Optional[StrictInt] = None
-    recall_budget_fixed_high: Optional[StrictInt] = None
-    recall_budget_adaptive_low: Optional[Union[StrictFloat, StrictInt]] = None
-    recall_budget_adaptive_mid: Optional[Union[StrictFloat, StrictInt]] = None
-    recall_budget_adaptive_high: Optional[Union[StrictFloat, StrictInt]] = None
-    recall_budget_min: Optional[StrictInt] = None
-    recall_budget_max: Optional[StrictInt] = None
+    reflect_mission: Optional[StrictStr] = Field(default=None, description="Mission/context for Reflect operations")
+    retain_mission: Optional[StrictStr] = Field(default=None, description="Steers what gets extracted during retain")
+    retain_extraction_mode: Optional[StrictStr] = Field(default=None, description="Fact extraction mode: 'concise' (default), 'verbose', or 'custom'")
+    retain_custom_instructions: Optional[StrictStr] = Field(default=None, description="Custom extraction prompt (when mode='custom')")
+    retain_chunk_size: Optional[StrictInt] = Field(default=None, description="Max token size for each content chunk")
+    enable_observations: Optional[StrictBool] = Field(default=None, description="Toggle observation consolidation")
+    observations_mission: Optional[StrictStr] = Field(default=None, description="Controls what gets synthesised")
+    disposition_skepticism: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=None, description="Skepticism trait (1-5)")
+    disposition_literalism: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=None, description="Literalism trait (1-5)")
+    disposition_empathy: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=None, description="Empathy trait (1-5)")
+    entity_labels: Optional[List[Dict[str, Any]]] = Field(default=None, description="Controlled vocabulary for entity labels")
+    entities_allow_free_form: Optional[StrictBool] = Field(default=None, description="Allow entities outside the label vocabulary")
+    retain_default_strategy: Optional[StrictStr] = Field(default=None, description="Name of the default retain strategy (key into retain_strategies map)")
+    retain_strategies: Optional[Dict[str, Any]] = Field(default=None, description="Map of retain strategy name to per-strategy config dict")
+    retain_chunk_batch_size: Optional[StrictInt] = Field(default=None, description="Max chunks per streaming batch (0 disables batching)")
+    mcp_enabled_tools: Optional[List[StrictStr]] = Field(default=None, description="MCP tool allowlist for this bank (None = all tools)")
+    consolidation_llm_batch_size: Optional[StrictInt] = Field(default=None, description="LLM batch size for observation consolidation")
+    consolidation_source_facts_max_tokens: Optional[StrictInt] = Field(default=None, description="Max tokens of source facts per consolidation batch")
+    consolidation_source_facts_max_tokens_per_observation: Optional[StrictInt] = Field(default=None, description="Max tokens of source facts per observation")
+    max_observations_per_scope: Optional[StrictInt] = Field(default=None, description="Max observations to retain per consolidation scope")
+    reflect_source_facts_max_tokens: Optional[StrictInt] = Field(default=None, description="Max tokens of source facts per reflect call")
+    llm_gemini_safety_settings: Optional[List[Any]] = Field(default=None, description="Per-bank Gemini/VertexAI safety filter settings")
+    recall_budget_function: Optional[StrictStr] = Field(default=None, description="Recall budget mapping function: 'fixed' or 'adaptive'")
+    recall_budget_fixed_low: Optional[StrictInt] = Field(default=None, description="Fixed thinking_budget for budget=low (function='fixed')")
+    recall_budget_fixed_mid: Optional[StrictInt] = Field(default=None, description="Fixed thinking_budget for budget=mid (function='fixed')")
+    recall_budget_fixed_high: Optional[StrictInt] = Field(default=None, description="Fixed thinking_budget for budget=high (function='fixed')")
+    recall_budget_adaptive_low: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Ratio of max_tokens for budget=low (function='adaptive')")
+    recall_budget_adaptive_mid: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Ratio of max_tokens for budget=mid (function='adaptive')")
+    recall_budget_adaptive_high: Optional[Union[StrictFloat, StrictInt]] = Field(default=None, description="Ratio of max_tokens for budget=high (function='adaptive')")
+    recall_budget_min: Optional[StrictInt] = Field(default=None, description="Floor for the adaptive function (after clamping)")
+    recall_budget_max: Optional[StrictInt] = Field(default=None, description="Ceiling for the adaptive function (after clamping)")
     __properties: ClassVar[List[str]] = ["reflect_mission", "retain_mission", "retain_extraction_mode", "retain_custom_instructions", "retain_chunk_size", "enable_observations", "observations_mission", "disposition_skepticism", "disposition_literalism", "disposition_empathy", "entity_labels", "entities_allow_free_form", "retain_default_strategy", "retain_strategies", "retain_chunk_batch_size", "mcp_enabled_tools", "consolidation_llm_batch_size", "consolidation_source_facts_max_tokens", "consolidation_source_facts_max_tokens_per_observation", "max_observations_per_scope", "reflect_source_facts_max_tokens", "llm_gemini_safety_settings", "recall_budget_function", "recall_budget_fixed_low", "recall_budget_fixed_mid", "recall_budget_fixed_high", "recall_budget_adaptive_low", "recall_budget_adaptive_mid", "recall_budget_adaptive_high", "recall_budget_min", "recall_budget_max"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -73,8 +75,7 @@ class BankTemplateConfig(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

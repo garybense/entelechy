@@ -17,11 +17,12 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.child_operation_status import ChildOperationStatus
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class OperationStatusResponse(BaseModel):
     """
@@ -34,11 +35,11 @@ class OperationStatusResponse(BaseModel):
     updated_at: Optional[StrictStr] = None
     completed_at: Optional[StrictStr] = None
     error_message: Optional[StrictStr] = None
-    retry_count: Optional[StrictInt] = None
-    next_retry_at: Optional[StrictStr] = None
-    result_metadata: Optional[Dict[str, Any]] = None
-    child_operations: Optional[List[ChildOperationStatus]] = None
-    task_payload: Optional[Dict[str, Any]] = None
+    retry_count: Optional[StrictInt] = Field(default=None, description="Number of times this operation has been retried after failure.")
+    next_retry_at: Optional[StrictStr] = Field(default=None, description="When the worker will next attempt this operation. For a pending operation, a value in the future indicates the task is parked (e.g. by an extension raising DeferOperation) rather than awaiting immediate pickup.")
+    result_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Internal metadata for debugging. Structure may change without notice. Not for production use.")
+    child_operations: Optional[List[ChildOperationStatus]] = Field(default=None, description="Child operations for batch operations (if applicable)")
+    task_payload: Optional[Dict[str, Any]] = Field(default=None, description="Raw task payload (params the operation was submitted with). Only populated when include_payload=true.")
     __properties: ClassVar[List[str]] = ["operation_id", "status", "operation_type", "created_at", "updated_at", "completed_at", "error_message", "retry_count", "next_retry_at", "result_metadata", "child_operations", "task_payload"]
 
     @field_validator('status')
@@ -49,7 +50,8 @@ class OperationStatusResponse(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -61,8 +63,7 @@ class OperationStatusResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -91,8 +92,7 @@ class OperationStatusResponse(BaseModel):
         _items = []
         if self.child_operations:
             for _item_child_operations in self.child_operations:
-                if _item_child_operations:
-                    _items.append(_item_child_operations.to_dict())
+                _items.append(_item_child_operations.to_dict() if _item_child_operations is not None else None)
             _dict['child_operations'] = _items
         # set to None if operation_type (nullable) is None
         # and model_fields_set contains the field

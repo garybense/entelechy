@@ -1447,14 +1447,22 @@ class GoogleCrossEncoder(CrossEncoderModel):
         if self.service_account_key:
             try:
                 from google.oauth2 import service_account
-            except ImportError:
-                raise ImportError(
-                    "google-auth is required for GoogleCrossEncoder. Install it with: pip install google-auth"
+
+                self._credentials = service_account.Credentials.from_service_account_file(
+                    self.service_account_key,
+                    scopes=self.SCOPES,
                 )
-            self._credentials = service_account.Credentials.from_service_account_file(
-                self.service_account_key,
-                scopes=self.SCOPES,
-            )
+                auth_method = "service_account"
+            except Exception as e:
+                logger.warning(
+                    f"GoogleCrossEncoder: Failed to load service account key '{self.service_account_key}': {e}. Falling back to ADC."
+                )
+                try:
+                    import google.auth
+
+                    self._credentials, _ = google.auth.default(scopes=self.SCOPES)
+                except Exception:
+                    self._credentials = None
         else:
             try:
                 import google.auth

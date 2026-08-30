@@ -19,6 +19,7 @@ var _ MappedNullable = &UpdateDocumentRequest{}
 
 // UpdateDocumentRequest Request model for updating a document's mutable fields.
 type UpdateDocumentRequest struct {
+	// New tags for the document and its memory units. Triggers observation invalidation and re-consolidation.
 	Tags []string `json:"tags,omitempty"`
 }
 

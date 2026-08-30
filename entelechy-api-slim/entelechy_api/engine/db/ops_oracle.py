@@ -13,7 +13,7 @@ from uuid import UUID
 
 from .base import DatabaseConnection
 from .ops import DataAccessOps, TagListingParts
-from .result import DictResultRow as ResultRow
+from .result import ResultRow
 
 
 class OracleOps(DataAccessOps):
@@ -318,8 +318,64 @@ class OracleOps(DataAccessOps):
                 half_limit,
                 uid,
             )
-            rows.extend(unit_rows)
-        return rows
+            bind_values.extend([uid_str, ftype])
+            bind_idx += 2
+
+        targets_cte = " UNION ALL ".join(cte_clauses)
+
+        query = f"""
+        WITH targets AS (
+            {targets_cte}
+        ),
+        matched_events AS (
+            SELECT
+                t.target_uid,
+                e.from_id,
+                e.id,
+                e.event_date,
+                ABS(EXTRACT(DAY FROM (e.event_date - t.target_edate)) * 24 + EXTRACT(HOUR FROM (e.event_date - t.target_edate))) AS time_diff_hours,
+                ROW_NUMBER() OVER (
+                    PARTITION BY t.target_uid
+                    ORDER BY ABS(EXTRACT(DAY FROM (e.event_date - t.target_edate)) * 24 + EXTRACT(HOUR FROM (e.event_date - t.target_edate))) ASC
+                ) AS rn
+            FROM targets t
+            JOIN events e
+              ON e.unit_id = t.target_uid
+             AND e.fact_type = t.target_ftype
+            WHERE ABS(EXTRACT(DAY FROM (e.event_date - t.target_edate)) * 24 + EXTRACT(HOUR FROM (e.event_date - t.target_edate))) <= :{bind_idx}
+        )
+        SELECT target_uid, from_id, id, event_date, time_diff_hours
+        FROM matched_events
+        WHERE rn <= :{bind_idx + 1}
+        ORDER BY target_uid, rn
+        """
+
+        bind_values.extend([max_time_diff_hours, k])
+
+        # 3. Single DB roundtrip execution
+        rows = await conn.fetch(query, *bind_values)
+
+        # 4. Group rows by target_uid and maintain original input order
+        rows_by_uid = {}
+        for r in rows:
+            uid = r["target_uid"]
+            if uid not in rows_by_uid:
+                rows_by_uid[uid] = []
+            rows_by_uid[uid].append(
+                {
+                    "from_id": r["from_id"],
+                    "id": r["id"],
+                    "event_date": r["event_date"],
+                    "time_diff_hours": r["time_diff_hours"],
+                }
+            )
+
+        results = []
+        for uid_str, _, _ in targets_info:
+            unit_rows = rows_by_uid.get(uid_str, [])
+            results.append((uid_str, unit_rows))
+
+        return results
 
     def build_entity_expansion_cte(
         self,

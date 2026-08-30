@@ -23,9 +23,13 @@ var _ MappedNullable = &ReflectResponse{}
 type ReflectResponse struct {
 	// The reflect response as well-formatted markdown (headers, lists, bold/italic, code blocks, etc.)
 	Text string `json:"text"`
+	// Evidence used to generate the response. Only present when include.facts is set.
 	BasedOn NullableReflectBasedOn `json:"based_on,omitempty"`
+	// Structured output parsed according to the request's response_schema. Only present when response_schema was provided in the request.
 	StructuredOutput map[string]interface{} `json:"structured_output,omitempty"`
+	// Token usage metrics for LLM calls during reflection.
 	Usage NullableTokenUsage `json:"usage,omitempty"`
+	// Execution trace of tool and LLM calls. Only present when include.tool_calls is set.
 	Trace NullableReflectTrace `json:"trace,omitempty"`
 }
 

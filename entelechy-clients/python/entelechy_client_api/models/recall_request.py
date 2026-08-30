@@ -24,21 +24,22 @@ from entelechy_client_api.models.include_options import IncludeOptions
 from entelechy_client_api.models.mental_model_trigger_input_tag_groups_inner import MentalModelTriggerInputTagGroupsInner
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class RecallRequest(BaseModel):
     """
     Request model for recall endpoint.
     """ # noqa: E501
     query: StrictStr
-    types: Optional[List[StrictStr]] = None
+    types: Optional[List[StrictStr]] = Field(default=None, description="List of fact types to recall: 'world', 'experience', 'observation'. Defaults to world and experience if not specified.")
     budget: Optional[Budget] = None
     max_tokens: Optional[StrictInt] = 4096
     trace: Optional[StrictBool] = False
-    query_timestamp: Optional[StrictStr] = None
+    query_timestamp: Optional[StrictStr] = Field(default=None, description="ISO format date string (e.g., '2023-05-30T23:40:00')")
     include: Optional[IncludeOptions] = Field(default=None, description="Options for including additional data (entities are included by default)")
-    tags: Optional[List[StrictStr]] = None
+    tags: Optional[List[StrictStr]] = Field(default=None, description="Filter memories by tags. If not specified, all memories are returned.")
     tags_match: Optional[StrictStr] = Field(default='any', description="How to match tags: 'any' (OR, includes untagged), 'all' (AND, includes untagged), 'any_strict' (OR, excludes untagged), 'all_strict' (AND, excludes untagged).")
-    tag_groups: Optional[List[MentalModelTriggerInputTagGroupsInner]] = None
+    tag_groups: Optional[List[MentalModelTriggerInputTagGroupsInner]] = Field(default=None, description="Compound tag filter using boolean groups. Groups in the list are AND-ed. Each group is a leaf {tags, match} or compound {and: [...]}, {or: [...]}, {not: ...}.")
     __properties: ClassVar[List[str]] = ["query", "types", "budget", "max_tokens", "trace", "query_timestamp", "include", "tags", "tags_match", "tag_groups"]
 
     @field_validator('tags_match')
@@ -52,7 +53,8 @@ class RecallRequest(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -64,8 +66,7 @@ class RecallRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -97,8 +98,7 @@ class RecallRequest(BaseModel):
         _items = []
         if self.tag_groups:
             for _item_tag_groups in self.tag_groups:
-                if _item_tag_groups:
-                    _items.append(_item_tag_groups.to_dict())
+                _items.append(_item_tag_groups.to_dict() if _item_tag_groups is not None else None)
             _dict['tag_groups'] = _items
         # set to None if types (nullable) is None
         # and model_fields_set contains the field
