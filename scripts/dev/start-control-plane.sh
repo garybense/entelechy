@@ -13,7 +13,7 @@ if [ ! -f "$ROOT_DIR/.env" ]; then
 fi
 
 echo "🔨 Building TypeScript SDK first to ensure it's up to date..."
-npm run build -w @garybense/entelechy-client
+npm run build -w @vectorize-io/entelechy-client
 echo "✅ SDK built successfully"
 echo ""
 
@@ -37,4 +37,4 @@ export PORT="${_CALLER_PORT:-${ENTELECHY_CP_PORT:-9999}}"
 export ENTELECHY_CP_DATAPLANE_API_URL="${_CALLER_DATAPLANE_URL:-${ENTELECHY_CP_DATAPLANE_API_URL:-http://localhost:8888}}"
 
 # Run dev server
-npm run dev -w @garybense/entelechy-control-plane
+npm run dev -w @vectorize-io/entelechy-control-plane

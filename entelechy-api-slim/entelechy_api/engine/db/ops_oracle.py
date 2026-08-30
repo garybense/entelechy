@@ -275,20 +275,48 @@ class OracleOps(DataAccessOps):
         # Fetch up to half_limit in each direction, then combine and keep the
         # half_limit closest overall via ROW_NUMBER — matching the PG behavior.
         rows: list[ResultRow] = []
-        # 1. Normalize unit IDs and prepare target parameter tuples
-        targets_info = []
         for uid, edate, ftype in zip(lateral_unit_ids, lateral_event_dates, lateral_fact_types):
             uid_str = str(uid) if not isinstance(uid, str) else uid
-            targets_info.append((uid_str, edate, ftype))
-
-        # 2. Build parameterized CTE of input targets using DUAL UNION ALL
-        cte_clauses = []
-        bind_values = []
-        bind_idx = 1
-
-        for uid_str, edate, ftype in targets_info:
-            cte_clauses.append(
-                f"SELECT :{bind_idx} AS target_uid, TIMESTAMP '{edate}' AS target_edate, :{bind_idx + 1} AS target_ftype FROM DUAL"
+            unit_rows = await conn.fetch(
+                f"""
+                SELECT from_id, id, event_date, time_diff_hours FROM (
+                    SELECT combined.*, ROW_NUMBER() OVER (ORDER BY combined.time_diff_hours) AS rn
+                    FROM (
+                        SELECT * FROM (
+                            SELECT $1 AS from_id, mu.id, mu.event_date,
+                                   ABS(EXTRACT(DAY FROM (mu.event_date - $2)) * 24
+                                       + EXTRACT(HOUR FROM (mu.event_date - $2))) AS time_diff_hours
+                            FROM {mu_table} mu
+                            WHERE mu.bank_id = $4
+                              AND mu.fact_type = $3
+                              AND mu.event_date <= $2
+                              AND mu.id != $6
+                            ORDER BY mu.event_date DESC
+                            FETCH FIRST $5 ROWS ONLY
+                        ) bwd
+                        UNION ALL
+                        SELECT * FROM (
+                            SELECT $1 AS from_id, mu.id, mu.event_date,
+                                   ABS(EXTRACT(DAY FROM (mu.event_date - $2)) * 24
+                                       + EXTRACT(HOUR FROM (mu.event_date - $2))) AS time_diff_hours
+                            FROM {mu_table} mu
+                            WHERE mu.bank_id = $4
+                              AND mu.fact_type = $3
+                              AND mu.event_date > $2
+                              AND mu.id != $6
+                            ORDER BY mu.event_date ASC
+                            FETCH FIRST $5 ROWS ONLY
+                        ) fwd
+                    ) combined
+                ) ranked
+                WHERE rn <= $5
+                """,
+                uid_str,
+                edate,
+                ftype,
+                bank_id,
+                half_limit,
+                uid,
             )
             bind_values.extend([uid_str, ftype])
             bind_idx += 2

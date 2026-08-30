@@ -142,11 +142,7 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
-          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
-        else
-          PROJECT_ID=""
-        fi
+        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv

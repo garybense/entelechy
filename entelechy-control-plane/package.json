@@ -16,7 +16,8 @@
     "build:standalone": "rm -rf standalone && SERVER_JS=$(find .next/standalone -path '*/node_modules' -prune -o -name 'server.js' -print | head -1) && test -n \"$SERVER_JS\" || (echo 'Error: server.js not found in .next/standalone - standalone build failed' && exit 1) && STANDALONE_ROOT=$(dirname \"$SERVER_JS\") && cp -r \"$STANDALONE_ROOT\" standalone && cp -r .next/standalone/node_modules standalone/node_modules && mkdir -p standalone/.next && cp -r .next/static standalone/.next/static && mkdir -p standalone/public && (cp -r public/* standalone/public/ 2>/dev/null || true)",
     "start": "next start",
     "lint": "next lint",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "prebuild": "npm install --prefix .. && npm run build --workspace=@garybense/entelechy-client"
   },
   "keywords": [
     "entelechy",
@@ -80,12 +81,12 @@
     "tailwindcss": "^4.1.17",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.182.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "@garybense/entelechy-client": "file:../entelechy-clients/typescript"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.39.2",
-    "@garybense/entelechy-client": "file:../entelechy-clients/typescript",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "prettier": "^3.7.4",
