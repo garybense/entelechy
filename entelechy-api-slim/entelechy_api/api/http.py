@@ -528,6 +528,17 @@ class MemoryItem(BaseModel):
         raise ValueError(f"timestamp must be a string or datetime, got {type(v).__name__}")
 
 
+class BootstrapRequest(BaseModel):
+    svt: str = Field(description="State Vector Token (e.g., CST-alpha...)")
+    context: str = Field(description="The latest user prompt or context window")
+
+
+class BootstrapResponse(BaseModel):
+    policy_vector: dict[str, float]
+    injected_prompt: str
+    memory_context: str
+
+
 class RetainRequest(BaseModel):
     """Request model for retain endpoint."""
 
@@ -2873,6 +2884,7 @@ def _register_routes(app: FastAPI):
 
     # Global exception handler for authentication errors
 
+<<<<<<< HEAD
     class BootstrapRequest(BaseModel):
         svt: str = Field(description="State Vector Token (e.g., CST-alpha...)")
         context: str = Field(description="The latest user prompt or context window")
@@ -2881,6 +2893,66 @@ def _register_routes(app: FastAPI):
         policy_vector: dict[str, float]
         injected_prompt: str
         memory_context: str
+=======
+    @app.post(
+        "/v1/default/banks/{bank_id}/sessions/bootstrap",
+        response_model=BootstrapResponse,
+        summary="SVT-CP vFinal Session Bootstrap",
+        description="Bootstrap a session across models using the strict mathematical MWPMC.",
+        tags=["Sessions"],
+    )
+    async def api_bootstrap_session(
+        bank_id: str,
+        request: BootstrapRequest,
+        request_context: RequestContext = Depends(get_request_context),
+    ):
+        try:
+            recall_res = await app.state.memory.recall_async(
+                bank_id=bank_id, query=request.context, budget=Budget.MID, request_context=request_context
+            )
+
+            from entelechy_api.engine.mwpm import MemoryStats, PolicyParams
+            from entelechy_api.engine.mwpm.modulator import modulate_policy
+
+            stats = MemoryStats(
+                total_memories=len(recall_res.results),
+                avg_affect=0.2,
+                success_rate=0.8,
+                semantic_diversity=0.5,
+                user_stability=0.9,
+            )
+
+            from entelechy_api.engine.srl import StateVector
+
+            sv = StateVector(
+                reconstruction_id="bootstrap",
+                source_memory_ids=[],
+                reconstructed_at=__import__("datetime").datetime.now(__import__("datetime").timezone.utc),
+            )
+            policy = modulate_policy(state_vector=sv, memory_stats=stats)
+
+            # Use chr(10) instead of newline escapes
+            newline = chr(10)
+            memory_context = newline.join([f"- {item.text}" for item in recall_res.results])
+
+            return BootstrapResponse(
+                policy_vector={
+                    "verbosity": policy.verbosity,
+                    "abstraction": policy.abstraction,
+                    "creativity": policy.creativity,
+                    "empathy": policy.empathy,
+                    "rigor": policy.rigor,
+                    "tool_use_probability": policy.tool_use_probability,
+                },
+                injected_prompt=policy.to_system_control_vector(),
+                memory_context=memory_context,
+            )
+        except Exception as e:
+            import traceback
+
+            logger.error(f"Error in bootstrap: {traceback.format_exc()}")
+            raise HTTPException(status_code=500, detail=str(e))
+>>>>>>> origin/main
 
     @app.post(
         "/v1/default/banks/{bank_id}/sessions/bootstrap",

@@ -22,20 +22,22 @@ from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.webhook_http_config import WebhookHttpConfig
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CreateWebhookRequest(BaseModel):
     """
     Request model for registering a webhook.
     """ # noqa: E501
     url: StrictStr = Field(description="HTTP(S) endpoint URL to deliver events to")
-    secret: Optional[StrictStr] = None
+    secret: Optional[StrictStr] = Field(default=None, description="HMAC-SHA256 signing secret (optional)")
     event_types: Optional[List[StrictStr]] = Field(default=None, description="List of event types to deliver. Currently supported: 'consolidation.completed'")
     enabled: Optional[StrictBool] = Field(default=True, description="Whether this webhook is active")
     http_config: Optional[WebhookHttpConfig] = Field(default=None, description="HTTP delivery configuration (method, timeout, headers, params)")
     __properties: ClassVar[List[str]] = ["url", "secret", "event_types", "enabled", "http_config"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -47,8 +49,7 @@ class CreateWebhookRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

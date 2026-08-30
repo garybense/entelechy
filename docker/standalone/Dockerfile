@@ -97,14 +97,14 @@ WORKDIR /app/memory-poc/entelechy-control-plane
 # correct platform-specific native bindings for lightningcss/tailwindcss
 COPY entelechy-control-plane/package.json ./
 # Remove the file: dependency on SDK (we'll copy it directly later)
-RUN sed -i '/"@vectorize-io\/entelechy-client":/d' package.json
+RUN sed -i '/"@garybense\/entelechy-client":/d' package.json
 RUN npm install
 
 # Copy Control Plane source (excluding node_modules via .dockerignore)
 COPY entelechy-control-plane/ ./
 # Remove package-lock.json to avoid conflicts with installed native bindings
 # Also remove the file: dependency from package.json (restored by COPY above)
-RUN rm -f package-lock.json && sed -i '/"@vectorize-io\/entelechy-client":/d' package.json
+RUN rm -f package-lock.json && sed -i '/"@garybense\/entelechy-client":/d' package.json
 
 # Copy built SDK directly into node_modules (more reliable than npm link in Docker)
 COPY --from=sdk-builder /app/entelechy-clients/typescript ./node_modules/@garybense/entelechy-client

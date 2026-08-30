@@ -26,8 +26,11 @@ type RetainResponse struct {
 	ItemsCount int32 `json:"items_count"`
 	// Whether the operation was processed asynchronously
 	Async bool `json:"async"`
+	// Operation ID for tracking async operations. Use GET /v1/default/banks/{bank_id}/operations to list operations. Only present when async=true. When items use different per-item strategies, use operation_ids instead.
 	OperationId NullableString `json:"operation_id,omitempty"`
+	// Operation IDs when items were submitted as multiple strategy groups (async=true with mixed per-item strategies). operation_id is set to the first entry for backward compatibility.
 	OperationIds []string `json:"operation_ids,omitempty"`
+	// Token usage metrics for LLM calls during fact extraction (only present for synchronous operations)
 	Usage NullableTokenUsage `json:"usage,omitempty"`
 }
 
