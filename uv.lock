@@ -18,6 +18,7 @@ resolution-markers = [
 
 [manifest]
 members = [
+    "entelechy-all",
     "entelechy-all-slim",
     "entelechy-api",
     "entelechy-api-slim",
@@ -914,6 +915,36 @@ wheels = [
 ]
 
 [[package]]
+name = "entelechy-all"
+version = "0.5.6"
+source = { editable = "entelechy-all" }
+dependencies = [
+    { name = "entelechy-api-slim", extra = ["all"] },
+    { name = "entelechy-client" },
+    { name = "entelechy-embed" },
+]
+
+[package.optional-dependencies]
+local-llm = [
+    { name = "entelechy-api-slim", extra = ["local-llm"] },
+]
+test = [
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "entelechy-api-slim", extras = ["all"], editable = "entelechy-api-slim" },
+    { name = "entelechy-api-slim", extras = ["local-llm"], marker = "extra == 'local-llm'", editable = "entelechy-api-slim" },
+    { name = "entelechy-client", editable = "entelechy-clients/python" },
+    { name = "entelechy-embed", editable = "entelechy-embed" },
+    { name = "pytest", marker = "extra == 'test'", specifier = ">=7.0.0" },
+    { name = "pytest-asyncio", marker = "extra == 'test'", specifier = ">=0.21.0" },
+]
+provides-extras = ["local-llm", "test"]
+
+[[package]]
 name = "entelechy-all-slim"
 version = "0.5.6"
 source = { editable = "entelechy-all-slim" }
@@ -944,24 +975,11 @@ name = "entelechy-api"
 version = "0.5.6"
 source = { editable = "entelechy-api" }
 dependencies = [
-    { name = "entelechy-api-slim" },
-]
-
-[package.optional-dependencies]
-all = [
     { name = "entelechy-api-slim", extra = ["all"] },
-]
-local-ml = [
-    { name = "entelechy-api-slim", extra = ["local-ml"] },
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "entelechy-api-slim", editable = "entelechy-api-slim" },
-    { name = "entelechy-api-slim", extras = ["all"], marker = "extra == 'all'", editable = "entelechy-api-slim" },
-    { name = "entelechy-api-slim", extras = ["local-ml"], marker = "extra == 'local-ml'", editable = "entelechy-api-slim" },
-]
-provides-extras = ["all", "local-ml"]
+requires-dist = [{ name = "entelechy-api-slim", extras = ["all"], editable = "entelechy-api-slim" }]
 
 [[package]]
 name = "entelechy-api-slim"

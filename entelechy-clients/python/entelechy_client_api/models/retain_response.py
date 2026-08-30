@@ -22,7 +22,6 @@ from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.token_usage import TokenUsage
 from typing import Optional, Set
 from typing_extensions import Self
-from pydantic_core import to_jsonable_python
 
 class RetainResponse(BaseModel):
     """
@@ -32,14 +31,13 @@ class RetainResponse(BaseModel):
     bank_id: StrictStr
     items_count: StrictInt
     var_async: StrictBool = Field(description="Whether the operation was processed asynchronously", alias="async")
-    operation_id: Optional[StrictStr] = Field(default=None, description="Operation ID for tracking async operations. Use GET /v1/default/banks/{bank_id}/operations to list operations. Only present when async=true. When items use different per-item strategies, use operation_ids instead.")
-    operation_ids: Optional[List[StrictStr]] = Field(default=None, description="Operation IDs when items were submitted as multiple strategy groups (async=true with mixed per-item strategies). operation_id is set to the first entry for backward compatibility.")
-    usage: Optional[TokenUsage] = Field(default=None, description="Token usage metrics for LLM calls during fact extraction (only present for synchronous operations)")
+    operation_id: Optional[StrictStr] = None
+    operation_ids: Optional[List[StrictStr]] = None
+    usage: Optional[TokenUsage] = None
     __properties: ClassVar[List[str]] = ["success", "bank_id", "items_count", "async", "operation_id", "operation_ids", "usage"]
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -51,7 +49,8 @@ class RetainResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

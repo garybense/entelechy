@@ -21,7 +21,6 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
-from pydantic_core import to_jsonable_python
 
 class DocumentResponse(BaseModel):
     """
@@ -34,15 +33,14 @@ class DocumentResponse(BaseModel):
     created_at: StrictStr
     updated_at: StrictStr
     memory_unit_count: StrictInt
-    nodes_by_fact_type: Optional[Dict[str, StrictInt]] = Field(default=None, description="Memory count per fact type (world, experience, observation)")
+    nodes_by_fact_type: Optional[Dict[str, StrictInt]] = None
     tags: Optional[List[StrictStr]] = Field(default=None, description="Tags associated with this document")
-    document_metadata: Optional[Dict[str, Any]] = Field(default=None, description="Document metadata")
-    retain_params: Optional[Dict[str, Any]] = Field(default=None, description="Parameters used during retain")
+    document_metadata: Optional[Dict[str, Any]] = None
+    retain_params: Optional[Dict[str, Any]] = None
     __properties: ClassVar[List[str]] = ["id", "bank_id", "original_text", "content_hash", "created_at", "updated_at", "memory_unit_count", "nodes_by_fact_type", "tags", "document_metadata", "retain_params"]
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -54,7 +52,8 @@ class DocumentResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

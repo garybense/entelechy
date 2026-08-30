@@ -28,15 +28,10 @@ type OperationStatusResponse struct {
 	UpdatedAt NullableString `json:"updated_at,omitempty"`
 	CompletedAt NullableString `json:"completed_at,omitempty"`
 	ErrorMessage NullableString `json:"error_message,omitempty"`
-	// Number of times this operation has been retried after failure.
 	RetryCount NullableInt32 `json:"retry_count,omitempty"`
-	// When the worker will next attempt this operation. For a pending operation, a value in the future indicates the task is parked (e.g. by an extension raising DeferOperation) rather than awaiting immediate pickup.
 	NextRetryAt NullableString `json:"next_retry_at,omitempty"`
-	// Internal metadata for debugging. Structure may change without notice. Not for production use.
 	ResultMetadata map[string]interface{} `json:"result_metadata,omitempty"`
-	// Child operations for batch operations (if applicable)
 	ChildOperations []ChildOperationStatus `json:"child_operations,omitempty"`
-	// Raw task payload (params the operation was submitted with). Only populated when include_payload=true.
 	TaskPayload map[string]interface{} `json:"task_payload,omitempty"`
 }
 

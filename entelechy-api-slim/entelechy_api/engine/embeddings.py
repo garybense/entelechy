@@ -1025,18 +1025,17 @@ class GeminiEmbeddings(Embeddings):
         if self.vertexai_service_account_key:
             try:
                 from google.oauth2 import service_account
-
-                credentials = service_account.Credentials.from_service_account_file(
-                    self.vertexai_service_account_key,
-                    scopes=["https://www.googleapis.com/auth/cloud-platform"],
+            except ImportError:
+                raise ImportError(
+                    "Vertex AI service account auth requires 'google-auth' package. "
+                    "Install with: pip install google-auth"
                 )
-                auth_method = "service_account"
-                logger.info(f"Embeddings: Vertex AI using service account key: {self.vertexai_service_account_key}")
-            except Exception as e:
-                logger.warning(
-                    f"Embeddings: Failed to load service account key '{self.vertexai_service_account_key}': {e}. Falling back to ADC."
-                )
-                credentials = None
+            credentials = service_account.Credentials.from_service_account_file(
+                self.vertexai_service_account_key,
+                scopes=["https://www.googleapis.com/auth/cloud-platform"],
+            )
+            auth_method = "service_account"
+            logger.info(f"Embeddings: Vertex AI using service account key: {self.vertexai_service_account_key}")
 
         # Strip google/ prefix from model name — native SDK uses bare names
         if self.model.startswith("google/"):
@@ -1156,9 +1155,7 @@ def create_embeddings_from_env() -> Embeddings:
             batch_size=config.embeddings_openai_batch_size,
         )
     elif provider == "cohere":
-        api_key = config.embeddings_cohere_api_key
-        if not api_key:
-            api_key = "test-cohere-key-123"
+        api_key = config.embeddings_cohere_api_key or "dummy-cohere-key"
         return CohereEmbeddings(
             api_key=api_key,
             model=config.embeddings_cohere_model,

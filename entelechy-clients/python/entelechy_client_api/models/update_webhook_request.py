@@ -17,27 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.webhook_http_config import WebhookHttpConfig
 from typing import Optional, Set
 from typing_extensions import Self
-from pydantic_core import to_jsonable_python
 
 class UpdateWebhookRequest(BaseModel):
     """
     Request model for updating a webhook. Only provided fields are updated.
     """ # noqa: E501
-    url: Optional[StrictStr] = Field(default=None, description="HTTP(S) endpoint URL")
-    secret: Optional[StrictStr] = Field(default=None, description="HMAC-SHA256 signing secret. Omit to keep existing; send null to clear.")
-    event_types: Optional[List[StrictStr]] = Field(default=None, description="List of event types")
-    enabled: Optional[StrictBool] = Field(default=None, description="Whether this webhook is active")
-    http_config: Optional[WebhookHttpConfig] = Field(default=None, description="HTTP delivery configuration")
+    url: Optional[StrictStr] = None
+    secret: Optional[StrictStr] = None
+    event_types: Optional[List[StrictStr]] = None
+    enabled: Optional[StrictBool] = None
+    http_config: Optional[WebhookHttpConfig] = None
     __properties: ClassVar[List[str]] = ["url", "secret", "event_types", "enabled", "http_config"]
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,7 +47,8 @@ class UpdateWebhookRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

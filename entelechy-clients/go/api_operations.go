@@ -219,7 +219,6 @@ func (a *OperationsAPIService) GetOperationStatusExecute(r ApiGetOperationStatus
 		parameterAddToHeaderOrQuery(localVarQueryParams, "include_payload", r.includePayload, "form", "")
 	} else {
 		var defaultValue bool = false
-		parameterAddToHeaderOrQuery(localVarQueryParams, "include_payload", defaultValue, "form", "")
 		r.includePayload = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -389,21 +388,18 @@ func (a *OperationsAPIService) ListOperationsExecute(r ApiListOperationsRequest)
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int32 = 20
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int32 = 0
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	if r.excludeParents != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_parents", r.excludeParents, "form", "")
 	} else {
 		var defaultValue bool = false
-		parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_parents", defaultValue, "form", "")
 		r.excludeParents = &defaultValue
 	}
 	// to determine the Content-Type header

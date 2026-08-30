@@ -22,7 +22,6 @@ var _ MappedNullable = &BackgroundResponse{}
 // BackgroundResponse Response model for background update. Deprecated: use MissionResponse instead.
 type BackgroundResponse struct {
 	Mission string `json:"mission"`
-	// Deprecated: same as mission
 	Background NullableString `json:"background,omitempty"`
 	Disposition NullableDispositionTraits `json:"disposition,omitempty"`
 }

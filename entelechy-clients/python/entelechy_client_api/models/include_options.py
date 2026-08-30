@@ -17,27 +17,25 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.chunk_include_options import ChunkIncludeOptions
 from entelechy_client_api.models.entity_include_options import EntityIncludeOptions
 from entelechy_client_api.models.source_facts_include_options import SourceFactsIncludeOptions
 from typing import Optional, Set
 from typing_extensions import Self
-from pydantic_core import to_jsonable_python
 
 class IncludeOptions(BaseModel):
     """
     Options for including additional data in recall results.
     """ # noqa: E501
-    entities: Optional[EntityIncludeOptions] = Field(default=None, description="Include entity observations. Set to null to disable entity inclusion.")
-    chunks: Optional[ChunkIncludeOptions] = Field(default=None, description="Include raw chunks. Set to {} to enable, null to disable (default: disabled).")
-    source_facts: Optional[SourceFactsIncludeOptions] = Field(default=None, description="Include source facts for observation-type results. Set to {} to enable, null to disable (default: disabled).")
+    entities: Optional[EntityIncludeOptions] = None
+    chunks: Optional[ChunkIncludeOptions] = None
+    source_facts: Optional[SourceFactsIncludeOptions] = None
     __properties: ClassVar[List[str]] = ["entities", "chunks", "source_facts"]
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,7 +47,8 @@ class IncludeOptions(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

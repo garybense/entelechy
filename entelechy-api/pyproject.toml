@@ -9,15 +9,7 @@ description = "Entelechy: Agent Memory That Works Like Human Memory"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "entelechy-api-slim>=0.4.17",
-]
-
-[project.optional-dependencies]
-all = [
     "entelechy-api-slim[all]>=0.4.17",
-]
-local-ml = [
-    "entelechy-api-slim[local-ml]>=0.4.17",
 ]
 
 [tool.uv.sources]

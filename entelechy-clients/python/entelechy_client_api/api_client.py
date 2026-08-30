@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
     Entelechy HTTP API
 
@@ -10,7 +12,6 @@
 """  # noqa: E501
 
 
-
 import datetime
 from dateutil.parser import parse
 from enum import Enum
@@ -20,7 +21,6 @@ import mimetypes
 import os
 import re
 import tempfile
-import uuid
 
 from urllib.parse import quote
 from typing import Tuple, Optional, List, Dict, Union
@@ -68,7 +68,6 @@ class ApiClient:
         'date': datetime.date,
         'datetime': datetime.datetime,
         'decimal': decimal.Decimal,
-        'UUID': uuid.UUID,
         'object': object,
     }
     _pool = None
@@ -250,6 +249,7 @@ class ApiClient:
 
         return method, url, header_params, body, post_params
 
+
     async def call_api(
         self,
         method,
@@ -304,23 +304,17 @@ class ApiClient:
             # if not found, look for '1XX', '2XX', etc.
             response_type = response_types_map.get(str(response_data.status)[0] + "XX", None)
 
-        # If the response_type has not matched (eg. did not match the previous if statements) and the default response is available, use it.
-        if response_type is None and str(response_data.status) not in response_types_map \
-            and (not isinstance(response_data.status, int) or not 100 <= response_data.status <= 599 or str(response_data.status)[0] + "XX" not in response_types_map) \
-            and 'default' in response_types_map:
-            response_type = response_types_map['default']
-
         # deserialize response data
         response_text = None
         return_data = None
         try:
-            if response_type in ("bytearray", "bytes"):
+            if response_type == "bytearray":
                 return_data = response_data.data
             elif response_type == "file":
                 return_data = self.__deserialize_file(response_data)
             elif response_type is not None:
                 match = None
-                content_type = response_data.headers.get('content-type')
+                content_type = response_data.getheader('content-type')
                 if content_type is not None:
                     match = re.search(r"charset=([a-zA-Z\-\d]+)[\s;]?", content_type)
                 encoding = match.group(1) if match else "utf-8"
@@ -337,7 +331,7 @@ class ApiClient:
         return ApiResponse(
             status_code = response_data.status,
             data = return_data,
-            headers = response_data.headers,
+            headers = response_data.getheaders(),
             raw_data = response_data.data
         )
 
@@ -365,8 +359,6 @@ class ApiClient:
             return obj.get_secret_value()
         elif isinstance(obj, self.PRIMITIVE_TYPES):
             return obj
-        elif isinstance(obj, uuid.UUID):
-            return str(obj)
         elif isinstance(obj, list):
             return [
                 self.sanitize_for_serialization(sub_obj) for sub_obj in obj
@@ -379,24 +371,24 @@ class ApiClient:
             return obj.isoformat()
         elif isinstance(obj, decimal.Decimal):
             return str(obj)
+
         elif isinstance(obj, dict):
-            return {
-                key: self.sanitize_for_serialization(val)
-                for key, val in obj.items()
-            }
-
-        # Convert model obj to dict except
-        # attributes `openapi_types`, `attribute_map`
-        # and attributes which value is not None.
-        # Convert attribute name to json key in
-        # model definition for request.
-        if hasattr(obj, 'to_dict') and callable(getattr(obj, 'to_dict')):
-            obj_dict = obj.to_dict()
+            obj_dict = obj
         else:
-            obj_dict = obj.__dict__
+            # Convert model obj to dict except
+            # attributes `openapi_types`, `attribute_map`
+            # and attributes which value is not None.
+            # Convert attribute name to json key in
+            # model definition for request.
+            if hasattr(obj, 'to_dict') and callable(getattr(obj, 'to_dict')):
+                obj_dict = obj.to_dict()
+            else:
+                obj_dict = obj.__dict__
 
-        return self.sanitize_for_serialization(obj_dict)
-
+        return {
+            key: self.sanitize_for_serialization(val)
+            for key, val in obj_dict.items()
+        }
 
     def deserialize(self, response_text: str, response_type: str, content_type: Optional[str]):
         """Deserializes response into an object.
@@ -415,7 +407,7 @@ class ApiClient:
                 data = json.loads(response_text)
             except ValueError:
                 data = response_text
-        elif re.match(r'^application/(json|[\w!#$&.+\-^_]+\+json)\s*(;|$)', content_type, re.IGNORECASE):
+        elif re.match(r'^application/(json|[\w!#$&.+-^_]+\+json)\s*(;|$)', content_type, re.IGNORECASE):
             if response_text == "":
                 data = ""
             else:
@@ -442,12 +434,6 @@ class ApiClient:
             return None
 
         if isinstance(klass, str):
-            if klass.startswith('Optional['):
-                m = re.match(r'Optional\[(.*)]', klass)
-                assert m is not None, "Malformed Optional type definition"
-                # data is not None here, so the optionality is already resolved
-                return self.__deserialize(data, m.group(1))
-
             if klass.startswith('List['):
                 m = re.match(r'List\[(.*)]', klass)
                 assert m is not None, "Malformed List type definition"
@@ -470,16 +456,14 @@ class ApiClient:
 
         if klass in self.PRIMITIVE_TYPES:
             return self.__deserialize_primitive(data, klass)
-        elif klass is object:
+        elif klass == object:
             return self.__deserialize_object(data)
-        elif klass is datetime.date:
+        elif klass == datetime.date:
             return self.__deserialize_date(data)
-        elif klass is datetime.datetime:
+        elif klass == datetime.datetime:
             return self.__deserialize_datetime(data)
-        elif klass is decimal.Decimal:
+        elif klass == decimal.Decimal:
             return decimal.Decimal(data)
-        elif klass is uuid.UUID:
-            return uuid.UUID(data)
         elif issubclass(klass, Enum):
             return self.__deserialize_enum(data, klass)
         else:
@@ -496,15 +480,10 @@ class ApiClient:
         if collection_formats is None:
             collection_formats = {}
         for k, v in params.items() if isinstance(params, dict) else params:
-            if isinstance(v, bool):
-                v = str(v).lower()
             if k in collection_formats:
                 collection_format = collection_formats[k]
                 if collection_format == 'multi':
-                    new_params.extend(
-                        (k, str(value).lower() if isinstance(value, bool) else value)
-                        for value in v
-                    )
+                    new_params.extend((k, value) for value in v)
                 else:
                     if collection_format == 'ssv':
                         delimiter = ' '
@@ -515,9 +494,7 @@ class ApiClient:
                     else:  # csv is the default
                         delimiter = ','
                     new_params.append(
-                        (k, delimiter.join(
-                            str(value).lower() if isinstance(value, bool) else str(value)
-                            for value in v)))
+                        (k, delimiter.join(str(value) for value in v)))
             else:
                 new_params.append((k, v))
         return new_params
@@ -543,10 +520,7 @@ class ApiClient:
             if k in collection_formats:
                 collection_format = collection_formats[k]
                 if collection_format == 'multi':
-                    new_params.extend(
-                        (k, quote(str(value).lower() if isinstance(value, bool) else str(value)))
-                        for value in v
-                    )
+                    new_params.extend((k, str(value)) for value in v)
                 else:
                     if collection_format == 'ssv':
                         delimiter = ' '
@@ -557,9 +531,7 @@ class ApiClient:
                     else:  # csv is the default
                         delimiter = ','
                     new_params.append(
-                        (k, delimiter.join(
-                            quote(str(value).lower() if isinstance(value, bool) else str(value))
-                            for value in v))
+                        (k, delimiter.join(quote(str(value)) for value in v))
                     )
             else:
                 new_params.append((k, quote(str(v))))
@@ -698,13 +670,7 @@ class ApiClient:
         :param auth_setting: auth settings for the endpoint
         """
         if auth_setting['in'] == 'cookie':
-            if not 'Cookie' in headers:
-                headers['Cookie'] = ""
-            else:
-                headers['Cookie'] += "; "
-            # Account for cookie value containing spaces and special characters, excluding base64 delimiters
-            cookie_value = quote(str(auth_setting['value']), safe="!#$%&'()*+-./:<=>?@[]^_`{|}~%+/=")
-            headers['Cookie'] += f"{auth_setting['key']}={cookie_value}"
+            headers['Cookie'] = auth_setting['value']
         elif auth_setting['in'] == 'header':
             if auth_setting['type'] != 'http-signature':
                 headers[auth_setting['key']] = auth_setting['value']
@@ -731,16 +697,14 @@ class ApiClient:
         os.close(fd)
         os.remove(path)
 
-        content_disposition = response.headers.get("Content-Disposition")
+        content_disposition = response.getheader("Content-Disposition")
         if content_disposition:
             m = re.search(
                 r'filename=[\'"]?([^\'"\s]+)[\'"]?',
                 content_disposition
             )
             assert m is not None, "Unexpected 'content-disposition' header value"
-            filename = os.path.basename(m.group(1))  # Strip any directory traversal
-            if filename in ("", ".", ".."):  # fall back to tmp filename
-                filename = os.path.basename(path)
+            filename = m.group(1)
             path = os.path.join(os.path.dirname(path), filename)
 
         with open(path, "wb") as f:

@@ -19,15 +19,10 @@ var _ MappedNullable = &UpdateWebhookRequest{}
 
 // UpdateWebhookRequest Request model for updating a webhook. Only provided fields are updated.
 type UpdateWebhookRequest struct {
-	// HTTP(S) endpoint URL
 	Url NullableString `json:"url,omitempty"`
-	// HMAC-SHA256 signing secret. Omit to keep existing; send null to clear.
 	Secret NullableString `json:"secret,omitempty"`
-	// List of event types
 	EventTypes []string `json:"event_types,omitempty"`
-	// Whether this webhook is active
 	Enabled NullableBool `json:"enabled,omitempty"`
-	// HTTP delivery configuration
 	HttpConfig NullableWebhookHttpConfig `json:"http_config,omitempty"`
 }
 

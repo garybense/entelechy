@@ -16,300 +16,142 @@
 
 __version__ = "0.0.7"
 
-# Define package exports
-__all__ = [
-    "AuditApi",
-    "BankTemplatesApi",
-    "BanksApi",
-    "DirectivesApi",
-    "DocumentsApi",
-    "EntitiesApi",
-    "FilesApi",
-    "MemoryApi",
-    "MentalModelsApi",
-    "MonitoringApi",
-    "OperationsApi",
-    "SessionsApi",
-    "WebhooksApi",
-    "DefaultApi",
-    "ApiResponse",
-    "ApiClient",
-    "Configuration",
-    "OpenApiException",
-    "ApiTypeError",
-    "ApiValueError",
-    "ApiKeyError",
-    "ApiAttributeError",
-    "ApiException",
-    "AddBackgroundRequest",
-    "AsyncOperationSubmitResponse",
-    "AuditLogEntry",
-    "AuditLogListResponse",
-    "AuditLogStatsBucket",
-    "AuditLogStatsResponse",
-    "BackgroundResponse",
-    "BankConfigResponse",
-    "BankConfigUpdate",
-    "BankListItem",
-    "BankListResponse",
-    "BankProfileResponse",
-    "BankStatsResponse",
-    "BankTemplateConfig",
-    "BankTemplateDirective",
-    "BankTemplateImportResponse",
-    "BankTemplateManifest",
-    "BankTemplateMentalModel",
-    "BootstrapRequest",
-    "BootstrapResponse",
-    "Budget",
-    "CancelOperationResponse",
-    "ChatCompletionMessage",
-    "ChatCompletionRequest",
-    "ChatCompletionTool",
-    "ChatCompletionToolFunction",
-    "ChildOperationStatus",
-    "ChunkData",
-    "ChunkIncludeOptions",
-    "ChunkResponse",
-    "ClearMemoryObservationsResponse",
-    "ConsolidationResponse",
-    "CreateBankRequest",
-    "CreateDirectiveRequest",
-    "CreateMentalModelRequest",
-    "CreateMentalModelResponse",
-    "CreateWebhookRequest",
-    "DeleteDocumentResponse",
-    "DeleteResponse",
-    "DirectiveListResponse",
-    "DirectiveResponse",
-    "DispositionTraits",
-    "DocumentResponse",
-    "EntityDetailResponse",
-    "EntityGraphResponse",
-    "EntityIncludeOptions",
-    "EntityInput",
-    "EntityListItem",
-    "EntityListResponse",
-    "EntityObservationResponse",
-    "EntityStateResponse",
-    "FeaturesInfo",
-    "FileRetainResponse",
-    "GraphDataResponse",
-    "HTTPValidationError",
-    "IncludeOptions",
-    "ListChunksResponse",
-    "ListDocumentsResponse",
-    "ListMemoryUnitsResponse",
-    "ListTagsResponse",
-    "LocationInner",
-    "MemoriesTimeseriesResponse",
-    "MemoryItem",
-    "MemoryTimeseriesBucket",
-    "MentalModelListResponse",
-    "MentalModelResponse",
-    "MentalModelTriggerInput",
-    "MentalModelTriggerInputTagGroupsInner",
-    "MentalModelTriggerOutput",
-    "MentalModelTriggerOutputTagGroupsInner",
-    "ModelNot",
-    "Not1",
-    "ObservationScopes",
-    "OperationResponse",
-    "OperationStatusResponse",
-    "OperationsListResponse",
-    "RecallRequest",
-    "RecallResponse",
-    "RecallResult",
-    "RecoverConsolidationResponse",
-    "ReflectBasedOn",
-    "ReflectDirective",
-    "ReflectFact",
-    "ReflectIncludeOptions",
-    "ReflectLLMCall",
-    "ReflectMentalModel",
-    "ReflectRequest",
-    "ReflectResponse",
-    "ReflectToolCall",
-    "ReflectTrace",
-    "ReprocessDocumentResponse",
-    "RetainRequest",
-    "RetainResponse",
-    "RetryOperationResponse",
-    "SourceFactsIncludeOptions",
-    "Stop",
-    "TagGroupAndInput",
-    "TagGroupAndOutput",
-    "TagGroupLeaf",
-    "TagGroupNotInput",
-    "TagGroupNotOutput",
-    "TagGroupOrInput",
-    "TagGroupOrOutput",
-    "TagItem",
-    "Timestamp",
-    "TokenUsage",
-    "ToolCallsIncludeOptions",
-    "ToolChoice",
-    "UpdateDirectiveRequest",
-    "UpdateDispositionRequest",
-    "UpdateDocumentRequest",
-    "UpdateDocumentResponse",
-    "UpdateMentalModelRequest",
-    "UpdateWebhookRequest",
-    "ValidationError",
-    "VersionResponse",
-    "WebhookDeliveryListResponse",
-    "WebhookDeliveryResponse",
-    "WebhookHttpConfig",
-    "WebhookListResponse",
-    "WebhookResponse",
-]
-
 # import apis into sdk package
-from entelechy_client_api.api.audit_api import AuditApi as AuditApi
-from entelechy_client_api.api.bank_templates_api import BankTemplatesApi as BankTemplatesApi
-from entelechy_client_api.api.banks_api import BanksApi as BanksApi
-from entelechy_client_api.api.directives_api import DirectivesApi as DirectivesApi
-from entelechy_client_api.api.documents_api import DocumentsApi as DocumentsApi
-from entelechy_client_api.api.entities_api import EntitiesApi as EntitiesApi
-from entelechy_client_api.api.files_api import FilesApi as FilesApi
-from entelechy_client_api.api.memory_api import MemoryApi as MemoryApi
-from entelechy_client_api.api.mental_models_api import MentalModelsApi as MentalModelsApi
-from entelechy_client_api.api.monitoring_api import MonitoringApi as MonitoringApi
-from entelechy_client_api.api.operations_api import OperationsApi as OperationsApi
-from entelechy_client_api.api.sessions_api import SessionsApi as SessionsApi
-from entelechy_client_api.api.webhooks_api import WebhooksApi as WebhooksApi
-from entelechy_client_api.api.default_api import DefaultApi as DefaultApi
+from entelechy_client_api.api.audit_api import AuditApi
+from entelechy_client_api.api.bank_templates_api import BankTemplatesApi
+from entelechy_client_api.api.banks_api import BanksApi
+from entelechy_client_api.api.directives_api import DirectivesApi
+from entelechy_client_api.api.documents_api import DocumentsApi
+from entelechy_client_api.api.entities_api import EntitiesApi
+from entelechy_client_api.api.files_api import FilesApi
+from entelechy_client_api.api.memory_api import MemoryApi
+from entelechy_client_api.api.mental_models_api import MentalModelsApi
+from entelechy_client_api.api.monitoring_api import MonitoringApi
+from entelechy_client_api.api.operations_api import OperationsApi
+from entelechy_client_api.api.webhooks_api import WebhooksApi
 
 # import ApiClient
-from entelechy_client_api.api_response import ApiResponse as ApiResponse
-from entelechy_client_api.api_client import ApiClient as ApiClient
-from entelechy_client_api.configuration import Configuration as Configuration
-from entelechy_client_api.exceptions import OpenApiException as OpenApiException
-from entelechy_client_api.exceptions import ApiTypeError as ApiTypeError
-from entelechy_client_api.exceptions import ApiValueError as ApiValueError
-from entelechy_client_api.exceptions import ApiKeyError as ApiKeyError
-from entelechy_client_api.exceptions import ApiAttributeError as ApiAttributeError
-from entelechy_client_api.exceptions import ApiException as ApiException
+from entelechy_client_api.api_response import ApiResponse
+from entelechy_client_api.api_client import ApiClient
+from entelechy_client_api.configuration import Configuration
+from entelechy_client_api.exceptions import OpenApiException
+from entelechy_client_api.exceptions import ApiTypeError
+from entelechy_client_api.exceptions import ApiValueError
+from entelechy_client_api.exceptions import ApiKeyError
+from entelechy_client_api.exceptions import ApiAttributeError
+from entelechy_client_api.exceptions import ApiException
 
 # import models into sdk package
-from entelechy_client_api.models.add_background_request import AddBackgroundRequest as AddBackgroundRequest
-from entelechy_client_api.models.async_operation_submit_response import AsyncOperationSubmitResponse as AsyncOperationSubmitResponse
-from entelechy_client_api.models.audit_log_entry import AuditLogEntry as AuditLogEntry
-from entelechy_client_api.models.audit_log_list_response import AuditLogListResponse as AuditLogListResponse
-from entelechy_client_api.models.audit_log_stats_bucket import AuditLogStatsBucket as AuditLogStatsBucket
-from entelechy_client_api.models.audit_log_stats_response import AuditLogStatsResponse as AuditLogStatsResponse
-from entelechy_client_api.models.background_response import BackgroundResponse as BackgroundResponse
-from entelechy_client_api.models.bank_config_response import BankConfigResponse as BankConfigResponse
-from entelechy_client_api.models.bank_config_update import BankConfigUpdate as BankConfigUpdate
-from entelechy_client_api.models.bank_list_item import BankListItem as BankListItem
-from entelechy_client_api.models.bank_list_response import BankListResponse as BankListResponse
-from entelechy_client_api.models.bank_profile_response import BankProfileResponse as BankProfileResponse
-from entelechy_client_api.models.bank_stats_response import BankStatsResponse as BankStatsResponse
-from entelechy_client_api.models.bank_template_config import BankTemplateConfig as BankTemplateConfig
-from entelechy_client_api.models.bank_template_directive import BankTemplateDirective as BankTemplateDirective
-from entelechy_client_api.models.bank_template_import_response import BankTemplateImportResponse as BankTemplateImportResponse
-from entelechy_client_api.models.bank_template_manifest import BankTemplateManifest as BankTemplateManifest
-from entelechy_client_api.models.bank_template_mental_model import BankTemplateMentalModel as BankTemplateMentalModel
-from entelechy_client_api.models.bootstrap_request import BootstrapRequest as BootstrapRequest
-from entelechy_client_api.models.bootstrap_response import BootstrapResponse as BootstrapResponse
-from entelechy_client_api.models.budget import Budget as Budget
-from entelechy_client_api.models.cancel_operation_response import CancelOperationResponse as CancelOperationResponse
-from entelechy_client_api.models.chat_completion_message import ChatCompletionMessage as ChatCompletionMessage
-from entelechy_client_api.models.chat_completion_request import ChatCompletionRequest as ChatCompletionRequest
-from entelechy_client_api.models.chat_completion_tool import ChatCompletionTool as ChatCompletionTool
-from entelechy_client_api.models.chat_completion_tool_function import ChatCompletionToolFunction as ChatCompletionToolFunction
-from entelechy_client_api.models.child_operation_status import ChildOperationStatus as ChildOperationStatus
-from entelechy_client_api.models.chunk_data import ChunkData as ChunkData
-from entelechy_client_api.models.chunk_include_options import ChunkIncludeOptions as ChunkIncludeOptions
-from entelechy_client_api.models.chunk_response import ChunkResponse as ChunkResponse
-from entelechy_client_api.models.clear_memory_observations_response import ClearMemoryObservationsResponse as ClearMemoryObservationsResponse
-from entelechy_client_api.models.consolidation_response import ConsolidationResponse as ConsolidationResponse
-from entelechy_client_api.models.create_bank_request import CreateBankRequest as CreateBankRequest
-from entelechy_client_api.models.create_directive_request import CreateDirectiveRequest as CreateDirectiveRequest
-from entelechy_client_api.models.create_mental_model_request import CreateMentalModelRequest as CreateMentalModelRequest
-from entelechy_client_api.models.create_mental_model_response import CreateMentalModelResponse as CreateMentalModelResponse
-from entelechy_client_api.models.create_webhook_request import CreateWebhookRequest as CreateWebhookRequest
-from entelechy_client_api.models.delete_document_response import DeleteDocumentResponse as DeleteDocumentResponse
-from entelechy_client_api.models.delete_response import DeleteResponse as DeleteResponse
-from entelechy_client_api.models.directive_list_response import DirectiveListResponse as DirectiveListResponse
-from entelechy_client_api.models.directive_response import DirectiveResponse as DirectiveResponse
-from entelechy_client_api.models.disposition_traits import DispositionTraits as DispositionTraits
-from entelechy_client_api.models.document_response import DocumentResponse as DocumentResponse
-from entelechy_client_api.models.entity_detail_response import EntityDetailResponse as EntityDetailResponse
-from entelechy_client_api.models.entity_graph_response import EntityGraphResponse as EntityGraphResponse
-from entelechy_client_api.models.entity_include_options import EntityIncludeOptions as EntityIncludeOptions
-from entelechy_client_api.models.entity_input import EntityInput as EntityInput
-from entelechy_client_api.models.entity_list_item import EntityListItem as EntityListItem
-from entelechy_client_api.models.entity_list_response import EntityListResponse as EntityListResponse
-from entelechy_client_api.models.entity_observation_response import EntityObservationResponse as EntityObservationResponse
-from entelechy_client_api.models.entity_state_response import EntityStateResponse as EntityStateResponse
-from entelechy_client_api.models.features_info import FeaturesInfo as FeaturesInfo
-from entelechy_client_api.models.file_retain_response import FileRetainResponse as FileRetainResponse
-from entelechy_client_api.models.graph_data_response import GraphDataResponse as GraphDataResponse
-from entelechy_client_api.models.http_validation_error import HTTPValidationError as HTTPValidationError
-from entelechy_client_api.models.include_options import IncludeOptions as IncludeOptions
-from entelechy_client_api.models.list_chunks_response import ListChunksResponse as ListChunksResponse
-from entelechy_client_api.models.list_documents_response import ListDocumentsResponse as ListDocumentsResponse
-from entelechy_client_api.models.list_memory_units_response import ListMemoryUnitsResponse as ListMemoryUnitsResponse
-from entelechy_client_api.models.list_tags_response import ListTagsResponse as ListTagsResponse
-from entelechy_client_api.models.location_inner import LocationInner as LocationInner
-from entelechy_client_api.models.memories_timeseries_response import MemoriesTimeseriesResponse as MemoriesTimeseriesResponse
-from entelechy_client_api.models.memory_item import MemoryItem as MemoryItem
-from entelechy_client_api.models.memory_timeseries_bucket import MemoryTimeseriesBucket as MemoryTimeseriesBucket
-from entelechy_client_api.models.mental_model_list_response import MentalModelListResponse as MentalModelListResponse
-from entelechy_client_api.models.mental_model_response import MentalModelResponse as MentalModelResponse
-from entelechy_client_api.models.mental_model_trigger_input import MentalModelTriggerInput as MentalModelTriggerInput
-from entelechy_client_api.models.mental_model_trigger_input_tag_groups_inner import MentalModelTriggerInputTagGroupsInner as MentalModelTriggerInputTagGroupsInner
-from entelechy_client_api.models.mental_model_trigger_output import MentalModelTriggerOutput as MentalModelTriggerOutput
-from entelechy_client_api.models.mental_model_trigger_output_tag_groups_inner import MentalModelTriggerOutputTagGroupsInner as MentalModelTriggerOutputTagGroupsInner
-from entelechy_client_api.models.model_not import ModelNot as ModelNot
-from entelechy_client_api.models.not1 import Not1 as Not1
-from entelechy_client_api.models.observation_scopes import ObservationScopes as ObservationScopes
-from entelechy_client_api.models.operation_response import OperationResponse as OperationResponse
-from entelechy_client_api.models.operation_status_response import OperationStatusResponse as OperationStatusResponse
-from entelechy_client_api.models.operations_list_response import OperationsListResponse as OperationsListResponse
-from entelechy_client_api.models.recall_request import RecallRequest as RecallRequest
-from entelechy_client_api.models.recall_response import RecallResponse as RecallResponse
-from entelechy_client_api.models.recall_result import RecallResult as RecallResult
-from entelechy_client_api.models.recover_consolidation_response import RecoverConsolidationResponse as RecoverConsolidationResponse
-from entelechy_client_api.models.reflect_based_on import ReflectBasedOn as ReflectBasedOn
-from entelechy_client_api.models.reflect_directive import ReflectDirective as ReflectDirective
-from entelechy_client_api.models.reflect_fact import ReflectFact as ReflectFact
-from entelechy_client_api.models.reflect_include_options import ReflectIncludeOptions as ReflectIncludeOptions
-from entelechy_client_api.models.reflect_llm_call import ReflectLLMCall as ReflectLLMCall
-from entelechy_client_api.models.reflect_mental_model import ReflectMentalModel as ReflectMentalModel
-from entelechy_client_api.models.reflect_request import ReflectRequest as ReflectRequest
-from entelechy_client_api.models.reflect_response import ReflectResponse as ReflectResponse
-from entelechy_client_api.models.reflect_tool_call import ReflectToolCall as ReflectToolCall
-from entelechy_client_api.models.reflect_trace import ReflectTrace as ReflectTrace
-from entelechy_client_api.models.reprocess_document_response import ReprocessDocumentResponse as ReprocessDocumentResponse
-from entelechy_client_api.models.retain_request import RetainRequest as RetainRequest
-from entelechy_client_api.models.retain_response import RetainResponse as RetainResponse
-from entelechy_client_api.models.retry_operation_response import RetryOperationResponse as RetryOperationResponse
-from entelechy_client_api.models.source_facts_include_options import SourceFactsIncludeOptions as SourceFactsIncludeOptions
-from entelechy_client_api.models.stop import Stop as Stop
-from entelechy_client_api.models.tag_group_and_input import TagGroupAndInput as TagGroupAndInput
-from entelechy_client_api.models.tag_group_and_output import TagGroupAndOutput as TagGroupAndOutput
-from entelechy_client_api.models.tag_group_leaf import TagGroupLeaf as TagGroupLeaf
-from entelechy_client_api.models.tag_group_not_input import TagGroupNotInput as TagGroupNotInput
-from entelechy_client_api.models.tag_group_not_output import TagGroupNotOutput as TagGroupNotOutput
-from entelechy_client_api.models.tag_group_or_input import TagGroupOrInput as TagGroupOrInput
-from entelechy_client_api.models.tag_group_or_output import TagGroupOrOutput as TagGroupOrOutput
-from entelechy_client_api.models.tag_item import TagItem as TagItem
-from entelechy_client_api.models.timestamp import Timestamp as Timestamp
-from entelechy_client_api.models.token_usage import TokenUsage as TokenUsage
-from entelechy_client_api.models.tool_calls_include_options import ToolCallsIncludeOptions as ToolCallsIncludeOptions
-from entelechy_client_api.models.tool_choice import ToolChoice as ToolChoice
-from entelechy_client_api.models.update_directive_request import UpdateDirectiveRequest as UpdateDirectiveRequest
-from entelechy_client_api.models.update_disposition_request import UpdateDispositionRequest as UpdateDispositionRequest
-from entelechy_client_api.models.update_document_request import UpdateDocumentRequest as UpdateDocumentRequest
-from entelechy_client_api.models.update_document_response import UpdateDocumentResponse as UpdateDocumentResponse
-from entelechy_client_api.models.update_mental_model_request import UpdateMentalModelRequest as UpdateMentalModelRequest
-from entelechy_client_api.models.update_webhook_request import UpdateWebhookRequest as UpdateWebhookRequest
-from entelechy_client_api.models.validation_error import ValidationError as ValidationError
-from entelechy_client_api.models.version_response import VersionResponse as VersionResponse
-from entelechy_client_api.models.webhook_delivery_list_response import WebhookDeliveryListResponse as WebhookDeliveryListResponse
-from entelechy_client_api.models.webhook_delivery_response import WebhookDeliveryResponse as WebhookDeliveryResponse
-from entelechy_client_api.models.webhook_http_config import WebhookHttpConfig as WebhookHttpConfig
-from entelechy_client_api.models.webhook_list_response import WebhookListResponse as WebhookListResponse
-from entelechy_client_api.models.webhook_response import WebhookResponse as WebhookResponse
+from entelechy_client_api.models.add_background_request import AddBackgroundRequest
+from entelechy_client_api.models.async_operation_submit_response import AsyncOperationSubmitResponse
+from entelechy_client_api.models.audit_log_entry import AuditLogEntry
+from entelechy_client_api.models.audit_log_list_response import AuditLogListResponse
+from entelechy_client_api.models.audit_log_stats_bucket import AuditLogStatsBucket
+from entelechy_client_api.models.audit_log_stats_response import AuditLogStatsResponse
+from entelechy_client_api.models.background_response import BackgroundResponse
+from entelechy_client_api.models.bank_config_response import BankConfigResponse
+from entelechy_client_api.models.bank_config_update import BankConfigUpdate
+from entelechy_client_api.models.bank_list_item import BankListItem
+from entelechy_client_api.models.bank_list_response import BankListResponse
+from entelechy_client_api.models.bank_profile_response import BankProfileResponse
+from entelechy_client_api.models.bank_stats_response import BankStatsResponse
+from entelechy_client_api.models.bank_template_config import BankTemplateConfig
+from entelechy_client_api.models.bank_template_directive import BankTemplateDirective
+from entelechy_client_api.models.bank_template_import_response import BankTemplateImportResponse
+from entelechy_client_api.models.bank_template_manifest import BankTemplateManifest
+from entelechy_client_api.models.bank_template_mental_model import BankTemplateMentalModel
+from entelechy_client_api.models.budget import Budget
+from entelechy_client_api.models.cancel_operation_response import CancelOperationResponse
+from entelechy_client_api.models.child_operation_status import ChildOperationStatus
+from entelechy_client_api.models.chunk_data import ChunkData
+from entelechy_client_api.models.chunk_include_options import ChunkIncludeOptions
+from entelechy_client_api.models.chunk_response import ChunkResponse
+from entelechy_client_api.models.clear_memory_observations_response import ClearMemoryObservationsResponse
+from entelechy_client_api.models.consolidation_response import ConsolidationResponse
+from entelechy_client_api.models.create_bank_request import CreateBankRequest
+from entelechy_client_api.models.create_directive_request import CreateDirectiveRequest
+from entelechy_client_api.models.create_mental_model_request import CreateMentalModelRequest
+from entelechy_client_api.models.create_mental_model_response import CreateMentalModelResponse
+from entelechy_client_api.models.create_webhook_request import CreateWebhookRequest
+from entelechy_client_api.models.delete_document_response import DeleteDocumentResponse
+from entelechy_client_api.models.delete_response import DeleteResponse
+from entelechy_client_api.models.directive_list_response import DirectiveListResponse
+from entelechy_client_api.models.directive_response import DirectiveResponse
+from entelechy_client_api.models.disposition_traits import DispositionTraits
+from entelechy_client_api.models.document_response import DocumentResponse
+from entelechy_client_api.models.entity_detail_response import EntityDetailResponse
+from entelechy_client_api.models.entity_graph_response import EntityGraphResponse
+from entelechy_client_api.models.entity_include_options import EntityIncludeOptions
+from entelechy_client_api.models.entity_input import EntityInput
+from entelechy_client_api.models.entity_list_item import EntityListItem
+from entelechy_client_api.models.entity_list_response import EntityListResponse
+from entelechy_client_api.models.entity_observation_response import EntityObservationResponse
+from entelechy_client_api.models.entity_state_response import EntityStateResponse
+from entelechy_client_api.models.features_info import FeaturesInfo
+from entelechy_client_api.models.file_retain_response import FileRetainResponse
+from entelechy_client_api.models.graph_data_response import GraphDataResponse
+from entelechy_client_api.models.http_validation_error import HTTPValidationError
+from entelechy_client_api.models.include_options import IncludeOptions
+from entelechy_client_api.models.list_chunks_response import ListChunksResponse
+from entelechy_client_api.models.list_documents_response import ListDocumentsResponse
+from entelechy_client_api.models.list_memory_units_response import ListMemoryUnitsResponse
+from entelechy_client_api.models.list_tags_response import ListTagsResponse
+from entelechy_client_api.models.memories_timeseries_response import MemoriesTimeseriesResponse
+from entelechy_client_api.models.memory_item import MemoryItem
+from entelechy_client_api.models.memory_timeseries_bucket import MemoryTimeseriesBucket
+from entelechy_client_api.models.mental_model_list_response import MentalModelListResponse
+from entelechy_client_api.models.mental_model_response import MentalModelResponse
+from entelechy_client_api.models.mental_model_trigger_input import MentalModelTriggerInput
+from entelechy_client_api.models.mental_model_trigger_input_tag_groups_inner import MentalModelTriggerInputTagGroupsInner
+from entelechy_client_api.models.mental_model_trigger_output import MentalModelTriggerOutput
+from entelechy_client_api.models.mental_model_trigger_output_tag_groups_inner import MentalModelTriggerOutputTagGroupsInner
+from entelechy_client_api.models.model_not import ModelNot
+from entelechy_client_api.models.not1 import Not1
+from entelechy_client_api.models.observation_scopes import ObservationScopes
+from entelechy_client_api.models.operation_response import OperationResponse
+from entelechy_client_api.models.operation_status_response import OperationStatusResponse
+from entelechy_client_api.models.operations_list_response import OperationsListResponse
+from entelechy_client_api.models.recall_request import RecallRequest
+from entelechy_client_api.models.recall_response import RecallResponse
+from entelechy_client_api.models.recall_result import RecallResult
+from entelechy_client_api.models.recover_consolidation_response import RecoverConsolidationResponse
+from entelechy_client_api.models.reflect_based_on import ReflectBasedOn
+from entelechy_client_api.models.reflect_directive import ReflectDirective
+from entelechy_client_api.models.reflect_fact import ReflectFact
+from entelechy_client_api.models.reflect_include_options import ReflectIncludeOptions
+from entelechy_client_api.models.reflect_llm_call import ReflectLLMCall
+from entelechy_client_api.models.reflect_mental_model import ReflectMentalModel
+from entelechy_client_api.models.reflect_request import ReflectRequest
+from entelechy_client_api.models.reflect_response import ReflectResponse
+from entelechy_client_api.models.reflect_tool_call import ReflectToolCall
+from entelechy_client_api.models.reflect_trace import ReflectTrace
+from entelechy_client_api.models.reprocess_document_response import ReprocessDocumentResponse
+from entelechy_client_api.models.retain_request import RetainRequest
+from entelechy_client_api.models.retain_response import RetainResponse
+from entelechy_client_api.models.retry_operation_response import RetryOperationResponse
+from entelechy_client_api.models.source_facts_include_options import SourceFactsIncludeOptions
+from entelechy_client_api.models.tag_group_and_input import TagGroupAndInput
+from entelechy_client_api.models.tag_group_and_output import TagGroupAndOutput
+from entelechy_client_api.models.tag_group_leaf import TagGroupLeaf
+from entelechy_client_api.models.tag_group_not_input import TagGroupNotInput
+from entelechy_client_api.models.tag_group_not_output import TagGroupNotOutput
+from entelechy_client_api.models.tag_group_or_input import TagGroupOrInput
+from entelechy_client_api.models.tag_group_or_output import TagGroupOrOutput
+from entelechy_client_api.models.tag_item import TagItem
+from entelechy_client_api.models.timestamp import Timestamp
+from entelechy_client_api.models.token_usage import TokenUsage
+from entelechy_client_api.models.tool_calls_include_options import ToolCallsIncludeOptions
+from entelechy_client_api.models.update_directive_request import UpdateDirectiveRequest
+from entelechy_client_api.models.update_disposition_request import UpdateDispositionRequest
+from entelechy_client_api.models.update_document_request import UpdateDocumentRequest
+from entelechy_client_api.models.update_document_response import UpdateDocumentResponse
+from entelechy_client_api.models.update_mental_model_request import UpdateMentalModelRequest
+from entelechy_client_api.models.update_webhook_request import UpdateWebhookRequest
+from entelechy_client_api.models.validation_error import ValidationError
+from entelechy_client_api.models.validation_error_loc_inner import ValidationErrorLocInner
+from entelechy_client_api.models.version_response import VersionResponse
+from entelechy_client_api.models.webhook_delivery_list_response import WebhookDeliveryListResponse
+from entelechy_client_api.models.webhook_delivery_response import WebhookDeliveryResponse
+from entelechy_client_api.models.webhook_http_config import WebhookHttpConfig
+from entelechy_client_api.models.webhook_list_response import WebhookListResponse
+from entelechy_client_api.models.webhook_response import WebhookResponse

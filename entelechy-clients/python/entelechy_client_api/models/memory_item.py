@@ -17,14 +17,13 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.entity_input import EntityInput
 from entelechy_client_api.models.observation_scopes import ObservationScopes
 from entelechy_client_api.models.timestamp import Timestamp
 from typing import Optional, Set
 from typing_extensions import Self
-from pydantic_core import to_jsonable_python
 
 class MemoryItem(BaseModel):
     """
@@ -34,12 +33,12 @@ class MemoryItem(BaseModel):
     timestamp: Optional[Timestamp] = None
     context: Optional[StrictStr] = None
     metadata: Optional[Dict[str, StrictStr]] = None
-    document_id: Optional[StrictStr] = Field(default=None, description="Optional document ID for this memory item.")
-    entities: Optional[List[EntityInput]] = Field(default=None, description="Optional entities to combine with auto-extracted entities.")
-    tags: Optional[List[StrictStr]] = Field(default=None, description="Optional tags for visibility scoping. Memories with tags can be filtered during recall.")
+    document_id: Optional[StrictStr] = None
+    entities: Optional[List[EntityInput]] = None
+    tags: Optional[List[StrictStr]] = None
     observation_scopes: Optional[ObservationScopes] = None
-    strategy: Optional[StrictStr] = Field(default=None, description="Named retain strategy for this item. Overrides the bank's default strategy for this item only. Strategies are defined in the bank config under 'retain_strategies'.")
-    update_mode: Optional[StrictStr] = Field(default=None, description="How to handle an existing document with the same document_id. 'replace' (default) deletes old data and reprocesses from scratch. 'append' concatenates new content to the existing document text and reprocesses.")
+    strategy: Optional[StrictStr] = None
+    update_mode: Optional[StrictStr] = None
     __properties: ClassVar[List[str]] = ["content", "timestamp", "context", "metadata", "document_id", "entities", "tags", "observation_scopes", "strategy", "update_mode"]
 
     @field_validator('update_mode')
@@ -53,8 +52,7 @@ class MemoryItem(BaseModel):
         return value
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -66,7 +64,8 @@ class MemoryItem(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -98,7 +97,8 @@ class MemoryItem(BaseModel):
         _items = []
         if self.entities:
             for _item_entities in self.entities:
-                _items.append(_item_entities.to_dict() if _item_entities is not None else None)
+                if _item_entities:
+                    _items.append(_item_entities.to_dict())
             _dict['entities'] = _items
         # override the default output from pydantic by calling `to_dict()` of observation_scopes
         if self.observation_scopes:

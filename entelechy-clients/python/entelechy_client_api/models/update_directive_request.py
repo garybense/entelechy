@@ -17,26 +17,24 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
-from pydantic_core import to_jsonable_python
 
 class UpdateDirectiveRequest(BaseModel):
     """
     Request model for updating a directive.
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, description="New name")
-    content: Optional[StrictStr] = Field(default=None, description="New content")
-    priority: Optional[StrictInt] = Field(default=None, description="New priority")
-    is_active: Optional[StrictBool] = Field(default=None, description="New active status")
-    tags: Optional[List[StrictStr]] = Field(default=None, description="New tags")
+    name: Optional[StrictStr] = None
+    content: Optional[StrictStr] = None
+    priority: Optional[StrictInt] = None
+    is_active: Optional[StrictBool] = None
+    tags: Optional[List[StrictStr]] = None
     __properties: ClassVar[List[str]] = ["name", "content", "priority", "is_active", "tags"]
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -48,7 +46,8 @@ class UpdateDirectiveRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

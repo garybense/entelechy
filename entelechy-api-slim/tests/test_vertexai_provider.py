@@ -48,26 +48,21 @@ def test_llm_wrapper_vertexai_missing_dependency():
 
 
 def test_llm_wrapper_vertexai_missing_project_id():
-    """Test fallback project ID when project ID is not configured."""
+    """Test error when project ID is not configured."""
     with patch.dict(os.environ, {"ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID": ""}, clear=False):
         from entelechy_api.config import clear_config_cache
 
         clear_config_cache()
 
-        with patch("google.genai.Client") as mock_client_cls:
-            mock_client_cls.return_value = MagicMock()
-
+        with pytest.raises(ValueError, match="ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID"):
             from entelechy_api.engine.llm_wrapper import LLMProvider
 
-            provider = LLMProvider(
+            LLMProvider(
                 provider="vertexai",
                 api_key="",
                 base_url="",
                 model="google/gemini-2.0-flash-001",
             )
-            assert provider.provider == "vertexai"
-            call_kwargs = mock_client_cls.call_args.kwargs
-            assert call_kwargs["project"] == "test-project-123"
 
         clear_config_cache()
 

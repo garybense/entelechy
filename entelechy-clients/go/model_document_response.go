@@ -28,13 +28,10 @@ type DocumentResponse struct {
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
 	MemoryUnitCount int32 `json:"memory_unit_count"`
-	// Memory count per fact type (world, experience, observation)
 	NodesByFactType map[string]int32 `json:"nodes_by_fact_type,omitempty"`
 	// Tags associated with this document
 	Tags []string `json:"tags,omitempty"`
-	// Document metadata
 	DocumentMetadata map[string]interface{} `json:"document_metadata,omitempty"`
-	// Parameters used during retain
 	RetainParams map[string]interface{} `json:"retain_params,omitempty"`
 }
 

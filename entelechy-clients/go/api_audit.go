@@ -99,7 +99,6 @@ func (a *AuditAPIService) AuditLogStatsExecute(r ApiAuditLogStatsRequest) (*Audi
 		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
 	} else {
 		var defaultValue string = "7d"
-		parameterAddToHeaderOrQuery(localVarQueryParams, "period", defaultValue, "form", "")
 		r.period = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -282,14 +281,12 @@ func (a *AuditAPIService) ListAuditLogsExecute(r ApiListAuditLogsRequest) (*Audi
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int32 = 50
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int32 = 0
-		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	// to determine the Content-Type header

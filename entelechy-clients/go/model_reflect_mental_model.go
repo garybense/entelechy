@@ -25,7 +25,6 @@ type ReflectMentalModel struct {
 	Id string `json:"id"`
 	// Mental model content
 	Text string `json:"text"`
-	// Additional context
 	Context NullableString `json:"context,omitempty"`
 }
 

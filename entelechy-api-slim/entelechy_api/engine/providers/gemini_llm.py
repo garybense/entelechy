@@ -92,7 +92,10 @@ class GeminiLLM(LLMInterface):
         credentials = kwargs.get("vertexai_credentials")  # Pre-loaded credentials object
 
         if not project_id:
-            project_id = "test-project-123"
+            raise ValueError(
+                "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID is required for Vertex AI provider. "
+                "Set it to your GCP project ID."
+            )
 
         auth_method = "ADC"
 
@@ -106,18 +109,12 @@ class GeminiLLM(LLMInterface):
                     "Vertex AI service account auth requires 'google-auth' package. "
                     "Install with: pip install google-auth"
                 )
-            try:
-                credentials = service_account.Credentials.from_service_account_file(
-                    service_account_key,
-                    scopes=["https://www.googleapis.com/auth/cloud-platform"],
-                )
-                auth_method = "service_account"
-                logger.info(f"Vertex AI: Using service account key: {service_account_key}")
-            except Exception as e:
-                logger.warning(
-                    f"Vertex AI: Failed to load service account key '{service_account_key}': {e}. Falling back to ADC."
-                )
-                credentials = None
+            credentials = service_account.Credentials.from_service_account_file(
+                service_account_key,
+                scopes=["https://www.googleapis.com/auth/cloud-platform"],
+            )
+            auth_method = "service_account"
+            logger.info(f"Vertex AI: Using service account key: {service_account_key}")
 
         # Strip google/ prefix from model name — native SDK uses bare names
         # e.g. "google/gemini-2.0-flash-lite-001" -> "gemini-2.0-flash-lite-001"

@@ -22,7 +22,6 @@ from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.memory_timeseries_bucket import MemoryTimeseriesBucket
 from typing import Optional, Set
 from typing_extensions import Self
-from pydantic_core import to_jsonable_python
 
 class MemoriesTimeseriesResponse(BaseModel):
     """
@@ -35,8 +34,7 @@ class MemoriesTimeseriesResponse(BaseModel):
     __properties: ClassVar[List[str]] = ["bank_id", "period", "trunc", "buckets"]
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -48,7 +46,8 @@ class MemoriesTimeseriesResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -77,7 +76,8 @@ class MemoriesTimeseriesResponse(BaseModel):
         _items = []
         if self.buckets:
             for _item_buckets in self.buckets:
-                _items.append(_item_buckets.to_dict() if _item_buckets is not None else None)
+                if _item_buckets:
+                    _items.append(_item_buckets.to_dict())
             _dict['buckets'] = _items
         return _dict
 

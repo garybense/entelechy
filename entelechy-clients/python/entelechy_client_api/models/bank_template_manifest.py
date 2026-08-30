@@ -24,21 +24,19 @@ from entelechy_client_api.models.bank_template_directive import BankTemplateDire
 from entelechy_client_api.models.bank_template_mental_model import BankTemplateMentalModel
 from typing import Optional, Set
 from typing_extensions import Self
-from pydantic_core import to_jsonable_python
 
 class BankTemplateManifest(BaseModel):
     """
     A bank template manifest for import/export.  Version field enables forward-compatible schema evolution: the API auto-upgrades older manifest versions to the current schema on import.
     """ # noqa: E501
     version: StrictStr = Field(description="Manifest schema version (currently '1')")
-    bank: Optional[BankTemplateConfig] = Field(default=None, description="Bank configuration to apply. Omit to leave config unchanged.")
-    mental_models: Optional[List[BankTemplateMentalModel]] = Field(default=None, description="Mental models to create or update (matched by id). Omit to leave unchanged.")
-    directives: Optional[List[BankTemplateDirective]] = Field(default=None, description="Directives to create or update (matched by name). Omit to leave unchanged.")
+    bank: Optional[BankTemplateConfig] = None
+    mental_models: Optional[List[BankTemplateMentalModel]] = None
+    directives: Optional[List[BankTemplateDirective]] = None
     __properties: ClassVar[List[str]] = ["version", "bank", "mental_models", "directives"]
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -50,7 +48,8 @@ class BankTemplateManifest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -82,13 +81,15 @@ class BankTemplateManifest(BaseModel):
         _items = []
         if self.mental_models:
             for _item_mental_models in self.mental_models:
-                _items.append(_item_mental_models.to_dict() if _item_mental_models is not None else None)
+                if _item_mental_models:
+                    _items.append(_item_mental_models.to_dict())
             _dict['mental_models'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in directives (list)
         _items = []
         if self.directives:
             for _item_directives in self.directives:
-                _items.append(_item_directives.to_dict() if _item_directives is not None else None)
+                if _item_directives:
+                    _items.append(_item_directives.to_dict())
             _dict['directives'] = _items
         # set to None if bank (nullable) is None
         # and model_fields_set contains the field

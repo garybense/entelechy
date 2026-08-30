@@ -23,7 +23,6 @@ var _ MappedNullable = &CreateWebhookRequest{}
 type CreateWebhookRequest struct {
 	// HTTP(S) endpoint URL to deliver events to
 	Url string `json:"url"`
-	// HMAC-SHA256 signing secret (optional)
 	Secret NullableString `json:"secret,omitempty"`
 	// List of event types to deliver. Currently supported: 'consolidation.completed'
 	EventTypes []string `json:"event_types,omitempty"`

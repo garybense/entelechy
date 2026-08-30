@@ -11,9 +11,6 @@ import type {
   AddBankBackgroundData,
   AddBankBackgroundErrors,
   AddBankBackgroundResponses,
-  ApiBootstrapSessionV1DefaultBanksBankIdSessionsBootstrapPostData,
-  ApiBootstrapSessionV1DefaultBanksBankIdSessionsBootstrapPostErrors,
-  ApiBootstrapSessionV1DefaultBanksBankIdSessionsBootstrapPostResponses,
   AuditLogStatsData,
   AuditLogStatsErrors,
   AuditLogStatsResponses,
@@ -140,12 +137,6 @@ import type {
   ListMentalModelsData,
   ListMentalModelsErrors,
   ListMentalModelsResponses,
-  ListModelsModelsGetData,
-  ListModelsModelsGetErrors,
-  ListModelsModelsGetResponses,
-  ListModelsV1ModelsGetData,
-  ListModelsV1ModelsGetErrors,
-  ListModelsV1ModelsGetResponses,
   ListOperationsData,
   ListOperationsErrors,
   ListOperationsResponses,
@@ -160,16 +151,6 @@ import type {
   ListWebhooksResponses,
   MetricsEndpointMetricsGetData,
   MetricsEndpointMetricsGetResponses,
-  OpenaiChatCompletionsChatCompletionsPostData,
-  OpenaiChatCompletionsChatCompletionsPostErrors,
-  OpenaiChatCompletionsChatCompletionsPostResponses,
-  OpenaiChatCompletionsGetChatCompletionsGetData,
-  OpenaiChatCompletionsGetChatCompletionsGetResponses,
-  OpenaiChatCompletionsGetV1ChatCompletionsGetData,
-  OpenaiChatCompletionsGetV1ChatCompletionsGetResponses,
-  OpenaiChatCompletionsV1ChatCompletionsPostData,
-  OpenaiChatCompletionsV1ChatCompletionsPostErrors,
-  OpenaiChatCompletionsV1ChatCompletionsPostResponses,
   RecallMemoriesData,
   RecallMemoriesErrors,
   RecallMemoriesResponses,
@@ -239,29 +220,6 @@ export type Options<
    */
   meta?: Record<string, unknown>;
 };
-
-/**
- * SVT-CP vFinal Session Bootstrap
- *
- * Bootstrap a session across models using the strict mathematical MWPMC.
- */
-export const apiBootstrapSessionV1DefaultBanksBankIdSessionsBootstrapPost = <
-  ThrowOnError extends boolean = false,
->(
-  options: Options<ApiBootstrapSessionV1DefaultBanksBankIdSessionsBootstrapPostData, ThrowOnError>
-) =>
-  (options.client ?? client).post<
-    ApiBootstrapSessionV1DefaultBanksBankIdSessionsBootstrapPostResponses,
-    ApiBootstrapSessionV1DefaultBanksBankIdSessionsBootstrapPostErrors,
-    ThrowOnError
-  >({
-    url: "/v1/default/banks/{bank_id}/sessions/bootstrap",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
 
 /**
  * Health check endpoint
@@ -1304,90 +1262,4 @@ export const auditLogStats = <ThrowOnError extends boolean = false>(
   (options.client ?? client).get<AuditLogStatsResponses, AuditLogStatsErrors, ThrowOnError>({
     url: "/v1/default/banks/{bank_id}/audit-logs/stats",
     ...options,
-  });
-
-/**
- * List Models
- */
-export const listModelsV1ModelsGet = <ThrowOnError extends boolean = false>(
-  options?: Options<ListModelsV1ModelsGetData, ThrowOnError>
-) =>
-  (options?.client ?? client).get<
-    ListModelsV1ModelsGetResponses,
-    ListModelsV1ModelsGetErrors,
-    ThrowOnError
-  >({ url: "/v1/models", ...options });
-
-/**
- * List Models
- */
-export const listModelsModelsGet = <ThrowOnError extends boolean = false>(
-  options?: Options<ListModelsModelsGetData, ThrowOnError>
-) =>
-  (options?.client ?? client).get<
-    ListModelsModelsGetResponses,
-    ListModelsModelsGetErrors,
-    ThrowOnError
-  >({ url: "/models", ...options });
-
-/**
- * Openai Chat Completions Get
- */
-export const openaiChatCompletionsGetV1ChatCompletionsGet = <ThrowOnError extends boolean = false>(
-  options?: Options<OpenaiChatCompletionsGetV1ChatCompletionsGetData, ThrowOnError>
-) =>
-  (options?.client ?? client).get<
-    OpenaiChatCompletionsGetV1ChatCompletionsGetResponses,
-    unknown,
-    ThrowOnError
-  >({ url: "/v1/chat/completions", ...options });
-
-/**
- * Openai Chat Completions
- */
-export const openaiChatCompletionsV1ChatCompletionsPost = <ThrowOnError extends boolean = false>(
-  options: Options<OpenaiChatCompletionsV1ChatCompletionsPostData, ThrowOnError>
-) =>
-  (options.client ?? client).post<
-    OpenaiChatCompletionsV1ChatCompletionsPostResponses,
-    OpenaiChatCompletionsV1ChatCompletionsPostErrors,
-    ThrowOnError
-  >({
-    url: "/v1/chat/completions",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-  });
-
-/**
- * Openai Chat Completions Get
- */
-export const openaiChatCompletionsGetChatCompletionsGet = <ThrowOnError extends boolean = false>(
-  options?: Options<OpenaiChatCompletionsGetChatCompletionsGetData, ThrowOnError>
-) =>
-  (options?.client ?? client).get<
-    OpenaiChatCompletionsGetChatCompletionsGetResponses,
-    unknown,
-    ThrowOnError
-  >({ url: "/chat/completions", ...options });
-
-/**
- * Openai Chat Completions
- */
-export const openaiChatCompletionsChatCompletionsPost = <ThrowOnError extends boolean = false>(
-  options: Options<OpenaiChatCompletionsChatCompletionsPostData, ThrowOnError>
-) =>
-  (options.client ?? client).post<
-    OpenaiChatCompletionsChatCompletionsPostResponses,
-    OpenaiChatCompletionsChatCompletionsPostErrors,
-    ThrowOnError
-  >({
-    url: "/chat/completions",
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
   });

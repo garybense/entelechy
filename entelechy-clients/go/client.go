@@ -55,8 +55,6 @@ type APIClient struct {
 
 	BanksAPI *BanksAPIService
 
-	DefaultAPI *DefaultAPIService
-
 	DirectivesAPI *DirectivesAPIService
 
 	DocumentsAPI *DocumentsAPIService
@@ -72,8 +70,6 @@ type APIClient struct {
 	MonitoringAPI *MonitoringAPIService
 
 	OperationsAPI *OperationsAPIService
-
-	SessionsAPI *SessionsAPIService
 
 	WebhooksAPI *WebhooksAPIService
 }
@@ -97,7 +93,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AuditAPI = (*AuditAPIService)(&c.common)
 	c.BankTemplatesAPI = (*BankTemplatesAPIService)(&c.common)
 	c.BanksAPI = (*BanksAPIService)(&c.common)
-	c.DefaultAPI = (*DefaultAPIService)(&c.common)
 	c.DirectivesAPI = (*DirectivesAPIService)(&c.common)
 	c.DocumentsAPI = (*DocumentsAPIService)(&c.common)
 	c.EntitiesAPI = (*EntitiesAPIService)(&c.common)
@@ -106,7 +101,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.MentalModelsAPI = (*MentalModelsAPIService)(&c.common)
 	c.MonitoringAPI = (*MonitoringAPIService)(&c.common)
 	c.OperationsAPI = (*OperationsAPIService)(&c.common)
-	c.SessionsAPI = (*SessionsAPIService)(&c.common)
 	c.WebhooksAPI = (*WebhooksAPIService)(&c.common)
 
 	return c
@@ -166,10 +160,6 @@ func typeCheckParameter(obj interface{}, expected string, name string) error {
 
 func parameterValueToString( obj interface{}, key string ) string {
 	if reflect.TypeOf(obj).Kind() != reflect.Ptr {
-		if actualObj, ok := obj.(interface{ GetActualInstanceValue() interface{} }); ok {
-			return fmt.Sprintf("%v", actualObj.GetActualInstanceValue())
-		}
-
 		return fmt.Sprintf("%v", obj)
 	}
 	var param,ok = obj.(MappedNullable)
@@ -473,15 +463,6 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 		*s = string(b)
 		return nil
 	}
-	if r, ok := v.(*io.Reader); ok {
-		*r = bytes.NewReader(b)
-		return nil
-	}
-	// Must stay before the JSON branch: json.Unmarshal would base64-decode into *[]byte.
-	if p, ok := v.(*[]byte); ok {
-		*p = b
-		return nil
-	}
 	if f, ok := v.(*os.File); ok {
 		f, err = os.CreateTemp("", "HttpClientFile")
 		if err != nil {
@@ -535,7 +516,10 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 	if err != nil {
 		return err
 	}
-	defer file.Close()
+	err = file.Close()
+	if err != nil {
+		return err
+	}
 
 	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
 	if err != nil {

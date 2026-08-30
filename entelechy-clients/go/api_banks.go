@@ -970,7 +970,6 @@ func (a *BanksAPIService) GetMemoriesTimeseriesExecute(r ApiGetMemoriesTimeserie
 		parameterAddToHeaderOrQuery(localVarQueryParams, "period", r.period, "form", "")
 	} else {
 		var defaultValue string = "7d"
-		parameterAddToHeaderOrQuery(localVarQueryParams, "period", defaultValue, "form", "")
 		r.period = &defaultValue
 	}
 	// to determine the Content-Type header

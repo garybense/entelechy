@@ -23,13 +23,12 @@ from typing_extensions import Annotated
 from entelechy_client_api.models.mental_model_trigger_input import MentalModelTriggerInput
 from typing import Optional, Set
 from typing_extensions import Self
-from pydantic_core import to_jsonable_python
 
 class CreateMentalModelRequest(BaseModel):
     """
     Request model for creating a mental model.
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, description="Optional custom ID for the mental model (alphanumeric lowercase with hyphens)")
+    id: Optional[StrictStr] = None
     name: StrictStr = Field(description="Human-readable name for the mental model")
     source_query: StrictStr = Field(description="The query to run to generate content")
     tags: Optional[List[StrictStr]] = Field(default=None, description="Tags for scoped visibility")
@@ -38,8 +37,7 @@ class CreateMentalModelRequest(BaseModel):
     __properties: ClassVar[List[str]] = ["id", "name", "source_query", "tags", "max_tokens", "trigger"]
 
     model_config = ConfigDict(
-        validate_by_name=True,
-        validate_by_alias=True,
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -51,7 +49,8 @@ class CreateMentalModelRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        return json.dumps(to_jsonable_python(self.to_dict()))
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

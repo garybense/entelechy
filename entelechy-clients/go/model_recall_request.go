@@ -22,20 +22,16 @@ var _ MappedNullable = &RecallRequest{}
 // RecallRequest Request model for recall endpoint.
 type RecallRequest struct {
 	Query string `json:"query"`
-	// List of fact types to recall: 'world', 'experience', 'observation'. Defaults to world and experience if not specified.
 	Types []string `json:"types,omitempty"`
 	Budget *Budget `json:"budget,omitempty"`
 	MaxTokens *int32 `json:"max_tokens,omitempty"`
 	Trace *bool `json:"trace,omitempty"`
-	// ISO format date string (e.g., '2023-05-30T23:40:00')
 	QueryTimestamp NullableString `json:"query_timestamp,omitempty"`
 	// Options for including additional data (entities are included by default)
 	Include *IncludeOptions `json:"include,omitempty"`
-	// Filter memories by tags. If not specified, all memories are returned.
 	Tags []string `json:"tags,omitempty"`
 	// How to match tags: 'any' (OR, includes untagged), 'all' (AND, includes untagged), 'any_strict' (OR, excludes untagged), 'all_strict' (AND, excludes untagged).
 	TagsMatch *string `json:"tags_match,omitempty"`
-	// Compound tag filter using boolean groups. Groups in the list are AND-ed. Each group is a leaf {tags, match} or compound {and: [...]}, {or: [...]}, {not: ...}.
 	TagGroups []MentalModelTriggerInputTagGroupsInner `json:"tag_groups,omitempty"`
 }
 
@@ -48,14 +44,10 @@ type _RecallRequest RecallRequest
 func NewRecallRequest(query string) *RecallRequest {
 	this := RecallRequest{}
 	this.Query = query
-	var budget Budget = MID
-	this.Budget = &budget
 	var maxTokens int32 = 4096
 	this.MaxTokens = &maxTokens
 	var trace bool = false
 	this.Trace = &trace
-	var include IncludeOptions = {}
-	this.Include = &include
 	var tagsMatch string = "any"
 	this.TagsMatch = &tagsMatch
 	return &this
@@ -66,14 +58,10 @@ func NewRecallRequest(query string) *RecallRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewRecallRequestWithDefaults() *RecallRequest {
 	this := RecallRequest{}
-	var budget Budget = MID
-	this.Budget = &budget
 	var maxTokens int32 = 4096
 	this.MaxTokens = &maxTokens
 	var trace bool = false
 	this.Trace = &trace
-	var include IncludeOptions = {}
-	this.Include = &include
 	var tagsMatch string = "any"
 	this.TagsMatch = &tagsMatch
 	return &this

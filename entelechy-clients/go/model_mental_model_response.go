@@ -25,16 +25,13 @@ type MentalModelResponse struct {
 	BankId string `json:"bank_id"`
 	Name string `json:"name"`
 	SourceQuery NullableString `json:"source_query,omitempty"`
-	// The mental model content as well-formatted markdown (auto-generated from reflect endpoint)
 	Content NullableString `json:"content,omitempty"`
 	Tags []string `json:"tags,omitempty"`
 	MaxTokens NullableInt32 `json:"max_tokens,omitempty"`
 	Trigger NullableMentalModelTriggerOutput `json:"trigger,omitempty"`
 	LastRefreshedAt NullableString `json:"last_refreshed_at,omitempty"`
 	CreatedAt NullableString `json:"created_at,omitempty"`
-	// Full reflect API response payload including based_on facts and observations
 	ReflectResponse map[string]interface{} `json:"reflect_response,omitempty"`
-	// True when new memories matching this mental model's tag/fact_type scope have been ingested since last_refreshed_at, or consolidation has pending items. Only populated when detail=full.
 	IsStale NullableBool `json:"is_stale,omitempty"`
 }
 

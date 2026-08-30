@@ -21,15 +21,6 @@
 # Operation-level skips
 # ---------------------------------------------------------------------------
 [skip]
-
-# Internal / OpenAI compatibility / Chat simulator endpoints not exposed in CLI
-api_bootstrap_session_v1_default_banks__bank_id__sessions_bootstrap_post = "Control plane chat simulator bootstrap endpoint"
-list_models_models_get = "OpenAI compatibility models endpoint"
-list_models_v1_models_get = "OpenAI compatibility models endpoint (v1)"
-openai_chat_completions_chat_completions_post = "OpenAI compatibility chat completions endpoint"
-openai_chat_completions_get_chat_completions_get = "OpenAI compatibility chat completions GET endpoint"
-openai_chat_completions_get_v1_chat_completions_get = "OpenAI compatibility chat completions GET endpoint (v1)"
-openai_chat_completions_v1_chat_completions_post = "OpenAI compatibility chat completions endpoint (v1)"
 # UI-only endpoint powering the control-plane stats chart.
 # Zero-filled bucket arrays don't map to a useful CLI command.
 get_memories_timeseries = "UI-only endpoint for the control plane stats chart"
@@ -109,36 +100,3 @@ trigger = "Exposed as --trigger-refresh-after-consolidation on `mental-model cre
 
 [fields.update_mental_model]
 trigger = "Exposed as --trigger-refresh-after-consolidation on `mental-model update` (other nested trigger fields like fact_types/tag_groups are not exposed yet)."
-
-[fields.api_bootstrap_session_v1_default_banks__bank_id__sessions_bootstrap_post]
-svt = "Internal bootstrap payload for control plane chat simulator"
-
-[fields.openai_chat_completions_v1_chat_completions_post]
-model = "OpenAI compatibility endpoint parameter"
-messages = "OpenAI compatibility endpoint parameter"
-tools = "OpenAI compatibility endpoint parameter"
-tool_choice = "OpenAI compatibility endpoint parameter"
-stream = "OpenAI compatibility endpoint parameter"
-temperature = "OpenAI compatibility endpoint parameter"
-top_p = "OpenAI compatibility endpoint parameter"
-n = "OpenAI compatibility endpoint parameter"
-stop = "OpenAI compatibility endpoint parameter"
-presence_penalty = "OpenAI compatibility endpoint parameter"
-frequency_penalty = "OpenAI compatibility endpoint parameter"
-logit_bias = "OpenAI compatibility endpoint parameter"
-user = "OpenAI compatibility endpoint parameter"
-
-[fields.openai_chat_completions_chat_completions_post]
-model = "OpenAI compatibility endpoint parameter"
-messages = "OpenAI compatibility endpoint parameter"
-tools = "OpenAI compatibility endpoint parameter"
-tool_choice = "OpenAI compatibility endpoint parameter"
-stream = "OpenAI compatibility endpoint parameter"
-temperature = "OpenAI compatibility endpoint parameter"
-top_p = "OpenAI compatibility endpoint parameter"
-n = "OpenAI compatibility endpoint parameter"
-stop = "OpenAI compatibility endpoint parameter"
-presence_penalty = "OpenAI compatibility endpoint parameter"
-frequency_penalty = "OpenAI compatibility endpoint parameter"
-logit_bias = "OpenAI compatibility endpoint parameter"
-user = "OpenAI compatibility endpoint parameter"

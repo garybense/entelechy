@@ -19,33 +19,19 @@ var _ MappedNullable = &CreateBankRequest{}
 
 // CreateBankRequest Request model for creating/updating a bank.
 type CreateBankRequest struct {
-	// Deprecated: display label only, not advertised
 	Name NullableString `json:"name,omitempty"`
-	// Deprecated: use update_bank_config instead
 	Disposition NullableDispositionTraits `json:"disposition,omitempty"`
-	// Deprecated: use update_bank_config instead
 	DispositionSkepticism NullableInt32 `json:"disposition_skepticism,omitempty"`
-	// Deprecated: use update_bank_config instead
 	DispositionLiteralism NullableInt32 `json:"disposition_literalism,omitempty"`
-	// Deprecated: use update_bank_config instead
 	DispositionEmpathy NullableInt32 `json:"disposition_empathy,omitempty"`
-	// Deprecated: use update_bank_config with reflect_mission instead
 	Mission NullableString `json:"mission,omitempty"`
-	// Deprecated: use update_bank_config with reflect_mission instead
 	Background NullableString `json:"background,omitempty"`
-	// Mission/context for Reflect operations. Guides how Reflect interprets and uses memories.
 	ReflectMission NullableString `json:"reflect_mission,omitempty"`
-	// Steers what gets extracted during retain(). Injected alongside built-in extraction rules.
 	RetainMission NullableString `json:"retain_mission,omitempty"`
-	// Fact extraction mode: 'concise' (default), 'verbose', or 'custom'.
 	RetainExtractionMode NullableString `json:"retain_extraction_mode,omitempty"`
-	// Custom extraction prompt. Only active when retain_extraction_mode is 'custom'.
 	RetainCustomInstructions NullableString `json:"retain_custom_instructions,omitempty"`
-	// Maximum token size for each content chunk during retain.
 	RetainChunkSize NullableInt32 `json:"retain_chunk_size,omitempty"`
-	// Toggle automatic observation consolidation after retain().
 	EnableObservations NullableBool `json:"enable_observations,omitempty"`
-	// Controls what gets synthesised into observations. Replaces built-in consolidation rules entirely.
 	ObservationsMission NullableString `json:"observations_mission,omitempty"`
 }
 

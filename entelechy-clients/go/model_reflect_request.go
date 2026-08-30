@@ -23,25 +23,19 @@ var _ MappedNullable = &ReflectRequest{}
 type ReflectRequest struct {
 	Query string `json:"query"`
 	Budget *Budget `json:"budget,omitempty"`
-	// DEPRECATED: Additional context is now concatenated with the query. Pass context directly in the query field instead. If provided, it will be appended to the query for backward compatibility.
 	Context NullableString `json:"context,omitempty"`
 	// Maximum tokens for the response
 	MaxTokens *int32 `json:"max_tokens,omitempty"`
 	// Options for including additional data (disabled by default)
 	Include *ReflectIncludeOptions `json:"include,omitempty"`
-	// Optional JSON Schema for structured output. When provided, the response will include a 'structured_output' field with the LLM response parsed according to this schema.
 	ResponseSchema map[string]interface{} `json:"response_schema,omitempty"`
-	// Filter memories by tags during reflection. If not specified, all memories are considered.
 	Tags []string `json:"tags,omitempty"`
 	// How to match tags: 'any' (OR, includes untagged), 'all' (AND, includes untagged), 'any_strict' (OR, excludes untagged), 'all_strict' (AND, excludes untagged).
 	TagsMatch *string `json:"tags_match,omitempty"`
-	// Compound tag filter using boolean groups. Groups in the list are AND-ed. Each group is a leaf {tags, match} or compound {and: [...]}, {or: [...]}, {not: ...}.
 	TagGroups []MentalModelTriggerInputTagGroupsInner `json:"tag_groups,omitempty"`
-	// Filter which fact types are retrieved during reflect. None means all types (world, experience, observation).
 	FactTypes []string `json:"fact_types,omitempty"`
 	// If true, exclude all mental models from the reflect loop (skip search_mental_models tool).
 	ExcludeMentalModels *bool `json:"exclude_mental_models,omitempty"`
-	// Exclude specific mental models by ID from the reflect loop.
 	ExcludeMentalModelIds []string `json:"exclude_mental_model_ids,omitempty"`
 }
 
@@ -54,8 +48,6 @@ type _ReflectRequest ReflectRequest
 func NewReflectRequest(query string) *ReflectRequest {
 	this := ReflectRequest{}
 	this.Query = query
-	var budget Budget = LOW
-	this.Budget = &budget
 	var maxTokens int32 = 4096
 	this.MaxTokens = &maxTokens
 	var tagsMatch string = "any"
@@ -70,8 +62,6 @@ func NewReflectRequest(query string) *ReflectRequest {
 // but it doesn't guarantee that properties required by API are set
 func NewReflectRequestWithDefaults() *ReflectRequest {
 	this := ReflectRequest{}
-	var budget Budget = LOW
-	this.Budget = &budget
 	var maxTokens int32 = 4096
 	this.MaxTokens = &maxTokens
 	var tagsMatch string = "any"

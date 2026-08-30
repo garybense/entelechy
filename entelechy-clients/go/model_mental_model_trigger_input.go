@@ -23,21 +23,14 @@ type MentalModelTriggerInput struct {
 	Mode *string `json:"mode,omitempty"`
 	// If true, refresh this mental model after observations consolidation (real-time mode)
 	RefreshAfterConsolidation *bool `json:"refresh_after_consolidation,omitempty"`
-	// Filter which fact types are retrieved during reflect. None means all types (world, experience, observation).
 	FactTypes []string `json:"fact_types,omitempty"`
 	// If true, exclude all mental models from the reflect loop (skip search_mental_models tool).
 	ExcludeMentalModels *bool `json:"exclude_mental_models,omitempty"`
-	// Exclude specific mental models by ID from the reflect loop.
 	ExcludeMentalModelIds []string `json:"exclude_mental_model_ids,omitempty"`
-	// Override how the model's tags filter memories during refresh. If not set, defaults to 'all_strict' when the model has tags (security isolation) or 'any' when the model has no tags. Set to 'any' to include untagged memories alongside tagged ones during refresh.
 	TagsMatch NullableString `json:"tags_match,omitempty"`
-	// Compound boolean tag expressions to use during refresh instead of the model's own tags. When set, these tag groups are passed to reflect and the model's flat tags are NOT used for filtering. Supports nested and/or/not expressions for complex tag-based scoping.
 	TagGroups []MentalModelTriggerInputTagGroupsInner `json:"tag_groups,omitempty"`
-	// Override whether the internal recall used during refresh returns raw chunk text. None means use the bank/global config default (recall_include_chunks).
 	IncludeChunks NullableBool `json:"include_chunks,omitempty"`
-	// Override the token budget for facts returned by the internal recall during refresh. None means use the bank/global config default (recall_max_tokens).
 	RecallMaxTokens NullableInt32 `json:"recall_max_tokens,omitempty"`
-	// Override the token budget for raw chunks returned by the internal recall during refresh. None means use the bank/global config default (recall_chunks_max_tokens).
 	RecallChunksMaxTokens NullableInt32 `json:"recall_chunks_max_tokens,omitempty"`
 }
 

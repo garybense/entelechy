@@ -23,11 +23,8 @@ var _ MappedNullable = &RecallResponse{}
 type RecallResponse struct {
 	Results []RecallResult `json:"results"`
 	Trace map[string]interface{} `json:"trace,omitempty"`
-	// Entity states for entities mentioned in results
 	Entities map[string]EntityStateResponse `json:"entities,omitempty"`
-	// Chunks for facts, keyed by chunk_id
 	Chunks map[string]ChunkData `json:"chunks,omitempty"`
-	// Source facts for observation-type results, keyed by fact ID
 	SourceFacts map[string]RecallResult `json:"source_facts,omitempty"`
 }
 

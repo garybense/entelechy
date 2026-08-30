@@ -121,11 +121,17 @@ trap 'rm -rf "$GEN_TMP_DIR"' EXIT
 # Note: the generator may exit non-zero due to a known bug writing
 # README_onlypackage.mustache, but all API/model files are generated
 # before that step, so we allow the failure and verify files below.
-npx @openapitools/openapi-generator-cli generate \
-    -i "$OPENAPI_SPEC" \
+docker run --rm \
+    --platform linux/amd64 \
+    --user "$(id -u):$(id -g)" \
+    -v "$OPENAPI_SPEC:/local/openapi.json" \
+    -v "$GEN_TMP_DIR:/local/out" \
+    -v "$PYTHON_CLIENT_DIR/openapi-generator-config.yaml:/local/config.yaml" \
+    "openapitools/openapi-generator-cli:${OPENAPI_GENERATOR_VERSION}" generate \
+    -i /local/openapi.json \
     -g python \
-    -o "$GEN_TMP_DIR" \
-    -c "$PYTHON_CLIENT_DIR/openapi-generator-config.yaml" || true
+    -o /local/out \
+    -c /local/config.yaml || true
 
 # Verify critical generated files exist in the tmp dir
 if [ ! -f "$GEN_TMP_DIR/entelechy_client_api/api_client.py" ]; then
@@ -427,10 +433,15 @@ else
 
     # Generate new client via Docker (--platform linux/amd64 ensures identical output on macOS and Linux CI)
     echo "Generating client from OpenAPI spec..."
-    npx @openapitools/openapi-generator-cli generate \
-        -i "$OPENAPI_SPEC" \
+    docker run --rm \
+        --platform linux/amd64 \
+        --user "$(id -u):$(id -g)" \
+        -v "$OPENAPI_SPEC:/local/openapi.json" \
+        -v "$GO_CLIENT_DIR:/local/out" \
+        "openapitools/openapi-generator-cli:${OPENAPI_GENERATOR_VERSION}" generate \
+        -i /local/openapi.json \
         -g go \
-        -o "$GO_CLIENT_DIR" \
+        -o /local/out \
         --package-name entelechy \
         --git-user-id vectorize-io \
         --git-repo-id entelechy/entelechy-clients/go \
