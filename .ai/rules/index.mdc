@@ -1,0 +1,134 @@
+---
+name: Rules Index
+description: Index of all available rules in the workspace
+tags:
+  - index
+  - navigation
+  - overview
+---
+# Minsky Rules Index
+
+This document describes the rules installed in this project and identifies which apply in different usage scenarios.
+
+## Core Workflow Rules
+
+These rules define the fundamental workflow and processes for using Minsky:
+
+| Rule | Description | When to Apply |
+|------|-------------|--------------|
+| **minsky-workflow** | Defines the complete workflow for working with tasks and sessions. Includes task selection, status management, implementation process, and PR preparation | **Always required**. Applies to any interaction with tasks or sessions |
+| **minsky-workflow-orchestrator** | Entry point for the Minsky workflow system — links to the focused workflow rules | Start here to understand the overall workflow |
+| **task-implementation-workflow** | Step-by-step process for implementing tasks in a session workspace | When starting or continuing implementation work |
+| **task-status-protocol** | Procedures for checking and updating task status correctly | When transitioning task state or checking current status |
+| **pr-preparation-workflow** | Guidelines for preparing and submitting pull requests | When creating or updating a PR |
+| **minsky-session-management** | Session lifecycle management — creation, navigation, cleanup | When working with sessions |
+
+## Command Reference Quick Guide
+
+### Task Management Commands
+
+#### List Tasks
+Query available tasks
+
+```bash
+minsky tasks list [--all] [--status <value>] [--filter <value>] [--limit <value>] [--kind <value>] [--tag <value>] [--since <value>] [--until <value>] [--hierarchical <value>] [--showDeps <value>] [--showAttention <value>] [--allProjects <value>] [--repo <value>] [--workspace <value>] [--session <value>] [--backend <value>] [--json]
+```
+
+#### Get Task Details
+Retrieve task information
+
+```bash
+minsky tasks get <taskId> [--repo <value>] [--workspace <value>] [--session <value>] [--backend <value>] [--json] [--includeSpec <value>] [--includeSubtasks <value>] [--includeSession <value>]
+```
+
+#### Check Task Status
+Check task status
+
+```bash
+minsky tasks status.get <taskId> [--repo <value>] [--workspace <value>] [--session <value>] [--backend <value>] [--json]
+```
+
+#### Update Task Status
+Update task status
+
+```bash
+minsky tasks status.set <taskId> [--status <value>] [--repo <value>] [--workspace <value>] [--session <value>] [--backend <value>] [--json]
+```
+
+### Session Management Commands
+
+#### List Sessions
+View all sessions
+
+```bash
+minsky session list [--repo <value>] [--json] [--task <value>] [--since <value>] [--until <value>] [--limit <value>] [--offset <value>] [--verbose] [--allProjects <value>]
+```
+
+#### Start Session
+Create new session
+
+```bash
+minsky session start [--sessionId <value>] [--task <value>] [--description <value>] [--branch <value>] [--repo <value>] [--json] [--quiet] [--noStatusUpdate] [--skipInstall] [--packageManager <value>] [--recover]
+```
+
+#### Get Session Info
+Retrieve session details
+
+```bash
+minsky session get [--sessionId <value>] [--task <value>] [--repo <value>] [--json] [--since <value>] [--until <value>]
+```
+
+#### Get Session Directory
+Get session path
+
+```bash
+minsky session dir [--sessionId <value>] [--task <value>] [--repo <value>] [--json]
+```
+
+## Usage Scenarios & Applicable Rules
+
+### For New Contributors
+
+When a developer first joins the project, they should focus on:
+
+1. **minsky-workflow** - Understand the overall process
+2. **task-implementation-workflow** - Learn the implementation workflow
+
+### When Implementing Features
+
+During feature implementation, the most relevant rules are:
+
+1. **minsky-workflow** - Follow the proper process
+2. **task-implementation-workflow** - Step-by-step implementation guidance
+3. **task-status-protocol** - Keep task status accurate
+
+### When Fixing Bugs
+
+For bug fixes, prioritize:
+
+1. **minsky-workflow** - Follow the correct task/session workflow
+2. **task-implementation-workflow** - Apply structured implementation process
+3. **pr-preparation-workflow** - Document the fix in the PR
+
+### When Reviewing Code
+
+Code reviewers should focus on:
+
+1. **pr-preparation-workflow** - Ensure proper PR documentation
+
+### When Setting Up New Projects
+
+For initializing new projects with Minsky:
+
+1. **minsky-workflow** - Establish the core workflow
+2. **minsky-session-management** - Understand session creation
+
+## Rule Relationships
+
+Some rules are closely related and often used together:
+
+- **minsky-workflow** and **minsky-workflow-orchestrator** provide the top-level orientation; the other rules drill into specific sub-workflows
+- **task-implementation-workflow**, **task-status-protocol**, and **pr-preparation-workflow** form the complete implementation lifecycle
+- **minsky-session-management** supports all rules that involve session workspaces
+
+This index describes the rules installed in this project. Additional rules can be added via `minsky rules create`.

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "minsky-server": {
+      "command": "minsky",
+      "args": [
+        "mcp",
+        "start"
+      ]
+    }
+  }
+}
