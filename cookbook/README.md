@@ -9,3 +9,8 @@ The cookbook repository includes:
 - Real-world use cases and patterns
 - Step-by-step tutorials
 - Best practices and tips
+
+## SCA-2 (Self-Evolving Cognitive Architecture, Protocol 2)
+
+- `sca_2_bootstrap.py`: Runnable script demonstrating the SCA-2 initialization sequence —
+  domain-isolated banks, governing directives, and high-signal retention. Supports `--dry-run`.
