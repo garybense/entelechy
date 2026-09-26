@@ -26,6 +26,7 @@ type BankProfileResponse struct {
 	Disposition DispositionTraits `json:"disposition"`
 	// The agent's mission - who they are and what they're trying to accomplish
 	Mission string `json:"mission"`
+	// Deprecated: use mission instead
 	Background NullableString `json:"background,omitempty"`
 }
 

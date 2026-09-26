@@ -528,6 +528,17 @@ class MemoryItem(BaseModel):
         raise ValueError(f"timestamp must be a string or datetime, got {type(v).__name__}")
 
 
+class BootstrapRequest(BaseModel):
+    svt: str = Field(description="State Vector Token (e.g., CST-alpha...)")
+    context: str = Field(description="The latest user prompt or context window")
+
+
+class BootstrapResponse(BaseModel):
+    policy_vector: dict[str, float]
+    injected_prompt: str
+    memory_context: str
+
+
 class RetainRequest(BaseModel):
     """Request model for retain endpoint."""
 
@@ -2872,15 +2883,6 @@ def _register_routes(app: FastAPI):
         return RequestContext(api_key=api_key)
 
     # Global exception handler for authentication errors
-
-    class BootstrapRequest(BaseModel):
-        svt: str = Field(description="State Vector Token")
-        context: str = Field(description="The latest user prompt or context window")
-
-    class BootstrapResponse(BaseModel):
-        policy_vector: dict[str, float]
-        injected_prompt: str
-        memory_context: str
 
     @app.post(
         "/v1/default/banks/{bank_id}/sessions/bootstrap",

@@ -23,8 +23,11 @@ var _ MappedNullable = &BankTemplateManifest{}
 type BankTemplateManifest struct {
 	// Manifest schema version (currently '1')
 	Version string `json:"version"`
+	// Bank configuration to apply. Omit to leave config unchanged.
 	Bank NullableBankTemplateConfig `json:"bank,omitempty"`
+	// Mental models to create or update (matched by id). Omit to leave unchanged.
 	MentalModels []BankTemplateMentalModel `json:"mental_models,omitempty"`
+	// Directives to create or update (matched by name). Omit to leave unchanged.
 	Directives []BankTemplateDirective `json:"directives,omitempty"`
 }
 

@@ -837,7 +837,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install Rust
@@ -1043,7 +1047,11 @@ jobs:
       if: matrix.variant == 'slim'
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Smoke test - verify container starts
@@ -1089,7 +1097,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -1209,7 +1221,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -1283,7 +1299,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -1395,7 +1415,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -1511,7 +1535,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -1667,7 +1695,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -1783,7 +1815,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -1898,7 +1934,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -2029,7 +2069,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -2432,7 +2476,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -2500,7 +2548,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -2577,7 +2629,11 @@ jobs:
       shell: bash
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' gcp-credentials.json)
+        if [ -s gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> "$GITHUB_ENV"
 
     - name: Install uv
@@ -2750,7 +2806,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
@@ -2841,7 +2901,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install Rust
@@ -2985,7 +3049,11 @@ jobs:
     - name: Setup GCP credentials
       run: |
         printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
+          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
+        else
+          PROJECT_ID=""
+        fi
         echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Fetch tags

@@ -24,6 +24,7 @@ from entelechy_client_api.models.mental_model_trigger_input_tag_groups_inner imp
 from entelechy_client_api.models.reflect_include_options import ReflectIncludeOptions
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ReflectRequest(BaseModel):
     """
@@ -31,16 +32,16 @@ class ReflectRequest(BaseModel):
     """ # noqa: E501
     query: StrictStr
     budget: Optional[Budget] = None
-    context: Optional[StrictStr] = None
+    context: Optional[StrictStr] = Field(default=None, description="DEPRECATED: Additional context is now concatenated with the query. Pass context directly in the query field instead. If provided, it will be appended to the query for backward compatibility.")
     max_tokens: Optional[StrictInt] = Field(default=4096, description="Maximum tokens for the response")
     include: Optional[ReflectIncludeOptions] = Field(default=None, description="Options for including additional data (disabled by default)")
-    response_schema: Optional[Dict[str, Any]] = None
-    tags: Optional[List[StrictStr]] = None
+    response_schema: Optional[Dict[str, Any]] = Field(default=None, description="Optional JSON Schema for structured output. When provided, the response will include a 'structured_output' field with the LLM response parsed according to this schema.")
+    tags: Optional[List[StrictStr]] = Field(default=None, description="Filter memories by tags during reflection. If not specified, all memories are considered.")
     tags_match: Optional[StrictStr] = Field(default='any', description="How to match tags: 'any' (OR, includes untagged), 'all' (AND, includes untagged), 'any_strict' (OR, excludes untagged), 'all_strict' (AND, excludes untagged).")
-    tag_groups: Optional[List[MentalModelTriggerInputTagGroupsInner]] = None
-    fact_types: Optional[List[StrictStr]] = None
+    tag_groups: Optional[List[MentalModelTriggerInputTagGroupsInner]] = Field(default=None, description="Compound tag filter using boolean groups. Groups in the list are AND-ed. Each group is a leaf {tags, match} or compound {and: [...]}, {or: [...]}, {not: ...}.")
+    fact_types: Optional[List[StrictStr]] = Field(default=None, description="Filter which fact types are retrieved during reflect. None means all types (world, experience, observation).")
     exclude_mental_models: Optional[StrictBool] = Field(default=False, description="If true, exclude all mental models from the reflect loop (skip search_mental_models tool).")
-    exclude_mental_model_ids: Optional[List[StrictStr]] = None
+    exclude_mental_model_ids: Optional[List[StrictStr]] = Field(default=None, description="Exclude specific mental models by ID from the reflect loop.")
     __properties: ClassVar[List[str]] = ["query", "budget", "context", "max_tokens", "include", "response_schema", "tags", "tags_match", "tag_groups", "fact_types", "exclude_mental_models", "exclude_mental_model_ids"]
 
     @field_validator('tags_match')
@@ -65,7 +66,8 @@ class ReflectRequest(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -77,8 +79,7 @@ class ReflectRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -110,8 +111,7 @@ class ReflectRequest(BaseModel):
         _items = []
         if self.tag_groups:
             for _item_tag_groups in self.tag_groups:
-                if _item_tag_groups:
-                    _items.append(_item_tag_groups.to_dict())
+                _items.append(_item_tag_groups.to_dict() if _item_tag_groups is not None else None)
             _dict['tag_groups'] = _items
         # set to None if context (nullable) is None
         # and model_fields_set contains the field

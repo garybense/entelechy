@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.memory_item import MemoryItem
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class RetainRequest(BaseModel):
     """
@@ -29,11 +30,12 @@ class RetainRequest(BaseModel):
     """ # noqa: E501
     items: List[MemoryItem]
     var_async: Optional[StrictBool] = Field(default=False, description="If true, process asynchronously in background. If false, wait for completion (default: false)", alias="async")
-    document_tags: Optional[List[StrictStr]] = None
+    document_tags: Optional[List[StrictStr]] = Field(default=None, description="Deprecated. Use item-level tags instead.")
     __properties: ClassVar[List[str]] = ["items", "async", "document_tags"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -45,8 +47,7 @@ class RetainRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -75,8 +76,7 @@ class RetainRequest(BaseModel):
         _items = []
         if self.items:
             for _item_items in self.items:
-                if _item_items:
-                    _items.append(_item_items.to_dict())
+                _items.append(_item_items.to_dict() if _item_items is not None else None)
             _dict['items'] = _items
         # set to None if document_tags (nullable) is None
         # and model_fields_set contains the field

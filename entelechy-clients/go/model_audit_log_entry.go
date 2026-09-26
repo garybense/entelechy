@@ -27,6 +27,7 @@ type AuditLogEntry struct {
 	BankId NullableString `json:"bank_id"`
 	StartedAt NullableString `json:"started_at"`
 	EndedAt NullableString `json:"ended_at"`
+	// Server-computed duration in milliseconds (started_at → ended_at). Null if not yet completed.
 	DurationMs NullableInt32 `json:"duration_ms,omitempty"`
 	Request map[string]interface{} `json:"request"`
 	Response map[string]interface{} `json:"response"`

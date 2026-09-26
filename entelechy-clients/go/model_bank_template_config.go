@@ -19,36 +19,67 @@ var _ MappedNullable = &BankTemplateConfig{}
 
 // BankTemplateConfig Bank configuration fields within a template manifest.  Only includes configurable (per-bank) fields. Credential fields (API keys, base URLs) are intentionally excluded for security.
 type BankTemplateConfig struct {
+	// Mission/context for Reflect operations
 	ReflectMission NullableString `json:"reflect_mission,omitempty"`
+	// Steers what gets extracted during retain
 	RetainMission NullableString `json:"retain_mission,omitempty"`
+	// Fact extraction mode: 'concise' (default), 'verbose', or 'custom'
 	RetainExtractionMode NullableString `json:"retain_extraction_mode,omitempty"`
+	// Custom extraction prompt (when mode='custom')
 	RetainCustomInstructions NullableString `json:"retain_custom_instructions,omitempty"`
+	// Max token size for each content chunk
 	RetainChunkSize NullableInt32 `json:"retain_chunk_size,omitempty"`
+	// Toggle observation consolidation
 	EnableObservations NullableBool `json:"enable_observations,omitempty"`
+	// Controls what gets synthesised
 	ObservationsMission NullableString `json:"observations_mission,omitempty"`
+	// Skepticism trait (1-5)
 	DispositionSkepticism NullableInt32 `json:"disposition_skepticism,omitempty"`
+	// Literalism trait (1-5)
 	DispositionLiteralism NullableInt32 `json:"disposition_literalism,omitempty"`
+	// Empathy trait (1-5)
 	DispositionEmpathy NullableInt32 `json:"disposition_empathy,omitempty"`
+	// Controlled vocabulary for entity labels
 	EntityLabels []map[string]interface{} `json:"entity_labels,omitempty"`
+	// Allow entities outside the label vocabulary
 	EntitiesAllowFreeForm NullableBool `json:"entities_allow_free_form,omitempty"`
+	// Name of the default retain strategy (key into retain_strategies map)
 	RetainDefaultStrategy NullableString `json:"retain_default_strategy,omitempty"`
+	// Map of retain strategy name to per-strategy config dict
 	RetainStrategies map[string]interface{} `json:"retain_strategies,omitempty"`
+	// Max chunks per streaming batch (0 disables batching)
 	RetainChunkBatchSize NullableInt32 `json:"retain_chunk_batch_size,omitempty"`
+	// MCP tool allowlist for this bank (None = all tools)
 	McpEnabledTools []string `json:"mcp_enabled_tools,omitempty"`
+	// LLM batch size for observation consolidation
 	ConsolidationLlmBatchSize NullableInt32 `json:"consolidation_llm_batch_size,omitempty"`
+	// Max tokens of source facts per consolidation batch
 	ConsolidationSourceFactsMaxTokens NullableInt32 `json:"consolidation_source_facts_max_tokens,omitempty"`
+	// Max tokens of source facts per observation
 	ConsolidationSourceFactsMaxTokensPerObservation NullableInt32 `json:"consolidation_source_facts_max_tokens_per_observation,omitempty"`
+	// Max observations to retain per consolidation scope
 	MaxObservationsPerScope NullableInt32 `json:"max_observations_per_scope,omitempty"`
+	// Max tokens of source facts per reflect call
 	ReflectSourceFactsMaxTokens NullableInt32 `json:"reflect_source_facts_max_tokens,omitempty"`
+	// Per-bank Gemini/VertexAI safety filter settings
 	LlmGeminiSafetySettings []interface{} `json:"llm_gemini_safety_settings,omitempty"`
+	// Recall budget mapping function: 'fixed' or 'adaptive'
 	RecallBudgetFunction NullableString `json:"recall_budget_function,omitempty"`
+	// Fixed thinking_budget for budget=low (function='fixed')
 	RecallBudgetFixedLow NullableInt32 `json:"recall_budget_fixed_low,omitempty"`
+	// Fixed thinking_budget for budget=mid (function='fixed')
 	RecallBudgetFixedMid NullableInt32 `json:"recall_budget_fixed_mid,omitempty"`
+	// Fixed thinking_budget for budget=high (function='fixed')
 	RecallBudgetFixedHigh NullableInt32 `json:"recall_budget_fixed_high,omitempty"`
+	// Ratio of max_tokens for budget=low (function='adaptive')
 	RecallBudgetAdaptiveLow NullableFloat32 `json:"recall_budget_adaptive_low,omitempty"`
+	// Ratio of max_tokens for budget=mid (function='adaptive')
 	RecallBudgetAdaptiveMid NullableFloat32 `json:"recall_budget_adaptive_mid,omitempty"`
+	// Ratio of max_tokens for budget=high (function='adaptive')
 	RecallBudgetAdaptiveHigh NullableFloat32 `json:"recall_budget_adaptive_high,omitempty"`
+	// Floor for the adaptive function (after clamping)
 	RecallBudgetMin NullableInt32 `json:"recall_budget_min,omitempty"`
+	// Ceiling for the adaptive function (after clamping)
 	RecallBudgetMax NullableInt32 `json:"recall_budget_max,omitempty"`
 }
 

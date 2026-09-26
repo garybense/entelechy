@@ -21,6 +21,7 @@ var _ MappedNullable = &CreateMentalModelResponse{}
 
 // CreateMentalModelResponse Response model for mental model creation.
 type CreateMentalModelResponse struct {
+	// ID of the created mental model
 	MentalModelId NullableString `json:"mental_model_id,omitempty"`
 	// Operation ID to track refresh progress
 	OperationId string `json:"operation_id"`

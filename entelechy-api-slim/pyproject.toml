@@ -223,4 +223,5 @@ invalid-raise = "ignore"            # False positives with exception tracking
 call-non-callable = "ignore"        # False positives with Optional types
 invalid-key = "ignore"              # Pydantic ConfigDict not understood
 invalid-method-override = "ignore"  # Intentional signature differences
-unresolved-reference = "ignore"     # Forward references not always resolved
+unresolved-reference = "ignore"
+unresolved-import = "ignore"     # Forward references not always resolved

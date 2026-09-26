@@ -17,11 +17,12 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictBool, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.mental_model_trigger_output import MentalModelTriggerOutput
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class MentalModelResponse(BaseModel):
     """
@@ -31,18 +32,19 @@ class MentalModelResponse(BaseModel):
     bank_id: StrictStr
     name: StrictStr
     source_query: Optional[StrictStr] = None
-    content: Optional[StrictStr] = None
+    content: Optional[StrictStr] = Field(default=None, description="The mental model content as well-formatted markdown (auto-generated from reflect endpoint)")
     tags: Optional[List[StrictStr]] = None
     max_tokens: Optional[StrictInt] = None
     trigger: Optional[MentalModelTriggerOutput] = None
     last_refreshed_at: Optional[StrictStr] = None
     created_at: Optional[StrictStr] = None
-    reflect_response: Optional[Dict[str, Any]] = None
-    is_stale: Optional[StrictBool] = None
+    reflect_response: Optional[Dict[str, Any]] = Field(default=None, description="Full reflect API response payload including based_on facts and observations")
+    is_stale: Optional[StrictBool] = Field(default=None, description="True when new memories matching this mental model's tag/fact_type scope have been ingested since last_refreshed_at, or consolidation has pending items. Only populated when detail=full.")
     __properties: ClassVar[List[str]] = ["id", "bank_id", "name", "source_query", "content", "tags", "max_tokens", "trigger", "last_refreshed_at", "created_at", "reflect_response", "is_stale"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -54,8 +56,7 @@ class MentalModelResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

@@ -25,6 +25,7 @@ type ReflectToolCall struct {
 	Tool string `json:"tool"`
 	// Tool input parameters
 	Input map[string]interface{} `json:"input"`
+	// Tool output (only included when include.tool_calls.output is true)
 	Output map[string]interface{} `json:"output,omitempty"`
 	// Execution time in milliseconds
 	DurationMs int32 `json:"duration_ms"`

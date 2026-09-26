@@ -353,6 +353,7 @@ func (a *MentalModelsAPIService) GetMentalModelExecute(r ApiGetMentalModelReques
 		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", r.detail, "form", "")
 	} else {
 		var defaultValue string = "full"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", defaultValue, "form", "")
 		r.detail = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -651,24 +652,28 @@ func (a *MentalModelsAPIService) ListMentalModelsExecute(r ApiListMentalModelsRe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "tags_match", r.tagsMatch, "form", "")
 	} else {
 		var defaultValue string = "any"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tags_match", defaultValue, "form", "")
 		r.tagsMatch = &defaultValue
 	}
 	if r.detail != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", r.detail, "form", "")
 	} else {
 		var defaultValue string = "full"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", defaultValue, "form", "")
 		r.detail = &defaultValue
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int32 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	// to determine the Content-Type header

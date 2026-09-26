@@ -19,10 +19,15 @@ var _ MappedNullable = &UpdateMentalModelRequest{}
 
 // UpdateMentalModelRequest Request model for updating a mental model.
 type UpdateMentalModelRequest struct {
+	// New name for the mental model
 	Name NullableString `json:"name,omitempty"`
+	// New source query for the mental model
 	SourceQuery NullableString `json:"source_query,omitempty"`
+	// Maximum tokens for generated content
 	MaxTokens NullableInt32 `json:"max_tokens,omitempty"`
+	// Tags for scoped visibility
 	Tags []string `json:"tags,omitempty"`
+	// Trigger settings
 	Trigger NullableMentalModelTriggerInput `json:"trigger,omitempty"`
 }
 

@@ -19,8 +19,9 @@ var _ MappedNullable = &ReflectIncludeOptions{}
 
 // ReflectIncludeOptions Options for including additional data in reflect results.
 type ReflectIncludeOptions struct {
-	// Options for including facts (based_on) in reflect results.
+	// Include facts that the answer is based on. Set to {} to enable, null to disable (default: disabled).
 	Facts map[string]interface{} `json:"facts,omitempty"`
+	// Include tool calls trace. Set to {} for full trace (input+output), {output: false} for inputs only.
 	ToolCalls NullableToolCallsIncludeOptions `json:"tool_calls,omitempty"`
 }
 
@@ -41,9 +42,9 @@ func NewReflectIncludeOptionsWithDefaults() *ReflectIncludeOptions {
 	return &this
 }
 
-// GetFacts returns the Facts field value if set, zero value otherwise.
+// GetFacts returns the Facts field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ReflectIncludeOptions) GetFacts() map[string]interface{} {
-	if o == nil || IsNil(o.Facts) {
+	if o == nil {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -52,6 +53,7 @@ func (o *ReflectIncludeOptions) GetFacts() map[string]interface{} {
 
 // GetFactsOk returns a tuple with the Facts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ReflectIncludeOptions) GetFactsOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.Facts) {
 		return map[string]interface{}{}, false
@@ -125,7 +127,7 @@ func (o ReflectIncludeOptions) MarshalJSON() ([]byte, error) {
 
 func (o ReflectIncludeOptions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Facts) {
+	if o.Facts != nil {
 		toSerialize["facts"] = o.Facts
 	}
 	if o.ToolCalls.IsSet() {

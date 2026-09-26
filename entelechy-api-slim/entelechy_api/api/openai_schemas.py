@@ -26,7 +26,7 @@ class ChatCompletionRequest(BaseModel):
     model: str
     messages: List[ChatCompletionMessage]
     tools: Optional[List[ChatCompletionTool]] = None
-    tool_choice: Optional[Union[str, dict[str, Any]]] = "auto"
+    tool_choice: Optional[Union[str, dict[str, Any]]] = None
     stream: Optional[bool] = False
     temperature: Optional[float] = 1.0
     top_p: Optional[float] = 1.0

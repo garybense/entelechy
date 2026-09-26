@@ -17,10 +17,11 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class OperationResponse(BaseModel):
     """
@@ -33,12 +34,13 @@ class OperationResponse(BaseModel):
     created_at: StrictStr
     status: StrictStr
     error_message: Optional[StrictStr]
-    retry_count: Optional[StrictInt] = None
-    next_retry_at: Optional[StrictStr] = None
+    retry_count: Optional[StrictInt] = Field(default=None, description="Number of times this operation has been retried after failure.")
+    next_retry_at: Optional[StrictStr] = Field(default=None, description="When the worker will next attempt this operation. For a pending operation, a value in the future indicates the task is waiting rather than available for immediate pickup — for example, an extension may have raised DeferOperation to park the task until some backpressure window opens. Always null for completed tasks.")
     __properties: ClassVar[List[str]] = ["id", "task_type", "items_count", "document_id", "created_at", "status", "error_message", "retry_count", "next_retry_at"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -50,8 +52,7 @@ class OperationResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

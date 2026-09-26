@@ -48,6 +48,8 @@ func NewBankTemplateMentalModel(id string, name string, sourceQuery string) *Ban
 	this.SourceQuery = sourceQuery
 	var maxTokens int32 = 2048
 	this.MaxTokens = &maxTokens
+	var trigger MentalModelTriggerOutput = {}
+	this.Trigger = &trigger
 	return &this
 }
 
@@ -58,6 +60,8 @@ func NewBankTemplateMentalModelWithDefaults() *BankTemplateMentalModel {
 	this := BankTemplateMentalModel{}
 	var maxTokens int32 = 2048
 	this.MaxTokens = &maxTokens
+	var trigger MentalModelTriggerOutput = {}
+	this.Trigger = &trigger
 	return &this
 }
 

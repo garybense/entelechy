@@ -512,24 +512,28 @@ func (a *DirectivesAPIService) ListDirectivesExecute(r ApiListDirectivesRequest)
 		parameterAddToHeaderOrQuery(localVarQueryParams, "tags_match", r.tagsMatch, "form", "")
 	} else {
 		var defaultValue string = "any"
+		parameterAddToHeaderOrQuery(localVarQueryParams, "tags_match", defaultValue, "form", "")
 		r.tagsMatch = &defaultValue
 	}
 	if r.activeOnly != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "active_only", r.activeOnly, "form", "")
 	} else {
 		var defaultValue bool = true
+		parameterAddToHeaderOrQuery(localVarQueryParams, "active_only", defaultValue, "form", "")
 		r.activeOnly = &defaultValue
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	} else {
 		var defaultValue int32 = 100
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "form", "")
 		r.limit = &defaultValue
 	}
 	if r.offset != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "form", "")
 	} else {
 		var defaultValue int32 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "form", "")
 		r.offset = &defaultValue
 	}
 	// to determine the Content-Type header

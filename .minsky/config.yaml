@@ -1,0 +1,19 @@
+tasks:
+  backend: github-issues
+  strictIds: false
+persistence:
+  backend: postgres
+logger:
+  mode: auto
+  level: info
+  enableAgentLogs: false
+repository:
+  backend: github
+  url: https://github.com/garybense/entelechy.git
+  github:
+    owner: garybense
+    repo: entelechy
+mcp:
+  transport: stdio
+project:
+  slug: garybense/entelechy

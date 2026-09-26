@@ -33,6 +33,7 @@ type BankStatsResponse struct {
 	FailedOperations int32 `json:"failed_operations"`
 	// Async operations grouped by status (pending, processing, completed, failed, cancelled).
 	OperationsByStatus map[string]int32 `json:"operations_by_status,omitempty"`
+	// When consolidation last ran (ISO format)
 	LastConsolidatedAt NullableString `json:"last_consolidated_at,omitempty"`
 	// Number of memories not yet processed into observations
 	PendingConsolidation *int32 `json:"pending_consolidation,omitempty"`

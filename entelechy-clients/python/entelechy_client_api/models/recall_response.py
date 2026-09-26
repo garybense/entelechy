@@ -17,13 +17,14 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.chunk_data import ChunkData
 from entelechy_client_api.models.entity_state_response import EntityStateResponse
 from entelechy_client_api.models.recall_result import RecallResult
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class RecallResponse(BaseModel):
     """
@@ -31,13 +32,14 @@ class RecallResponse(BaseModel):
     """ # noqa: E501
     results: List[RecallResult]
     trace: Optional[Dict[str, Any]] = None
-    entities: Optional[Dict[str, EntityStateResponse]] = None
-    chunks: Optional[Dict[str, ChunkData]] = None
-    source_facts: Optional[Dict[str, RecallResult]] = None
+    entities: Optional[Dict[str, EntityStateResponse]] = Field(default=None, description="Entity states for entities mentioned in results")
+    chunks: Optional[Dict[str, ChunkData]] = Field(default=None, description="Chunks for facts, keyed by chunk_id")
+    source_facts: Optional[Dict[str, RecallResult]] = Field(default=None, description="Source facts for observation-type results, keyed by fact ID")
     __properties: ClassVar[List[str]] = ["results", "trace", "entities", "chunks", "source_facts"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,8 +51,7 @@ class RecallResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -79,29 +80,25 @@ class RecallResponse(BaseModel):
         _items = []
         if self.results:
             for _item_results in self.results:
-                if _item_results:
-                    _items.append(_item_results.to_dict())
+                _items.append(_item_results.to_dict() if _item_results is not None else None)
             _dict['results'] = _items
         # override the default output from pydantic by calling `to_dict()` of each value in entities (dict)
         _field_dict = {}
         if self.entities:
             for _key_entities in self.entities:
-                if self.entities[_key_entities]:
-                    _field_dict[_key_entities] = self.entities[_key_entities].to_dict()
+                _field_dict[_key_entities] = self.entities[_key_entities].to_dict() if self.entities[_key_entities] is not None else None
             _dict['entities'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each value in chunks (dict)
         _field_dict = {}
         if self.chunks:
             for _key_chunks in self.chunks:
-                if self.chunks[_key_chunks]:
-                    _field_dict[_key_chunks] = self.chunks[_key_chunks].to_dict()
+                _field_dict[_key_chunks] = self.chunks[_key_chunks].to_dict() if self.chunks[_key_chunks] is not None else None
             _dict['chunks'] = _field_dict
         # override the default output from pydantic by calling `to_dict()` of each value in source_facts (dict)
         _field_dict = {}
         if self.source_facts:
             for _key_source_facts in self.source_facts:
-                if self.source_facts[_key_source_facts]:
-                    _field_dict[_key_source_facts] = self.source_facts[_key_source_facts].to_dict()
+                _field_dict[_key_source_facts] = self.source_facts[_key_source_facts].to_dict() if self.source_facts[_key_source_facts] is not None else None
             _dict['source_facts'] = _field_dict
         # set to None if trace (nullable) is None
         # and model_fields_set contains the field

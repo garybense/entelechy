@@ -23,29 +23,31 @@ from typing_extensions import Annotated
 from entelechy_client_api.models.disposition_traits import DispositionTraits
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class CreateBankRequest(BaseModel):
     """
     Request model for creating/updating a bank.
     """ # noqa: E501
-    name: Optional[StrictStr] = None
-    disposition: Optional[DispositionTraits] = None
-    disposition_skepticism: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = None
-    disposition_literalism: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = None
-    disposition_empathy: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = None
-    mission: Optional[StrictStr] = None
-    background: Optional[StrictStr] = None
-    reflect_mission: Optional[StrictStr] = None
-    retain_mission: Optional[StrictStr] = None
-    retain_extraction_mode: Optional[StrictStr] = None
-    retain_custom_instructions: Optional[StrictStr] = None
-    retain_chunk_size: Optional[StrictInt] = None
-    enable_observations: Optional[StrictBool] = None
-    observations_mission: Optional[StrictStr] = None
+    name: Optional[StrictStr] = Field(default=None, description="Deprecated: display label only, not advertised")
+    disposition: Optional[DispositionTraits] = Field(default=None, description="Deprecated: use update_bank_config instead")
+    disposition_skepticism: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=None, description="Deprecated: use update_bank_config instead")
+    disposition_literalism: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=None, description="Deprecated: use update_bank_config instead")
+    disposition_empathy: Optional[Annotated[int, Field(le=5, strict=True, ge=1)]] = Field(default=None, description="Deprecated: use update_bank_config instead")
+    mission: Optional[StrictStr] = Field(default=None, description="Deprecated: use update_bank_config with reflect_mission instead")
+    background: Optional[StrictStr] = Field(default=None, description="Deprecated: use update_bank_config with reflect_mission instead")
+    reflect_mission: Optional[StrictStr] = Field(default=None, description="Mission/context for Reflect operations. Guides how Reflect interprets and uses memories.")
+    retain_mission: Optional[StrictStr] = Field(default=None, description="Steers what gets extracted during retain(). Injected alongside built-in extraction rules.")
+    retain_extraction_mode: Optional[StrictStr] = Field(default=None, description="Fact extraction mode: 'concise' (default), 'verbose', or 'custom'.")
+    retain_custom_instructions: Optional[StrictStr] = Field(default=None, description="Custom extraction prompt. Only active when retain_extraction_mode is 'custom'.")
+    retain_chunk_size: Optional[StrictInt] = Field(default=None, description="Maximum token size for each content chunk during retain.")
+    enable_observations: Optional[StrictBool] = Field(default=None, description="Toggle automatic observation consolidation after retain().")
+    observations_mission: Optional[StrictStr] = Field(default=None, description="Controls what gets synthesised into observations. Replaces built-in consolidation rules entirely.")
     __properties: ClassVar[List[str]] = ["name", "disposition", "disposition_skepticism", "disposition_literalism", "disposition_empathy", "mission", "background", "reflect_mission", "retain_mission", "retain_extraction_mode", "retain_custom_instructions", "retain_chunk_size", "enable_observations", "observations_mission"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -57,8 +59,7 @@ class CreateBankRequest(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

@@ -194,6 +194,7 @@ async function callEntelechy(name, args) {
 
 ---
 
+<<<<<<< HEAD
 ## 5. Advanced Auxiliary Onboarding Mode: SCA 2
 
 For advanced multi-agent systems and autonomous operations, Entelechy supports **SCA 2 (Self-Evolving Cognitive Architecture Protocol)** after Metacog integration.
@@ -205,3 +206,21 @@ SCA 2 operates under a dedicated 4-step initialization procedure:
 4. **Identity-Weighted Meta-Learning**: Periodically trigger `reflect` and `distill_tool` to synthesize emergent insights across time.
 
 For full operating procedures and code examples, see the [SCA 2 Guide](guides/2026-05-01-guide-sca-2-self-evolving-cognitive-architecture.md) and `cookbook/sca_2_bootstrap.py`.
+=======
+## 5. Advanced Auxiliary Onboarding Mode: SCA-2
+
+For advanced multi-agent systems and long-lived autonomous agents, Entelechy supports **SCA-2
+(Self-Evolving Cognitive Architecture, Protocol 2)** — an opt-in operating procedure:
+
+1. **Domain Bank Initialization**: partition memory into `core-self`, `project:<slug>`,
+   `research:<slug>`, and `volatile` banks.
+2. **Governing Directives**: inject system constraints into `core-self`.
+3. **Pattern Lattice**: retain only high-signal decisions, discoveries, contradictions, and
+   compressed observations — always with reasoning traces and uncertainty
+   (`sca2:trace`, `sca2:uncertainty` metadata keys).
+4. **Pattern Reflection**: periodically run `reflect` to extract cross-temporal structure.
+
+Full operating procedure:
+[SCA-2 Guide](entelechy-docs/guides/2026-05-01-guide-sca-2-self-evolving-cognitive-architecture.md)
+and `cookbook/sca_2_bootstrap.py`.
+>>>>>>> origin/main

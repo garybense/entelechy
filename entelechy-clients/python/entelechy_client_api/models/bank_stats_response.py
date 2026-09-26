@@ -21,6 +21,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class BankStatsResponse(BaseModel):
     """
@@ -37,14 +38,15 @@ class BankStatsResponse(BaseModel):
     pending_operations: StrictInt
     failed_operations: StrictInt
     operations_by_status: Optional[Dict[str, StrictInt]] = Field(default=None, description="Async operations grouped by status (pending, processing, completed, failed, cancelled).")
-    last_consolidated_at: Optional[StrictStr] = None
+    last_consolidated_at: Optional[StrictStr] = Field(default=None, description="When consolidation last ran (ISO format)")
     pending_consolidation: Optional[StrictInt] = Field(default=0, description="Number of memories not yet processed into observations")
     failed_consolidation: Optional[StrictInt] = Field(default=0, description="Number of source memories (world/experience) whose consolidation permanently failed and can be retried via the consolidation recovery endpoint.")
     total_observations: Optional[StrictInt] = Field(default=0, description="Total number of observations")
     __properties: ClassVar[List[str]] = ["bank_id", "total_nodes", "total_links", "total_documents", "nodes_by_fact_type", "links_by_link_type", "links_by_fact_type", "links_breakdown", "pending_operations", "failed_operations", "operations_by_status", "last_consolidated_at", "pending_consolidation", "failed_consolidation", "total_observations"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -56,8 +58,7 @@ class BankStatsResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

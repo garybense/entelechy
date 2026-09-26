@@ -12,5 +12,7 @@ from entelechy_client_api.api.memory_api import MemoryApi
 from entelechy_client_api.api.mental_models_api import MentalModelsApi
 from entelechy_client_api.api.monitoring_api import MonitoringApi
 from entelechy_client_api.api.operations_api import OperationsApi
+from entelechy_client_api.api.sessions_api import SessionsApi
 from entelechy_client_api.api.webhooks_api import WebhooksApi
+from entelechy_client_api.api.default_api import DefaultApi
 

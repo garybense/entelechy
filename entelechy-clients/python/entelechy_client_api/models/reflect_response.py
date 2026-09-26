@@ -24,20 +24,22 @@ from entelechy_client_api.models.reflect_trace import ReflectTrace
 from entelechy_client_api.models.token_usage import TokenUsage
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class ReflectResponse(BaseModel):
     """
     Response model for think endpoint.
     """ # noqa: E501
     text: StrictStr = Field(description="The reflect response as well-formatted markdown (headers, lists, bold/italic, code blocks, etc.)")
-    based_on: Optional[ReflectBasedOn] = None
-    structured_output: Optional[Dict[str, Any]] = None
-    usage: Optional[TokenUsage] = None
-    trace: Optional[ReflectTrace] = None
+    based_on: Optional[ReflectBasedOn] = Field(default=None, description="Evidence used to generate the response. Only present when include.facts is set.")
+    structured_output: Optional[Dict[str, Any]] = Field(default=None, description="Structured output parsed according to the request's response_schema. Only present when response_schema was provided in the request.")
+    usage: Optional[TokenUsage] = Field(default=None, description="Token usage metrics for LLM calls during reflection.")
+    trace: Optional[ReflectTrace] = Field(default=None, description="Execution trace of tool and LLM calls. Only present when include.tool_calls is set.")
     __properties: ClassVar[List[str]] = ["text", "based_on", "structured_output", "usage", "trace"]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -49,8 +51,7 @@ class ReflectResponse(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

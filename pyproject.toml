@@ -1,8 +1,7 @@
 [tool.uv.workspace]
-members = ["entelechy-all", "entelechy-api", "entelechy-api-slim", "entelechy-all-slim", "entelechy-dev", "entelechy-mcp-server", "entelechy-clients/python", "entelechy-embed"]
+members = ["entelechy-api", "entelechy-api-slim", "entelechy-all-slim", "entelechy-dev", "entelechy-mcp-server", "entelechy-clients/python", "entelechy-embed"]
+exclude = ["entelechy-all"]
 
 [tool.uv]
-# Allow uv to search all configured indexes for packages, not just the first one
-# This prevents dependency resolution failures when using pytorch index + PyPI
 index-strategy = "unsafe-best-match"
 dev-dependencies = []

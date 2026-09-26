@@ -16,7 +16,7 @@ import io
 import json
 import re
 import ssl
-from typing import Optional, Union
+from typing import Any, Dict, Optional, Union
 
 import aiohttp
 import aiohttp_retry
@@ -40,87 +40,104 @@ class RESTResponse(io.IOBase):
             self.data = await self.response.read()
         return self.data
 
+    @property
+    def headers(self):
+        """Returns a CIMultiDictProxy of response headers."""
+        return self.response.headers
+
     def getheaders(self):
-        """Returns a CIMultiDictProxy of the response headers."""
+        """Returns a CIMultiDictProxy of the response headers; use ``headers`` instead."""
         return self.response.headers
 
     def getheader(self, name, default=None):
-        """Returns a given response header."""
+        """Returns a given response header; use ``headers.get()`` instead."""
         return self.response.headers.get(name, default)
 
 
 class RESTClientObject:
 
     def __init__(self, configuration) -> None:
-        # Store configuration for deferred initialization
-        # aiohttp.TCPConnector requires a running event loop, so we defer
-        # creation until the first request (which runs in async context)
-        self._configuration = configuration
-        self._pool_manager: Optional[aiohttp.ClientSession] = None
-        self._retry_client: Optional[aiohttp_retry.RetryClient] = None
 
-        self.proxy = configuration.proxy
-        self.proxy_headers = configuration.proxy_headers
+        # Keep a reference so factory methods (_create_pool_manager / _create_connector)
+        # and subclasses can read extension fields like trace_configs.
+        self.configuration = configuration
 
-    def _ensure_session(self) -> None:
-        """Create aiohttp session lazily (must be called from async context)."""
-        if self._pool_manager is not None:
-            return
+        # maxsize is number of requests to host that are allowed in parallel
+        self.maxsize = configuration.connection_pool_maxsize
 
-        configuration = self._configuration
-        maxsize = configuration.connection_pool_maxsize
-
-        ssl_context = ssl.create_default_context(
-            cafile=configuration.ssl_ca_cert
+        self.ssl_context = ssl.create_default_context(
+            cafile=configuration.ssl_ca_cert,
+            cadata=configuration.ca_cert_data,
         )
         if configuration.cert_file:
-            ssl_context.load_cert_chain(
+            self.ssl_context.load_cert_chain(
                 configuration.cert_file, keyfile=configuration.key_file
             )
 
         if not configuration.verify_ssl:
-            ssl_context.check_hostname = False
-            ssl_context.verify_mode = ssl.CERT_NONE
+            self.ssl_context.check_hostname = False
+            self.ssl_context.verify_mode = ssl.CERT_NONE
 
-        connector = aiohttp.TCPConnector(
-            limit=maxsize,
-            ssl=ssl_context
-        )
-
-        self._pool_manager = aiohttp.ClientSession(
-            connector=connector,
-            trust_env=True
-        )
+        self.proxy = configuration.proxy
+        self.proxy_headers = configuration.proxy_headers
 
         retries = configuration.retries
-        if retries is not None:
-            self._retry_client = aiohttp_retry.RetryClient(
-                client_session=self._pool_manager,
-                retry_options=aiohttp_retry.ExponentialRetry(
-                    attempts=retries,
-                    factor=2.0,
-                    start_timeout=0.1,
-                    max_timeout=120.0
-                )
+        if retries is None:
+            self._effective_retry_options = None
+        elif isinstance(retries, aiohttp_retry.RetryOptionsBase):
+            self._effective_retry_options = retries
+        elif isinstance(retries, int):
+            self._effective_retry_options = aiohttp_retry.ExponentialRetry(
+                attempts=retries,
+                factor=2.0,
+                start_timeout=0.1,
+                max_timeout=120.0
             )
+        else:
+            self._effective_retry_options = None
 
-    @property
-    def pool_manager(self) -> aiohttp.ClientSession:
-        """Get the pool manager, initializing if needed."""
-        self._ensure_session()
-        return self._pool_manager
+        self.pool_manager: Optional[aiohttp.ClientSession] = None
+        self.retry_client: Optional[aiohttp_retry.RetryClient] = None
 
-    @property
-    def retry_client(self) -> Optional[aiohttp_retry.RetryClient]:
-        """Get the retry client, initializing if needed."""
-        self._ensure_session()
-        return self._retry_client
+    async def close(self) -> None:
+        if self.pool_manager:
+            await self.pool_manager.close()
+        if self.retry_client is not None:
+            await self.retry_client.close()
 
-    async def close(self):
-        if self._pool_manager is not None:
-            await self._pool_manager.close()
-        if self._retry_client is not None:
-            await self._retry_client.close()
+    def _create_connector(self) -> aiohttp.TCPConnector:
+        """Build the TCPConnector used by the ClientSession.
+
+        Override in a subclass to customize DNS resolver, keepalive, etc.
+        """
+        kwargs: Dict[str, Any] = {
+            "limit": self.maxsize,
+            "ssl": self.ssl_context,
+        }
+        limit_per_host = getattr(self.configuration, "tcp_connector_limit_per_host", None)
+        if limit_per_host is not None:
+            kwargs["limit_per_host"] = limit_per_host
+        return aiohttp.TCPConnector(**kwargs)
+
+    def _create_pool_manager(self) -> aiohttp.ClientSession:
+        """Build the aiohttp.ClientSession used as the connection pool.
+
+        Override in a subclass to fully customize the session (e.g. attach
+        aiohttp.TraceConfig, swap json_serialize, etc.). Typed Configuration
+        fields (trace_configs / client_session_kwargs) are read via getattr
+        so older Configuration objects remain compatible.
+        """
+        extra = getattr(self.configuration, "client_session_kwargs", None)
+        kwargs: Dict[str, Any] = {
+            "connector": self._create_connector(),
+            "trust_env": True,
+        }
+        trace_configs = getattr(self.configuration, "trace_configs", None)
+        if trace_configs is not None:
+            kwargs["trace_configs"] = trace_configs
+        if extra:
+            kwargs.update(extra)
+        return aiohttp.ClientSession(**kwargs)
 
     async def request(
         self,
@@ -186,6 +203,8 @@ class RESTClientObject:
             if re.search('json', headers['Content-Type'], re.IGNORECASE):
                 if body is not None:
                     body = json.dumps(body)
+                if body is None and post_params:
+                    body = json.dumps(dict(post_params))
                 args["data"] = body
             elif headers['Content-Type'] == 'application/x-www-form-urlencoded':
                 args["data"] = aiohttp.FormData(post_params)
@@ -225,10 +244,19 @@ class RESTClientObject:
                 raise ApiException(status=0, reason=msg)
 
         pool_manager: Union[aiohttp.ClientSession, aiohttp_retry.RetryClient]
-        if self.retry_client is not None and method in ALLOW_RETRY_METHODS:
+
+        # https pool manager
+        if self.pool_manager is None:
+            self.pool_manager = self._create_pool_manager()
+        pool_manager = self.pool_manager
+
+        if self._effective_retry_options is not None and method in ALLOW_RETRY_METHODS:
+            if self.retry_client is None:
+                self.retry_client = aiohttp_retry.RetryClient(
+                    client_session=self.pool_manager,
+                    retry_options=self._effective_retry_options
+                )
             pool_manager = self.retry_client
-        else:
-            pool_manager = self.pool_manager
 
         r = await pool_manager.request(**args)
 

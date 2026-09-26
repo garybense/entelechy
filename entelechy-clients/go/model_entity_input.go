@@ -23,6 +23,7 @@ var _ MappedNullable = &EntityInput{}
 type EntityInput struct {
 	// The entity name/text
 	Text string `json:"text"`
+	// Optional entity type (e.g., 'PERSON', 'ORG', 'CONCEPT')
 	Type NullableString `json:"type,omitempty"`
 }
 

@@ -12,7 +12,6 @@
     Do not edit the class manually.
 """  # noqa: E501
 
-
 # import models into model package
 from entelechy_client_api.models.add_background_request import AddBackgroundRequest
 from entelechy_client_api.models.async_operation_submit_response import AsyncOperationSubmitResponse
@@ -32,8 +31,14 @@ from entelechy_client_api.models.bank_template_directive import BankTemplateDire
 from entelechy_client_api.models.bank_template_import_response import BankTemplateImportResponse
 from entelechy_client_api.models.bank_template_manifest import BankTemplateManifest
 from entelechy_client_api.models.bank_template_mental_model import BankTemplateMentalModel
+from entelechy_client_api.models.bootstrap_request import BootstrapRequest
+from entelechy_client_api.models.bootstrap_response import BootstrapResponse
 from entelechy_client_api.models.budget import Budget
 from entelechy_client_api.models.cancel_operation_response import CancelOperationResponse
+from entelechy_client_api.models.chat_completion_message import ChatCompletionMessage
+from entelechy_client_api.models.chat_completion_request import ChatCompletionRequest
+from entelechy_client_api.models.chat_completion_tool import ChatCompletionTool
+from entelechy_client_api.models.chat_completion_tool_function import ChatCompletionToolFunction
 from entelechy_client_api.models.child_operation_status import ChildOperationStatus
 from entelechy_client_api.models.chunk_data import ChunkData
 from entelechy_client_api.models.chunk_include_options import ChunkIncludeOptions
@@ -68,6 +73,7 @@ from entelechy_client_api.models.list_chunks_response import ListChunksResponse
 from entelechy_client_api.models.list_documents_response import ListDocumentsResponse
 from entelechy_client_api.models.list_memory_units_response import ListMemoryUnitsResponse
 from entelechy_client_api.models.list_tags_response import ListTagsResponse
+from entelechy_client_api.models.location_inner import LocationInner
 from entelechy_client_api.models.memories_timeseries_response import MemoriesTimeseriesResponse
 from entelechy_client_api.models.memory_item import MemoryItem
 from entelechy_client_api.models.memory_timeseries_bucket import MemoryTimeseriesBucket
@@ -102,6 +108,7 @@ from entelechy_client_api.models.retain_request import RetainRequest
 from entelechy_client_api.models.retain_response import RetainResponse
 from entelechy_client_api.models.retry_operation_response import RetryOperationResponse
 from entelechy_client_api.models.source_facts_include_options import SourceFactsIncludeOptions
+from entelechy_client_api.models.stop import Stop
 from entelechy_client_api.models.tag_group_and_input import TagGroupAndInput
 from entelechy_client_api.models.tag_group_and_output import TagGroupAndOutput
 from entelechy_client_api.models.tag_group_leaf import TagGroupLeaf
@@ -113,6 +120,7 @@ from entelechy_client_api.models.tag_item import TagItem
 from entelechy_client_api.models.timestamp import Timestamp
 from entelechy_client_api.models.token_usage import TokenUsage
 from entelechy_client_api.models.tool_calls_include_options import ToolCallsIncludeOptions
+from entelechy_client_api.models.tool_choice import ToolChoice
 from entelechy_client_api.models.update_directive_request import UpdateDirectiveRequest
 from entelechy_client_api.models.update_disposition_request import UpdateDispositionRequest
 from entelechy_client_api.models.update_document_request import UpdateDocumentRequest
@@ -120,7 +128,6 @@ from entelechy_client_api.models.update_document_response import UpdateDocumentR
 from entelechy_client_api.models.update_mental_model_request import UpdateMentalModelRequest
 from entelechy_client_api.models.update_webhook_request import UpdateWebhookRequest
 from entelechy_client_api.models.validation_error import ValidationError
-from entelechy_client_api.models.validation_error_loc_inner import ValidationErrorLocInner
 from entelechy_client_api.models.version_response import VersionResponse
 from entelechy_client_api.models.webhook_delivery_list_response import WebhookDeliveryListResponse
 from entelechy_client_api.models.webhook_delivery_response import WebhookDeliveryResponse

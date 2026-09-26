@@ -22,6 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from entelechy_client_api.models.mental_model_trigger_output_tag_groups_inner import MentalModelTriggerOutputTagGroupsInner
 from typing import Optional, Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 class MentalModelTriggerOutput(BaseModel):
     """
@@ -29,14 +30,14 @@ class MentalModelTriggerOutput(BaseModel):
     """ # noqa: E501
     mode: Optional[StrictStr] = Field(default='full', description="Refresh mode. 'full' (default) regenerates the mental model content from scratch on each refresh. 'delta' performs surgical edits against the existing content: unchanged sections are preserved byte-for-byte, stale content is removed, new content is added. If the mental model has no existing content, or if the source_query has changed since the last refresh, delta mode falls back to a full regeneration automatically.")
     refresh_after_consolidation: Optional[StrictBool] = Field(default=False, description="If true, refresh this mental model after observations consolidation (real-time mode)")
-    fact_types: Optional[List[StrictStr]] = None
+    fact_types: Optional[List[StrictStr]] = Field(default=None, description="Filter which fact types are retrieved during reflect. None means all types (world, experience, observation).")
     exclude_mental_models: Optional[StrictBool] = Field(default=False, description="If true, exclude all mental models from the reflect loop (skip search_mental_models tool).")
-    exclude_mental_model_ids: Optional[List[StrictStr]] = None
-    tags_match: Optional[StrictStr] = None
-    tag_groups: Optional[List[MentalModelTriggerOutputTagGroupsInner]] = None
-    include_chunks: Optional[StrictBool] = None
-    recall_max_tokens: Optional[StrictInt] = None
-    recall_chunks_max_tokens: Optional[StrictInt] = None
+    exclude_mental_model_ids: Optional[List[StrictStr]] = Field(default=None, description="Exclude specific mental models by ID from the reflect loop.")
+    tags_match: Optional[StrictStr] = Field(default=None, description="Override how the model's tags filter memories during refresh. If not set, defaults to 'all_strict' when the model has tags (security isolation) or 'any' when the model has no tags. Set to 'any' to include untagged memories alongside tagged ones during refresh.")
+    tag_groups: Optional[List[MentalModelTriggerOutputTagGroupsInner]] = Field(default=None, description="Compound boolean tag expressions to use during refresh instead of the model's own tags. When set, these tag groups are passed to reflect and the model's flat tags are NOT used for filtering. Supports nested and/or/not expressions for complex tag-based scoping.")
+    include_chunks: Optional[StrictBool] = Field(default=None, description="Override whether the internal recall used during refresh returns raw chunk text. None means use the bank/global config default (recall_include_chunks).")
+    recall_max_tokens: Optional[StrictInt] = Field(default=None, description="Override the token budget for facts returned by the internal recall during refresh. None means use the bank/global config default (recall_max_tokens).")
+    recall_chunks_max_tokens: Optional[StrictInt] = Field(default=None, description="Override the token budget for raw chunks returned by the internal recall during refresh. None means use the bank/global config default (recall_chunks_max_tokens).")
     __properties: ClassVar[List[str]] = ["mode", "refresh_after_consolidation", "fact_types", "exclude_mental_models", "exclude_mental_model_ids", "tags_match", "tag_groups", "include_chunks", "recall_max_tokens", "recall_chunks_max_tokens"]
 
     @field_validator('mode')
@@ -71,7 +72,8 @@ class MentalModelTriggerOutput(BaseModel):
         return value
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -83,8 +85,7 @@ class MentalModelTriggerOutput(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
@@ -113,8 +114,7 @@ class MentalModelTriggerOutput(BaseModel):
         _items = []
         if self.tag_groups:
             for _item_tag_groups in self.tag_groups:
-                if _item_tag_groups:
-                    _items.append(_item_tag_groups.to_dict())
+                _items.append(_item_tag_groups.to_dict() if _item_tag_groups is not None else None)
             _dict['tag_groups'] = _items
         # set to None if fact_types (nullable) is None
         # and model_fields_set contains the field

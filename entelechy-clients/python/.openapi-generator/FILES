@@ -4,6 +4,7 @@ entelechy_client_api/api/__init__.py
 entelechy_client_api/api/audit_api.py
 entelechy_client_api/api/bank_templates_api.py
 entelechy_client_api/api/banks_api.py
+entelechy_client_api/api/default_api.py
 entelechy_client_api/api/directives_api.py
 entelechy_client_api/api/documents_api.py
 entelechy_client_api/api/entities_api.py
@@ -12,6 +13,7 @@ entelechy_client_api/api/memory_api.py
 entelechy_client_api/api/mental_models_api.py
 entelechy_client_api/api/monitoring_api.py
 entelechy_client_api/api/operations_api.py
+entelechy_client_api/api/sessions_api.py
 entelechy_client_api/api/webhooks_api.py
 entelechy_client_api/api_client.py
 entelechy_client_api/api_response.py
@@ -36,8 +38,14 @@ entelechy_client_api/models/bank_template_directive.py
 entelechy_client_api/models/bank_template_import_response.py
 entelechy_client_api/models/bank_template_manifest.py
 entelechy_client_api/models/bank_template_mental_model.py
+entelechy_client_api/models/bootstrap_request.py
+entelechy_client_api/models/bootstrap_response.py
 entelechy_client_api/models/budget.py
 entelechy_client_api/models/cancel_operation_response.py
+entelechy_client_api/models/chat_completion_message.py
+entelechy_client_api/models/chat_completion_request.py
+entelechy_client_api/models/chat_completion_tool.py
+entelechy_client_api/models/chat_completion_tool_function.py
 entelechy_client_api/models/child_operation_status.py
 entelechy_client_api/models/chunk_data.py
 entelechy_client_api/models/chunk_include_options.py
@@ -72,6 +80,7 @@ entelechy_client_api/models/list_chunks_response.py
 entelechy_client_api/models/list_documents_response.py
 entelechy_client_api/models/list_memory_units_response.py
 entelechy_client_api/models/list_tags_response.py
+entelechy_client_api/models/location_inner.py
 entelechy_client_api/models/memories_timeseries_response.py
 entelechy_client_api/models/memory_item.py
 entelechy_client_api/models/memory_timeseries_bucket.py
@@ -106,6 +115,7 @@ entelechy_client_api/models/retain_request.py
 entelechy_client_api/models/retain_response.py
 entelechy_client_api/models/retry_operation_response.py
 entelechy_client_api/models/source_facts_include_options.py
+entelechy_client_api/models/stop.py
 entelechy_client_api/models/tag_group_and_input.py
 entelechy_client_api/models/tag_group_and_output.py
 entelechy_client_api/models/tag_group_leaf.py
@@ -117,6 +127,7 @@ entelechy_client_api/models/tag_item.py
 entelechy_client_api/models/timestamp.py
 entelechy_client_api/models/token_usage.py
 entelechy_client_api/models/tool_calls_include_options.py
+entelechy_client_api/models/tool_choice.py
 entelechy_client_api/models/update_directive_request.py
 entelechy_client_api/models/update_disposition_request.py
 entelechy_client_api/models/update_document_request.py
@@ -124,7 +135,6 @@ entelechy_client_api/models/update_document_response.py
 entelechy_client_api/models/update_mental_model_request.py
 entelechy_client_api/models/update_webhook_request.py
 entelechy_client_api/models/validation_error.py
-entelechy_client_api/models/validation_error_loc_inner.py
 entelechy_client_api/models/version_response.py
 entelechy_client_api/models/webhook_delivery_list_response.py
 entelechy_client_api/models/webhook_delivery_response.py
