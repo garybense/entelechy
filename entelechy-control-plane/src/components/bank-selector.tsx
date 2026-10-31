@@ -7,7 +7,6 @@ import { useBank } from "@/lib/bank-context";
 import { bankRoute } from "@/lib/bank-url";
 import { client } from "@/lib/api";
 import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
 import {
   Command,
   CommandEmpty,
@@ -575,16 +574,6 @@ function BankSelectorInner() {
                   />
                   <label className="text-sm font-medium">Import from template</label>
                 </div>
-                {useTemplate && (
-                  <a
-                    href="https://mindmods.org/templates"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    Browse templates &rarr;
-                  </a>
-                )}
               </div>
               {useTemplate && (
                 <div>
