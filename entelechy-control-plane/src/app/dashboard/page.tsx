@@ -31,6 +31,9 @@ export default function DashboardPage() {
           <p className="text-sm text-muted-foreground">
             The sidebar will appear once you select a memory bank.
           </p>
+          <a href="/admin" className="mt-4 inline-block text-sm underline text-muted-foreground">
+            Administration
+          </a>
         </div>
       </div>
     </div>
