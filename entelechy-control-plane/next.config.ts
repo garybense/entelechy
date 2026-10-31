@@ -26,6 +26,7 @@ const nextConfig: NextConfig = {
       { source: '/openapi.json', destination: `${api}/openapi.json` },
       { source: '/docs', destination: `${api}/docs` },
       { source: '/version', destination: `${api}/version` },
+      { source: '/ext/:path*', destination: `${api}/ext/:path*` },
     ];
   },
   // Set the monorepo root explicitly to avoid detecting wrong lockfiles in parent directories

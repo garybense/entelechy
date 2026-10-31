@@ -68,5 +68,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api/health|v1/|openapi.json|docs|version|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api/health|v1/|ext/|openapi.json|docs|version|_next/static|_next/image|favicon.ico).*)"],
 };
