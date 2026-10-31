@@ -127,27 +127,17 @@ jobs:
     if: inputs.locomo_skip != true
     runs-on: ubuntu-latest
     env:
-      ENTELECHY_API_LLM_PROVIDER: vertexai
-      ENTELECHY_API_LLM_VERTEXAI_SERVICE_ACCOUNT_KEY: /tmp/gcp-credentials.json
-      ENTELECHY_API_LLM_MODEL: google/gemini-2.5-flash-lite
-      ENTELECHY_API_JUDGE_LLM_PROVIDER: vertexai
-      ENTELECHY_API_JUDGE_LLM_MODEL: google/gemini-2.5-flash-lite
-      ENTELECHY_API_ANSWER_LLM_PROVIDER: vertexai
-      ENTELECHY_API_ANSWER_LLM_MODEL: google/gemini-2.5-flash
+      ENTELECHY_API_LLM_PROVIDER: ollama
+      ENTELECHY_API_LLM_BASE_URL: http://128.2.218.58:11434/v1
+      ENTELECHY_API_LLM_MODEL: huihui_ai/Qwen3.8-abliterated:latest
+      ENTELECHY_API_JUDGE_LLM_PROVIDER: ollama
+      ENTELECHY_API_JUDGE_LLM_MODEL: huihui_ai/Qwen3.8-abliterated:latest
+      ENTELECHY_API_ANSWER_LLM_PROVIDER: ollama
+      ENTELECHY_API_ANSWER_LLM_MODEL: huihui_ai/Qwen3.8-abliterated:latest
     steps:
     - uses: actions/checkout@v6
       with:
         ref: ${{ inputs.ref || github.ref }}
-
-    - name: Setup GCP credentials
-      run: |
-        printf '%s' '${{ secrets.GCP_VERTEXAI_CREDENTIALS }}' > /tmp/gcp-credentials.json
-        if [ -s /tmp/gcp-credentials.json ] && ! grep -q "^[[:space:]]*$" /tmp/gcp-credentials.json; then
-          PROJECT_ID=$(jq -r '.project_id' /tmp/gcp-credentials.json)
-        else
-          PROJECT_ID=""
-        fi
-        echo "ENTELECHY_API_LLM_VERTEXAI_PROJECT_ID=$PROJECT_ID" >> $GITHUB_ENV
 
     - name: Install uv
       uses: astral-sh/setup-uv@v7
