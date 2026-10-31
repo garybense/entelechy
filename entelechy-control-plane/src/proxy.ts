@@ -6,7 +6,9 @@ import { NextRequest, NextResponse } from "next/server";
  *
  * Enabled when ENTELECHY_CP_BASIC_AUTH_PASSWORD is set. The user name defaults
  * to "admin" (override with ENTELECHY_CP_BASIC_AUTH_USER). /api/health stays
- * open so platform healthchecks keep working. When the password is unset the
+ * open so platform healthchecks keep working. The dataplane API paths proxied by
+ * next.config.ts (/v1, /mcp, /docs, /openapi.json, /version) skip Basic auth and
+ * rely on ENTELECHY_API_TENANT_API_KEY instead. When the password is unset the
  * Control Plane behaves as before.
  */
 function safeEqual(a: string, b: string): boolean {
@@ -37,5 +39,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api/health|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api/health|v1/|mcp|openapi.json|docs|version|_next/static|_next/image|favicon.ico).*)"],
 };
