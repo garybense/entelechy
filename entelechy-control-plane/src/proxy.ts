@@ -17,7 +17,36 @@ function safeEqual(a: string, b: string): boolean {
   return ab.length === bb.length && timingSafeEqual(ab, bb);
 }
 
+/**
+ * MCP connectors that cannot send an Authorization header (e.g. claude.ai custom
+ * connectors) can use /mcp/<ENTELECHY_CP_MCP_URL_TOKEN>. The token in the URL is
+ * the credential; the Control Plane forwards the request to the API's /mcp with
+ * the dataplane API key attached. Plain /mcp keeps requiring the Bearer key.
+ */
+function mcpUrlToken(request: NextRequest): NextResponse | null {
+  const { pathname, search } = request.nextUrl;
+  if (pathname !== "/mcp" && !pathname.startsWith("/mcp/")) return null;
+
+  const token = process.env.ENTELECHY_CP_MCP_URL_TOKEN;
+  const apiKey = process.env.ENTELECHY_CP_DATAPLANE_API_KEY;
+  const segments = pathname.split("/"); // ["", "mcp", "<token>", ...rest]
+  if (!token || !apiKey || segments.length < 3 || !safeEqual(segments[2], token)) {
+    return NextResponse.next(); // fall through to the API's own Bearer auth
+  }
+
+  const rest = segments.slice(3).join("/");
+  const api = process.env.ENTELECHY_CP_DATAPLANE_API_URL || "http://localhost:8888";
+  const headers = new Headers(request.headers);
+  headers.set("authorization", `Bearer ${apiKey}`);
+  return NextResponse.rewrite(new URL(`/mcp${rest ? `/${rest}` : ""}${search}`, api), {
+    request: { headers },
+  });
+}
+
 export function proxy(request: NextRequest) {
+  const mcp = mcpUrlToken(request);
+  if (mcp) return mcp;
+
   const password = process.env.ENTELECHY_CP_BASIC_AUTH_PASSWORD;
   if (!password) return NextResponse.next();
 
@@ -39,5 +68,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api/health|v1/|mcp|openapi.json|docs|version|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!api/health|v1/|openapi.json|docs|version|_next/static|_next/image|favicon.ico).*)"],
 };
