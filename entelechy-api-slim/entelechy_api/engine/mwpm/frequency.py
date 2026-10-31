@@ -87,6 +87,50 @@ def compute_memory_stats(
     )
 
 
+OUTCOME_SUCCESS_TAG = "outcome:success"
+OUTCOME_FAILURE_TAG = "outcome:failure"
+
+
+def derive_vector_f(
+    memories: Iterable[dict[str, Any]],
+    *,
+    now_epoch: float,
+    state_vector: Any | None = None,
+    has_checkpoint: bool = False,
+) -> MemoryStats:
+    """Compute the full Vector F: frequency stats plus the SVT-CP extensions.
+
+    Every field comes from data, nothing is assumed:
+      - semantic_diversity: normalized Shannon entropy of tag frequencies (0..1).
+      - avg_affect: mean of the state vector's affect_signature, clamped to -1..1.
+      - user_stability: 1 - drift_signal, only when a soul checkpoint exists to
+        measure drift against; otherwise 0.0 (no signal, the modulator ignores it).
+      - success_rate: share of recalled memories tagged ``outcome:success`` among
+        those tagged success or failure (recorded by outcome writeback). With no
+        recorded outcomes it is the neutral 0.5, which triggers no adjustment.
+    """
+    materialized = list(memories)
+    stats = compute_memory_stats(materialized, now_epoch=now_epoch)
+
+    freqs = [c for c in stats.tag_frequency.values() if c > 0]
+    if len(freqs) > 1:
+        total = sum(freqs)
+        entropy = -sum((c / total) * math.log(c / total) for c in freqs)
+        stats.semantic_diversity = entropy / math.log(len(freqs))
+
+    if state_vector is not None:
+        signature = [v for v in (getattr(state_vector, "affect_signature", None) or {}).values()]
+        if signature:
+            stats.avg_affect = max(-1.0, min(1.0, sum(signature) / len(signature)))
+        if has_checkpoint:
+            stats.user_stability = max(0.0, min(1.0, 1.0 - float(state_vector.drift_signal)))
+
+    successes = stats.tag_frequency.get(OUTCOME_SUCCESS_TAG, 0)
+    failures = stats.tag_frequency.get(OUTCOME_FAILURE_TAG, 0)
+    stats.success_rate = successes / (successes + failures) if successes + failures else 0.5
+    return stats
+
+
 # --- internals ---
 
 

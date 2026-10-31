@@ -16,11 +16,12 @@ from typing import Any
 
 from entelechy_api.engine.mwpm import PolicyParams
 from entelechy_api.engine.mwpm.application import apply_to_llm_kwargs
-from entelechy_api.engine.mwpm.frequency import compute_memory_stats
+from entelechy_api.engine.mwpm.frequency import derive_vector_f
 from entelechy_api.engine.mwpm.modulator import modulate_policy
 from entelechy_api.engine.soul.operations import get_active_soul
 from entelechy_api.engine.srl import StateVector
-from entelechy_api.engine.srl.reconstructor import reconstruct_state
+from entelechy_api.engine.srl.checkpoint import read_checkpoint
+from entelechy_api.engine.srl.reconstructor import _extract_memory_dicts, reconstruct_state
 from entelechy_api.engine.srl.synthesis import utc_now
 
 logger = logging.getLogger(__name__)
@@ -139,9 +140,20 @@ async def distill(
                 request_context=request_context,
                 cache_key=f"distill:{utc_now().timestamp()}",
             )
-            stats = compute_memory_stats(
-                [],  # no precomputed memories — modulator falls back on state_vector
+            recalled = await engine.recall_async(
+                bank_id=bank_id, query=query, request_context=request_context, _quiet=True
+            )
+            checkpoint = await read_checkpoint(
+                engine=engine,
+                bank_id=bank_id,
+                request_context=request_context,
                 now_epoch=utc_now().timestamp(),
+            )
+            stats = derive_vector_f(
+                _extract_memory_dicts(recalled),
+                now_epoch=utc_now().timestamp(),
+                state_vector=state_vector,
+                has_checkpoint=checkpoint is not None,
             )
             policy = modulate_policy(state_vector=state_vector, memory_stats=stats)
         except Exception as exc:

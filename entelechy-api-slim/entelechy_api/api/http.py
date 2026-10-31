@@ -5,6 +5,7 @@ This module provides the create_app function to create and configure
 the FastAPI application with all API endpoints.
 """
 
+import dataclasses
 import asyncio
 import json
 import logging
@@ -537,6 +538,8 @@ class BootstrapResponse(BaseModel):
     policy_vector: dict[str, float]
     injected_prompt: str
     memory_context: str
+    state_vector: dict[str, Any] | None = None
+    vector_f: dict[str, Any] | None = None
 
 
 class RetainRequest(BaseModel):
@@ -2901,23 +2904,30 @@ def _register_routes(app: FastAPI):
                 bank_id=bank_id, query=request.context, budget=Budget.MID, request_context=request_context
             )
 
-            from entelechy_api.engine.mwpm import MemoryStats, PolicyParams
+            from entelechy_api.engine.mwpm.frequency import derive_vector_f
             from entelechy_api.engine.mwpm.modulator import modulate_policy
+            from entelechy_api.engine.srl.checkpoint import read_checkpoint
+            from entelechy_api.engine.srl.reconstructor import _extract_memory_dicts, reconstruct_state
+            from entelechy_api.engine.srl.synthesis import utc_now
 
-            stats = MemoryStats(
-                total_memories=len(recall_res.results),
-                avg_affect=0.2,
-                success_rate=0.8,
-                semantic_diversity=0.5,
-                user_stability=0.9,
+            now_epoch = utc_now().timestamp()
+            sv = await reconstruct_state(
+                engine=app.state.memory,
+                bank_id=bank_id,
+                query=request.context,
+                request_context=request_context,
             )
-
-            from entelechy_api.engine.srl import StateVector
-
-            sv = StateVector(
-                reconstruction_id="bootstrap",
-                source_memory_ids=[],
-                reconstructed_at=__import__("datetime").datetime.now(__import__("datetime").timezone.utc),
+            checkpoint = await read_checkpoint(
+                engine=app.state.memory,
+                bank_id=bank_id,
+                request_context=request_context,
+                now_epoch=now_epoch,
+            )
+            stats = derive_vector_f(
+                _extract_memory_dicts(recall_res),
+                now_epoch=now_epoch,
+                state_vector=sv,
+                has_checkpoint=checkpoint is not None,
             )
             policy = modulate_policy(state_vector=sv, memory_stats=stats)
 
@@ -2936,6 +2946,8 @@ def _register_routes(app: FastAPI):
                 },
                 injected_prompt=policy.to_system_control_vector(),
                 memory_context=memory_context,
+                state_vector=sv.model_dump(mode="json"),
+                vector_f=dataclasses.asdict(stats),
             )
         except Exception as e:
             import traceback
