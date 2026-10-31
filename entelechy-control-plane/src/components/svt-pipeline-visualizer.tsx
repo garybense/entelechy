@@ -16,7 +16,7 @@ import {
 export type StageStatus = "idle" | "running" | "completed" | "failed";
 
 export interface PipelineStageData {
-  id: "query" | "bootstrap" | "routing" | "response" | "retain_async";
+  id: "query" | "bootstrap" | "response" | "retain_async";
   title: string;
   subtitle: string;
   icon: string;
@@ -70,8 +70,6 @@ export function SvtPipelineVisualizer({ stages, activeStageId }: SvtPipelineVisu
         return <Code2 className="w-4 h-4 text-purple-400" />;
       case "bootstrap":
         return <Sparkles className="w-4 h-4 text-amber-400" />;
-      case "routing":
-        return <Network className="w-4 h-4 text-blue-400" />;
       case "response":
         return <Cpu className="w-4 h-4 text-indigo-400" />;
       case "retain_async":

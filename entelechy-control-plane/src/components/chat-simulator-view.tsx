@@ -18,7 +18,6 @@ import {
   RotateCcw,
   Sparkles,
   Database,
-  Network,
   Code2,
   ChevronDown,
   ChevronRight,
@@ -39,7 +38,6 @@ interface Message {
   timestamp: string;
   pipelineData?: {
     bootstrap?: any;
-    routing?: any;
     response?: any;
     retain_async?: any;
   };
@@ -66,8 +64,8 @@ const PRESET_SCENARIOS: ScriptScenario[] = [
   },
   {
     id: "orchestrator-routing",
-    title: "Scenario B: Multi-Turn Orchestrator Routing",
-    description: "Tests routing choices and context retrieval across consecutive queries.",
+    title: "Scenario B: Multi-Turn Context Retrieval",
+    description: "Tests context retrieval across consecutive queries.",
     prompts: [
       "Let's analyze the current SVT-CP policy control settings for this bank.",
       "How does the /bootstrap injection affect model system prompts in zero-intervention mode?",
@@ -103,13 +101,6 @@ export default function ChatSimulatorView() {
       title: "/bootstrap",
       subtitle: "Invisible prompt injection",
       icon: "sparkles",
-      status: "idle",
-    },
-    {
-      id: "routing",
-      title: "Orchestrator Router",
-      subtitle: "Dynamic agent policy",
-      icon: "network",
       status: "idle",
     },
     {
@@ -156,13 +147,6 @@ export default function ChatSimulatorView() {
         status: "idle",
       },
       {
-        id: "routing",
-        title: "Orchestrator Router",
-        subtitle: "Dynamic agent policy",
-        icon: "network",
-        status: "idle",
-      },
-      {
         id: "response",
         title: "Completion",
         subtitle: "Model execution",
@@ -200,9 +184,9 @@ export default function ChatSimulatorView() {
 
     setMessages((prev) => [...prev, userMsg]);
 
-    // Stage 2: /bootstrap Injection
     setActiveStageId("bootstrap");
     updateStageStatus("bootstrap", "running");
+    updateStageStatus("response", "running");
 
     try {
       const res = await fetch("/api/chat", {
@@ -215,73 +199,56 @@ export default function ChatSimulatorView() {
       });
 
       const data = await res.json();
+      const pipeline = data.pipeline;
+
+      // Report each stage with what the server measured and returned; nothing is filled in.
+      const report = (id: PipelineStageData["id"], stage: any) => {
+        if (!stage) {
+          updateStageStatus(id, "idle");
+          return;
+        }
+        updateStageStatus(
+          id,
+          stage.error ? "failed" : "completed",
+          stage.durationMs,
+          stage.error ? { error: stage.error, payload: stage.payload } : stage
+        );
+      };
+      report("bootstrap", pipeline?.bootstrap);
+      report("response", pipeline?.response);
+      report("retain_async", pipeline?.retain_async);
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to execute pipeline");
+        const msg = data.error || "Failed to execute pipeline";
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: (Date.now() + 1).toString(),
+            role: "assistant",
+            content: `Error: ${msg}`,
+            timestamp: new Date().toLocaleTimeString(),
+            pipelineData: pipeline,
+          },
+        ]);
+        setActiveStageId(null);
+        return;
       }
-
-      const { pipeline, content } = data;
-
-      // Update Bootstrap Stage
-      updateStageStatus(
-        "bootstrap",
-        "completed",
-        pipeline?.bootstrap?.durationMs || 120,
-        pipeline?.bootstrap
-      );
-
-      // Stage 3: Orchestrator Routing
-      setActiveStageId("routing");
-      updateStageStatus("routing", "running");
-      await new Promise((r) => setTimeout(r, 200));
-      updateStageStatus(
-        "routing",
-        "completed",
-        pipeline?.routing?.durationMs || 45,
-        pipeline?.routing
-      );
-
-      // Stage 4: Model Response Execution
-      setActiveStageId("response");
-      updateStageStatus("response", "running");
-      await new Promise((r) => setTimeout(r, 300));
-      updateStageStatus(
-        "response",
-        "completed",
-        pipeline?.response?.durationMs || 320,
-        pipeline?.response
-      );
 
       const assistantMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: content || "Response generated.",
+        content: data.content,
         timestamp: new Date().toLocaleTimeString(),
         pipelineData: pipeline,
       };
 
       setMessages((prev) => [...prev, assistantMsg]);
       setSelectedTurnId(assistantMsg.id);
-
-      // Stage 5: /retain_async Background Graph Evolution
-      setActiveStageId("retain_async");
-      updateStageStatus("retain_async", "running");
-      await new Promise((r) => setTimeout(r, 250));
-      updateStageStatus(
-        "retain_async",
-        "completed",
-        pipeline?.retain_async?.durationMs || 150,
-        pipeline?.retain_async
-      );
-
       setActiveStageId(null);
     } catch (err: any) {
       console.error(err);
-      if (activeStageId) {
-        updateStageStatus(activeStageId as PipelineStageData["id"], "failed", 0, {
-          error: err.message,
-        });
-      }
+      updateStageStatus("response", "failed", 0, { error: err.message });
+      setActiveStageId(null);
     } finally {
       setIsLoading(false);
     }
@@ -330,8 +297,8 @@ export default function ChatSimulatorView() {
               Zero-Intervention Chat Simulator
             </h1>
             <p className="text-xs text-muted-foreground">
-              Simulate SVT-CP zero-intervention turns, monitor /bootstrap injections, watch
-              orchestrator routing, and observe /retain_async background evolution.
+              Send turns through the live bank: /bootstrap injection, reflect, and /retain_async.
+              Every stage shows what the API returned, including errors.
             </p>
           </div>
           <Button
@@ -481,7 +448,7 @@ export default function ChatSimulatorView() {
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Type a message to test Orchestrator routing & /bootstrap..."
+                placeholder="Type a message to send through bootstrap, reflect and retain..."
                 className="text-xs h-8 flex-1"
                 disabled={isLoading || isScriptRunning}
               />
@@ -519,17 +486,6 @@ export default function ChatSimulatorView() {
                   </div>
                   <pre className="bg-background/80 p-2 rounded border border-border/50 text-[10px] overflow-x-auto max-h-28 whitespace-pre-wrap">
                     {JSON.stringify(selectedTurn.pipelineData.bootstrap?.payload || {}, null, 2)}
-                  </pre>
-                </div>
-
-                {/* Routing Payload */}
-                <div className="p-2.5 rounded-md border border-blue-500/30 bg-blue-500/5">
-                  <div className="flex items-center gap-1.5 text-blue-400 font-bold mb-1">
-                    <Network className="w-3.5 h-3.5" />
-                    <span>[ROUTING DECISION]</span>
-                  </div>
-                  <pre className="bg-background/80 p-2 rounded border border-border/50 text-[10px] overflow-x-auto max-h-24 whitespace-pre-wrap">
-                    {JSON.stringify(selectedTurn.pipelineData.routing?.payload || {}, null, 2)}
                   </pre>
                 </div>
 
