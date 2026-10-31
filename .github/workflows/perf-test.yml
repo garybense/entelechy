@@ -128,12 +128,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ENTELECHY_API_LLM_PROVIDER: ollama
-      ENTELECHY_API_LLM_BASE_URL: http://128.2.218.58:11434/v1
-      ENTELECHY_API_LLM_MODEL: huihui_ai/Qwen3.8-abliterated:latest
+      ENTELECHY_API_LLM_BASE_URL: http://135.125.101.53:11434/v1
+      ENTELECHY_API_LLM_MODEL: mistral:latest
       ENTELECHY_API_JUDGE_LLM_PROVIDER: ollama
-      ENTELECHY_API_JUDGE_LLM_MODEL: huihui_ai/Qwen3.8-abliterated:latest
+      ENTELECHY_API_JUDGE_LLM_MODEL: mistral:latest
       ENTELECHY_API_ANSWER_LLM_PROVIDER: ollama
-      ENTELECHY_API_ANSWER_LLM_MODEL: huihui_ai/Qwen3.8-abliterated:latest
+      ENTELECHY_API_ANSWER_LLM_MODEL: mistral:latest
     steps:
     - uses: actions/checkout@v6
       with:
