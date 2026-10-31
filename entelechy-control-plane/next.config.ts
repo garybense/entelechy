@@ -15,6 +15,19 @@ const nextConfig: NextConfig = {
   assetPrefix: basePath,
   // Disable request logging in production
   logging: false,
+  // Expose the dataplane API on the same public origin (the platform exposes one
+  // port per service). These paths are authenticated by the API key, not Basic auth.
+  async rewrites() {
+    const api = process.env.ENTELECHY_CP_DATAPLANE_API_URL || 'http://localhost:8888';
+    return [
+      { source: '/v1/:path*', destination: `${api}/v1/:path*` },
+      { source: '/mcp', destination: `${api}/mcp` },
+      { source: '/mcp/:path*', destination: `${api}/mcp/:path*` },
+      { source: '/openapi.json', destination: `${api}/openapi.json` },
+      { source: '/docs', destination: `${api}/docs` },
+      { source: '/version', destination: `${api}/version` },
+    ];
+  },
   // Set the monorepo root explicitly to avoid detecting wrong lockfiles in parent directories
   turbopack: {
     root: path.resolve(__dirname, '..'),
