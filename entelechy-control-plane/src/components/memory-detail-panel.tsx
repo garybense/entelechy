@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { TagList } from "@/components/ui/tag-list";
-import { Copy, Check, X, Loader2, Calendar, History } from "lucide-react";
+import { Copy, Check, X, Loader2, Calendar, History, Trash2 } from "lucide-react";
 import { DocumentChunkModal } from "./document-chunk-modal";
 import { MemoryDetailModal } from "./memory-detail-modal";
 import { client } from "@/lib/api";
@@ -14,6 +14,8 @@ interface MemoryDetailPanelProps {
   compact?: boolean;
   inPanel?: boolean;
   bankId?: string;
+  /** Called after a memory is deleted so the parent can refresh its list. */
+  onDeleted?: () => void;
 }
 
 export function MemoryDetailPanel({
@@ -22,6 +24,7 @@ export function MemoryDetailPanel({
   compact = false,
   inPanel = false,
   bankId,
+  onDeleted,
 }: MemoryDetailPanelProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [modalType, setModalType] = useState<"document" | "chunk" | null>(null);
@@ -103,6 +106,33 @@ export function MemoryDetailPanel({
   // Handle both 'id' and 'node_id' (trace results use node_id)
   const memoryId = displayMemory.id || displayMemory.node_id;
 
+  // Only raw facts can be deleted here; observations and mental models have their own lifecycle.
+  const factTypeForDelete = displayMemory?.fact_type || displayMemory?.type;
+  const canDelete = !!bankId && (factTypeForDelete === "world" || factTypeForDelete === "experience");
+  const handleDelete = async () => {
+    if (!bankId || !memoryId) return;
+    if (!window.confirm("Delete this memory and its links? This cannot be undone.")) return;
+    try {
+      await client.deleteMemory(bankId, memoryId);
+      onDeleted?.();
+      onClose();
+    } catch (err) {
+      console.error("Failed to delete memory:", err);
+      window.alert(`Failed to delete memory: ${err instanceof Error ? err.message : err}`);
+    }
+  };
+  const deleteButton = canDelete ? (
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={handleDelete}
+      title="Delete memory"
+      className="h-8 w-8 p-0 text-destructive"
+    >
+      <Trash2 className="h-4 w-4" />
+    </Button>
+  ) : null;
+
   const labelSize = compact ? "text-[10px]" : "text-xs";
   const textSize = compact ? "text-xs" : "text-sm";
 
@@ -114,9 +144,12 @@ export function MemoryDetailPanel({
           {/* Header with close button */}
           <div className="flex justify-between items-center mb-6 pb-4 border-b border-border">
             <h3 className="text-xl font-bold text-foreground">{memoryTypeTitle}</h3>
-            <Button variant="secondary" size="sm" onClick={onClose} className="h-8 w-8 p-0">
-              <X className="h-5 w-5" />
-            </Button>
+            <div className="flex items-center gap-1">
+              {deleteButton}
+              <Button variant="secondary" size="sm" onClick={onClose} className="h-8 w-8 p-0">
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
           </div>
 
           {loading ? (
@@ -373,14 +406,17 @@ export function MemoryDetailPanel({
       >
         <div className="flex justify-between items-start mb-4">
           <h3 className={`${titleSize} font-bold text-card-foreground`}>{memoryTypeTitle}</h3>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            className={compact ? "h-6 w-6 p-0" : "h-8 w-8 p-0"}
-          >
-            <X className={compact ? "h-3 w-3" : "h-4 w-4"} />
-          </Button>
+          <div className="flex items-center gap-1">
+            {deleteButton}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className={compact ? "h-6 w-6 p-0" : "h-8 w-8 p-0"}
+            >
+              <X className={compact ? "h-3 w-3" : "h-4 w-4"} />
+            </Button>
+          </div>
         </div>
 
         {loading ? (

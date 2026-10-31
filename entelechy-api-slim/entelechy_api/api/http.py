@@ -6150,6 +6150,39 @@ def _register_routes(app: FastAPI):
             logger.error(f"Error in /v1/default/banks/{bank_id}/memories: {error_detail}")
             raise HTTPException(status_code=500, detail=str(e))
 
+    @app.delete(
+        "/v1/default/banks/{bank_id}/memories/{memory_id}",
+        response_model=DeleteResponse,
+        summary="Delete a single memory",
+        description="Delete one memory unit (fact) from a bank, with its links and entity associations. "
+        "Observations derived from it are removed and their other sources are re-consolidated. "
+        "Returns 404 if the memory does not exist in this bank. This cannot be undone.",
+        operation_id="delete_memory",
+        tags=["Memory"],
+    )
+    @audited("delete_memory", request_param=None)
+    async def api_delete_memory(
+        bank_id: str,
+        memory_id: str,
+        request_context: RequestContext = Depends(get_request_context),
+    ):
+        try:
+            result = await app.state.memory.delete_memory_unit(
+                memory_id, bank_id=bank_id, request_context=request_context
+            )
+            if not result["success"]:
+                raise HTTPException(status_code=404, detail=f"Memory '{memory_id}' not found in bank '{bank_id}'")
+            return DeleteResponse(success=True, message=result["message"], deleted_count=1)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        except OperationValidationError as e:
+            raise HTTPException(status_code=e.status_code, detail=e.reason)
+        except (AuthenticationError, HTTPException):
+            raise
+        except Exception as e:
+            logger.error(f"Error deleting memory {memory_id} in bank {bank_id}: {e}", exc_info=True)
+            raise HTTPException(status_code=500, detail=str(e))
+
     # ---- Audit Logs ----
 
     class AuditLogEntry(BaseModel):

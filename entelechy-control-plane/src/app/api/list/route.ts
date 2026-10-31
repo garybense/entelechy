@@ -1,5 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { entelechyClient, sdk, lowLevelClient } from "@/lib/entelechy-client";
+import {
+  entelechyClient,
+  sdk,
+  lowLevelClient,
+  dataplaneBankUrl,
+  getDataplaneHeaders,
+} from "@/lib/entelechy-client";
 
 export async function GET(request: NextRequest) {
   try {
@@ -38,14 +44,23 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// Note: Individual memory unit deletion is not yet supported by the API
-// Use clearBankMemories to delete all memories for a bank instead
+// Delete one memory unit (and its links) from a bank.
 export async function DELETE(request: NextRequest) {
-  return NextResponse.json(
-    {
-      error:
-        "Individual memory unit deletion is not yet supported. Use clear all memories instead.",
-    },
-    { status: 501 } // Not Implemented
-  );
+  const searchParams = request.nextUrl.searchParams;
+  const bankId = searchParams.get("bank_id");
+  const memoryId = searchParams.get("memory_id");
+  if (!bankId || !memoryId) {
+    return NextResponse.json({ error: "bank_id and memory_id are required" }, { status: 400 });
+  }
+  try {
+    const response = await fetch(dataplaneBankUrl(bankId, `/memories/${encodeURIComponent(memoryId)}`), {
+      method: "DELETE",
+      headers: getDataplaneHeaders(),
+    });
+    const body = await response.json().catch(() => ({}));
+    return NextResponse.json(body, { status: response.status });
+  } catch (error) {
+    console.error("Error deleting memory:", error);
+    return NextResponse.json({ error: "Failed to delete memory" }, { status: 500 });
+  }
 }

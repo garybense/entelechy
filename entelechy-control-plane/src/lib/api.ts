@@ -656,6 +656,16 @@ export class ControlPlaneClient {
   }
 
   /**
+   * Delete a single memory (world or experience fact) and its links
+   */
+  async deleteMemory(bankId: string, memoryId: string) {
+    return this.fetchApi(
+      `/api/list?bank_id=${encodeURIComponent(bankId)}&memory_id=${encodeURIComponent(memoryId)}`,
+      { method: "DELETE" }
+    );
+  }
+
+  /**
    * Get chunk
    */
   async getChunk(chunkId: string) {
