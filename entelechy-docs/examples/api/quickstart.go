@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	entelechy "github.com/vectorize-io/entelechy/entelechy-clients/go"
+	entelechy "github.com/garybense/entelechy/entelechy-clients/go"
 )
 
 func main() {

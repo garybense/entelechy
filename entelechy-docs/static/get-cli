@@ -2,10 +2,10 @@
 set -e
 
 # Entelechy CLI installer
-# Usage: curl -fsSL https://entelechy.vectorize.io/get-cli | bash
-# Or with specific version: ENTELECHY_CLI_VERSION=0.4.3 curl -fsSL https://entelechy.vectorize.io/get-cli | bash
+# Usage: curl -fsSL https://mindmods.org/get-cli | bash
+# Or with specific version: ENTELECHY_CLI_VERSION=0.4.3 curl -fsSL https://mindmods.org/get-cli | bash
 
-REPO_URL="https://github.com/vectorize-io/entelechy"
+REPO_URL="https://github.com/garybense/entelechy"
 INSTALL_DIR="${ENTELECHY_INSTALL_DIR:-$HOME/.local/bin}"
 BINARY_NAME="entelechy"
 
@@ -80,7 +80,7 @@ detect_platform() {
 
 # Get latest version from GitHub API
 get_latest_version() {
-    local api_url="https://api.github.com/repos/vectorize-io/entelechy/releases/latest"
+    local api_url="https://api.github.com/repos/garybense/entelechy/releases/latest"
     local version=""
 
     if command -v curl > /dev/null 2>&1; then

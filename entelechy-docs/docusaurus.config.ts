@@ -390,7 +390,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Vectorize, Inc.`,
+      copyright: `Copyright © ${new Date().getFullYear()} MindMods`,
     },
     prism: {
       theme: prismThemes.github,

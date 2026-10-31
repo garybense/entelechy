@@ -9,7 +9,7 @@
 #   ./docker/test-image.sh <image> [target]
 #
 # Arguments:
-#   image   - Docker image to test (e.g., entelechy-api:test, ghcr.io/vectorize-io/entelechy:latest)
+#   image   - Docker image to test (e.g., entelechy-api:test, ghcr.io/garybense/entelechy:latest)
 #   target  - Optional: 'cp-only' for control plane, otherwise assumes API image (default: api)
 #
 # Environment variables:
@@ -28,7 +28,7 @@
 #   ./docker/test-image.sh entelechy-api:test
 #
 #   # Test a released image
-#   ./docker/test-image.sh ghcr.io/vectorize-io/entelechy:latest
+#   ./docker/test-image.sh ghcr.io/garybense/entelechy:latest
 #
 #   # Test control plane image
 #   ./docker/test-image.sh entelechy-control-plane:test cp-only
@@ -74,7 +74,7 @@ if [ -z "$IMAGE" ]; then
     echo ""
     echo "Examples:"
     echo "  $0 entelechy-api:test"
-    echo "  $0 ghcr.io/vectorize-io/entelechy:latest"
+    echo "  $0 ghcr.io/garybense/entelechy:latest"
     echo "  $0 entelechy-control-plane:test cp-only"
     exit 2
 fi

@@ -20,7 +20,7 @@ Get an API key at [Entelechy Cloud](https://ui.mindmods.org/signup).
 
 Full setup guide, pitfalls, and troubleshooting:
 
-**[NemoClaw Integration Documentation](https://vectorize.io/entelechy/sdks/integrations/nemoclaw)**
+**[NemoClaw Integration Documentation](https://mindmods.org/sdks/integrations/nemoclaw)**
 
 Or see [NEMOCLAW.md](./NEMOCLAW.md) in this directory for a step-by-step walkthrough.
 
@@ -50,7 +50,7 @@ Options:
 
 ## Links
 
-- [Entelechy Documentation](https://vectorize.io/entelechy)
+- [Entelechy Documentation](https://mindmods.org)
 - [NemoClaw](https://nemoclaw.ai)
 - [OpenClaw](https://openclaw.ai)
 - [GitHub Repository](https://github.com/garybense/entelechy)

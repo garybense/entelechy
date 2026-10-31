@@ -315,11 +315,11 @@ The Entelechy plugin for Claude Code is [open source][12] and works with any Cla
 
 Set it up, use it for a week, and see the difference.
 
-[1]:	https://vectorize.io/entelechy
+[1]:	https://mindmods.org
 [2]:	https://openclaw.ai
 [3]:	https://t.me/botfather
 [4]:	https://t.me/userinfobot
-[5]:	https://vectorize.io/entelechy
+[5]:	https://mindmods.org
 [6]:	https://github.com/garybense/entelechy/tree/main/entelechy-integrations/openclaw
 [7]:	https://github.com/garybense/entelechy/tree/main/entelechy-integrations/claude-code
 [9]:	https://github.com/garybense/entelechy/tree/main/entelechy-integrations/claude-code

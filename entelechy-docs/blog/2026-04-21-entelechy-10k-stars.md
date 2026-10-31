@@ -223,7 +223,7 @@ Thank you.
 If you're building an agent system and memory matters:
 
 - **Star [the repo](https://github.com/garybense/entelechy)** (totally optional, but hey—it got us here)
-- **Try it locally** — `docker run -p 8000:8000 vectorize/entelechy` (that's it)
+- **Try it locally** — `docker run -p 8000:8000 garybense/entelechy` (that's it)
 - **Try Entelechy Cloud** — [managed deployment, scaling handled, usage-based pricing](https://ui.mindmods.org/signup)
 - **Join the conversation** — [GitHub Discussions](https://github.com/garybense/entelechy/discussions) or [Slack](https://entelechy-space.slack.com)
 

@@ -1,6 +1,6 @@
 # Entelechy Memory Plugin for OpenClaw
 
-Biomimetic long-term memory for [OpenClaw](https://openclaw.ai) using [Entelechy](https://vectorize.io/entelechy). Automatically captures conversations and intelligently recalls relevant context.
+Biomimetic long-term memory for [OpenClaw](https://openclaw.ai) using [Entelechy](https://mindmods.org). Automatically captures conversations and intelligently recalls relevant context.
 
 ## Quick Start
 
@@ -156,7 +156,7 @@ Retained documents use stable session-scoped IDs derived from the OpenClaw `sess
 
 For full documentation, configuration options, troubleshooting, and development guide, see:
 
-**[OpenClaw Integration Documentation](https://vectorize.io/entelechy/sdks/integrations/openclaw)**
+**[OpenClaw Integration Documentation](https://mindmods.org/sdks/integrations/openclaw)**
 
 ## Development
 
@@ -241,7 +241,7 @@ Useful options:
 
 ## Links
 
-- [Entelechy Documentation](https://vectorize.io/entelechy)
+- [Entelechy Documentation](https://mindmods.org)
 - [OpenClaw Documentation](https://openclaw.ai)
 - [GitHub Repository](https://github.com/garybense/entelechy)
 

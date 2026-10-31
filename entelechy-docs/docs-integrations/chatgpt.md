@@ -6,7 +6,7 @@ description: "Add long-term memory to ChatGPT with Entelechy. Use OAuth-secured 
 
 # ChatGPT
 
-Add persistent, searchable memory to [ChatGPT](https://chatgpt.com) using [Entelechy](https://vectorize.io/entelechy). Store insights from your conversations and automatically recall relevant context in future sessions—all secured with OAuth.
+Add persistent, searchable memory to [ChatGPT](https://chatgpt.com) using [Entelechy](https://mindmods.org). Store insights from your conversations and automatically recall relevant context in future sessions—all secured with OAuth.
 
 ## Overview
 

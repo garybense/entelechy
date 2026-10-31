@@ -11,7 +11,7 @@ const ENTELECHY_URL = process.env.ENTELECHY_API_URL || 'http://localhost:8888';
 // =============================================================================
 
 // [docs:quickstart-full]
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const client = new EntelechyClient({ baseUrl: 'http://localhost:8888' });
 

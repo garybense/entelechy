@@ -173,7 +173,7 @@ Mount your extension package as a volume and set the environment variable:
 # docker-compose.yml
 services:
   entelechy-api:
-    image: vectorize/entelechy-api:latest
+    image: garybense/entelechy-api:latest
     volumes:
       - ./my_extensions:/app/my_extensions
     environment:
@@ -185,7 +185,7 @@ services:
 Or build a custom image with your extensions:
 
 ```dockerfile
-FROM vectorize/entelechy-api:latest
+FROM garybense/entelechy-api:latest
 COPY my_extensions /app/my_extensions
 ENV PYTHONPATH=/app
 ```

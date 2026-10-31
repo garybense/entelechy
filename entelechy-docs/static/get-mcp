@@ -3,7 +3,7 @@
 # Install Entelechy MCP server for Claude Desktop
 #
 # Usage:
-#   curl -fsSL https://entelechy.vectorize.io/get-mcp | bash -s -- --app claude-desktop --set ENTELECHY_API_LLM_API_KEY=YOUR_KEY
+#   curl -fsSL https://mindmods.org/get-mcp | bash -s -- --app claude-desktop --set ENTELECHY_API_LLM_API_KEY=YOUR_KEY
 #
 # Options:
 #   --app              Required. Target application (currently only: claude-desktop)
@@ -11,18 +11,18 @@
 #
 # Examples:
 #   # With OpenAI
-#   curl -fsSL https://entelechy.vectorize.io/get-mcp | bash -s -- \
+#   curl -fsSL https://mindmods.org/get-mcp | bash -s -- \
 #     --app claude-desktop \
 #     --set ENTELECHY_API_LLM_API_KEY=sk-...
 #
 #   # With Ollama (local LLM)
-#   curl -fsSL https://entelechy.vectorize.io/get-mcp | bash -s -- \
+#   curl -fsSL https://mindmods.org/get-mcp | bash -s -- \
 #     --app claude-desktop \
 #     --set ENTELECHY_API_LLM_PROVIDER=ollama \
 #     --set ENTELECHY_API_LLM_MODEL=llama3.2
 #
 #   # With custom memory instructions
-#   curl -fsSL https://entelechy.vectorize.io/get-mcp | bash -s -- \
+#   curl -fsSL https://mindmods.org/get-mcp | bash -s -- \
 #     --app claude-desktop \
 #     --set ENTELECHY_API_LLM_API_KEY=sk-... \
 #     --set ENTELECHY_API_MCP_INSTRUCTIONS="Also store every action you take and code you write."

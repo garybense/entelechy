@@ -6,9 +6,9 @@ description: "Add persistent, automated memory to your OpenClaw agent with Entel
 
 # OpenClaw
 
-Local, long term memory for [OpenClaw](https://openclaw.ai) agents using [Entelechy](https://vectorize.io/entelechy).
+Local, long term memory for [OpenClaw](https://openclaw.ai) agents using [Entelechy](https://mindmods.org).
 
-This plugin integrates [entelechy-embed](https://vectorize.io/entelechy/cli), a standalone daemon that bundles Entelechy's memory engine (API + PostgreSQL) into a single command. Everything runs locally on your machine, reuses the LLM you're already paying for, and costs nothing extra.
+This plugin integrates [entelechy-embed](https://mindmods.org/cli), a standalone daemon that bundles Entelechy's memory engine (API + PostgreSQL) into a single command. Everything runs locally on your machine, reuses the LLM you're already paying for, and costs nothing extra.
 
 [View Changelog →](/changelog/integrations/openclaw)
 
