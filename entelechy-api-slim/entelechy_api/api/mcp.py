@@ -480,7 +480,7 @@ class MCPMiddleware:
                 if not session_id:
                     print("MCP GET without session ID (client probe) — returning welcome message")
                     logger.debug("MCP GET without session ID (client probe) — returning welcome message")
-                    await self._send_welcome_message(send)
+                    await self._send_welcome_message(send, self._public_base_url(scope))
                     return
 
         # Strip prefix from path
@@ -638,7 +638,13 @@ class MCPMiddleware:
             }
         )
 
-    async def _send_welcome_message(self, send):
+    def _public_base_url(self, scope) -> str:
+        """Public origin of this request (honours the proxy's forwarded headers)."""
+        host = self._get_header(scope, "x-forwarded-host") or self._get_header(scope, "host") or ""
+        proto = self._get_header(scope, "x-forwarded-proto") or scope.get("scheme", "http")
+        return f"{proto}://{host}" if host else ""
+
+    async def _send_welcome_message(self, send, base_url: str = ""):
         """Send a 200 OK response with a welcome/onboarding message."""
         welcome_payload = {
             "message": "Welcome to Entelechy's Model Context Protocol (MCP) server!",
@@ -652,7 +658,7 @@ class MCPMiddleware:
                 "authenticate": "Include Authorization: Bearer <token> header for authenticated access (if required)",
             },
             "links": {
-                "documentation": "https://mindmods.org/docs/developer/mcp-server",
+                "documentation": f"{base_url}/docs/mcp",
                 "github": "https://github.com/garybense/entelechy",
             },
         }

@@ -12,9 +12,11 @@ import re
 import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any, Literal
 
 from fastapi import Depends, FastAPI, File, Form, Header, HTTPException, Query, Request, UploadFile
+from fastapi.responses import PlainTextResponse
 
 from entelechy_api.engine.audit import AuditEntry, AuditLogger
 from entelechy_api.extensions import AuthenticationError
@@ -2969,6 +2971,18 @@ def _register_routes(app: FastAPI):
         health = await app.state.memory.health_check()
         status_code = 200 if health.get("status") == "healthy" else 503
         return JSONResponse(content=health, status_code=status_code)
+
+    @app.get(
+        "/docs/mcp",
+        summary="MCP server guide",
+        description="Markdown guide to this deployment's MCP server: endpoints, auth, tools. Served by the API itself.",
+        tags=["Documentation"],
+        operation_id="get_mcp_docs",
+        response_class=PlainTextResponse,
+    )
+    async def mcp_docs_endpoint() -> PlainTextResponse:
+        guide = Path(__file__).resolve().parent.parent / "docs" / "mcp-server.md"
+        return PlainTextResponse(guide.read_text(encoding="utf-8"), media_type="text/markdown; charset=utf-8")
 
     @app.get(
         "/version",
