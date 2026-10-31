@@ -14,6 +14,7 @@ module.exports = {
       { source: '/openapi.json', destination: `${api}/openapi.json` },
       { source: '/docs', destination: `${api}/docs` },
       { source: '/version', destination: `${api}/version` },
+      { source: '/ext/:path*', destination: `${api}/ext/:path*` },
     ];
   },
 }

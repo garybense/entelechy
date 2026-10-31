@@ -106,6 +106,13 @@ def create_app(
 
         logger.info(f"MCP server enabled at {mcp_mount_path}/")
 
+    # Multi-user mode: authenticate /v1 requests and enforce bank ownership from the URL.
+    from entelechy_api.extensions.builtin.multiuser import BankOwnershipMiddleware, MultiUserTenantExtension
+
+    if isinstance(getattr(memory, "_tenant_extension", None), MultiUserTenantExtension):
+        app.add_middleware(BankOwnershipMiddleware)
+        logger.info("Multi-user bank ownership enforcement enabled")
+
     return app
 
 
