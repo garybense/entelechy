@@ -8,7 +8,7 @@ description: "Add persistent memory to OpenAI Codex CLI with Entelechy. Three Py
 
 [View Changelog →](/changelog/integrations/codex)
 
-Persistent memory for [Codex CLI](https://github.com/openai/codex) using [Entelechy](https://vectorize.io/entelechy). Three Python hook scripts automatically recall relevant context before each prompt and retain conversations after each turn — no changes to your Codex workflow required.
+Persistent memory for [Codex CLI](https://github.com/openai/codex) using [Entelechy](https://mindmods.org). Three Python hook scripts automatically recall relevant context before each prompt and retain conversations after each turn — no changes to your Codex workflow required.
 
 ## Quick Start
 

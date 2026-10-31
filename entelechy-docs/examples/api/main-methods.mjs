@@ -3,7 +3,7 @@
  * Main Methods overview examples for Entelechy (Node.js)
  * Run: node examples/api/main-methods.mjs
  */
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const ENTELECHY_URL = process.env.ENTELECHY_API_URL || 'http://localhost:8888';
 

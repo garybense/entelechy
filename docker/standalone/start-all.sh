@@ -19,7 +19,7 @@ if [ -d "$PG0_DATA_DIR" ]; then
         echo "⚠️  WARNING: pg0 data directory exists at $PG0_DATA_DIR but no PG_VERSION found."
         echo "   This may indicate data corruption or an incomplete previous shutdown."
         echo "   If you see all migrations running from scratch after this, your data may have been lost."
-        echo "   See: https://github.com/vectorize-io/entelechy/issues/675"
+        echo "   Check that the volume mounted at '$PG0_DATA_DIR' is the same one used before."
     fi
 fi
 

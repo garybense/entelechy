@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
-    { name = "Vectorize", email = "support@vectorize.io" }
+    { name = "MindMods", email = "support@mindmods.org" }
 ]
 keywords = [
     "ai",
@@ -33,7 +33,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/garybense/entelechy"
-Documentation = "https://docs.entelechy.vectorize.io/docs/sdks/integrations/openai-agents"
+Documentation = "https://mindmods.org/docs/sdks/integrations/openai-agents"
 Repository = "https://github.com/garybense/entelechy"
 
 [build-system]

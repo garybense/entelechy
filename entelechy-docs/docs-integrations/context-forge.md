@@ -6,7 +6,7 @@ description: "Register Entelechy as an MCP backend in IBM ContextForge gateway. 
 
 # ContextForge
 
-Register [Entelechy](https://vectorize.io/entelechy) as an MCP backend in [IBM ContextForge](https://github.com/IBM/mcp-context-forge), an open-source MCP gateway. Once registered, every AI tool connected to ContextForge — Dust, Claude Desktop, custom agents — gets access to Entelechy's retain, recall, and reflect tools through a single unified endpoint.
+Register [Entelechy](https://mindmods.org) as an MCP backend in [IBM ContextForge](https://github.com/IBM/mcp-context-forge), an open-source MCP gateway. Once registered, every AI tool connected to ContextForge — Dust, Claude Desktop, custom agents — gets access to Entelechy's retain, recall, and reflect tools through a single unified endpoint.
 
 ## Why ContextForge + Entelechy?
 

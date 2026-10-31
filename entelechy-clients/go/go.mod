@@ -1,4 +1,4 @@
-module github.com/vectorize-io/entelechy/entelechy-clients/go
+module github.com/garybense/entelechy/entelechy-clients/go
 
 go 1.23
 

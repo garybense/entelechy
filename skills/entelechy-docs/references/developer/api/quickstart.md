@@ -74,7 +74,7 @@ npm install @garybense/entelechy-client
 ```
 
 ```javascript
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const client = new EntelechyClient({ baseUrl: 'http://localhost:8888' });
 

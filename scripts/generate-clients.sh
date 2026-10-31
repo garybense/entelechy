@@ -432,7 +432,7 @@ else
         -g go \
         -o "$GO_CLIENT_DIR" \
         --package-name entelechy \
-        --git-user-id vectorize-io \
+        --git-user-id garybense \
         --git-repo-id entelechy/entelechy-clients/go \
         --global-property apiDocs=false,apiTests=false,modelDocs=false,modelTests=false
 

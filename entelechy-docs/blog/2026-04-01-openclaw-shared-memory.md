@@ -180,7 +180,7 @@ Both patterns require an external Entelechy server so all instances can connect 
 
 | Option | Setup | Data control | Best for |
 |--------|-------|-------------|----------|
-| **Entelechy Cloud** | Zero setup, one API token | Hosted by Vectorize | Most teams |
+| **Entelechy Cloud** | Zero setup, one API token | Hosted by MindMods | Most teams |
 | **Self-hosted** | Deploy on your own infra via Docker | Fully yours | Privacy-sensitive setups |
 | **Local per-machine** | Run `entelechy-embed` on each device | Local only | Single instance only, not shareable |
 

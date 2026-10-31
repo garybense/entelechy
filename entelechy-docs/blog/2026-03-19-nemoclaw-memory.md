@@ -283,5 +283,5 @@ The key insight: sandbox isolation and persistent memory are orthogonal concerns
 **Resources:**
 - [entelechy-nemoclaw on npm](https://www.npmjs.com/package/@garybense/entelechy-nemoclaw)
 - [entelechy-openclaw on npm](https://www.npmjs.com/package/@garybense/entelechy-openclaw)
-- [OpenClaw plugin documentation](https://vectorize.io/entelechy/sdks/integrations/openclaw)
+- [OpenClaw plugin documentation](https://mindmods.org/sdks/integrations/openclaw)
 - [Entelechy Cloud](https://ui.mindmods.org)

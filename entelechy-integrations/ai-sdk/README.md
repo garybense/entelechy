@@ -1,6 +1,6 @@
 # Entelechy Memory Integration for Vercel AI SDK
 
-Give your AI agents persistent, human-like memory using [Entelechy](https://vectorize.io/entelechy) with the [Vercel AI SDK](https://ai-sdk.dev).
+Give your AI agents persistent, human-like memory using [Entelechy](https://mindmods.org) with the [Vercel AI SDK](https://ai-sdk.dev).
 
 ## Quick Start
 
@@ -46,7 +46,7 @@ console.log(result.text);
 
 ## Documentation
 
-📖 **[Full Documentation](https://vectorize.io/entelechy/sdks/integrations/ai-sdk)**
+📖 **[Full Documentation](https://mindmods.org/sdks/integrations/ai-sdk)**
 
 The complete documentation includes:
 
@@ -71,7 +71,7 @@ Full examples are available in the [GitHub repository](https://github.com/garybe
 
 ## Support
 
-- [Documentation](https://vectorize.io/entelechy)
+- [Documentation](https://mindmods.org)
 - [GitHub Issues](https://github.com/garybense/entelechy/issues)
 - Email: support@mindmods.org
 

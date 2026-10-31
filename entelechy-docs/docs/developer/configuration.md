@@ -925,7 +925,7 @@ Cloud-based extraction via [Entelechy Iris](https://mindmods.org). Higher qualit
 ```bash
 # Use iris as the only parser
 export ENTELECHY_API_FILE_PARSER=iris
-export ENTELECHY_API_FILE_PARSER_IRIS_TOKEN=your-vectorize-token
+export ENTELECHY_API_FILE_PARSER_IRIS_TOKEN=your-iris-token
 export ENTELECHY_API_FILE_PARSER_IRIS_ORG_ID=your-org-id
 
 # Or: try iris first, fall back to markitdown if iris fails or rejects the file type

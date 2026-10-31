@@ -6,7 +6,7 @@ description: "Add long-term memory to Hermes Agent with Entelechy. Automatically
 
 # Hermes Agent
 
-Persistent long-term memory for [Hermes Agent](https://github.com/NousResearch/hermes-agent) using [Entelechy](https://vectorize.io/entelechy). Automatically recalls relevant context before every LLM call and retains conversations for future sessions — plus explicit retain/recall/reflect tools.
+Persistent long-term memory for [Hermes Agent](https://github.com/NousResearch/hermes-agent) using [Entelechy](https://mindmods.org). Automatically recalls relevant context before every LLM call and retains conversations for future sessions — plus explicit retain/recall/reflect tools.
 
 ## Quick Start
 

@@ -1,6 +1,6 @@
 # Cloudflare OAuth Proxy for Self-Hosted Entelechy
 
-An [OAuth 2.1](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-12) proxy that connects cloud-based MCP clients (such as [claude.ai](https://claude.ai), [Claude Code](../claude-code/), and [Codex](../codex/)) to a self-hosted [Entelechy](https://vectorize.io/entelechy) instance. Built on [Cloudflare Workers](https://developers.cloudflare.com/workers/) using the [`@cloudflare/workers-oauth-provider`](https://github.com/cloudflare/workers-oauth-provider) library.
+An [OAuth 2.1](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-12) proxy that connects cloud-based MCP clients (such as [claude.ai](https://claude.ai), [Claude Code](../claude-code/), and [Codex](../codex/)) to a self-hosted [Entelechy](https://mindmods.org) instance. Built on [Cloudflare Workers](https://developers.cloudflare.com/workers/) using the [`@cloudflare/workers-oauth-provider`](https://github.com/cloudflare/workers-oauth-provider) library.
 
 ## Why
 
@@ -27,7 +27,7 @@ Self-hosted Entelechy (Docker)
 ## Prerequisites
 
 - A [Cloudflare](https://www.cloudflare.com/) account with a domain
-- A running self-hosted Entelechy instance (see [self-hosting quickstart](https://vectorize.io/entelechy/quickstart/self-hosting))
+- A running self-hosted Entelechy instance (see [self-hosting quickstart](https://mindmods.org/quickstart/self-hosting))
 - A [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) exposing your Entelechy instance
 - [Node.js](https://nodejs.org/) (v18+)
 
