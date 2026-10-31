@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getDataplaneHeaders } from "@/lib/entelechy-client";
 
 export async function POST(req: Request) {
   try {
@@ -22,7 +23,7 @@ export async function POST(req: Request) {
         `${entelechyBaseUrl}/v1/default/banks/${encodeURIComponent(bankId)}/sessions/bootstrap`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: getDataplaneHeaders({ "Content-Type": "application/json" }),
           body: JSON.stringify({
             svt: "CST-simulator",
             context: userPrompt,
@@ -62,7 +63,7 @@ export async function POST(req: Request) {
     try {
       const reflectRes = await fetch(`${entelechyBaseUrl}/v1/default/reflect`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getDataplaneHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           bank_id: bankId,
           query: userPrompt,
@@ -92,7 +93,7 @@ export async function POST(req: Request) {
     try {
       const retainRes = await fetch(`${entelechyBaseUrl}/v1/default/memories/retain_async`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: getDataplaneHeaders({ "Content-Type": "application/json" }),
         body: JSON.stringify({
           bank_id: bankId,
           context: "chat_simulator",
