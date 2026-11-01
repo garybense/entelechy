@@ -2920,6 +2920,7 @@ def _register_routes(app: FastAPI):
 
             from entelechy_api.engine.mwpm.frequency import derive_vector_f
             from entelechy_api.engine.mwpm.modulator import modulate_policy
+            from entelechy_api.engine.mwpm.store import read_previous_policy, save_policy
             from entelechy_api.engine.srl.checkpoint import read_checkpoint
             from entelechy_api.engine.srl.reconstructor import _extract_memory_dicts, reconstruct_state
             from entelechy_api.engine.srl.synthesis import utc_now
@@ -2943,7 +2944,19 @@ def _register_routes(app: FastAPI):
                 state_vector=sv,
                 has_checkpoint=checkpoint is not None,
             )
-            policy = modulate_policy(state_vector=sv, memory_stats=stats)
+            previous_policy = await read_previous_policy(app.state.memory, bank_id)
+            policy = modulate_policy(state_vector=sv, memory_stats=stats, previous_policy=previous_policy)
+            vector_f = dataclasses.asdict(stats)
+            state_vector_json = sv.model_dump(mode="json")
+            await save_policy(
+                app.state.memory,
+                bank_id,
+                source="bootstrap",
+                policy=policy,
+                previous=previous_policy,
+                vector_f=vector_f,
+                state_vector=state_vector_json,
+            )
 
             # Use chr(10) instead of newline escapes
             newline = chr(10)
@@ -2960,14 +2973,32 @@ def _register_routes(app: FastAPI):
                 },
                 injected_prompt=policy.to_system_control_vector(),
                 memory_context=memory_context,
-                state_vector=sv.model_dump(mode="json"),
-                vector_f=dataclasses.asdict(stats),
+                state_vector=state_vector_json,
+                vector_f=vector_f,
             )
         except Exception as e:
             import traceback
 
             logger.error(f"Error in bootstrap: {traceback.format_exc()}")
             raise HTTPException(status_code=500, detail=str(e))
+
+    @app.get(
+        "/v1/default/banks/{bank_id}/policies",
+        summary="Policy history",
+        description="Policies computed for this bank by bootstrap and distill, newest first, each with the Vector F "
+        "and state vector it came from and whether policy inertia clamped it.",
+        operation_id="list_policies",
+        tags=["Sessions"],
+    )
+    async def api_list_policies(
+        bank_id: str,
+        limit: int = Query(default=50, ge=1, le=500),
+        request_context: RequestContext = Depends(get_request_context),
+    ):
+        await app.state.memory._authenticate_tenant(request_context)
+        from entelechy_api.engine.mwpm.store import list_policies
+
+        return {"bank_id": bank_id, "policies": await list_policies(app.state.memory, bank_id, limit)}
 
     @app.exception_handler(AuthenticationError)
     async def authentication_error_handler(request, exc: AuthenticationError):

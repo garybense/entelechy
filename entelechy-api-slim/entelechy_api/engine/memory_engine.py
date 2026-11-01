@@ -4217,6 +4217,7 @@ class MemoryEngine(MemoryEngineInterface):
                         }
 
                         if delete_bank_profile:
+                            await conn.execute(f"DELETE FROM {fq_table('policy_history')} WHERE bank_id = $1", bank_id)
                             # Delete the bank profile and retrieve internal_id for HNSW index cleanup
                             internal_id = await conn.fetchval(
                                 f"DELETE FROM {fq_table('banks')} WHERE bank_id = $1 RETURNING internal_id", bank_id
