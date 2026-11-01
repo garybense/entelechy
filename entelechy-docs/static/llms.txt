@@ -6,14 +6,14 @@ Entelechy is an agent memory system that gives AI agents persistent, structured 
 
 ## Links
 
-- [Full Documentation (llms-full.txt)](https://vectorize-io.github.io/entelechy/llms-full.txt): Complete documentation for LLM consumption
-- [Quick Start](https://vectorize-io.github.io/entelechy/developer/api/quickstart): Get started in 60 seconds
-- [Python SDK](https://vectorize-io.github.io/entelechy/sdks/python): Python client library
-- [TypeScript SDK](https://vectorize-io.github.io/entelechy/sdks/nodejs): Node.js/TypeScript client
-- [API Reference](https://vectorize-io.github.io/entelechy/api-reference): REST API documentation
-- [OpenAPI Spec](https://vectorize-io.github.io/entelechy/openapi.json): Machine-readable API specification
-- [MCP Server](https://vectorize-io.github.io/entelechy/sdks/mcp): Model Context Protocol integration
-- [GitHub](https://github.com/vectorize-io/entelechy): Source code and issues
+- [Full Documentation (llms-full.txt)](https://mindmods.org/llms-full.txt): Complete documentation for LLM consumption
+- [Quick Start](https://mindmods.org/developer/api/quickstart): Get started in 60 seconds
+- [Python SDK](https://mindmods.org/sdks/python): Python client library
+- [TypeScript SDK](https://mindmods.org/sdks/nodejs): Node.js/TypeScript client
+- [API Reference](https://mindmods.org/api-reference): REST API documentation
+- [OpenAPI Spec](https://mindmods.org/openapi.json): Machine-readable API specification
+- [MCP Server](https://mindmods.org/sdks/mcp): Model Context Protocol integration
+- [GitHub](https://github.com/garybense/entelechy): Source code and issues
 
 ## Core Operations
 
@@ -81,17 +81,17 @@ Base URL: `http://localhost:8888`
 
 ### Per-User Memory
 One bank per user. Simplest pattern for chatbots and assistants.
-[Guide](https://vectorize-io.github.io/entelechy/cookbook/per-user-memory)
+[Guide](https://mindmods.org/cookbook/per-user-memory)
 
 ### Support Agent + Shared Knowledge
 User bank + shared docs bank. Client orchestrates queries to both banks and merges results.
-[Guide](https://vectorize-io.github.io/entelechy/cookbook/support-agent-with-shared-knowledge)
+[Guide](https://mindmods.org/cookbook/support-agent-with-shared-knowledge)
 
 ## Installation
 
 ### Docker (recommended)
 ```bash
-docker run -p 8888:8888 -e ENTELECHY_API_LLM_PROVIDER=openai -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY ghcr.io/vectorize-io/entelechy
+docker run -p 8888:8888 -e ENTELECHY_API_LLM_PROVIDER=openai -e ENTELECHY_API_LLM_API_KEY=$OPENAI_API_KEY ghcr.io/garybense/entelechy
 ```
 
 ### Python (embedded)
@@ -102,7 +102,7 @@ pip install entelechy-all
 ### Clients
 ```bash
 pip install entelechy-client          # Python
-npm install @vectorize-io/entelechy-client  # TypeScript
+npm install @garybense/entelechy-client  # TypeScript
 ```
 
 ## MCP Integration

@@ -6,7 +6,7 @@ description: "Add long-term memory to OpenCode with Entelechy. Automatically cap
 
 # OpenCode
 
-Persistent long-term memory plugin for [OpenCode](https://opencode.ai) using [Entelechy](https://vectorize.io/entelechy). Automatically captures conversations, recalls relevant context on session start, and provides retain/recall/reflect tools the agent can call directly.
+Persistent long-term memory plugin for [OpenCode](https://opencode.ai) using [Entelechy](https://mindmods.org). Automatically captures conversations, recalls relevant context on session start, and provides retain/recall/reflect tools the agent can call directly.
 
 ## Quick Start
 

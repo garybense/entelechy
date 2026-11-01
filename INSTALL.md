@@ -43,7 +43,7 @@ This service manages the Entelechy Docker container, ensuring it starts automati
     Group=docker
     WorkingDirectory=/mnt/data/code/entelechy
     EnvironmentFile=/mnt/data/code/entelechy/.env
-    ExecStartPre=/usr/bin/docker pull ghcr.io/vectorize-io/entelechy:latest
+    ExecStartPre=/usr/bin/docker pull ghcr.io/garybense/entelechy:latest
     ExecStart=/usr/bin/docker run 
         --rm 
         --name entelechy-container 
@@ -52,7 +52,7 @@ This service manages the Entelechy Docker container, ensuring it starts automati
         -v /mnt/data/code/entelechy/.env:/app/.env 
         -v entelechy_data:/home/debian/.pg0 
         --env-file /mnt/data/code/entelechy/.env 
-        ghcr.io/vectorize-io/entelechy:latest
+        ghcr.io/garybense/entelechy:latest
     ExecStop=/usr/bin/docker stop entelechy-container
     ExecStopPost=/usr/bin/docker rm entelechy-container
     Restart=on-failure

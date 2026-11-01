@@ -6,7 +6,7 @@ description: "Add long-term memory to Perplexity with Entelechy. Use OAuth-secur
 
 # Perplexity
 
-Add persistent, searchable memory to [Perplexity](https://www.perplexity.ai) using [Entelechy](https://vectorize.io/entelechy). Store research findings and automatically recall relevant context in future searches—all secured with OAuth.
+Add persistent, searchable memory to [Perplexity](https://www.perplexity.ai) using [Entelechy](https://mindmods.org). Store research findings and automatically recall relevant context in future searches—all secured with OAuth.
 
 ## Overview
 

@@ -52,7 +52,7 @@ You can serialize `messages` to disk. But then:
 - You start truncating history
 - The assistant forgets early decisions
 
-We ran into this building Jerri, our internal AI project manager at Vectorize.
+We ran into this building Jerri, our internal AI project manager.
 
 Jerri lives in Slack. It ingests meeting transcripts, tracks action items, and answers "what did we decide about X?" Without persistent memory, every session started from zero.
 

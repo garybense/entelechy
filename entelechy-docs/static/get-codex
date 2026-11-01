@@ -3,16 +3,16 @@
 # Install Entelechy Memory for OpenAI Codex CLI
 #
 # Usage:
-#   curl -fsSL https://entelechy.vectorize.io/get-codex | bash
+#   curl -fsSL https://mindmods.org/get-codex | bash
 #
 # Options:
 #   --uninstall    Remove Entelechy hooks
 #   --mode <mode>  Mode: local (default) or cloud
 #
 # Examples:
-#   curl -fsSL https://entelechy.vectorize.io/get-codex | bash
-#   curl -fsSL https://entelechy.vectorize.io/get-codex | bash -s -- --mode cloud
-#   curl -fsSL https://entelechy.vectorize.io/get-codex | bash -s -- --uninstall
+#   curl -fsSL https://mindmods.org/get-codex | bash
+#   curl -fsSL https://mindmods.org/get-codex | bash -s -- --mode cloud
+#   curl -fsSL https://mindmods.org/get-codex | bash -s -- --uninstall
 #
 
 set -e
@@ -64,7 +64,7 @@ print_banner() {
     echo ""
 }
 
-GITHUB_RAW="https://raw.githubusercontent.com/vectorize-io/entelechy/main/entelechy-integrations/codex"
+GITHUB_RAW="https://raw.githubusercontent.com/garybense/entelechy/main/entelechy-integrations/codex"
 INSTALL_DIR="${HOME}/.entelechy/codex"
 SCRIPTS_DIR="${INSTALL_DIR}/scripts"
 CODEX_DIR="${HOME}/.codex"
@@ -101,7 +101,7 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         --help|-h)
-            echo "Usage: curl -fsSL https://entelechy.vectorize.io/get-codex | bash [-s -- OPTIONS]"
+            echo "Usage: curl -fsSL https://mindmods.org/get-codex | bash [-s -- OPTIONS]"
             echo ""
             echo "Options:"
             echo "  --mode <mode>    Mode: local (default) or cloud"
@@ -253,10 +253,10 @@ fi
 if [ "$MODE" = "cloud" ]; then
     print_step "Configuring Entelechy Cloud connection"
 
-    DEFAULT_CLOUD_URL="https://api.entelechy.vectorize.io"
+    DEFAULT_CLOUD_URL="https://api.mindmods.org"
 
     echo -e "${DIM}Enter your Entelechy Cloud connection details.${NC}"
-    echo -e "${DIM}Get these from https://ui.entelechy.vectorize.io${NC}"
+    echo -e "${DIM}Get these from https://ui.mindmods.org${NC}"
     echo ""
 
     if [ -t 0 ]; then
@@ -380,7 +380,7 @@ echo ""
 echo -e "  ${DIM}Start a new Codex session to activate.${NC}"
 echo ""
 echo -e "  ${DIM}Uninstall:${NC}"
-echo -e "    ${CYAN}curl -fsSL https://entelechy.vectorize.io/get-codex | bash -s -- --uninstall${NC}"
+echo -e "    ${CYAN}curl -fsSL https://mindmods.org/get-codex | bash -s -- --uninstall${NC}"
 echo ""
-echo -e "  ${DIM}Documentation:${NC} ${BLUE}https://entelechy.vectorize.io/sdks/integrations/codex${NC}"
+echo -e "  ${DIM}Documentation:${NC} ${BLUE}https://mindmods.org/sdks/integrations/codex${NC}"
 echo ""

@@ -5,7 +5,7 @@ description = "Strands Agents SDK integration for Entelechy - persistent memory 
 requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [
-    { name = "Vectorize", email = "support@vectorize.io" }
+    { name = "MindMods", email = "support@mindmods.org" }
 ]
 keywords = [
     "ai",

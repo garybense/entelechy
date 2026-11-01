@@ -4028,9 +4028,13 @@ class MemoryEngine(MemoryEngineInterface):
         unit_id: str,
         *,
         request_context: "RequestContext",
+        bank_id: str | None = None,
     ) -> dict[str, Any]:
         """
         Delete a single memory unit and all its associated links.
+
+        When ``bank_id`` is given, the unit is only deleted if it belongs to that bank;
+        otherwise it is reported as not found.
 
         Due to CASCADE DELETE constraints, this will automatically delete:
         - All links from this unit (memory_links where from_unit_id = unit_id)
@@ -4065,6 +4069,8 @@ class MemoryEngine(MemoryEngineInterface):
                     f"SELECT bank_id, fact_type FROM {fq_table('memory_units')} WHERE id = $1",
                     str(unit_uuid),
                 )
+                if row is not None and bank_id is not None and row["bank_id"] != bank_id:
+                    row = None
                 bank_id = row["bank_id"] if row else None
                 fact_type = row["fact_type"] if row else None
 
@@ -4073,8 +4079,12 @@ class MemoryEngine(MemoryEngineInterface):
                 # observations inserted concurrently by consolidation (otherwise a
                 # racing insert committed between the sweep and the delete would
                 # leave an orphan referencing this just-deleted source memory).
-                deleted = await conn.fetchval(
-                    f"DELETE FROM {fq_table('memory_units')} WHERE id = $1 RETURNING id", unit_id
+                deleted = (
+                    await conn.fetchval(
+                        f"DELETE FROM {fq_table('memory_units')} WHERE id = $1 RETURNING id", unit_id
+                    )
+                    if row is not None
+                    else None
                 )
 
                 # Invalidate observations referencing this (now-deleted) source memory
@@ -4207,6 +4217,7 @@ class MemoryEngine(MemoryEngineInterface):
                         }
 
                         if delete_bank_profile:
+                            await conn.execute(f"DELETE FROM {fq_table('policy_history')} WHERE bank_id = $1", bank_id)
                             # Delete the bank profile and retrieve internal_id for HNSW index cleanup
                             internal_id = await conn.fetchval(
                                 f"DELETE FROM {fq_table('banks')} WHERE bank_id = $1 RETURNING internal_id", bank_id

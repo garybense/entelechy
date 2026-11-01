@@ -3,7 +3,7 @@
  * Reflect API examples for Entelechy (Node.js)
  * Run: node examples/api/reflect.mjs
  */
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const ENTELECHY_URL = process.env.ENTELECHY_API_URL || 'http://localhost:8888';
 

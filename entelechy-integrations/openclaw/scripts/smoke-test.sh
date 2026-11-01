@@ -82,7 +82,7 @@ cleanup() {
   fi
 
   # Clean up the tarball only if we packed it ourselves.
-  if [[ -n "$TARBALL" && "$TARBALL" == "$PLUGIN_DIR"/vectorize-io-entelechy-openclaw-*.tgz ]]; then
+  if [[ -n "$TARBALL" && "$TARBALL" == "$PLUGIN_DIR"/garybense-entelechy-openclaw-*.tgz ]]; then
     rm -f "$TARBALL"
   fi
   exit "$rc"
@@ -179,7 +179,7 @@ main() {
       npm run build --silent
       npm pack --silent >/dev/null
     )
-    TARBALL="$(ls -t "$PLUGIN_DIR"/vectorize-io-entelechy-openclaw-*.tgz | head -1)"
+    TARBALL="$(ls -t "$PLUGIN_DIR"/garybense-entelechy-openclaw-*.tgz | head -1)"
     log "packed: $TARBALL"
   fi
 
@@ -220,7 +220,7 @@ main() {
   # -------------------------------------------------------------------------
   run_setup_mode "cloud (default URL, SecretRef)" \
     --mode cloud --token-env ENTELECHY_CLOUD_TOKEN
-  [[ "$(get_config_value plugins.entries.entelechy-openclaw.config.entelechyApiUrl)" == "https://api.entelechy.vectorize.io" ]] \
+  [[ "$(get_config_value plugins.entries.entelechy-openclaw.config.entelechyApiUrl)" == "https://api.mindmods.org" ]] \
     || fail "cloud mode: entelechyApiUrl not set to the default URL"
 
   run_setup_mode "cloud (inline --token)" \

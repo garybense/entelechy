@@ -14,7 +14,7 @@ func defaultUserAgent() string {
 	version := "devel"
 	if info, ok := debug.ReadBuildInfo(); ok {
 		for _, dep := range info.Deps {
-			if dep.Path == "github.com/vectorize-io/entelechy/entelechy-clients/go" {
+			if dep.Path == "github.com/garybense/entelechy/entelechy-clients/go" {
 				version = dep.Version
 				break
 			}

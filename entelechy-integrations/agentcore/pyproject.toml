@@ -5,7 +5,7 @@ description = "Persistent memory for Amazon Bedrock AgentCore Runtime agents usi
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "Vectorize", email = "support@vectorize.io" }]
+authors = [{ name = "MindMods", email = "support@mindmods.org" }]
 keywords = ["aws", "agentcore", "bedrock", "entelechy", "memory", "agents", "ai"]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -30,7 +30,7 @@ dev = [
 
 [project.urls]
 Homepage = "https://github.com/garybense/entelechy"
-Documentation = "https://docs.entelechy.vectorize.io/sdks/integrations/agentcore"
+Documentation = "https://mindmods.org/docs/sdks/integrations/agentcore"
 Repository = "https://github.com/garybense/entelechy"
 
 [build-system]

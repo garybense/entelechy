@@ -348,7 +348,7 @@ class TestConsolidationIntegration:
         - "Alex moved to the US recently" (updates the living location)
 
         The second fact should UPDATE the first, not create a separate observation.
-        But unrelated facts like "Alex works at Vectorize" should stay separate.
+        But unrelated facts like "Alex works at Acme" should stay separate.
         """
         bank_id = f"test-consolidation-merge-{uuid.uuid4().hex[:8]}"
 
@@ -365,7 +365,7 @@ class TestConsolidationIntegration:
         # Retain an unrelated memory (different topic - should NOT merge)
         await memory.retain_async(
             bank_id=bank_id,
-            content="Alex works at Vectorize as an engineer.",
+            content="Alex works at Acme as an engineer.",
             request_context=request_context,
         )
 

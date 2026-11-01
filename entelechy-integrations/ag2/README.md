@@ -138,6 +138,6 @@ manager = GroupChatManager(groupchat=group_chat)
 
 ## Documentation
 
-- [Entelechy Documentation](https://entelechy.docs.vectorize.io)
+- [Entelechy Documentation](https://mindmods.org/docs)
 - [AG2 Documentation](https://docs.ag2.ai)
-- [API Reference](https://entelechy.docs.vectorize.io/api)
+- [API Reference](https://mindmods.org/docs/api)

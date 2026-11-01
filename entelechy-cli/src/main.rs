@@ -1942,9 +1942,9 @@ fn handle_ui(profile: Option<&str>, output_format: OutputFormat) -> Result<()> {
         println!();
     }
 
-    // Run npx @vectorize-io/entelechy-control-plane --api-url {api_url}
+    // Run npx @garybense/entelechy-control-plane --api-url {api_url}
     let status = Command::new("npx")
-        .arg("@vectorize-io/entelechy-control-plane")
+        .arg("@garybense/entelechy-control-plane")
         .arg("--api-url")
         .arg(api_url)
         .status();
@@ -1962,7 +1962,7 @@ fn handle_ui(profile: Option<&str>, output_format: OutputFormat) -> Result<()> {
         Err(e) => {
             ui::print_error(&format!("Failed to launch control plane UI: {}", e));
             ui::print_info("Make sure you have Node.js and npm installed.");
-            ui::print_info("You can also install the control plane globally: npm install -g @vectorize-io/entelechy-control-plane");
+            ui::print_info("You can also install the control plane globally: npm install -g @garybense/entelechy-control-plane");
             std::process::exit(1);
         }
     }

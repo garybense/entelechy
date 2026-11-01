@@ -5,6 +5,7 @@ This module provides the create_app function to create and configure
 the FastAPI application with all API endpoints.
 """
 
+import dataclasses
 import asyncio
 import json
 import logging
@@ -539,6 +540,22 @@ class BootstrapResponse(BaseModel):
     policy_vector: dict[str, float]
     injected_prompt: str
     memory_context: str
+    state_vector: dict[str, Any] | None = None
+    vector_f: dict[str, Any] | None = None
+
+
+class OutcomeRequest(BaseModel):
+    """Result of acting on a bootstrap policy, written back as a tagged memory."""
+
+    outcome: Literal["success", "failure"] = Field(description="Whether the interaction achieved its goal.")
+    session_id: str | None = Field(
+        default=None,
+        description="Session the outcome belongs to. Reporting the same session again replaces the earlier outcome.",
+    )
+    policy: dict | None = Field(default=None, description="Policy vector that was in effect, as returned by bootstrap.")
+    score: float | None = Field(default=None, ge=0.0, le=1.0, description="Optional graded result between 0 and 1.")
+    note: str | None = Field(default=None, description="What happened, in plain language.")
+    async_: bool = Field(default=True, alias="async", description="Queue the write (default) or wait for it.")
 
 
 class RetainRequest(BaseModel):
@@ -2903,25 +2920,45 @@ def _register_routes(app: FastAPI):
                 bank_id=bank_id, query=request.context, budget=Budget.MID, request_context=request_context
             )
 
-            from entelechy_api.engine.mwpm import MemoryStats, PolicyParams
+            from entelechy_api.engine.mwpm.frequency import derive_vector_f
             from entelechy_api.engine.mwpm.modulator import modulate_policy
+            from entelechy_api.engine.mwpm.store import read_previous_policy, save_policy
+            from entelechy_api.engine.srl.checkpoint import read_checkpoint
+            from entelechy_api.engine.srl.reconstructor import _extract_memory_dicts, reconstruct_state
+            from entelechy_api.engine.srl.synthesis import utc_now
 
-            stats = MemoryStats(
-                total_memories=len(recall_res.results),
-                avg_affect=0.2,
-                success_rate=0.8,
-                semantic_diversity=0.5,
-                user_stability=0.9,
+            now_epoch = utc_now().timestamp()
+            sv = await reconstruct_state(
+                engine=app.state.memory,
+                bank_id=bank_id,
+                query=request.context,
+                request_context=request_context,
             )
-
-            from entelechy_api.engine.srl import StateVector
-
-            sv = StateVector(
-                reconstruction_id="bootstrap",
-                source_memory_ids=[],
-                reconstructed_at=__import__("datetime").datetime.now(__import__("datetime").timezone.utc),
+            checkpoint = await read_checkpoint(
+                engine=app.state.memory,
+                bank_id=bank_id,
+                request_context=request_context,
+                now_epoch=now_epoch,
             )
-            policy = modulate_policy(state_vector=sv, memory_stats=stats)
+            stats = derive_vector_f(
+                _extract_memory_dicts(recall_res),
+                now_epoch=now_epoch,
+                state_vector=sv,
+                has_checkpoint=checkpoint is not None,
+            )
+            previous_policy = await read_previous_policy(app.state.memory, bank_id)
+            policy = modulate_policy(state_vector=sv, memory_stats=stats, previous_policy=previous_policy)
+            vector_f = dataclasses.asdict(stats)
+            state_vector_json = sv.model_dump(mode="json")
+            await save_policy(
+                app.state.memory,
+                bank_id,
+                source="bootstrap",
+                policy=policy,
+                previous=previous_policy,
+                vector_f=vector_f,
+                state_vector=state_vector_json,
+            )
 
             # Use chr(10) instead of newline escapes
             newline = chr(10)
@@ -2938,12 +2975,32 @@ def _register_routes(app: FastAPI):
                 },
                 injected_prompt=policy.to_system_control_vector(),
                 memory_context=memory_context,
+                state_vector=state_vector_json,
+                vector_f=vector_f,
             )
         except Exception as e:
             import traceback
 
             logger.error(f"Error in bootstrap: {traceback.format_exc()}")
             raise HTTPException(status_code=500, detail=str(e))
+
+    @app.get(
+        "/v1/default/banks/{bank_id}/policies",
+        summary="Policy history",
+        description="Policies computed for this bank by bootstrap and distill, newest first, each with the Vector F "
+        "and state vector it came from and whether policy inertia clamped it.",
+        operation_id="list_policies",
+        tags=["Sessions"],
+    )
+    async def api_list_policies(
+        bank_id: str,
+        limit: int = Query(default=50, ge=1, le=500),
+        request_context: RequestContext = Depends(get_request_context),
+    ):
+        await app.state.memory._authenticate_tenant(request_context)
+        from entelechy_api.engine.mwpm.store import list_policies
+
+        return {"bank_id": bank_id, "policies": await list_policies(app.state.memory, bank_id, limit)}
 
     @app.exception_handler(AuthenticationError)
     async def authentication_error_handler(request, exc: AuthenticationError):
@@ -5960,6 +6017,43 @@ def _register_routes(app: FastAPI):
             raise HTTPException(status_code=500, detail=str(e))
 
     @app.post(
+        "/v1/default/banks/{bank_id}/outcomes",
+        response_model=RetainResponse,
+        summary="Write back an outcome",
+        description="Record whether acting on a bootstrap policy succeeded or failed. The outcome is retained as a "
+        "memory tagged `outcome:success` or `outcome:failure`; the next bootstrap derives Vector F `success_rate` "
+        "from those tags. Facts only carry the tag once extraction has run, so with a slow LLM the rate lags the write.",
+        operation_id="write_outcome",
+        tags=["Memory"],
+    )
+    @audited("outcome")
+    async def api_outcome(
+        bank_id: str, request: OutcomeRequest, request_context: RequestContext = Depends(get_request_context)
+    ):
+        from entelechy_api.engine.mwpm.frequency import OUTCOME_FAILURE_TAG, OUTCOME_SUCCESS_TAG
+
+        parts = [f"Outcome: {request.outcome}."]
+        if request.session_id:
+            parts.append(f"Session: {request.session_id}.")
+        if request.score is not None:
+            parts.append(f"Score: {request.score}.")
+        if request.policy:
+            parts.append(f"Policy in effect: {json.dumps(request.policy, sort_keys=True)}.")
+        if request.note:
+            parts.append(request.note)
+        item = MemoryItem(
+            content=" ".join(parts),
+            context="outcome writeback",
+            document_id=f"outcome-{request.session_id}" if request.session_id else None,
+            tags=[OUTCOME_SUCCESS_TAG if request.outcome == "success" else OUTCOME_FAILURE_TAG],
+        )
+        return await api_retain(
+            bank_id=bank_id,
+            request=RetainRequest.model_validate({"items": [item.model_dump()], "async": request.async_}),
+            request_context=request_context,
+        )
+
+    @app.post(
         "/v1/default/banks/{bank_id}/files/retain",
         response_model=FileRetainResponse,
         summary="Convert files to memories",
@@ -6162,6 +6256,39 @@ def _register_routes(app: FastAPI):
 
             error_detail = f"{str(e)}\n\nTraceback:\n{traceback.format_exc()}"
             logger.error(f"Error in /v1/default/banks/{bank_id}/memories: {error_detail}")
+            raise HTTPException(status_code=500, detail=str(e))
+
+    @app.delete(
+        "/v1/default/banks/{bank_id}/memories/{memory_id}",
+        response_model=DeleteResponse,
+        summary="Delete a single memory",
+        description="Delete one memory unit (fact) from a bank, with its links and entity associations. "
+        "Observations derived from it are removed and their other sources are re-consolidated. "
+        "Returns 404 if the memory does not exist in this bank. This cannot be undone.",
+        operation_id="delete_memory",
+        tags=["Memory"],
+    )
+    @audited("delete_memory", request_param=None)
+    async def api_delete_memory(
+        bank_id: str,
+        memory_id: str,
+        request_context: RequestContext = Depends(get_request_context),
+    ):
+        try:
+            result = await app.state.memory.delete_memory_unit(
+                memory_id, bank_id=bank_id, request_context=request_context
+            )
+            if not result["success"]:
+                raise HTTPException(status_code=404, detail=f"Memory '{memory_id}' not found in bank '{bank_id}'")
+            return DeleteResponse(success=True, message=result["message"], deleted_count=1)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        except OperationValidationError as e:
+            raise HTTPException(status_code=e.status_code, detail=e.reason)
+        except (AuthenticationError, HTTPException):
+            raise
+        except Exception as e:
+            logger.error(f"Error deleting memory {memory_id} in bank {bank_id}: {e}", exc_info=True)
             raise HTTPException(status_code=500, detail=str(e))
 
     # ---- Audit Logs ----

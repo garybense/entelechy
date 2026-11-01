@@ -1,6 +1,6 @@
 # Entelechy Memory Plugin for Claude Code
 
-Biomimetic long-term memory for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) using [Entelechy](https://vectorize.io/entelechy). Automatically captures conversations and intelligently recalls relevant context — a complete port of [`entelechy-openclaw`](../openclaw/) adapted to Claude Code's hook-based plugin architecture.
+Biomimetic long-term memory for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) using [Entelechy](https://mindmods.org). Automatically captures conversations and intelligently recalls relevant context — a complete port of [`entelechy-openclaw`](../openclaw/) adapted to Claude Code's hook-based plugin architecture.
 
 ## Quick Start
 
@@ -17,7 +17,7 @@ export OPENAI_API_KEY="sk-your-key"
 export ANTHROPIC_API_KEY="your-key"
 
 # Option C: No API key needed (uses Claude Code's own model — personal/local use only)
-# See: https://vectorize.io/entelechy/developer/models#claude-code-setup-claude-promax
+# See: https://mindmods.org/developer/models#claude-code-setup-claude-promax
 export ENTELECHY_LLM_PROVIDER=claude-code
 
 # Option D: Connect to an external Entelechy server instead of running locally
@@ -320,7 +320,7 @@ uvx entelechy-embed@latest profile list
 
 ## Links
 
-- [Entelechy Documentation](https://vectorize.io/entelechy)
+- [Entelechy Documentation](https://mindmods.org)
 - [Claude Code Documentation](https://docs.anthropic.com/en/docs/claude-code)
 - [GitHub Repository](https://github.com/garybense/entelechy)
 

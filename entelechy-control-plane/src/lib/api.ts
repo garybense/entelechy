@@ -656,6 +656,33 @@ export class ControlPlaneClient {
   }
 
   /**
+   * Delete a single memory (world or experience fact) and its links
+   */
+  async deleteMemory(bankId: string, memoryId: string) {
+    return this.fetchApi(
+      `/api/list?bank_id=${encodeURIComponent(bankId)}&memory_id=${encodeURIComponent(memoryId)}`,
+      { method: "DELETE" }
+    );
+  }
+
+  /**
+   * Record whether acting on a bootstrap policy succeeded or failed
+   */
+  async writeOutcome(params: {
+    bank_id: string;
+    outcome: "success" | "failure";
+    session_id?: string;
+    policy?: Record<string, unknown>;
+    score?: number;
+    note?: string;
+  }) {
+    return this.fetchApi("/api/outcomes", {
+      method: "POST",
+      body: JSON.stringify(params),
+    });
+  }
+
+  /**
    * Get chunk
    */
   async getChunk(chunkId: string) {

@@ -4,7 +4,7 @@
  * This file is preserved for backward compatibility with v0.3 documentation.
  * Opinions have been replaced by Mental Models in v0.4+.
  */
-import { EntelechyClient } from '@vectorize-io/entelechy-client';
+import { EntelechyClient } from '@garybense/entelechy-client';
 
 const ENTELECHY_URL = process.env.ENTELECHY_API_URL || 'http://localhost:8888';
 const client = new EntelechyClient({ baseUrl: ENTELECHY_URL });

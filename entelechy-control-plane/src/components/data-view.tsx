@@ -605,6 +605,7 @@ export function DataView({
                       onClose={() => setSelectedGraphNode(null)}
                       inPanel
                       bankId={currentBank || undefined}
+                      onDeleted={() => loadData()}
                     />
                   ) : (
                     /* Legend & Controls View */
@@ -846,6 +847,7 @@ export function DataView({
                           onClose={() => setSelectedGraphNode(null)}
                           inPanel
                           bankId={currentBank || undefined}
+                          onDeleted={() => loadData()}
                         />
                       ) : (
                         <div className="p-4 space-y-4">
