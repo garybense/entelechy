@@ -1324,7 +1324,12 @@ export class ControlPlaneClient {
       let errorMessage = `HTTP ${response.status}`;
       try {
         const errorData = await response.json();
-        errorMessage = errorData.error || errorMessage;
+        // The control-plane route reports { error }; the API itself reports { detail }
+        // (a string, or a list of validation errors).
+        const detail = Array.isArray(errorData.detail)
+          ? errorData.detail.map((d: { msg?: string }) => d.msg ?? JSON.stringify(d)).join("; ")
+          : errorData.detail;
+        errorMessage = errorData.error || detail || errorMessage;
       } catch {
         // Ignore parse errors
       }
