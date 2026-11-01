@@ -1041,7 +1041,7 @@ jobs:
       env:
         ENTELECHY_API_LLM_PROVIDER: openai
         ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-        ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+        ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_2 || secrets.NVIDIA_API_KEY }}
         ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
         ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
         ENTELECHY_API_EMBEDDINGS_PROVIDER: nvidia
@@ -1060,7 +1060,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_3 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -1135,7 +1135,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_4 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -1250,7 +1250,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_5 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       ENTELECHY_API_URL: http://localhost:8888
@@ -1315,7 +1315,7 @@ jobs:
         ENTELECHY_API_LLM_PROVIDER=${{ env.ENTELECHY_API_LLM_PROVIDER }}
         ENTELECHY_API_LLM_MODEL=${{ env.ENTELECHY_API_LLM_MODEL }}
         ENTELECHY_API_LLM_BASE_URL=https://integrate.api.nvidia.com/v1
-        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY }}
+        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY_5 || secrets.NVIDIA_API_KEY }}
         ENTELECHY_API_LLM_EXTRA_BODY='{"chat_template_kwargs":{"enable_thinking":false}}'
         EOF
 
@@ -1359,7 +1359,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_6 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       ENTELECHY_API_URL: http://localhost:8888
@@ -1429,7 +1429,7 @@ jobs:
         ENTELECHY_API_LLM_PROVIDER=${{ env.ENTELECHY_API_LLM_PROVIDER }}
         ENTELECHY_API_LLM_MODEL=${{ env.ENTELECHY_API_LLM_MODEL }}
         ENTELECHY_API_LLM_BASE_URL=https://integrate.api.nvidia.com/v1
-        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY }}
+        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY_6 || secrets.NVIDIA_API_KEY }}
         ENTELECHY_API_LLM_EXTRA_BODY='{"chat_template_kwargs":{"enable_thinking":false}}'
         EOF
 
@@ -1473,7 +1473,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_7 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       ENTELECHY_API_URL: http://localhost:8888
@@ -1549,7 +1549,7 @@ jobs:
         ENTELECHY_API_LLM_PROVIDER=${{ env.ENTELECHY_API_LLM_PROVIDER }}
         ENTELECHY_API_LLM_MODEL=${{ env.ENTELECHY_API_LLM_MODEL }}
         ENTELECHY_API_LLM_BASE_URL=https://integrate.api.nvidia.com/v1
-        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY }}
+        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY_7 || secrets.NVIDIA_API_KEY }}
         ENTELECHY_API_LLM_EXTRA_BODY='{"chat_template_kwargs":{"enable_thinking":false}}'
         EOF
 
@@ -1625,7 +1625,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_8 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       ENTELECHY_API_URL: http://localhost:8888
@@ -1694,7 +1694,7 @@ jobs:
         ENTELECHY_API_LLM_PROVIDER=${{ env.ENTELECHY_API_LLM_PROVIDER }}
         ENTELECHY_API_LLM_MODEL=${{ env.ENTELECHY_API_LLM_MODEL }}
         ENTELECHY_API_LLM_BASE_URL=https://integrate.api.nvidia.com/v1
-        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY }}
+        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY_8 || secrets.NVIDIA_API_KEY }}
         ENTELECHY_API_LLM_EXTRA_BODY='{"chat_template_kwargs":{"enable_thinking":false}}'
         EOF
 
@@ -1850,7 +1850,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_2 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       ENTELECHY_API_URL: http://localhost:8888
@@ -1935,7 +1935,7 @@ jobs:
         ENTELECHY_API_LLM_PROVIDER=${{ env.ENTELECHY_API_LLM_PROVIDER }}
         ENTELECHY_API_LLM_MODEL=${{ env.ENTELECHY_API_LLM_MODEL }}
         ENTELECHY_API_LLM_BASE_URL=https://integrate.api.nvidia.com/v1
-        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY }}
+        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY_2 || secrets.NVIDIA_API_KEY }}
         ENTELECHY_API_LLM_EXTRA_BODY='{"chat_template_kwargs":{"enable_thinking":false}}'
         EOF
 
@@ -1979,7 +1979,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_3 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       ENTELECHY_API_URL: http://localhost:8888
@@ -2039,7 +2039,7 @@ jobs:
         ENTELECHY_API_LLM_PROVIDER=${{ env.ENTELECHY_API_LLM_PROVIDER }}
         ENTELECHY_API_LLM_MODEL=${{ env.ENTELECHY_API_LLM_MODEL }}
         ENTELECHY_API_LLM_BASE_URL=https://integrate.api.nvidia.com/v1
-        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY }}
+        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY_3 || secrets.NVIDIA_API_KEY }}
         ENTELECHY_API_LLM_EXTRA_BODY='{"chat_template_kwargs":{"enable_thinking":false}}'
         EOF
 
@@ -2378,7 +2378,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_4 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       ENTELECHY_API_EMBEDDINGS_PROVIDER: nvidia
@@ -2443,7 +2443,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_5 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       # Prefer CPU-only PyTorch in CI
@@ -2507,7 +2507,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_6 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       # Force UTF-8 I/O so the CLI's ✓/box-drawing output doesn't crash the
@@ -2680,13 +2680,13 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_7 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       # For test_server_integration.py compatibility
       ENTELECHY_LLM_PROVIDER: openai
       ENTELECHY_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_7 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       # Prefer CPU-only PyTorch in CI
@@ -2772,7 +2772,7 @@ jobs:
     env:
       ENTELECHY_API_LLM_PROVIDER: openai
       ENTELECHY_API_LLM_BASE_URL: https://integrate.api.nvidia.com/v1
-      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY_8 || secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       ENTELECHY_API_URL: http://localhost:8888
@@ -2866,7 +2866,7 @@ jobs:
         ENTELECHY_API_LLM_PROVIDER=${{ env.ENTELECHY_API_LLM_PROVIDER }}
         ENTELECHY_API_LLM_MODEL=${{ env.ENTELECHY_API_LLM_MODEL }}
         ENTELECHY_API_LLM_BASE_URL=https://integrate.api.nvidia.com/v1
-        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY }}
+        ENTELECHY_API_LLM_API_KEY=${{ secrets.NVIDIA_API_KEY_8 || secrets.NVIDIA_API_KEY }}
         ENTELECHY_API_LLM_EXTRA_BODY='{"chat_template_kwargs":{"enable_thinking":false}}'
         EOF
 
