@@ -131,3 +131,30 @@ async def test_validator_and_bank_list(env):
     assert (await v.filter_bank_list(BankListContext(banks=banks, request_context=ra))).banks == [{"bank_id": "a"}]
     assert (await v.filter_bank_list(BankListContext(banks=banks, request_context=rb))).banks == []
     assert len((await v.filter_bank_list(BankListContext(banks=banks, request_context=RequestContext(is_admin=True)))).banks) == 2
+
+
+async def test_admin_owns_banks_it_creates_and_can_claim(env):
+    mu, c, RequestContext = env
+    from entelechy_api.extensions.operation_validator import BankReadContext, RecallContext, RetainContext
+
+    store = mu.get_store()
+    principal = await store.authenticate(ADMIN)
+    assert principal.is_admin and principal.user_id and principal.username == "admin"
+
+    v = mu.OwnershipValidator({})
+    ra = RequestContext(is_admin=True, user_id=principal.user_id)
+    # reads and recalls never claim; a retain by the admin does
+    assert (await v.validate_recall(RecallContext(bank_id="seen", query="q", request_context=ra))).allowed
+    assert await store.owner_of("seen") is None
+    assert (await v.validate_retain(RetainContext(bank_id="made", contents=[], request_context=ra))).allowed
+    assert await store.owner_of("made") == principal.user_id
+
+    # unowned banks are listed and can be claimed through the admin API
+    await store.pool.execute(f'CREATE TABLE {store._t("banks")} (bank_id text PRIMARY KEY)')
+    await store.pool.execute(f'INSERT INTO {store._t("banks")} VALUES (\'made\'), (\'orphan\')')
+    h = {"Authorization": f"Bearer {ADMIN}"}
+    body = (await c.get("/ext/admin/banks", headers=h)).json()
+    assert body["unowned"] == ["orphan"]
+    r = await c.post("/ext/admin/banks/orphan/claim", headers=h)
+    assert r.status_code == 200 and r.json()["user_id"] == principal.user_id
+    assert (await c.get("/ext/admin/banks", headers=h)).json()["unowned"] == []

@@ -12,6 +12,7 @@ import asyncio
 import io
 import json
 import logging
+import os
 import time
 import traceback
 from collections.abc import Awaitable, Callable
@@ -724,6 +725,58 @@ class WorkerPoller:
             logger.info(f"Worker {self._worker_id} recovered {total_count} stale tasks from previous run")
         return total_count
 
+    async def reclaim_stale_tasks(self) -> int:
+        """Release tasks whose worker no longer exists.
+
+        ``recover_own_tasks`` only matches this worker's id, which defaults to the
+        container hostname. After a redeploy the hostname changes, so tasks the old
+        container was running stay in 'processing' forever and block deduplicated
+        work such as consolidation. A task claimed longer ago than
+        ``ENTELECHY_API_STALE_TASK_MINUTES`` (default 60) by another worker id is reset
+        to 'pending' when it still has a payload, and marked failed when it does not.
+        """
+        minutes = int(os.getenv("ENTELECHY_API_STALE_TASK_MINUTES", "60"))
+        if minutes <= 0:
+            return 0
+        total = 0
+        for schema in await self._get_schemas():
+            table = fq_table("async_operations", schema)
+            try:
+                async with self._backend.acquire() as conn:
+                    reset = await conn.execute(
+                        f"""
+                        UPDATE {table}
+                        SET status = 'pending', worker_id = NULL, claimed_at = NULL, updated_at = now()
+                        WHERE status = 'processing' AND worker_id IS DISTINCT FROM $1
+                          AND claimed_at < now() - make_interval(mins => $2)
+                          AND result_metadata->>'batch_id' IS NULL AND task_payload IS NOT NULL
+                        """,
+                        self._worker_id,
+                        minutes,
+                    )
+                    failed = await conn.execute(
+                        f"""
+                        UPDATE {table}
+                        SET status = 'failed', completed_at = now(), updated_at = now(),
+                            error_message = 'Worker stopped before finishing and no task payload was stored'
+                        WHERE status = 'processing' AND worker_id IS DISTINCT FROM $1
+                          AND claimed_at < now() - make_interval(mins => $2)
+                          AND result_metadata->>'batch_id' IS NULL AND task_payload IS NULL
+                        """,
+                        self._worker_id,
+                        minutes,
+                    )
+                n = int(reset.split()[-1]) + int(failed.split()[-1])
+                if n:
+                    logger.warning(
+                        f"Reclaimed {n} stale tasks claimed more than {minutes} min ago by another worker "
+                        f"(reset={reset.split()[-1]}, failed={failed.split()[-1]})"
+                    )
+                total += n
+            except Exception as e:
+                logger.warning(f"Worker {self._worker_id} failed to reclaim stale tasks: {e}")
+        return total
+
     async def _recover_batch_operations(self, schema: str | None) -> int:
         """
         Recover batch API operations that were in-flight when worker crashed.
@@ -808,6 +861,8 @@ class WorkerPoller:
         and immediately continues polling (up to slot limits).
         """
         await self.recover_own_tasks()
+        await self.reclaim_stale_tasks()
+        last_reclaim = time.monotonic()
 
         reservations_str = (
             ", ".join(f"{k}={v}" for k, v in self._slot_reservations.items()) if self._slot_reservations else "none"
@@ -820,6 +875,10 @@ class WorkerPoller:
 
         while not self._shutdown.is_set():
             try:
+                if time.monotonic() - last_reclaim > 300:
+                    await self.reclaim_stale_tasks()
+                    last_reclaim = time.monotonic()
+
                 # Claim a batch of tasks (respecting slot limits)
                 tasks = await self.claim_batch()
 
