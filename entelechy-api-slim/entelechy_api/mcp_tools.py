@@ -26,6 +26,22 @@ from entelechy_api.models import RequestContext
 
 # All tools available in the system (explicit list — no wildcards).
 # Defined here (shared module) to avoid circular imports with api/mcp.py.
+# Metacog tool names; the tools themselves live in engine/metacog/mcp_tools.py.
+METACOG_TOOL_NAMES: tuple[str, ...] = (
+    "feel",
+    "drugs",
+    "become",
+    "name",
+    "ritual",
+    "molt",
+    "compass",
+    "commune",
+    "listen",
+    "save_identity_preset",
+    "list_identity_presets",
+    "hydrate_preset",
+)
+
 _ALL_TOOLS: frozenset[str] = frozenset(
     {
         "retain",
@@ -62,10 +78,13 @@ _ALL_TOOLS: frozenset[str] = frozenset(
         "get_soul",
         "list_soul_lineage",
         "distill_tool",
+        # Metacog cycle tools
+        *METACOG_TOOL_NAMES,
     }
 )
 
 logger = logging.getLogger(__name__)
+
 
 
 @dataclass
@@ -244,6 +263,7 @@ def register_mcp_tools(
         "get_soul",
         "list_soul_lineage",
         "distill_tool",
+        *METACOG_TOOL_NAMES,
     }
 
     if "retain" in tools_to_register:
@@ -345,6 +365,12 @@ def register_mcp_tools(
         from entelechy_api.engine.soul.mcp_tools import register_soul_tools
 
         register_soul_tools(mcp, memory, config)
+
+    metacog_requested = set(METACOG_TOOL_NAMES) & tools_to_register
+    if metacog_requested:
+        from entelechy_api.engine.metacog.mcp_tools import register_metacog_tools
+
+        register_metacog_tools(mcp, memory, config, only=metacog_requested)
 
     _apply_bank_tool_filtering(mcp, memory, config)
     _apply_audit_logging(mcp, memory, config)
