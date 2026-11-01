@@ -1641,7 +1641,6 @@ def create_cross_encoder_from_env() -> CrossEncoderModel:
     elif provider == "cohere":
         api_key = config.reranker_cohere_api_key
         if not api_key:
-            import os  # Ensure os is available, but don't shadow a local os
 
             if "GITHUB_ACTIONS" in os.environ or os.environ.get("PYTEST_CURRENT_TEST"):
                 api_key = "test-cohere-key-123"

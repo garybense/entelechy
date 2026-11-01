@@ -41,3 +41,19 @@ def test_reranker_maps_rankings_to_pairs():
         return await ce.predict([("q", "a"), ("q", "b"), ("q", "c")])
 
     assert asyncio.run(run()) == [0.0, -1.0, -2.0]
+
+
+def test_factories_build_nvidia_providers(monkeypatch):
+    from entelechy_api.config import clear_config_cache
+    from entelechy_api.engine.cross_encoder import create_cross_encoder_from_env
+    from entelechy_api.engine.embeddings import create_embeddings_from_env
+
+    monkeypatch.setenv("ENTELECHY_API_LLM_API_KEY", "k")
+    monkeypatch.setenv("ENTELECHY_API_EMBEDDINGS_PROVIDER", "nvidia")
+    monkeypatch.setenv("ENTELECHY_API_RERANKER_PROVIDER", "nvidia")
+    clear_config_cache()
+    try:
+        assert create_embeddings_from_env().provider_name == "nvidia"
+        assert create_cross_encoder_from_env().provider_name == "nvidia"
+    finally:
+        clear_config_cache()
