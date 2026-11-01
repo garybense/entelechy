@@ -88,6 +88,13 @@ class Embeddings(ABC):
         """
         pass
 
+    def encode_query(self, texts: list[str]) -> list[list[float]]:
+        """
+        Embed search queries. Providers with asymmetric query/passage models
+        override this; the default treats queries like any other text.
+        """
+        return self.encode(texts)
+
 
 class LocalSTEmbeddings(Embeddings):
     """
@@ -490,6 +497,91 @@ class OpenAIEmbeddings(Embeddings):
             all_embeddings.extend([e.embedding for e in batch_embeddings])
 
         return all_embeddings
+
+
+class NvidiaEmbeddings(Embeddings):
+    """
+    NVIDIA NIM embeddings (https://integrate.api.nvidia.com/v1/embeddings).
+
+    Asymmetric retrieval model: stored text is embedded with input_type=passage and
+    search queries with input_type=query (see encode_query). Models that support
+    matryoshka dimensions (nemotron-3.5-embed-1b: 1024/768/512) take `dimensions`.
+    """
+
+    def __init__(
+        self,
+        api_key: str,
+        model: str,
+        base_url: str,
+        dimensions: int | None = None,
+        batch_size: int = 64,
+        timeout: float = 60.0,
+        max_retries: int = 3,
+        transport: httpx.BaseTransport | None = None,
+    ):
+        self.api_key = api_key
+        self.model = model
+        self.base_url = base_url.rstrip("/")
+        self.dimensions = dimensions
+        self.batch_size = batch_size
+        self.max_retries = max_retries
+        self._client = httpx.Client(
+            timeout=timeout,
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            transport=transport,
+        )
+        self._dimension: int | None = None
+
+    @property
+    def provider_name(self) -> str:
+        return "nvidia"
+
+    @property
+    def dimension(self) -> int:
+        if self._dimension is None:
+            raise RuntimeError("Embeddings not initialized. Call initialize() first.")
+        return self._dimension
+
+    async def initialize(self) -> None:
+        if self._dimension is not None:
+            return
+        logger.info(f"Embeddings: initializing NVIDIA provider with model {self.model}")
+        self._dimension = len(self._embed(["dimension probe"], "passage")[0])
+        logger.info(f"Embeddings: NVIDIA provider initialized (model: {self.model}, dim: {self._dimension})")
+
+    def _embed(self, texts: list[str], input_type: str) -> list[list[float]]:
+        import time
+
+        out: list[list[float]] = []
+        for i in range(0, len(texts), self.batch_size):
+            batch = texts[i : i + self.batch_size]
+            body: dict[str, object] = {
+                "model": self.model,
+                "input": batch,
+                "input_type": input_type,
+                "encoding_format": "float",
+                "truncate": "END",
+            }
+            if self.dimensions:
+                body["dimensions"] = self.dimensions
+            for attempt in range(self.max_retries + 1):
+                response = self._client.post(f"{self.base_url}/embeddings", json=body)
+                if response.status_code in (429, 500, 502, 503, 504) and attempt < self.max_retries:
+                    time.sleep(min(2**attempt, 8))
+                    continue
+                response.raise_for_status()
+                break
+            data = sorted(response.json()["data"], key=lambda d: d["index"])
+            if len(data) != len(batch):
+                raise RuntimeError(f"NVIDIA embeddings returned {len(data)} vectors for {len(batch)} inputs")
+            out.extend(d["embedding"] for d in data)
+        return out
+
+    def encode(self, texts: list[str]) -> list[list[float]]:
+        return self._embed(texts, "passage") if texts else []
+
+    def encode_query(self, texts: list[str]) -> list[list[float]]:
+        return self._embed(texts, "query") if texts else []
 
 
 class CohereEmbeddings(Embeddings):
@@ -1204,8 +1296,22 @@ def create_embeddings_from_env() -> Embeddings:
             output_dimensionality=config.embeddings_gemini_output_dimensionality,
             force_ipv4=config.embeddings_gemini_force_ipv4,
         )
+    elif provider == "nvidia":
+        api_key = os.environ.get("ENTELECHY_API_EMBEDDINGS_NVIDIA_API_KEY") or os.environ.get(ENV_LLM_API_KEY)
+        if not api_key:
+            raise ValueError(
+                f"ENTELECHY_API_EMBEDDINGS_NVIDIA_API_KEY or {ENV_LLM_API_KEY} is required "
+                f"when {ENV_EMBEDDINGS_PROVIDER} is 'nvidia'"
+            )
+        dims = os.environ.get("ENTELECHY_API_EMBEDDINGS_NVIDIA_DIMENSIONS", "1024")
+        return NvidiaEmbeddings(
+            api_key=api_key,
+            model=os.environ.get("ENTELECHY_API_EMBEDDINGS_NVIDIA_MODEL", "nvidia/nemotron-3.5-embed-1b"),
+            base_url=os.environ.get("ENTELECHY_API_EMBEDDINGS_NVIDIA_BASE_URL", "https://integrate.api.nvidia.com/v1"),
+            dimensions=int(dims) if dims else None,
+        )
     else:
         raise ValueError(
             f"Unknown embeddings provider: {provider}. "
-            f"Supported: 'local', 'tei', 'openai', 'cohere', 'google', 'litellm', 'litellm-sdk'"
+            f"Supported: 'local', 'tei', 'openai', 'nvidia', 'cohere', 'google', 'litellm', 'litellm-sdk'"
         )

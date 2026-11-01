@@ -524,12 +524,26 @@ def _migrate_table_embedding_dimension(
         text(f"SELECT COUNT(*) FROM {schema_name}.{table_name} WHERE embedding IS NOT NULL")
     ).scalar()
 
+    if row_count > 0 and os.environ.get("ENTELECHY_API_EMBEDDING_RESET_ON_DIMENSION_CHANGE", "").lower() in (
+        "1",
+        "true",
+        "yes",
+    ):
+        logger.warning(
+            f"ENTELECHY_API_EMBEDDING_RESET_ON_DIMENSION_CHANGE is set: deleting {row_count} rows with embeddings "
+            f"from {schema_name}.{table_name} to change dimension {current_dim} -> {required_dimension}. "
+            f"Source documents must be re-retained."
+        )
+        conn.execute(text(f"DELETE FROM {schema_name}.{table_name}"))
+        row_count = 0
+
     if row_count > 0:
         raise RuntimeError(
             f"Cannot change embedding dimension from {current_dim} to {required_dimension}: "
             f"{table_name} table contains {row_count} rows with embeddings. "
             f"To change dimensions, you must either:\n"
-            f"  1. Re-embed all data: DELETE FROM {schema_name}.{table_name}; then restart\n"
+            f"  1. Re-embed all data: DELETE FROM {schema_name}.{table_name}; then restart, or set "
+            f"ENTELECHY_API_EMBEDDING_RESET_ON_DIMENSION_CHANGE=true to have startup delete them\n"
             f"  2. Use a model with {current_dim}-dimensional embeddings"
         )
 
