@@ -1723,7 +1723,10 @@ def create_cross_encoder_from_env() -> CrossEncoderModel:
             service_account_key=config.reranker_google_service_account_key,
         )
     elif provider == "nvidia":
-        api_key = os.environ.get("ENTELECHY_API_RERANKER_NVIDIA_API_KEY") or os.environ.get("ENTELECHY_API_LLM_API_KEY")
+        # The LLM key variable may list several comma-separated keys; the reranker uses the first.
+        api_key = (
+            os.environ.get("ENTELECHY_API_RERANKER_NVIDIA_API_KEY") or os.environ.get("ENTELECHY_API_LLM_API_KEY") or ""
+        ).split(",")[0].strip()
         if not api_key:
             raise ValueError(
                 "ENTELECHY_API_RERANKER_NVIDIA_API_KEY or ENTELECHY_API_LLM_API_KEY is required "

@@ -47,7 +47,7 @@ func NewCreateMentalModelRequest(name string, sourceQuery string) *CreateMentalM
 	this.SourceQuery = sourceQuery
 	var maxTokens int32 = 2048
 	this.MaxTokens = &maxTokens
-	var trigger MentalModelTriggerInput = {}
+	var trigger MentalModelTriggerInput = MentalModelTriggerInput{}
 	this.Trigger = &trigger
 	return &this
 }
@@ -59,7 +59,7 @@ func NewCreateMentalModelRequestWithDefaults() *CreateMentalModelRequest {
 	this := CreateMentalModelRequest{}
 	var maxTokens int32 = 2048
 	this.MaxTokens = &maxTokens
-	var trigger MentalModelTriggerInput = {}
+	var trigger MentalModelTriggerInput = MentalModelTriggerInput{}
 	this.Trigger = &trigger
 	return &this
 }

@@ -456,6 +456,11 @@ else
         rm -f api_files.go.bak
     fi
 
+    # Fix known generator issue: a default of {} for an object property is emitted as
+    # "var x T = {}", which is not valid Go. Turn it into a composite literal "T{}".
+    sed -i.bak -E 's/^(\s*var [A-Za-z0-9]+ )([A-Za-z0-9]+) = \{\}$/\1\2 = \2{}/' model_*.go
+    rm -f model_*.go.bak
+
     # Initialize module and build
     echo "Building Go client..."
     go mod tidy
