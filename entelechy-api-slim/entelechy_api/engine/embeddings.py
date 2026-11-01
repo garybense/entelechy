@@ -1220,7 +1220,8 @@ def create_embeddings_from_env() -> Embeddings:
         )
     elif provider == "openai":
         # Use dedicated embeddings API key, or fall back to LLM API key
-        api_key = os.environ.get(ENV_EMBEDDINGS_OPENAI_API_KEY) or os.environ.get(ENV_LLM_API_KEY)
+        # ENV_LLM_API_KEY may list several comma-separated keys; embeddings use the first.
+        api_key = (os.environ.get(ENV_EMBEDDINGS_OPENAI_API_KEY) or os.environ.get(ENV_LLM_API_KEY) or "").split(",")[0].strip()
         if not api_key:
             raise ValueError(
                 f"{ENV_EMBEDDINGS_OPENAI_API_KEY} or {ENV_LLM_API_KEY} is required "
@@ -1297,7 +1298,10 @@ def create_embeddings_from_env() -> Embeddings:
             force_ipv4=config.embeddings_gemini_force_ipv4,
         )
     elif provider == "nvidia":
-        api_key = os.environ.get("ENTELECHY_API_EMBEDDINGS_NVIDIA_API_KEY") or os.environ.get(ENV_LLM_API_KEY)
+        # ENV_LLM_API_KEY may list several comma-separated keys; embeddings use the first.
+        api_key = (
+            os.environ.get("ENTELECHY_API_EMBEDDINGS_NVIDIA_API_KEY") or os.environ.get(ENV_LLM_API_KEY) or ""
+        ).split(",")[0].strip()
         if not api_key:
             raise ValueError(
                 f"ENTELECHY_API_EMBEDDINGS_NVIDIA_API_KEY or {ENV_LLM_API_KEY} is required "

@@ -190,11 +190,24 @@ class OpenAICompatibleLLM(LLMInterface):
         if self.timeout:
             client_kwargs["timeout"] = self.timeout
 
-        self._client = AsyncOpenAI(**client_kwargs)
+        # api_key may hold several comma-separated keys. Calls rotate through one client per
+        # key, so each retry after a rate limit (HTTP 429) goes out on a different key and
+        # the account-level limits add up instead of being shared.
+        keys = [k.strip() for k in (self.api_key or "").split(",") if k.strip()] or [self.api_key]
+        self._clients = [AsyncOpenAI(**{**client_kwargs, "api_key": k}) for k in keys]
+        self._client_cursor = 0
+        self.api_key = keys[0]
         logger.info(
             f"OpenAI-compatible client initialized: provider={self.provider}, model={self.model}, "
-            f"base_url={self.base_url or 'default'}"
+            f"base_url={self.base_url or 'default'}, api_keys={len(self._clients)}"
         )
+
+    @property
+    def _client(self) -> AsyncOpenAI:
+        """Next client in round-robin order (the only one when a single key is configured)."""
+        client = self._clients[self._client_cursor % len(self._clients)]
+        self._client_cursor += 1
+        return client
 
     async def verify_connection(self) -> None:
         """
@@ -1032,7 +1045,7 @@ class OpenAICompatibleLLM(LLMInterface):
         file_bytes = io.BytesIO(jsonl_content.encode("utf-8"))
         file_bytes.name = "batch_input.jsonl"  # OpenAI SDK needs a filename
 
-        file_response = await self._client.files.create(
+        file_response = await self._clients[0].files.create(
             file=file_bytes,
             purpose="batch",
         )
@@ -1040,7 +1053,7 @@ class OpenAICompatibleLLM(LLMInterface):
         logger.debug(f"Uploaded batch file: {file_response.id}")
 
         # Create batch
-        batch_response = await self._client.batches.create(
+        batch_response = await self._clients[0].batches.create(
             input_file_id=file_response.id,
             endpoint=endpoint,
             completion_window=completion_window,
@@ -1069,7 +1082,7 @@ class OpenAICompatibleLLM(LLMInterface):
         if not await self.supports_batch_api():
             raise NotImplementedError(f"Batch API not supported for provider: {self.provider}")
 
-        batch = await self._client.batches.retrieve(batch_id)
+        batch = await self._clients[0].batches.retrieve(batch_id)
 
         result = {
             "batch_id": batch.id,
@@ -1107,7 +1120,7 @@ class OpenAICompatibleLLM(LLMInterface):
             raise NotImplementedError(f"Batch API not supported for provider: {self.provider}")
 
         # Get batch status
-        batch = await self._client.batches.retrieve(batch_id)
+        batch = await self._clients[0].batches.retrieve(batch_id)
 
         if batch.status != "completed":
             raise ValueError(f"Batch {batch_id} is not completed yet (status: {batch.status})")
@@ -1117,7 +1130,7 @@ class OpenAICompatibleLLM(LLMInterface):
 
         # Download results file
         logger.debug(f"Downloading results for batch {batch_id} from file {batch.output_file_id}")
-        file_content = await self._client.files.content(batch.output_file_id)
+        file_content = await self._clients[0].files.content(batch.output_file_id)
 
         # Parse JSONL results
         results = []
@@ -1131,5 +1144,5 @@ class OpenAICompatibleLLM(LLMInterface):
 
     async def cleanup(self) -> None:
         """Clean up resources (close OpenAI client connections)."""
-        if hasattr(self, "_client") and self._client:
-            await self._client.close()
+        for client in getattr(self, "_clients", []):
+            await client.close()
