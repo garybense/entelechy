@@ -506,6 +506,25 @@ class MultiUserAdminHttpExtension(HttpExtension):
             await _require_admin(authorization)
             await get_store().revoke_key(key_id)
 
+        @router.post("/ops/reprocess-documents")
+        async def reprocess_documents_op(bank_id: str | None = None, authorization: str | None = Header(default=None)):
+            """Rebuild memories from stored documents (after an embedding model change). Admin only."""
+            from entelechy_api.engine.retain.reprocess import reprocess_documents
+
+            await _require_admin(authorization)
+            key = authorization[7:].strip() if authorization.lower().startswith("bearer ") else authorization.strip()
+            ctx = RequestContext(api_key=key)
+            if bank_id:
+                bank_ids = [bank_id]
+            else:
+                from entelechy_api.engine.db_utils import acquire_with_retry
+                from entelechy_api.engine.schema import fq_table
+
+                pool = await memory._get_pool()
+                async with acquire_with_retry(pool) as conn:
+                    bank_ids = [r["bank_id"] for r in await conn.fetch(f"SELECT DISTINCT bank_id FROM {fq_table('documents')}")]
+            return {"banks": [await reprocess_documents(memory, b, ctx) for b in bank_ids]}
+
         @router.get("/banks")
         async def list_bank_owners(authorization: str | None = Header(default=None)):
             await _require_admin(authorization)

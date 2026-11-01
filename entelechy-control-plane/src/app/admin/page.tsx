@@ -133,6 +133,30 @@ export default function AdminPage() {
     }
   };
 
+  const [rebuilding, setRebuilding] = useState(false);
+  const [rebuildResult, setRebuildResult] = useState<string | null>(null);
+  const rebuild = async () => {
+    setRebuilding(true);
+    try {
+      const res = await api<{ banks: { bank_id: string; documents_total: number; documents_queued: number; documents_skipped: number }[] }>(
+        "ops/reprocess-documents",
+        { method: "POST", body: "{}" }
+      );
+      setRebuildResult(
+        res.banks.length
+          ? res.banks
+              .map((b) => `${b.bank_id}: ${b.documents_queued} queued, ${b.documents_skipped} skipped, ${b.documents_total} documents`)
+              .join("\n")
+          : "No documents found in any bank."
+      );
+      toast.success("Rebuild queued");
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Failed");
+    } finally {
+      setRebuilding(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background p-6 max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-6">
@@ -152,7 +176,22 @@ export default function AdminPage() {
         <TabsList>
           <TabsTrigger value="users">Users ({users.length})</TabsTrigger>
           <TabsTrigger value="banks">Bank owners ({owners.length})</TabsTrigger>
+          <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="maintenance" className="space-y-4">
+          <div className="rounded-md border p-4 space-y-3 max-w-2xl">
+            <h2 className="font-semibold">Rebuild memories from stored documents</h2>
+            <p className="text-sm text-muted-foreground">
+              Re-runs extraction on every document that has no memories, using the source text kept with the document.
+              Use it after an embedding model change. Documents that already have memories are skipped.
+            </p>
+            <Button disabled={rebuilding} onClick={rebuild}>
+              {rebuilding ? "Queuing..." : "Rebuild memories"}
+            </Button>
+            {rebuildResult && <pre className="text-xs bg-muted rounded p-3 overflow-auto">{rebuildResult}</pre>}
+          </div>
+        </TabsContent>
 
         <TabsContent value="users" className="space-y-4">
           <div className="flex justify-end">
