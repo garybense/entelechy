@@ -54,7 +54,7 @@ func NewRecallRequest(query string) *RecallRequest {
 	this.MaxTokens = &maxTokens
 	var trace bool = false
 	this.Trace = &trace
-	var include IncludeOptions = {}
+	var include IncludeOptions = IncludeOptions{}
 	this.Include = &include
 	var tagsMatch string = "any"
 	this.TagsMatch = &tagsMatch
@@ -72,7 +72,7 @@ func NewRecallRequestWithDefaults() *RecallRequest {
 	this.MaxTokens = &maxTokens
 	var trace bool = false
 	this.Trace = &trace
-	var include IncludeOptions = {}
+	var include IncludeOptions = IncludeOptions{}
 	this.Include = &include
 	var tagsMatch string = "any"
 	this.TagsMatch = &tagsMatch
