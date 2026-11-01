@@ -104,3 +104,53 @@ async def list_policies(engine: Any, bank_id: str, limit: int = 50) -> list[dict
         }
         for r in rows
     ]
+
+
+async def list_outcomes(engine: Any, bank_id: str, limit: int = 50) -> dict[str, Any]:
+    """Outcome memories (tagged outcome:success / outcome:failure), newest first, with totals.
+
+    Facts only carry the tag once extraction has run, so an outcome that was just written
+    appears here after its retain operation completes.
+    """
+    from .frequency import OUTCOME_FAILURE_TAG, OUTCOME_SUCCESS_TAG
+
+    pool = await engine._get_pool()
+    tags = [OUTCOME_SUCCESS_TAG, OUTCOME_FAILURE_TAG]
+    async with acquire_with_retry(pool) as conn:
+        rows = await conn.fetch(
+            f"""
+            SELECT id, text, tags, created_at, document_id
+            FROM {fq_table('memory_units')}
+            WHERE bank_id = $1 AND tags && $2::varchar[]
+            ORDER BY created_at DESC LIMIT $3
+            """,
+            bank_id,
+            tags,
+            limit,
+        )
+        counts = await conn.fetchrow(
+            f"""
+            SELECT
+              COUNT(*) FILTER (WHERE $2 = ANY(tags)) AS successes,
+              COUNT(*) FILTER (WHERE $3 = ANY(tags)) AS failures
+            FROM {fq_table('memory_units')}
+            WHERE bank_id = $1
+            """,
+            bank_id,
+            OUTCOME_SUCCESS_TAG,
+            OUTCOME_FAILURE_TAG,
+        )
+    return {
+        "successes": counts["successes"],
+        "failures": counts["failures"],
+        "outcomes": [
+            {
+                "id": str(r["id"]),
+                "text": r["text"],
+                "outcome": "success" if OUTCOME_SUCCESS_TAG in (r["tags"] or []) else "failure",
+                "created_at": r["created_at"].isoformat() if r["created_at"] else None,
+                "document_id": r["document_id"],
+            }
+            for r in rows
+        ],
+    }
