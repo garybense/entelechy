@@ -202,7 +202,7 @@ jobs:
         enable-cache: true
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -396,7 +396,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: '3.11'
 
@@ -422,7 +422,7 @@ jobs:
         ref: ${{ github.event.pull_request.head.sha || '' }}
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version: '3.11'
 
@@ -707,7 +707,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -870,7 +870,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -1084,7 +1084,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -1199,7 +1199,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -1269,7 +1269,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -1378,7 +1378,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -1491,7 +1491,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -1644,7 +1644,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -1757,7 +1757,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -1869,7 +1869,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -1997,7 +1997,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2091,7 +2091,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2128,7 +2128,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2165,7 +2165,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2202,7 +2202,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2239,7 +2239,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2276,7 +2276,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2313,7 +2313,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2350,7 +2350,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2396,7 +2396,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2460,7 +2460,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2532,7 +2532,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2703,7 +2703,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2811,7 +2811,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2934,7 +2934,7 @@ jobs:
         prune-cache: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -2996,7 +2996,7 @@ jobs:
         enable-cache: true
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -3082,7 +3082,7 @@ jobs:
         enable-cache: true
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
@@ -3135,7 +3135,7 @@ jobs:
         enable-cache: true
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions/setup-python@v7
       with:
         python-version-file: ".python-version"
 
