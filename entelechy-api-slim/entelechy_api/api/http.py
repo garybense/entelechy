@@ -6053,6 +6053,23 @@ def _register_routes(app: FastAPI):
             request_context=request_context,
         )
 
+    @app.get(
+        "/v1/default/banks/{bank_id}/outcomes",
+        summary="List outcomes",
+        description="Outcome memories written back for this bank, newest first, with success and failure totals.",
+        operation_id="list_outcomes",
+        tags=["Memory"],
+    )
+    async def api_list_outcomes(
+        bank_id: str,
+        limit: int = Query(default=50, ge=1, le=500),
+        request_context: RequestContext = Depends(get_request_context),
+    ):
+        await app.state.memory._authenticate_tenant(request_context)
+        from entelechy_api.engine.mwpm.store import list_outcomes
+
+        return {"bank_id": bank_id, **await list_outcomes(app.state.memory, bank_id, limit)}
+
     @app.post(
         "/v1/default/banks/{bank_id}/files/retain",
         response_model=FileRetainResponse,

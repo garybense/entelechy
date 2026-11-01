@@ -23,3 +23,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Failed to write outcome" }, { status: 500 });
   }
 }
+
+/** Outcomes written back for a bank, with success and failure totals. */
+export async function GET(request: NextRequest) {
+  try {
+    const bankId = request.nextUrl.searchParams.get("bank_id");
+    if (!bankId) {
+      return NextResponse.json({ error: "bank_id is required" }, { status: 400 });
+    }
+    const limit = request.nextUrl.searchParams.get("limit") || "50";
+    const response = await fetch(
+      dataplaneBankUrl(bankId, `/outcomes?limit=${encodeURIComponent(limit)}`),
+      { headers: getDataplaneHeaders(), cache: "no-store" }
+    );
+    const body = await response.json().catch(() => ({}));
+    return NextResponse.json(body, { status: response.status });
+  } catch (error) {
+    console.error("Error listing outcomes:", error);
+    return NextResponse.json({ error: "Failed to list outcomes" }, { status: 500 });
+  }
+}

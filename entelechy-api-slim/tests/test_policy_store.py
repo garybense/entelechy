@@ -52,3 +52,28 @@ async def test_roundtrip_and_latest_wins(engine):
     assert rows[0]["state_vector"] == {"drift_signal": 0.1}
     assert rows[1]["vector_f"] == {"success_rate": 0.5}
     assert len(await list_policies(engine, "b", limit=1)) == 1
+
+
+@pytest.mark.asyncio
+async def test_list_outcomes_counts_and_filters(engine):
+    from entelechy_api.engine.mwpm.store import list_outcomes
+
+    pool = await engine._get_pool()
+    async with pool.acquire() as c:
+        await c.execute("DROP TABLE IF EXISTS memory_units")
+        await c.execute(
+            "CREATE TABLE memory_units (id uuid DEFAULT gen_random_uuid(), bank_id text, text text, "
+            "tags varchar[] NOT NULL DEFAULT '{}', created_at timestamptz DEFAULT now(), document_id text)"
+        )
+        await c.execute(
+            "INSERT INTO memory_units (bank_id, text, tags, document_id) VALUES "
+            "('b','Outcome: success.','{outcome:success}','outcome-s1'),"
+            "('b','Outcome: failure.','{outcome:failure}',NULL),"
+            "('b','Outcome: success.','{outcome:success,x}',NULL),"
+            "('b','unrelated','{x}',NULL),"
+            "('other','Outcome: failure.','{outcome:failure}',NULL)"
+        )
+    res = await list_outcomes(engine, "b")
+    assert (res["successes"], res["failures"]) == (2, 1)
+    assert len(res["outcomes"]) == 3 and all(o["outcome"] in ("success", "failure") for o in res["outcomes"])
+    assert len(await list_outcomes(engine, "b", limit=1)) and len((await list_outcomes(engine, "b", limit=1))["outcomes"]) == 1

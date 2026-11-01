@@ -6,6 +6,25 @@
 import { toast } from "sonner";
 import { bankApi, bankStatsApi, documentApi, memoryApi } from "./bank-url";
 
+export interface PolicyRecord {
+  id: string;
+  source: string;
+  created_at: string;
+  policy: Record<string, number | string | null> | null;
+  rationale: string | null;
+  vector_f: Record<string, unknown> | null;
+  state_vector: Record<string, unknown> | null;
+  inertia_applied: boolean;
+}
+
+export interface OutcomeRecord {
+  id: string;
+  text: string;
+  outcome: "success" | "failure";
+  created_at: string | null;
+  document_id: string | null;
+}
+
 export interface WebhookHttpConfig {
   method: string;
   timeout_seconds: number;
@@ -663,6 +682,30 @@ export class ControlPlaneClient {
       `/api/list?bank_id=${encodeURIComponent(bankId)}&memory_id=${encodeURIComponent(memoryId)}`,
       { method: "DELETE" }
     );
+  }
+
+  /**
+   * Policy history for a bank, newest first
+   */
+  async listPolicies(bankId: string, limit = 50) {
+    return this.fetchApi<{ bank_id: string; policies: PolicyRecord[] }>(
+      `/api/policies?bank_id=${encodeURIComponent(bankId)}&limit=${limit}`,
+      { cache: "no-store" as RequestCache }
+    );
+  }
+
+  /**
+   * Outcomes written back for a bank, with totals
+   */
+  async listOutcomes(bankId: string, limit = 50) {
+    return this.fetchApi<{
+      bank_id: string;
+      successes: number;
+      failures: number;
+      outcomes: OutcomeRecord[];
+    }>(`/api/outcomes?bank_id=${encodeURIComponent(bankId)}&limit=${limit}`, {
+      cache: "no-store" as RequestCache,
+    });
   }
 
   /**
