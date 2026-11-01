@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useBank } from "@/lib/bank-context";
 import { bankRoute } from "@/lib/bank-url";
 import { client } from "@/lib/api";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -248,12 +249,33 @@ function BankSelectorInner() {
     expanded: false,
   });
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
-    setSelectedFiles((prev) => [...prev, ...files]);
-    setFilesMetadata((prev) => [...prev, ...files.map((f) => emptyFileMeta(f.name))]);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const input = e.target;
+    const picked = Array.from(input.files || []);
+    if (picked.length === 0) return;
+    try {
+      // Copy the bytes into memory now. A File taken from the input can stop being
+      // readable once the input is reset (the browser then fails the upload request
+      // without any response), so the upload must not depend on the input afterwards.
+      const files = await Promise.all(
+        picked.map(
+          async (f) =>
+            new File([await f.arrayBuffer()], f.name, {
+              type: f.type,
+              lastModified: f.lastModified,
+            })
+        )
+      );
+      setSelectedFiles((prev) => [...prev, ...files]);
+      setFilesMetadata((prev) => [...prev, ...files.map((f) => emptyFileMeta(f.name))]);
+    } catch (err) {
+      toast.error(
+        `Could not read ${picked.map((f) => f.name).join(", ")}: ${
+          err instanceof Error ? err.message : "unknown error"
+        }`
+      );
+    } finally {
+      input.value = "";
     }
   };
 
@@ -323,8 +345,9 @@ function BankSelectorInner() {
 
       // Navigate to documents view
       router.push(bankRoute(currentBank!, "?view=documents"));
-    } catch {
-      // Error toast is shown automatically by the API client interceptor
+    } catch (err) {
+      // uploadFiles uses fetch directly, so the API client interceptor does not show this.
+      toast.error(`Upload failed: ${err instanceof Error ? err.message : "unknown error"}`);
     } finally {
       setIsCreatingDoc(false);
       setUploadProgress("");
