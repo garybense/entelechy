@@ -11,6 +11,7 @@ considers significant, and how it frames emergent patterns.
 Same bank + different soul = different wisdom. This is the killer demo.
 """
 
+import dataclasses
 import logging
 from typing import Any
 
@@ -18,6 +19,7 @@ from entelechy_api.engine.mwpm import PolicyParams
 from entelechy_api.engine.mwpm.application import apply_to_llm_kwargs
 from entelechy_api.engine.mwpm.frequency import derive_vector_f
 from entelechy_api.engine.mwpm.modulator import modulate_policy
+from entelechy_api.engine.mwpm.store import read_previous_policy, save_policy
 from entelechy_api.engine.soul.operations import get_active_soul
 from entelechy_api.engine.srl import StateVector
 from entelechy_api.engine.srl.checkpoint import read_checkpoint
@@ -155,7 +157,17 @@ async def distill(
                 state_vector=state_vector,
                 has_checkpoint=checkpoint is not None,
             )
-            policy = modulate_policy(state_vector=state_vector, memory_stats=stats)
+            previous_policy = await read_previous_policy(engine, bank_id)
+            policy = modulate_policy(state_vector=state_vector, memory_stats=stats, previous_policy=previous_policy)
+            await save_policy(
+                engine,
+                bank_id,
+                source="distill",
+                policy=policy,
+                previous=previous_policy,
+                vector_f=dataclasses.asdict(stats),
+                state_vector=state_vector.model_dump(mode="json"),
+            )
         except Exception as exc:
             logger.warning(
                 "[DISTILL] SRL/MWPM reconstruction failed for %s: %s — proceeding without modulation",

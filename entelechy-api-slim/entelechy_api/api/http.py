@@ -542,6 +542,20 @@ class BootstrapResponse(BaseModel):
     vector_f: dict[str, Any] | None = None
 
 
+class OutcomeRequest(BaseModel):
+    """Result of acting on a bootstrap policy, written back as a tagged memory."""
+
+    outcome: Literal["success", "failure"] = Field(description="Whether the interaction achieved its goal.")
+    session_id: str | None = Field(
+        default=None,
+        description="Session the outcome belongs to. Reporting the same session again replaces the earlier outcome.",
+    )
+    policy: dict | None = Field(default=None, description="Policy vector that was in effect, as returned by bootstrap.")
+    score: float | None = Field(default=None, ge=0.0, le=1.0, description="Optional graded result between 0 and 1.")
+    note: str | None = Field(default=None, description="What happened, in plain language.")
+    async_: bool = Field(default=True, alias="async", description="Queue the write (default) or wait for it.")
+
+
 class RetainRequest(BaseModel):
     """Request model for retain endpoint."""
 
@@ -2906,6 +2920,7 @@ def _register_routes(app: FastAPI):
 
             from entelechy_api.engine.mwpm.frequency import derive_vector_f
             from entelechy_api.engine.mwpm.modulator import modulate_policy
+            from entelechy_api.engine.mwpm.store import read_previous_policy, save_policy
             from entelechy_api.engine.srl.checkpoint import read_checkpoint
             from entelechy_api.engine.srl.reconstructor import _extract_memory_dicts, reconstruct_state
             from entelechy_api.engine.srl.synthesis import utc_now
@@ -2929,7 +2944,19 @@ def _register_routes(app: FastAPI):
                 state_vector=sv,
                 has_checkpoint=checkpoint is not None,
             )
-            policy = modulate_policy(state_vector=sv, memory_stats=stats)
+            previous_policy = await read_previous_policy(app.state.memory, bank_id)
+            policy = modulate_policy(state_vector=sv, memory_stats=stats, previous_policy=previous_policy)
+            vector_f = dataclasses.asdict(stats)
+            state_vector_json = sv.model_dump(mode="json")
+            await save_policy(
+                app.state.memory,
+                bank_id,
+                source="bootstrap",
+                policy=policy,
+                previous=previous_policy,
+                vector_f=vector_f,
+                state_vector=state_vector_json,
+            )
 
             # Use chr(10) instead of newline escapes
             newline = chr(10)
@@ -2946,14 +2973,32 @@ def _register_routes(app: FastAPI):
                 },
                 injected_prompt=policy.to_system_control_vector(),
                 memory_context=memory_context,
-                state_vector=sv.model_dump(mode="json"),
-                vector_f=dataclasses.asdict(stats),
+                state_vector=state_vector_json,
+                vector_f=vector_f,
             )
         except Exception as e:
             import traceback
 
             logger.error(f"Error in bootstrap: {traceback.format_exc()}")
             raise HTTPException(status_code=500, detail=str(e))
+
+    @app.get(
+        "/v1/default/banks/{bank_id}/policies",
+        summary="Policy history",
+        description="Policies computed for this bank by bootstrap and distill, newest first, each with the Vector F "
+        "and state vector it came from and whether policy inertia clamped it.",
+        operation_id="list_policies",
+        tags=["Sessions"],
+    )
+    async def api_list_policies(
+        bank_id: str,
+        limit: int = Query(default=50, ge=1, le=500),
+        request_context: RequestContext = Depends(get_request_context),
+    ):
+        await app.state.memory._authenticate_tenant(request_context)
+        from entelechy_api.engine.mwpm.store import list_policies
+
+        return {"bank_id": bank_id, "policies": await list_policies(app.state.memory, bank_id, limit)}
 
     @app.exception_handler(AuthenticationError)
     async def authentication_error_handler(request, exc: AuthenticationError):
@@ -5956,6 +6001,43 @@ def _register_routes(app: FastAPI):
             )
             logger.error(f"Error in /v1/default/banks/{bank_id}/memories (retain): {error_detail}")
             raise HTTPException(status_code=500, detail=str(e))
+
+    @app.post(
+        "/v1/default/banks/{bank_id}/outcomes",
+        response_model=RetainResponse,
+        summary="Write back an outcome",
+        description="Record whether acting on a bootstrap policy succeeded or failed. The outcome is retained as a "
+        "memory tagged `outcome:success` or `outcome:failure`; the next bootstrap derives Vector F `success_rate` "
+        "from those tags. Facts only carry the tag once extraction has run, so with a slow LLM the rate lags the write.",
+        operation_id="write_outcome",
+        tags=["Memory"],
+    )
+    @audited("outcome")
+    async def api_outcome(
+        bank_id: str, request: OutcomeRequest, request_context: RequestContext = Depends(get_request_context)
+    ):
+        from entelechy_api.engine.mwpm.frequency import OUTCOME_FAILURE_TAG, OUTCOME_SUCCESS_TAG
+
+        parts = [f"Outcome: {request.outcome}."]
+        if request.session_id:
+            parts.append(f"Session: {request.session_id}.")
+        if request.score is not None:
+            parts.append(f"Score: {request.score}.")
+        if request.policy:
+            parts.append(f"Policy in effect: {json.dumps(request.policy, sort_keys=True)}.")
+        if request.note:
+            parts.append(request.note)
+        item = MemoryItem(
+            content=" ".join(parts),
+            context="outcome writeback",
+            document_id=f"outcome-{request.session_id}" if request.session_id else None,
+            tags=[OUTCOME_SUCCESS_TAG if request.outcome == "success" else OUTCOME_FAILURE_TAG],
+        )
+        return await api_retain(
+            bank_id=bank_id,
+            request=RetainRequest.model_validate({"items": [item.model_dump()], "async": request.async_}),
+            request_context=request_context,
+        )
 
     @app.post(
         "/v1/default/banks/{bank_id}/files/retain",
