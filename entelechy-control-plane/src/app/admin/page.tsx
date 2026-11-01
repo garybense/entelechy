@@ -50,6 +50,7 @@ const fmt = (s: string | null) => (s ? new Date(s).toLocaleString() : "never");
 export default function AdminPage() {
   const [users, setUsers] = useState<User[]>([]);
   const [owners, setOwners] = useState<Owner[]>([]);
+  const [unowned, setUnowned] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -67,10 +68,11 @@ export default function AdminPage() {
     try {
       const [u, o] = await Promise.all([
         api<{ users: User[] }>("users"),
-        api<{ owners: Owner[] }>("banks"),
+        api<{ owners: Owner[]; unowned: string[] }>("banks"),
       ]);
       setUsers(u.users);
       setOwners(o.owners);
+      setUnowned(o.unowned);
       setError(null);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load");
@@ -296,7 +298,7 @@ export default function AdminPage() {
             </Button>
           </div>
           <p className="text-sm text-muted-foreground">
-            Banks not listed here have no owner: only the admin can reach them. Assigning a bank gives that user full access to it.
+            Banks without an owner are listed below the table: only the admin can reach them. Claim one to own it as admin, or assign it to a user, who then gets full access to it.
           </p>
           <Table>
             <TableHeader>
@@ -324,7 +326,22 @@ export default function AdminPage() {
                   </TableCell>
                 </TableRow>
               ))}
-              {!loading && owners.length === 0 && (
+              {unowned.map((b) => (
+                <TableRow key={`unowned-${b}`}>
+                  <TableCell className="font-medium">{b}</TableCell>
+                  <TableCell className="text-muted-foreground">no owner</TableCell>
+                  <TableCell />
+                  <TableCell className="text-right">
+                    <Button
+                      size="sm"
+                      onClick={() => run(() => api(`banks/${encodeURIComponent(b)}/claim`, { method: "POST" }), "Bank claimed")}
+                    >
+                      Claim as admin
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+              {!loading && owners.length === 0 && unowned.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={4} className="text-muted-foreground">
                     No owned banks yet.

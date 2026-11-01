@@ -79,6 +79,7 @@ class UserStore:
         self._schema = schema
         self._admin_key = admin_key
         self._pool: asyncpg.Pool | None = None
+        self.admin_user_id: str | None = None
         self._cache: dict[str, tuple[float, Principal | None]] = {}
 
     def _t(self, name: str) -> str:
@@ -118,6 +119,15 @@ class UserStore:
                 CREATE INDEX IF NOT EXISTS eu_bank_owners_user ON {self._t("eu_bank_owners")}(user_id);
                 """
             )
+            # The shared admin key acts as a real user, so banks it creates have an owner.
+            await c.execute(
+                f"""INSERT INTO {self._t("eu_users")} (id, username, display_name, role)
+                    VALUES ($1, 'admin', 'Administrator', 'admin') ON CONFLICT (username) DO NOTHING""",
+                uuid.uuid4(),
+            )
+            self.admin_user_id = str(
+                await c.fetchval(f"SELECT id FROM {self._t('eu_users')} WHERE username = 'admin'")
+            )
 
     async def stop(self) -> None:
         if self._pool:
@@ -134,7 +144,7 @@ class UserStore:
         if not key:
             raise AuthenticationError("API key required")
         if self._admin_key and hmac.compare_digest(key, self._admin_key):
-            return Principal(is_admin=True, username="admin")
+            return Principal(is_admin=True, user_id=self.admin_user_id, username="admin")
         h = hash_key(key)
         now = time.monotonic()
         hit = self._cache.get(h)
@@ -286,6 +296,14 @@ class UserStore:
         )
         return {r["bank_id"] for r in rows}
 
+    async def unowned_banks(self) -> list[str]:
+        rows = await self.pool.fetch(
+            f"""SELECT b.bank_id FROM {self._t("banks")} b
+                WHERE NOT EXISTS (SELECT 1 FROM {self._t("eu_bank_owners")} o WHERE o.bank_id = b.bank_id)
+                ORDER BY b.bank_id"""
+        )
+        return [r["bank_id"] for r in rows]
+
     async def all_owners(self) -> list[dict]:
         rows = await self.pool.fetch(
             f"""SELECT b.bank_id, b.user_id, u.username, b.created_at
@@ -372,11 +390,16 @@ class OwnershipValidator(OperationValidatorExtension):
 
     async def _check(self, ctx: Any, op: str) -> ValidationResult:
         rc: RequestContext = ctx.request_context
-        if rc.internal or rc.is_admin:
+        store = get_store()
+        if rc.is_admin and not rc.internal:
+            # Banks the admin creates belong to the admin, so they show up in the admin UI.
+            if rc.user_id and op in ("retain", "bank_write") and await store.owner_of(ctx.bank_id) is None:
+                await store.claim_bank(ctx.bank_id, rc.user_id)
+            return ValidationResult.accept()
+        if rc.internal:
             return ValidationResult.accept()
         if not rc.user_id:
             return ValidationResult.reject("Authentication required", 401)
-        store = get_store()
         owner = await store.owner_of(ctx.bank_id)
         if owner is None and op in self.CLAIMING:
             owner = await store.claim_bank(ctx.bank_id, rc.user_id)
@@ -528,7 +551,17 @@ class MultiUserAdminHttpExtension(HttpExtension):
         @router.get("/banks")
         async def list_bank_owners(authorization: str | None = Header(default=None)):
             await _require_admin(authorization)
-            return {"owners": await get_store().all_owners()}
+            store = get_store()
+            return {"owners": await store.all_owners(), "unowned": await store.unowned_banks()}
+
+        @router.post("/banks/{bank_id}/claim")
+        async def claim_bank(bank_id: str, authorization: str | None = Header(default=None)):
+            """Make the calling admin the owner of a bank that has none."""
+            principal = await _require_admin(authorization)
+            if not principal.user_id:
+                raise HTTPException(409, "Admin user not initialised")
+            owner = await get_store().claim_bank(bank_id, principal.user_id)
+            return {"bank_id": bank_id, "user_id": owner}
 
         @router.put("/banks/{bank_id}/owner")
         async def set_owner(bank_id: str, body: OwnerBody, authorization: str | None = Header(default=None)):
