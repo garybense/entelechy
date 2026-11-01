@@ -22,7 +22,8 @@ CLI_INSTALL_DIRS = [
     Path.home() / ".local" / "bin",  # Standard location from get-cli installer
     Path.home() / ".entelechy" / "bin",  # Alternative location
 ]
-CLI_INSTALLER_URL = "https://mindmods.org/get-cli"
+# No default installer host: set ENTELECHY_CLI_INSTALLER_URL to a script you host and trust.
+CLI_INSTALLER_URL = os.getenv("ENTELECHY_CLI_INSTALLER_URL", "")
 
 
 def get_daemon_port(profile: str | None = None) -> int:
@@ -209,6 +210,14 @@ def install_cli() -> bool:
 
     # Determine CLI version (use env var or match embed version)
     cli_version = os.getenv("ENTELECHY_EMBED_CLI_VERSION", __version__)
+
+    if not CLI_INSTALLER_URL:
+        print(
+            "The entelechy CLI is not installed and no installer is configured. "
+            "Install it yourself, or set ENTELECHY_CLI_INSTALLER_URL to your installer script.",
+            file=sys.stderr,
+        )
+        return False
 
     print(f"Installing entelechy CLI (version {cli_version})...")
     print(f"  Installer URL: {CLI_INSTALLER_URL}")

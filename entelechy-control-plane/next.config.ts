@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
       { source: '/mcp/:path*', destination: `${api}/mcp/:path*` },
       { source: '/openapi.json', destination: `${api}/openapi.json` },
       { source: '/docs', destination: `${api}/docs` },
+      { source: '/docs/:path*', destination: `${api}/docs/:path*` },
       { source: '/version', destination: `${api}/version` },
       { source: '/ext/:path*', destination: `${api}/ext/:path*` },
     ];

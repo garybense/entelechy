@@ -36,7 +36,7 @@ Entelechy removes the burden of "tool use" from the LLM. It guarantees complianc
 
 ## Frictionless Onboarding: Implicit 1-to-1 Mapping
 
-Users should not have to manually configure "Brains" or manage memory infrastructure. Entelechy is designed to be deeply integrated with modern Auth providers (like Clerk, NextAuth, or Supabase).
+Users should not have to manually configure "Brains" or manage memory infrastructure. Entelechy is designed to be deeply integrated with modern Auth providers (like NextAuth or Supabase).
 
 When a user signs up to your application, your auth webhook simply calls:
 ```http
