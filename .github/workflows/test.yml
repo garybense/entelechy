@@ -1044,9 +1044,8 @@ jobs:
         ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
         ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
         ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
-        ENTELECHY_API_EMBEDDINGS_PROVIDER: cohere
-        ENTELECHY_API_RERANKER_PROVIDER: cohere
-        ENTELECHY_API_COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+        ENTELECHY_API_EMBEDDINGS_PROVIDER: nvidia
+        ENTELECHY_API_RERANKER_PROVIDER: nvidia
       run: ./docker/test-image.sh "entelechy-${{ matrix.name }}:test" "${{ matrix.target }}"
 
   test-api:
@@ -1066,7 +1065,6 @@ jobs:
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
       ENTELECHY_API_EMBEDDINGS_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -1142,7 +1140,6 @@ jobs:
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
       ENTELECHY_API_EMBEDDINGS_OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       ENTELECHY_API_DATABASE_BACKEND: oracle
       ORACLE_TEST_DSN: oracle+oracledb://entelechy_test:entelechy_test@localhost:1521/FREEPDB1
@@ -2384,9 +2381,8 @@ jobs:
       ENTELECHY_API_LLM_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
       ENTELECHY_API_LLM_EXTRA_BODY: '{"chat_template_kwargs":{"enable_thinking":false}}'
       ENTELECHY_API_LLM_MODEL: nvidia/nemotron-3.5-lightning-30b-a3b
-      ENTELECHY_API_EMBEDDINGS_PROVIDER: cohere
-      ENTELECHY_API_RERANKER_PROVIDER: cohere
-      ENTELECHY_API_COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+      ENTELECHY_API_EMBEDDINGS_PROVIDER: nvidia
+      ENTELECHY_API_RERANKER_PROVIDER: nvidia
 
     steps:
     - uses: actions/checkout@v6
