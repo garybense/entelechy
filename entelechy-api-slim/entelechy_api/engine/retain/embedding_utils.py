@@ -60,3 +60,19 @@ async def generate_embeddings_batch(embeddings_backend, texts: list[str]) -> lis
         )
 
     return embeddings
+
+
+async def generate_query_embeddings_batch(embeddings_backend, texts: list[str]) -> list[list[float]]:
+    """
+    Embed search queries. Uses the backend's query mode (asymmetric models such as
+    NVIDIA's distinguish query from passage); otherwise identical to the passage path.
+    """
+    encode = getattr(embeddings_backend, "encode_query", None) or embeddings_backend.encode
+    try:
+        loop = asyncio.get_event_loop()
+        embeddings = await loop.run_in_executor(None, encode, texts)
+    except Exception as e:
+        raise Exception(f"Failed to generate query embeddings: {str(e)}")
+    if len(embeddings) != len(texts):
+        raise RuntimeError(f"Embeddings backend returned {len(embeddings)} vectors for {len(texts)} queries")
+    return embeddings

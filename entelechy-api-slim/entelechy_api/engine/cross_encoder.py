@@ -603,6 +603,68 @@ class _CohereCompatibleRerankClient:
         return all_scores
 
 
+class NvidiaCrossEncoder(CrossEncoderModel):
+    """
+    NVIDIA NIM reranker (nvidia/nemotron-3.5-rerank-8b and compatible).
+
+    Wire format is NVIDIA's, not Cohere's: {model, query:{text}, passages:[{text}]}
+    returning {rankings:[{index, logit}]}. Higher logit = more relevant.
+    """
+
+    def __init__(
+        self,
+        api_key: str,
+        model: str,
+        url: str,
+        timeout: float = 60.0,
+        transport: httpx.AsyncBaseTransport | None = None,
+    ):
+        self.api_key = api_key
+        self.model = model
+        self.url = url
+        self.timeout = timeout
+        self._transport = transport
+        self._client: httpx.AsyncClient | None = None
+
+    @property
+    def provider_name(self) -> str:
+        return "nvidia"
+
+    async def initialize(self) -> None:
+        if self._client is not None:
+            return
+        logger.info(f"Reranker: initializing NVIDIA provider with model {self.model}")
+        self._client = httpx.AsyncClient(
+            timeout=self.timeout,
+            headers={"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"},
+            transport=self._transport,
+        )
+
+    async def predict(self, pairs: list[tuple[str, str]]) -> list[float]:
+        if self._client is None:
+            raise RuntimeError("Reranker not initialized. Call initialize() first.")
+        if not pairs:
+            return []
+
+        groups: dict[str, list[tuple[int, str]]] = {}
+        for idx, (query, text) in enumerate(pairs):
+            groups.setdefault(query, []).append((idx, text))
+
+        scores = [0.0] * len(pairs)
+        for query, items in groups.items():
+            body = {
+                "model": self.model,
+                "query": {"text": query},
+                "passages": [{"text": text} for _, text in items],
+                "truncate": "END",
+            }
+            response = await self._client.post(self.url, json=body)
+            response.raise_for_status()
+            for rank in response.json().get("rankings", []):
+                scores[items[rank["index"]][0]] = rank["logit"]
+        return scores
+
+
 class CohereCrossEncoder(CrossEncoderModel):
     """
     Cohere cross-encoder implementation using the Cohere Rerank API.
@@ -1661,11 +1723,24 @@ def create_cross_encoder_from_env() -> CrossEncoderModel:
             model=config.reranker_google_model,
             service_account_key=config.reranker_google_service_account_key,
         )
+    elif provider == "nvidia":
+        api_key = os.environ.get("ENTELECHY_API_RERANKER_NVIDIA_API_KEY") or os.environ.get("ENTELECHY_API_LLM_API_KEY")
+        if not api_key:
+            raise ValueError(
+                "ENTELECHY_API_RERANKER_NVIDIA_API_KEY or ENTELECHY_API_LLM_API_KEY is required "
+                f"when {ENV_RERANKER_PROVIDER} is 'nvidia'"
+            )
+        model = os.environ.get("ENTELECHY_API_RERANKER_NVIDIA_MODEL", "nvidia/nemotron-3.5-rerank-8b")
+        url = os.environ.get(
+            "ENTELECHY_API_RERANKER_NVIDIA_URL",
+            f"https://ai.api.nvidia.com/v1/retrieval/{model}/reranking",
+        )
+        return NvidiaCrossEncoder(api_key=api_key, model=model, url=url)
     elif provider == "rrf":
         return RRFPassthroughCrossEncoder()
     elif provider == "jina-mlx":
         return JinaMLXCrossEncoder()
     else:
         raise ValueError(
-            f"Unknown reranker provider: {provider}. Supported: 'local', 'tei', 'cohere', 'zeroentropy', 'siliconflow', 'google', 'flashrank', 'litellm', 'litellm-sdk', 'rrf', 'jina-mlx'"
+            f"Unknown reranker provider: {provider}. Supported: 'local', 'tei', 'nvidia', 'cohere', 'zeroentropy', 'siliconflow', 'google', 'flashrank', 'litellm', 'litellm-sdk', 'rrf', 'jina-mlx'"
         )
