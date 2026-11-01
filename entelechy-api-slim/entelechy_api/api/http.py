@@ -542,6 +542,20 @@ class BootstrapResponse(BaseModel):
     vector_f: dict[str, Any] | None = None
 
 
+class OutcomeRequest(BaseModel):
+    """Result of acting on a bootstrap policy, written back as a tagged memory."""
+
+    outcome: Literal["success", "failure"] = Field(description="Whether the interaction achieved its goal.")
+    session_id: str | None = Field(
+        default=None,
+        description="Session the outcome belongs to. Reporting the same session again replaces the earlier outcome.",
+    )
+    policy: dict | None = Field(default=None, description="Policy vector that was in effect, as returned by bootstrap.")
+    score: float | None = Field(default=None, ge=0.0, le=1.0, description="Optional graded result between 0 and 1.")
+    note: str | None = Field(default=None, description="What happened, in plain language.")
+    async_: bool = Field(default=True, alias="async", description="Queue the write (default) or wait for it.")
+
+
 class RetainRequest(BaseModel):
     """Request model for retain endpoint."""
 
@@ -5956,6 +5970,43 @@ def _register_routes(app: FastAPI):
             )
             logger.error(f"Error in /v1/default/banks/{bank_id}/memories (retain): {error_detail}")
             raise HTTPException(status_code=500, detail=str(e))
+
+    @app.post(
+        "/v1/default/banks/{bank_id}/outcomes",
+        response_model=RetainResponse,
+        summary="Write back an outcome",
+        description="Record whether acting on a bootstrap policy succeeded or failed. The outcome is retained as a "
+        "memory tagged `outcome:success` or `outcome:failure`; the next bootstrap derives Vector F `success_rate` "
+        "from those tags. Facts only carry the tag once extraction has run, so with a slow LLM the rate lags the write.",
+        operation_id="write_outcome",
+        tags=["Memory"],
+    )
+    @audited("outcome")
+    async def api_outcome(
+        bank_id: str, request: OutcomeRequest, request_context: RequestContext = Depends(get_request_context)
+    ):
+        from entelechy_api.engine.mwpm.frequency import OUTCOME_FAILURE_TAG, OUTCOME_SUCCESS_TAG
+
+        parts = [f"Outcome: {request.outcome}."]
+        if request.session_id:
+            parts.append(f"Session: {request.session_id}.")
+        if request.score is not None:
+            parts.append(f"Score: {request.score}.")
+        if request.policy:
+            parts.append(f"Policy in effect: {json.dumps(request.policy, sort_keys=True)}.")
+        if request.note:
+            parts.append(request.note)
+        item = MemoryItem(
+            content=" ".join(parts),
+            context="outcome writeback",
+            document_id=f"outcome-{request.session_id}" if request.session_id else None,
+            tags=[OUTCOME_SUCCESS_TAG if request.outcome == "success" else OUTCOME_FAILURE_TAG],
+        )
+        return await api_retain(
+            bank_id=bank_id,
+            request=RetainRequest.model_validate({"items": [item.model_dump()], "async": request.async_}),
+            request_context=request_context,
+        )
 
     @app.post(
         "/v1/default/banks/{bank_id}/files/retain",
